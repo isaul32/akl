@@ -91,6 +91,13 @@ public class UserService {
            });
     }
 
+    public User createUser(User newUser) {
+        userRepository.save(newUser);
+        userSearchRepository.save(newUser);
+        log.debug("Created Information for User: {}", newUser);
+        return newUser;
+    }
+
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
                                       String langKey) {
 

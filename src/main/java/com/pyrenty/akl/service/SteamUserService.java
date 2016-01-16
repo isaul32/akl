@@ -1,7 +1,6 @@
 package com.pyrenty.akl.service;
 
 import com.pyrenty.akl.domain.User;
-import com.pyrenty.akl.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,20 +8,17 @@ import org.springframework.security.core.userdetails.AuthenticationUserDetailsSe
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
-
-import javax.inject.Inject;
+import org.springframework.stereotype.Service;
 
 /**
  * Service class for managing steam users.
  */
+@Service
 public class SteamUserService implements AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
     private final Logger log = LoggerFactory.getLogger(SteamUserService.class);
 
-    @Inject
-    private UserRepository userRepository;
-
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Override
     public UserDetails loadUserDetails(OpenIDAuthenticationToken token) throws UsernameNotFoundException {
@@ -39,14 +35,15 @@ public class SteamUserService implements AuthenticationUserDetailsService<OpenID
                         System.out.println("communityId: " + communityId);
                         System.out.println("steamId: " + steamId);
 
-                        User user = new User();
+                        /*User user = new User();
                         user.setCommunityId(communityId);
                         user.setSteamId(steamId);
                         user.setActivated(true);
                         user.setLogin("test");
                         user.setPassword("test");
 
-                        userRepository.save(user);
+                        userService.createUser(user);*/
+
 
                         //todo: migration script
 

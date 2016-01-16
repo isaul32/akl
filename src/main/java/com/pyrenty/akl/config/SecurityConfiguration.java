@@ -102,6 +102,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .deleteCookies("JSESSIONID")
             .permitAll()
         .and()
+            .openidLogin()
+            .loginPage("/api/login")
+            .authenticationUserDetailsService(new SteamUserService())
+            .permitAll()
+        .and()
             .headers()
             .frameOptions()
             .disable()
@@ -110,6 +115,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/authenticate").permitAll()
+            .antMatchers("/api/login").permitAll()
             .antMatchers("/api/account/reset_password/init").permitAll()
             .antMatchers("/api/account/reset_password/finish").permitAll()
             .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
@@ -132,12 +138,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/configuration/security").permitAll()
             .antMatchers("/configuration/ui").permitAll()
             .antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/protected/**").authenticated()
-        .and()
-            .openidLogin()
-            .loginPage("/api/login")
-            .authenticationUserDetailsService(new SteamUserService())
-            .permitAll();
+            .antMatchers("/protected/**").authenticated();
 
     }
 
