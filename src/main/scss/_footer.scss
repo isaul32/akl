@@ -8,6 +8,9 @@
     border-top: 10px solid $secondary-green-color;
     background-color: $primary-bg-color;
     color: $sprimary-green-color;
+    p {
+        margin-bottom: 0;
+    }
 }
 
 .footer-version {
