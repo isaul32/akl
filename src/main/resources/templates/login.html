@@ -1,6 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <style>
+        body {
+            background-color: #fafafa;
+        }
         .loading {
             position: fixed;
             left: 0;
@@ -48,12 +51,12 @@
         }
     </style>
 </head>
-<body bgcolor="#fafafa">
+<body >
 <div class="loading">
     <div class="loader"></div>
 </div>
 
-<form id="openid_form" th:action="@{/login/openid}" method="post">
+<form id="openid_form" th:action="@{/api/login/openid}" method="post">
     <input id="openid_identifier" name="openid_identifier" type="hidden" value="http://steamcommunity.com/openid" />
     <noscript>
         <input type="submit" value="Submit" />

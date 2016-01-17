@@ -3,12 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>akl</title>
+        <title>Akateeminen Kynäriliiga</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css assets/styles/vendor.css -->
         <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
@@ -20,11 +22,30 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak=""></div>
+            <div class="header">
+                <div class="container">
+                    <div class="logo">
+                        <h1 class="logo-short" translate="">AKL</h1>
+                        <h4 class="logo-full-top">Akateeminen</h4>
+                        <h4 class="logo-full-bottom">Kynäriliiga</h4>
+                    </div>
+                    <div class="steam-login pull-right">
+                        <div class="steam-login-button">
+                            <a href="api/login">
+                                <img src="assets/images/sits_large_noborder.png" width="114" height="43" border="0">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div ui-view="navbar" ng-cloak=""></div>
         <div class="container">
             <div class="well" ui-view="content"></div>
 
-            <div class="footer">
+        </div>
+        <div class="footer">
+            <div class="container">
                 <p translate="footer">This is your footer</p>
             </div>
         </div>

@@ -2,11 +2,18 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
 
 // bower:scss
 @import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "components-font-awesome/scss/font-awesome.scss";
 // endbower
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
-    background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-bottom: 80px; // footer
+    background-color: #fafafa;
+    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
 }
 
@@ -150,3 +157,6 @@ ul#strength {
     margin: 0;
 }
 /* end of Custom alerts for notification */
+
+@import "header";
+@import "_footer.scss";

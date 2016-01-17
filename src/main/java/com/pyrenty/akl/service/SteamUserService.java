@@ -35,14 +35,15 @@ public class SteamUserService implements AuthenticationUserDetailsService<OpenID
                         System.out.println("communityId: " + communityId);
                         System.out.println("steamId: " + steamId);
 
-                        /*User user = new User();
+                        User user = new User();
                         user.setCommunityId(communityId);
                         user.setSteamId(steamId);
                         user.setActivated(true);
                         user.setLogin("test");
                         user.setPassword("test");
 
-                        userService.createUser(user);*/
+                        if (userService != null)
+                            userService.createUser(user);
 
 
                         //todo: migration script

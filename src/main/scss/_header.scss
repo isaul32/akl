@@ -1,0 +1,53 @@
+$title-bar-height: 100px;
+
+.header {
+    min-height: $title-bar-height;
+    background-color: #31302B;
+    color: #FFFFFF;
+    position: relative;
+    border-bottom: solid 1px #FFFFFF;
+}
+.logo {
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+.logo-short {
+    display: inline-block;
+    line-height: 1;
+    font-size: 50px;
+    font-style: italic;
+    font-weight: bold;
+    margin: 0;
+}
+.logo-full-top, .logo-full-bottom {
+    position: absolute;
+    left: 100px;
+    display: inline-block;
+    line-height: 1.35;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.logo-full-top {
+    top: 0;
+}
+
+.logo-full-bottom {
+    bottom: 0;
+}
+
+.steam-login {
+    height: $title-bar-height;
+    position: relative;
+}
+
+.steam-login-button {
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 0;
+}
