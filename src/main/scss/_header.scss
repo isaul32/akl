@@ -1,23 +1,24 @@
-$title-bar-height: 100px;
+$header-height: 100px;
+$logo-height: 50px;
 
 .header {
-    min-height: $title-bar-height;
+    height: $header-height;
     background-color: $primary-bg-color;
     color: #FFFFFF;
-    position: relative;
-    border-bottom: solid 1px #FFFFFF;
+    border-bottom: solid 4px $secondary-green-color;
 }
+
 .logo {
-    position: absolute;
+    position: relative;
     display: inline-block;
-    top: 50%;
-    transform: translate(0, -50%);
     cursor: default;
+    height: $logo-height;
+    margin-top: $header-height / 2 - $logo-height / 2;
+
 }
 .logo-short {
-    display: inline-block;
     line-height: 1;
-    font-size: 50px;
+    font-size: $logo-height;
     font-style: italic;
     font-weight: bold;
     margin: 0;
@@ -41,14 +42,7 @@ $title-bar-height: 100px;
 }
 
 .steam-login {
-    height: $title-bar-height;
     position: relative;
-}
-
-.steam-login-button {
-    position: absolute;
-    display: inline-block;
-    top: 50%;
-    transform: translate(0, -50%);
-    right: 0;
+    height: $logo-height;
+    margin-top: $header-height / 2 - $logo-height / 2;
 }

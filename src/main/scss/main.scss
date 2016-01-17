@@ -7,6 +7,8 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
 
 $primary-bg-color: #31302B;
 $secondary-bg-color: #737169;
+$sprimary-green-color: #52B6A8;
+$secondary-green-color: #006052;
 
 html {
     position: relative;
@@ -157,4 +159,5 @@ ul#strength {
 /* end of Custom alerts for notification */
 
 @import "header";
+@import "_navbar.scss";
 @import "_footer.scss";

@@ -1,0 +1,25 @@
+$active-border-size: 2px;
+
+.navbar {
+    background-color: #FFFFFF;
+}
+
+.navbar-default {
+
+    .navbar-nav {
+        > .active > a {
+            &,
+            &:hover,
+            &:focus {
+                background-color: white;
+                padding-bottom: $navbar-padding-vertical - $active-border-size;
+                border-bottom: 2px solid #149ecb;
+            }
+        }
+    }
+
+    .nav-pills > li > a {
+        border-radius: 0;
+    }
+
+}
