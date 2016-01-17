@@ -11,9 +11,9 @@ $active-border-size: 2px;
             &,
             &:hover,
             &:focus {
-                background-color: white;
+                background-color: transparent;
                 padding-bottom: $navbar-padding-vertical - $active-border-size;
-                border-bottom: 2px solid #149ecb;
+                border-bottom: 2px solid $sprimary-green-color;
             }
         }
     }
