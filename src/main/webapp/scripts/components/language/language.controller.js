@@ -32,7 +32,8 @@ angular.module('aklApp')
                 "sv": "Svenska",
                 "tr": "Türkçe",
                 "zh-cn": "中文（简体）",
-                "zh-tw": "繁體中文"
+                "zh-tw": "繁體中文",
+                "fi": "Suomi"
             }[lang];
         }
     });

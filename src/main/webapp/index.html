@@ -42,7 +42,7 @@
         <div ui-view="navbar" ng-cloak=""></div>
 
         <div class="container">
-            <div class="well" ui-view="content"></div>
+            <div ui-view="content"></div>
         </div>
 
         <div class="footer">
@@ -54,7 +54,7 @@
                             document.write(new Date().getFullYear());
                         </script>
                     </span>
-                    <span translate="global.title" style="text-transform: uppercase;"></span>
+                    <span translate="global.title"></span>
                 </p>
                 <p class="pull-right">
                     <span class="footer-version">v{{VERSION}}</span>
@@ -168,7 +168,7 @@
     <script src="scripts/app/main/main.js"></script>
     <script src="scripts/app/main/main.controller.js"></script>
     <script src="bower_components/messageformat/locale/en.js"></script>
-    <script src="bower_components/messageformat/locale/fr.js"></script>
+    <script src="bower_components/messageformat/locale/fi.js"></script>
     <script src="scripts/components/language/language.service.js"></script>
     <script src="scripts/components/language/language.controller.js"></script>
     <script src="scripts/components/auth/services/sessions.service.js"></script>
@@ -178,6 +178,13 @@
     <script src="scripts/app/admin/tracker/tracker.js"></script>
     <script src="scripts/app/admin/tracker/tracker.controller.js"></script>
     <script src="scripts/components/tracker/tracker.service.js"></script>
+    <script src="scripts/app/entities/gameServer/gameServer.js"></script>
+    <script src="scripts/app/entities/gameServer/gameServer.controller.js"></script>
+    <script src="scripts/app/entities/gameServer/gameServer-dialog.controller.js"></script>
+    <script src="scripts/app/entities/gameServer/gameServer-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/gameServer/gameServer-detail.controller.js"></script>
+    <script src="scripts/components/entities/gameServer/gameServer.service.js"></script>
+    <script src="scripts/components/entities/gameServer/gameServer.search.service.js"></script>
     <!-- endbuild -->
 </body>
 </html>

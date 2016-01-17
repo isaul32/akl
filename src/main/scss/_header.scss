@@ -2,7 +2,7 @@ $title-bar-height: 100px;
 
 .header {
     min-height: $title-bar-height;
-    background-color: #31302B;
+    background-color: $primary-bg-color;
     color: #FFFFFF;
     position: relative;
     border-bottom: solid 1px #FFFFFF;
