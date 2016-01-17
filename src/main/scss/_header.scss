@@ -12,6 +12,7 @@ $title-bar-height: 100px;
     display: inline-block;
     top: 50%;
     transform: translate(0, -50%);
+    cursor:default;
 }
 .logo-short {
     display: inline-block;
