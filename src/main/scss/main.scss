@@ -5,10 +5,7 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
 @import "components-font-awesome/scss/font-awesome.scss";
 // endbower
 
-$primary-bg-color: #31302B;
-$secondary-bg-color: #737169;
-$sprimary-green-color: #52B6A8;
-$secondary-green-color: #006052;
+@import "_variables.scss";
 
 html {
     position: relative;
@@ -16,7 +13,7 @@ html {
 }
 
 body {
-    margin-bottom: 80px; // footer
+    margin-bottom: $footer-height;
     background-color: #fafafa;
     font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
@@ -161,3 +158,4 @@ ul#strength {
 @import "header";
 @import "_navbar.scss";
 @import "_footer.scss";
+@import "_live.scss";

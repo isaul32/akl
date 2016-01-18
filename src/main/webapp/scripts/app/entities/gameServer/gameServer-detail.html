@@ -1,91 +1,89 @@
 
-<div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2><span translate="aklApp.gameServer.detail.title">GameServer</span> {{gameServer.id}}</h2>
+<div class="container" ng-cloak="">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2><span translate="aklApp.gameServer.detail.title">GameServer</span> {{gameServer.id}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th translate="entity.detail.field">Field</th>
+                        <th translate="entity.detail.value">Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <span translate="aklApp.gameServer.name">Name</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{gameServer.name}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span translate="aklApp.gameServer.server_ip">Server_ip</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{gameServer.server_ip}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span translate="aklApp.gameServer.rcon_ip">Rcon_ip</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{gameServer.rcon_ip}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span translate="aklApp.gameServer.rcon_password">Rcon_password</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{gameServer.rcon_password}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span translate="aklApp.gameServer.server_port">Server_port</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{gameServer.server_port}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span translate="aklApp.gameServer.rcon_port">Rcon_port</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{gameServer.rcon_port}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span translate="aklApp.gameServer.state">State</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static" translate="{{'aklApp.GameServerState.' + gameServer.state}}">{{gameServer.state}}</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th translate="entity.detail.field">Field</th>
-                            <th translate="entity.detail.value">Value</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <span translate="aklApp.gameServer.name">Name</span>
-                            </td>
-                            <td>
-                                <span class="form-control-static">{{gameServer.name}}</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span translate="aklApp.gameServer.server_ip">Server_ip</span>
-                            </td>
-                            <td>
-                                <span class="form-control-static">{{gameServer.server_ip}}</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span translate="aklApp.gameServer.rcon_ip">Rcon_ip</span>
-                            </td>
-                            <td>
-                                <span class="form-control-static">{{gameServer.rcon_ip}}</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span translate="aklApp.gameServer.rcon_password">Rcon_password</span>
-                            </td>
-                            <td>
-                                <span class="form-control-static">{{gameServer.rcon_password}}</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span translate="aklApp.gameServer.server_port">Server_port</span>
-                            </td>
-                            <td>
-                                <span class="form-control-static">{{gameServer.server_port}}</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span translate="aklApp.gameServer.rcon_port">Rcon_port</span>
-                            </td>
-                            <td>
-                                <span class="form-control-static">{{gameServer.rcon_port}}</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span translate="aklApp.gameServer.state">State</span>
-                            </td>
-                            <td>
-                                <span class="form-control-static" translate="{{'aklApp.GameServerState.' + gameServer.state}}">{{gameServer.state}}</span>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <button type="submit"
-                        onclick="window.history.back()"
-                        class="btn btn-info">
-                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
-                </button>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="submit"
+                    onclick="window.history.back()"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+            </button>
         </div>
     </div>
 </div>
