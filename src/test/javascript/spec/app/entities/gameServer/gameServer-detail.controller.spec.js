@@ -7,17 +7,19 @@ describe('Controller Tests', function() {
         var MockEntity, MockGameServer;
         var createController;
 
+        beforeEach(module('aklApp'));
+
         beforeEach(inject(function($injector) {
             $rootScope = $injector.get('$rootScope');
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockGameServer = jasmine.createSpy('MockGameServer');
-            
+
 
             var locals = {
                 '$scope': $scope,
                 '$rootScope': $rootScope,
-                'entity': MockEntity ,
+                'entity': MockEntity,
                 'GameServer': MockGameServer
             };
             createController = function() {
