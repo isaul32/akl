@@ -10,7 +10,7 @@
             </div>
             <div class="col-sm-6 account-align">
                 <a ng-href="http://steamcommunity.com/profiles/{{account.communityId}}">
-                    <div class="account-info pull-right" ng-if="isAuthenticated">
+                    <div class="account-info pull-right" ng-if="isAuthenticated()">
                         <span>{{account.firstName}}</span>
                         <span>{{account.lastName}}</span>&nbsp;
                         <img ng-src="{{steamUser.response.players[0].avatar}}">
