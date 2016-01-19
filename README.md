@@ -8,7 +8,7 @@ npm install -g bower
 npm install
 bower install
 mvn install
-mvn spring-boot:run -Dakl.steam.web-api-key=STEAM-WEB-API-KEY &
+mvn spring-boot:run &
 gulp serve &
 ```
 
