@@ -22,7 +22,7 @@
                 "settings": "Asetukset",
                 "password": "Salasana",
                 "sessions": "Istunnot",
-                "login": "Autentikoi",
+                "login": "Kirjaudu",
                 "logout": "Kirjaudu ulos",
                 "register": "Rekisteröidy"
             },

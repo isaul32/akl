@@ -1,7 +1,7 @@
 package com.pyrenty.akl.config;
 
 import com.pyrenty.akl.security.*;
-import com.pyrenty.akl.service.SteamUserService;
+import com.pyrenty.akl.security.SteamUserService;
 import com.pyrenty.akl.web.filter.CsrfCookieGeneratorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,6 +48,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
     private RememberMeServices rememberMeServices;
+
+    @Inject
+    private SteamUserService steamUserService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -105,8 +108,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .openidLogin()
             .loginProcessingUrl("/api/login/openid")
             .loginPage("/api/login")
-            .authenticationUserDetailsService(new SteamUserService())
-            .permitAll()
+            .authenticationUserDetailsService(steamUserService)
+            .defaultSuccessUrl("/#/settings")
+            .permitAll(false)
         .and()
             .headers()
             .frameOptions()
@@ -116,8 +120,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/login").permitAll()
-            .antMatchers("/api/login/openid").permitAll()
+            .antMatchers("/api/login").authenticated()
+            .antMatchers("/api/login/openid").authenticated()
             .antMatchers("/api/account/reset_password/init").permitAll()
             .antMatchers("/api/account/reset_password/finish").permitAll()
             .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)

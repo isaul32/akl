@@ -1,7 +1,7 @@
 <div class="container" ng-cloak="">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h2 translate="settings.title" translate-values="{username: '{{settingsAccount.login}}'}">User settings for [<b>{{settingsAccount.login}}</b>]</h2>
+            <h2 translate="settings.title" translate-values="{username: '{{settingsAccount.login}}'}">User settings for <b>{{settingsAccount.login}}</b></h2>
 
             <div class="alert alert-success" ng-show="success" translate="settings.messages.success">
                 <strong>Settings saved!</strong>
@@ -85,6 +85,25 @@
 
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="settings.form.button">Save</button>
             </form>
+
+            <h2>Steam settings for user</h2>
+
+            <div class="form-group">
+                <label for="communityId">Steam Community ID</label>
+                <input id="communityId" class="form-control" type="text"
+                       ng-model="settingsAccount.communityId" disabled="">
+            </div>
+
+            <div class="form-group">
+                <label for="steamId" translate="settings.form.steamId">Steam ID</label>
+                <input id="steamId" class="form-control" type="text"
+                       ng-model="settingsAccount.steamId" disabled="">
+            </div>
+
+            <a href="api/login" class="btn btn-primary" role="button">
+                <span class="fa fa-steam"></span>&nbsp;
+                <span>Change Steam user</span>
+            </a>
         </div>
     </div>
 

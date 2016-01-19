@@ -1,14 +1,17 @@
-package com.pyrenty.akl.service;
+package com.pyrenty.akl.security;
 
 import com.pyrenty.akl.domain.User;
+import com.pyrenty.akl.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
 
 /**
  * Service class for managing steam users.
@@ -17,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class SteamUserService implements AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
     private final Logger log = LoggerFactory.getLogger(SteamUserService.class);
 
-    @Autowired
+    @Inject
     private UserService userService;
 
     @Override
@@ -26,29 +29,19 @@ public class SteamUserService implements AuthenticationUserDetailsService<OpenID
             String[] parts = token.getName().split("/");
             if (parts.length == 6) {
                 String domain = parts[2];
-                System.out.println("domain: " + domain);
                 if (domain.equals("steamcommunity.com")) {
                     try {
                         long communityId = Long.parseUnsignedLong(parts[5]);
                         String steamId = convertCommunityIdToSteamId(communityId);
 
-                        System.out.println("communityId: " + communityId);
-                        System.out.println("steamId: " + steamId);
-
-                        User user = new User();
+                        User user = userService.getUserWithAuthorities();
                         user.setCommunityId(communityId);
                         user.setSteamId(steamId);
-                        user.setActivated(true);
-                        user.setLogin("test");
-                        user.setPassword("test");
 
-                        if (userService != null)
-                            userService.createUser(user);
+                        userService.updateUserSteamInformation(communityId, steamId);
 
-
-                        //todo: migration script
-
-                        //return new User(token.getName(), "", AuthorityUtils.createAuthorityList("ROLE_USER"));
+                        return new org.springframework.security.core.userdetails
+                            .User(user.getLogin(), "", AuthorityUtils.createAuthorityList("ROLE_USER"));
                     } catch (NumberFormatException ex) {
                         log.error(ex.getLocalizedMessage());
                     }

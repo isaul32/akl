@@ -136,6 +136,16 @@ public class UserService {
         });
     }
 
+    public void updateUserSteamInformation(Long communityId, String steamId) {
+        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
+            u.setCommunityId(communityId);
+            u.setSteamId(steamId);
+            userRepository.save(u);
+            userSearchRepository.save(u);
+            log.debug("Changed Steam Information for User: {}", u);
+        });
+    }
+
     public void changePassword(String password) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u-> {
             String encryptedPassword = passwordEncoder.encode(password);
