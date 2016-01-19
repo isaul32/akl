@@ -40,7 +40,8 @@
 
 .account-align {
     position: relative;
-    height: $header-height - $header-border;
+    margin-top: $header-height / 2;
+    height: ($header-height - $header-height / 2) - $header-border;
     a {
         color: $sprimary-green-color;
     }
@@ -51,4 +52,9 @@
     position: absolute;
     bottom: 0;
     right: 0;
+}
+
+.language-btn {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }

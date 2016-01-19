@@ -14,6 +14,7 @@ angular.module('aklApp')
     .filter('findLanguageFromKey', function () {
         return function (lang) {
             return {
+                "fi": "Suomi",
                 "ca": "Català",
                 "da": "Dansk",
                 "de": "Deutsch",
@@ -32,8 +33,7 @@ angular.module('aklApp')
                 "sv": "Svenska",
                 "tr": "Türkçe",
                 "zh-cn": "中文（简体）",
-                "zh-tw": "繁體中文",
-                "fi": "Suomi"
+                "zh-tw": "繁體中文"
             }[lang];
         }
     });
