@@ -21,9 +21,21 @@
 }
 
 .live-right {
-    width: 300px + $grid-gutter-width / 2;
-    float: right;
-    padding-right: $grid-gutter-width / 2;
+    @media screen and (max-width: $screen-xs-max) {
+        width: 100%;
+        padding-left: $grid-gutter-width / 2;
+        padding-right: $grid-gutter-width / 2;
+        margin-bottom: $footer-gutter-height;
+
+        iframe {
+            width: 100%;
+        }
+    }
+    @media screen and (min-width: $screen-sm-min) {
+        width: 300px + $grid-gutter-width / 2;
+        float: right;
+        padding-right: $grid-gutter-width / 2;
+    }
 }
 
 .live-left {
