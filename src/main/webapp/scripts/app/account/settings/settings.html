@@ -86,23 +86,23 @@
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="settings.form.button">Save</button>
             </form>
 
-            <h2>Steam settings for user</h2>
+            <h2 translate="settings.steam.title">Steam settings for user</h2>
 
             <div class="form-group">
                 <label for="communityId">Steam Community ID</label>
-                <input id="communityId" class="form-control" type="text"
+                <input id="communityId" class="form-control" type="text" translate="settings.steam.communityId"
                        ng-model="settingsAccount.communityId" disabled="">
             </div>
 
             <div class="form-group">
                 <label for="steamId" translate="settings.form.steamId">Steam ID</label>
-                <input id="steamId" class="form-control" type="text"
+                <input id="steamId" class="form-control" type="text" translate="settings.steam.steamId"
                        ng-model="settingsAccount.steamId" disabled="">
             </div>
 
             <a href="api/login" class="btn btn-primary" role="button">
                 <span class="fa fa-steam"></span>&nbsp;
-                <span>Change Steam user</span>
+                <span translate="settings.steam.change">Change Steam user</span>
             </a>
         </div>
     </div>

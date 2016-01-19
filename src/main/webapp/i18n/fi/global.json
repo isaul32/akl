@@ -8,13 +8,13 @@
             "schedule": "Aikataulu",
             "teams": "Joukkueet",
             "league": "Liiga",
-            "grouops": "Lohkopelit",
+            "groups": "Lohkopelit",
             "playoffs": "Pudotuspelit",
             "afterparty": "Jatkobileet",
             "rules": "Säännöt",
             "entities": {
                 "main": "Entiteetit",
-                "gameServer": "Game Server",
+                "gameServer": "Pelipalvelimet",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -40,14 +40,14 @@
             "language": "Kieli"
         },
         "form": {
-            "username": "Login",
-            "username.placeholder": "Your login",
-            "newpassword": "New password",
-            "newpassword.placeholder": "New password",
-            "confirmpassword": "New password confirmation",
-            "confirmpassword.placeholder": "Confirm the new password",
-            "email": "E-mail",
-            "email.placeholder": "Your e-mail"
+            "username": "Käyttäjätunnus",
+            "username.placeholder": "Käyttäjätunnuksesi",
+            "newpassword": "Uusi salasana",
+            "newpassword.placeholder": "Uusi salasanasi",
+            "confirmpassword": "Salasanan vahvistaminen",
+            "confirmpassword.placeholder": "Uuden salasanasi vahvistaminen",
+            "email": "Sähköposti",
+            "email.placeholder": "Sähköpostisi"
         },
         "messages": {
             "info": {

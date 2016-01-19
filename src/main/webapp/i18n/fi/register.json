@@ -1,8 +1,8 @@
 {
     "register": {
-        "title": "Registration",
+        "title": "Rekisteröityminen",
         "form": {
-            "button": "Register"
+            "button": "Rekisteröidy"
         },
         "messages": {
             "validate": {

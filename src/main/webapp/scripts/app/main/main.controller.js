@@ -5,5 +5,6 @@ angular.module('aklApp')
         Principal.identity().then(function(account) {
             $scope.account = account;
             $scope.isAuthenticated = Principal.isAuthenticated;
+            $scope.content = "<h1>Testi</h1>";
         });
     });

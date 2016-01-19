@@ -1,14 +1,20 @@
 {
     "settings": {
-        "title": "User settings for <b>{{username}}</b>",
+        "title": "Asetukset käyttäjälle <b>{{username}}</b>",
         "form": {
-            "firstname": "First Name",
-            "firstname.placeholder": "Your first name",
-            "lastname": "Last Name",
-            "lastname.placeholder": "Your last name",
-            "language": "Language",
+            "firstname": "Etunimi",
+            "firstname.placeholder": "Etunimesi",
+            "lastname": "Sukunimi",
+            "lastname.placeholder": "Sukunimesi",
+            "language": "Kieli",
             "steamId": "Steam ID",
-            "button": "Save"
+            "button": "Tallenna"
+        },
+        "steam": {
+            "title": "Steam asetukset käyttäjälle",
+            "communityId": "Steam Community ID",
+            "steamId": "Steam ID",
+            "change": "Vaihda liitetty Steam käyttäjä"
         },
         "messages": {
             "error": {

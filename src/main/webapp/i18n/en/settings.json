@@ -10,6 +10,12 @@
             "steamId": "Steam ID",
             "button": "Save"
         },
+        "steam": {
+            "title": "Steam settings for user",
+            "communityId": "Steam Community ID",
+            "steamId": "Steam ID",
+            "change": "Change Steam user"
+        },
         "messages": {
             "error": {
                 "fail": "<strong>An error has occurred!</strong> Settings could not be saved.",
