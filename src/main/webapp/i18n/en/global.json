@@ -5,6 +5,10 @@
         "menu": {
             "home": "Home",
             "live": "Live",
+            "schedule": "Schedule",
+            "teams": "Teams",
+            "playoffs": "Playoffs",
+            "rules": "Rules",
             "entities": {
                 "main": "Entities",
                 "gameServer": "Game Server",
@@ -108,6 +112,5 @@
     "error" : {
         "serverNotReachable" : "Server not reachable",
         "NotNull" : "Field {{fieldName}} cannot be empty!"
-    },
-    "footer": "This is your footer"
+    }
 }

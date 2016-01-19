@@ -34,6 +34,8 @@ module.exports = function (config) {
             'main/webapp/bower_components/angular-cache-buster/angular-cache-buster.js',
             'main/webapp/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
             'main/webapp/bower_components/ng-file-upload/ng-file-upload.js',
+            'main/webapp/bower_components/ckeditor/ckeditor.js',
+            'main/webapp/bower_components/angular-ckeditor/angular-ckeditor.js',
             'main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'main/webapp/scripts/app/app.js',

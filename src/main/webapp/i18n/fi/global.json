@@ -3,21 +3,25 @@
         "title": "Akateeminen Kynäriliiga",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
-            "home": "Home",
+            "home": "Etusivu",
             "live": "Live",
+            "schedule": "Aikataulu",
+            "teams": "Joukkueet",
+            "playoffs": "Pudotuspelit",
+            "rules": "Säännöt",
             "entities": {
-                "main": "Entities",
+                "main": "Entiteetit",
                 "gameServer": "Game Server",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
-                "main": "Account",
-                "settings": "Settings",
-                "password": "Password",
-                "sessions": "Sessions",
-                "login": "Authenticate",
-                "logout": "Log out",
-                "register": "Register"
+                "main": "Tunnus",
+                "settings": "Asetukset",
+                "password": "Salasana",
+                "sessions": "Istunnot",
+                "login": "Autentikoi",
+                "logout": "Kirjaudu ulos",
+                "register": "Rekisteröidy"
             },
             "admin": {
                 "main": "Administration",
@@ -30,7 +34,7 @@
                 "apidocs": "API",
                 "database": "Database"
             },
-            "language": "Language"
+            "language": "Kieli"
         },
         "form": {
             "username": "Login",
@@ -108,6 +112,5 @@
     "error" : {
         "serverNotReachable" : "Server not reachable",
         "NotNull" : "Field {{fieldName}} cannot be empty!"
-    },
-    "footer": "This is your footer"
+    }
 }
