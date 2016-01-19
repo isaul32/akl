@@ -23,22 +23,9 @@
         <![endif]-->
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak=""></div>
 
-        <div class="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6">
-                        <div class="logo">
-                            <h1 class="logo-short" translate="">AKL</h1>
-                            <h4 class="logo-full-top">Akateeminen</h4>
-                            <h4 class="logo-full-bottom">Kynäriliiga</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div ui-view="navbar" ng-cloak=""></div>
 
-        <!-- Main view -->
+        <!-- Root view -->
         <div ui-view="content"></div>
 
         <div class="footer">

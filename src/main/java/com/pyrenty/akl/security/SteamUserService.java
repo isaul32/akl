@@ -31,8 +31,9 @@ public class SteamUserService implements AuthenticationUserDetailsService<OpenID
                 String domain = parts[2];
                 if (domain.equals("steamcommunity.com")) {
                     try {
-                        long communityId = Long.parseUnsignedLong(parts[5]);
-                        String steamId = convertCommunityIdToSteamId(communityId);
+                        String communityId = parts[5];
+                        String steamId = convertCommunityIdToSteamId(
+                            Long.parseUnsignedLong(parts[5]));
 
                         User user = userService.getUserWithAuthorities();
                         user.setCommunityId(communityId);

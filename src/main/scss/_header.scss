@@ -2,7 +2,7 @@
     height: $header-height;
     background-color: $primary-bg-color;
     color: #FFFFFF;
-    border-bottom: solid 4px $secondary-green-color;
+    border-bottom: solid $header-border $secondary-green-color;
 }
 
 .logo {
@@ -36,4 +36,19 @@
 
 .logo-full-bottom {
     bottom: 0;
+}
+
+.account-align {
+    position: relative;
+    height: $header-height - $header-border;
+    a {
+        color: $sprimary-green-color;
+    }
+}
+
+.account-info {
+    margin-top: $header-height / 2 - $logo-height / 2;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }

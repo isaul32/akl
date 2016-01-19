@@ -31,7 +31,8 @@ public class UserDTO {
     @Size(min = 5, max = 100)
     private String email;
 
-    private Long communityId;
+    @Size(max = 20)
+    private String communityId;
 
     @Size(min = 10, max = 20)
     private String steamId;
@@ -45,7 +46,7 @@ public class UserDTO {
     }
 
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
-                   Long communityId, String steamId, List<String> roles) {
+                   String communityId, String steamId, List<String> roles) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -81,7 +82,7 @@ public class UserDTO {
         return langKey;
     }
 
-    public Long getCommunityId() {
+    public String getCommunityId() {
         return communityId;
     }
 

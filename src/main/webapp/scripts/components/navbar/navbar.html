@@ -1,3 +1,26 @@
+<div class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="logo">
+                    <h1 class="logo-short" translate="">AKL</h1>
+                    <h4 class="logo-full-top">Akateeminen</h4>
+                    <h4 class="logo-full-bottom">Kynäriliiga</h4>
+                </div>
+            </div>
+            <div class="col-sm-6 account-align">
+                <a ng-href="http://steamcommunity.com/profiles/{{account.communityId}}">
+                    <div class="account-info pull-right" ng-if="isAuthenticated">
+                        <span>{{account.firstName}}</span>
+                        <span>{{account.lastName}}</span>&nbsp;
+                        <img ng-src="{{steamUser.response.players[0].avatar}}">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
         <div class="navbar-header">

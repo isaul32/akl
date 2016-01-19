@@ -71,8 +71,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_key", length = 20)
     private String resetKey;
 
-    @Column(name = "community_id")
-    private Long communityId;
+    @Size(max = 20)
+    @Column(name = "community_id", length = 20)
+    private String communityId;
 
     @Size(max = 20)
     @Column(name = "steam_id", length = 20)
@@ -168,11 +169,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.resetKey = resetKey;
     }
 
-    public Long getCommunityId() {
+    public String getCommunityId() {
         return communityId;
     }
 
-    public void setCommunityId(Long communityId) {
+    public void setCommunityId(String communityId) {
         this.communityId = communityId;
     }
 

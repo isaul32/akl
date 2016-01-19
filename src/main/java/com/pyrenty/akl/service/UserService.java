@@ -136,7 +136,7 @@ public class UserService {
         });
     }
 
-    public void updateUserSteamInformation(Long communityId, String steamId) {
+    public void updateUserSteamInformation(String communityId, String steamId) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
             u.setCommunityId(communityId);
             u.setSteamId(steamId);
