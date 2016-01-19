@@ -18,7 +18,7 @@
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
-                "main": "Tunnus",
+                "main": "Käyttäjä",
                 "settings": "Asetukset",
                 "password": "Salasana",
                 "sessions": "Istunnot",
