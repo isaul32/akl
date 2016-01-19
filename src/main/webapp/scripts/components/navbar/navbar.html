@@ -28,11 +28,34 @@
                         <span translate="global.menu.teams">Teams</span>
                     </a>
                 </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="playoffs">
-                        <span class="fa fa-trophy"></span>&nbsp;
-                        <span translate="global.menu.playoffs">Playoffs</span>
+                <li ui-sref-active="active" class="dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                        <span>
+                            <span class="fa fa-trophy"></span>&nbsp;
+                            <span class="hidden-tablet" translate="global.menu.league">League</span>
+                            <b class="caret"></b>
+                        </span>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a ui-sref="grouops">
+                                <span class="fa fa-calendar"></span>&nbsp;
+                                <span translate="global.menu.grouops">Lohkot</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ui-sref="playoffs">
+                                <span class="fa fa-trophy"></span>&nbsp;
+                                <span translate="global.menu.playoffs">Playoffs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ui-sref="afterparty">
+                                <span class="glyphicon glyphicon-glass"></span>&nbsp;
+                                <span translate="global.menu.afterparty">Jatkobileet</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li ui-sref-active="active">
                     <a ui-sref="rules">

@@ -7,7 +7,10 @@
             "live": "Live",
             "schedule": "Aikataulu",
             "teams": "Joukkueet",
+            "league": "Liiga",
+            "grouops": "Lohkopelit",
             "playoffs": "Pudotuspelit",
+            "afterparty": "Jatkobileet",
             "rules": "Säännöt",
             "entities": {
                 "main": "Entiteetit",

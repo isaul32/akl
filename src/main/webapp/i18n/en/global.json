@@ -7,7 +7,10 @@
             "live": "Live",
             "schedule": "Schedule",
             "teams": "Teams",
+            "league": "League",
+            "grouops": "Grouops",
             "playoffs": "Playoffs",
+            "afterparty": "Afterparty",
             "rules": "Rules",
             "entities": {
                 "main": "Entities",
