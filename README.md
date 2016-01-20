@@ -13,4 +13,4 @@ gulp serve &
 ```
 
 # Private configs
-Put all private configs to ~/akl/akl.properties file.
+Put all private configs to ~/.akl.properties file.
