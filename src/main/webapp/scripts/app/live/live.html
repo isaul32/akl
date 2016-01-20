@@ -1,5 +1,5 @@
 <div class="live-container">
-    <div class="live-right">
+    <div id="live-right" class="live-right">
         <iframe id="twitch-chat" frameborder="0" scrolling="no" height="500px"></iframe>
     </div>
     <div class="live-left">
@@ -19,7 +19,7 @@
 
 <script>
     $.ajax({
-        url: "https://api.twitch.tv/kraken/streams?limit=1&game=Counter-Strike:%20Global%20Offensive",
+        url: 'https://api.twitch.tv/kraken/streams?limit=1&game=Counter-Strike:%20Global%20Offensive',
         success: function (result) {
             var user = result.streams[0].channel.name;
             $('#twitch-chat').attr('src', 'http://twitch.tv/' + user + '/chat?popout=');
@@ -28,7 +28,12 @@
     });
 
     var resize = function () {
-        $('#twitch-chat').css('height', $('#twitch-container').height() + 'px');
+        // Hack to check mobile size screen
+        if ($('#live-right').css('margin-bottom') !== '20px') {
+            $('#twitch-chat').css('height', $('#twitch-container').height() + 'px');
+        } else {
+            $('#twitch-chat').height('500px');
+        }
     };
 
     $('#embed-iframe').load(function () { resize(); });

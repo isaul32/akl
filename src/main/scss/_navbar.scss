@@ -8,15 +8,19 @@ $active-border-size: 2px;
 
     .navbar-nav {
         > .active > a {
-            &,
-            &:hover,
-            &:focus {
-                background-color: transparent;
-                padding-bottom: $navbar-padding-vertical - $active-border-size;
-                border-bottom: 2px solid $sprimary-green-color;
+            @media screen and (min-width: $screen-sm-min) {
+                &,
+                &:hover,
+                &:focus {
+                    background-color: transparent;
+                    padding-bottom: $navbar-padding-vertical - $active-border-size;
+                    border-bottom: $active-border-size solid $sprimary-green-color;
+                }
             }
         }
     }
+
+    .navbar-nav {}
 
     .nav-pills > li > a {
         border-radius: 0;
