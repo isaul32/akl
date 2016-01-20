@@ -11,6 +11,8 @@ mvn install
 mvn spring-boot:run &
 gulp serve &
 ```
+or use install.sh
+
 
 # Private configs
 Put all private configs to ~/.akl.properties file.
