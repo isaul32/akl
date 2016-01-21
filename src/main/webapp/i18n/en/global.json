@@ -10,6 +10,7 @@
             "league": "League",
             "groups": "Groups",
             "playoffs": "Playoffs",
+            "finals": "Finals",
             "afterparty": "Afterparty",
             "rules": "Rules",
             "entities": {

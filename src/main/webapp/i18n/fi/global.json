@@ -10,6 +10,7 @@
             "league": "Liiga",
             "groups": "Lohkopelit",
             "playoffs": "Pudotuspelit",
+            "final": "Finaali",
             "afterparty": "Jatkobileet",
             "rules": "Säännöt",
             "entities": {
