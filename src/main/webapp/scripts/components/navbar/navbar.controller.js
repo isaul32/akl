@@ -9,7 +9,6 @@ angular.module('aklApp')
         var getAccount = function () {
             Principal.identity().then(function(account) {
                 $scope.account = account;
-                $scope.isAuthenticated = Principal.isAuthenticated;
 
                 if ($scope.isAuthenticated()) {
                     $http.get('api/steam/user/' + $scope.account.communityId).success(
@@ -25,9 +24,6 @@ angular.module('aklApp')
         $scope.logout = function () {
             Auth.logout();
             $state.go('home');
-        };
-
-        $rootScope.$on('$stateChangeStart',  function() {
             getAccount();
-        });
+        };
     });

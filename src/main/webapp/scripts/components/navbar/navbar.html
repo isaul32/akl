@@ -21,9 +21,9 @@
                         </a>
                     </div>
                 </div>
-                <div class="account-align">
+                <div class="account-align" ng-if="isAuthenticated()">
                     <a ng-href="{{steamUser.response.players[0].profileurl}}">
-                        <div class="account-info pull-right" ng-if="isAuthenticated()">
+                        <div class="account-info pull-right">
                             <span>{{steamUser.response.players[0].personaname}}</span>&nbsp;
                             <img ng-src="{{steamUser.response.players[0].avatar}}">
                         </div>
