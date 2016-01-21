@@ -17,6 +17,10 @@
             overflowToDisk="false"
             />
 
+    <cache name="steamUser"
+           timeToLiveSeconds="3600">
+    </cache>
+
     <cache name="com.pyrenty.akl.domain.User"
            timeToLiveSeconds="3600">
     </cache>
