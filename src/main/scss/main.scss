@@ -14,7 +14,7 @@ html {
 }
 
 body {
-    margin-bottom: $footer-height;
+    margin-bottom: $footer-height + $line-height-computed;
     background-color: #fafafa;
     font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;

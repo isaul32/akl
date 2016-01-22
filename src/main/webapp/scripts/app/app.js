@@ -65,6 +65,10 @@ angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprec
                 'navbar@': {
                     templateUrl: 'scripts/components/navbar/navbar.html',
                     controller: 'NavbarController'
+                },
+                'footer@': {
+                    templateUrl: 'scripts/components/footer/footer.html',
+                    controller: 'FooterController'
                 }
             },
             resolve: {

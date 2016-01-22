@@ -25,25 +25,9 @@
 
         <div ui-view="navbar" ng-cloak=""></div>
 
-        <!-- Root view -->
         <div ui-view="content"></div>
 
-        <div class="footer">
-            <div class="container">
-                <!--<p class="pull-left" translate="footer"></p>-->
-                <p>
-                    <span>Copyright © 2015 -
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                    </span>
-                    <span translate="global.title"></span>
-                </p>
-                <p>
-                    <span class="footer-version">v{{VERSION}}</span>
-                </p>
-            </div>
-        </div>
+        <div ui-view="footer"></div>
 
         <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
         <script>
@@ -109,6 +93,7 @@
         <script src="scripts/components/interceptor/notification.interceptor.js"></script>
         <script src="scripts/components/navbar/navbar.directive.js"></script>
         <script src="scripts/components/navbar/navbar.controller.js"></script>
+        <script src="scripts/components/footer/footer.controller.js"></script>
         <script src="scripts/components/user/user.service.js"></script>
         <script src="scripts/components/util/truncate.filter.js"></script>
         <script src="scripts/components/util/base64.service.js"></script>
