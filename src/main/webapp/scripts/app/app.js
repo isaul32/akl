@@ -101,4 +101,9 @@ angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprec
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
 
+        // use the HTML5 History API
+        /*$locationProvider.html5Mode({
+            enabled: true,
+            requireBase: false
+        });*/
     });

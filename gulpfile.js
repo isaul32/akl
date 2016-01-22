@@ -23,7 +23,8 @@ var gulp = require('gulp'),
     wiredep = require('wiredep').stream,
     fs = require('fs'),
     runSequence = require('run-sequence'),
-    browserSync = require('browser-sync');
+    browserSync = require('browser-sync'),
+    spa = require("browser-sync-spa");
 
 var karma = require('gulp-karma')({configFile: 'src/test/javascript/karma.conf.js'});
 
@@ -68,7 +69,7 @@ gulp.task('test', ['wiredep:test', 'ngconstant:dev'], function() {
 gulp.task('copy', function() {
     return es.merge(  // copy i18n folders only if translation is enabled
               gulp.src(yeoman.app + 'i18n/**').
-              pipe(gulp.dest(yeoman.dist + 'i18n/')), 
+              pipe(gulp.dest(yeoman.dist + 'i18n/')),
               gulp.src(yeoman.app + 'assets/**/*.{woff,svg,ttf,eot}').
               pipe(flatten()).
               pipe(gulp.dest(yeoman.dist + 'assets/fonts/')));
@@ -143,6 +144,16 @@ gulp.task('serve', function() {
                 options.route = r;
                 return proxy(options);
             }));
+
+        // AngularJS pretty URL
+        /*browserSync.use(spa({
+
+            selector: "[ng-app]",
+
+            history: {
+                index: '/index.html'
+            }
+        }));*/
 
         browserSync({
             open: false,
