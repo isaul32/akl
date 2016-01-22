@@ -83,6 +83,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date", nullable = true)
     private DateTime resetDate = null;
 
+    @OneToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(

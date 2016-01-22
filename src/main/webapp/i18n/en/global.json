@@ -10,12 +10,15 @@
             "league": "League",
             "groups": "Groups",
             "playoffs": "Playoffs",
-            "finals": "Finals",
+            "final": "Final",
             "afterparty": "Afterparty",
             "rules": "Rules",
             "entities": {
                 "main": "Entities",
                 "gameServer": "Game Server",
+                "localizedText": "LocalizedText",
+                "text": "Text",
+                "team": "Team",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

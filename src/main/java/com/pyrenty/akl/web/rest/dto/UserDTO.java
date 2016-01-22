@@ -1,5 +1,6 @@
 package com.pyrenty.akl.web.rest.dto;
 
+import com.pyrenty.akl.domain.Team;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
