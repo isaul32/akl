@@ -2,20 +2,74 @@
 
 angular.module('aklApp')
     .controller('CkeditorCtrl', function ($scope, $translate) {
+        var lang = $translate.use();
+        if (lang === undefined) {
+            lang = 'en';
+        }
+
+        var addBowerPlugin = function (name) {
+            CKEDITOR.plugins.addExternal(name,
+                '/bower_components/ckeditor-youtube-plugin/' + name + '/', 'plugin.js');
+        };
+
+        var addCustomPlugin = function (name) {
+            CKEDITOR.plugins.addExternal(name,
+                '/scripts/components/ckeditor/plugins/' + name + '/', 'plugin.js');
+        };
 
         // Load plugins from custom paths
-        CKEDITOR.plugins.addExternal('youtube',
-            '/bower_components/ckeditor-youtube-plugin/youtube/', 'plugin.js');
-        CKEDITOR.plugins.addExternal('autogrow',
-            '/scripts/components/ckeditor/plugins/autogrow/', 'plugin.js');
+        addBowerPlugin('youtube');
+        addCustomPlugin('autogrow');
+        addCustomPlugin('widgetbootstrap');
+        addCustomPlugin('base64image');
+        addCustomPlugin('inlinesave');
+
+        // Toolbar configs
+        var toolbarGroups = [
+            { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+            { name: 'editing',     groups: [ 'find', 'selection' ] },
+            { name: 'links' },
+            { name: 'insert' },
+            { name: 'forms' },
+            '/',
+            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+            { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+            { name: 'styles' },
+            { name: 'colors' },
+            { name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
+            { name: 'tools' },
+            { name: 'others' }
+        ];
+
+        $scope.content = '<h1>Säännöt</h1><p>samat kaikille!</p>';
 
         // Editor options.
         $scope.options = {
-            skin: 'bootstrapck,/bower_components/bootstrapck4-skin/skins/bootstrapck/',
-            language: $translate.use(),
-            extraPlugins: 'youtube,autogrow',
+            //skin: 'bootstrapck,/scripts/components/ckeditor/skins/bootstrapck/',
+            //skin: 'flat,/scripts/components/ckeditor/skins/flat/',
+            skin: 'minimalist,/scripts/components/ckeditor/skins/minimalist/',
+            language: lang,
+            extraPlugins: 'youtube,autogrow,widgetbootstrap,base64image,inlinesave,justify,tableresize',
+            toolbarGroups: toolbarGroups,
+            disableNativeSpellChecker: true,
             allowedContent: true,
-            entities: false
+            entities: false,
+            disableAutoInline: true,
+            inlinesave: {
+                postUrl: '/myurl',
+                postData: {
+                    test: true
+                },
+                onSave: function(editor) {
+                    console.log('clicked save', editor);
+                },
+                onSuccess: function(editor, data) {
+                    console.log('save successful', editor, data);
+                },
+                onFailure: function(editor, status, request) {
+                    console.log('save failed', editor, status, request);
+                }
+            }
         };
 
         // Called when the editor is completely ready.
