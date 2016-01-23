@@ -1,0 +1,26 @@
+{
+    "aklApp": {
+        "Rank" : {
+            "SELECT": "{VALUE, select, s1{s1} s2{s2} s3{s3} s4{s4} se{se} sem{sem} gn1{gn1} gn2{gn2} gn3{gn3} gn4{gn4} gnm{gnm} mg1{mg1} mg2{mg2} mge{mge} dmg{dmg} le{le} lem{lem} smfc{smfc} ge{ge} other{}}",
+            "s1": "s1",
+            "s2": "s2",
+            "s3": "s3",
+            "s4": "s4",
+            "se": "se",
+            "sem": "sem",
+            "gn1": "gn1",
+            "gn2": "gn2",
+            "gn3": "gn3",
+            "gn4": "gn4",
+            "gnm": "gnm",
+            "mg1": "mg1",
+            "mg2": "mg2",
+            "mge": "mge",
+            "dmg": "dmg",
+            "le": "le",
+            "lem": "lem",
+            "smfc": "smfc",
+            "ge": "ge"
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "localizedText",
+            "otherEntityName": "localizedText",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "text"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20160122023531",
+    "dto": "no",
+    "pagination": "pager"
+}
