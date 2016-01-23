@@ -18,8 +18,12 @@ or use install.sh
 Put all private configs to ~/.akl.properties file.
 
 # Technologies
+
 ## Backend
 Java 8, Postgres, Tomcat, Spring, H2, Ehcache, Swagger, Thymeleaf...
 
 ## Frontend
-AngularJS, Bootstrap, Font Awesome...
+AngularJS, AngularUI Router, Bootstrap, Font Awesome...
+
+## Tools
+Maven 3, Node LTS, NPM, Bower, Jhipster, Gulp...

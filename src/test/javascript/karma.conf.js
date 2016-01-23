@@ -36,6 +36,10 @@ module.exports = function (config) {
             'main/webapp/bower_components/ng-file-upload/ng-file-upload.js',
             'main/webapp/bower_components/ckeditor/ckeditor.js',
             'main/webapp/bower_components/angular-ckeditor/angular-ckeditor.js',
+            'main/webapp/bower_components/moment/moment.js',
+            'main/webapp/bower_components/fullcalendar/dist/fullcalendar.js',
+            'main/webapp/bower_components/angular-ui-calendar/src/calendar.js',
+            'main/webapp/bower_components/bootstrapck4-skin/ckeditor.js',
             'main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'main/webapp/scripts/app/app.js',
