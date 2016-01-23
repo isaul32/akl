@@ -11,7 +11,7 @@ CKEDITOR.config.widgetbootstrapAlert_alertTypes = {
 CKEDITOR.plugins.add( 'widgetbootstrap', {
     requires: 'widget',
 
-    icons: 'widgetbootstrapLeftCol,widgetbootstrapRightCol,widgetbootstrapTwoCol,widgetbootstrapThreeCol,widgetbootstrapAlert',
+    icons: 'widgetbootstrapLeftCol,widgetbootstrapRightCol,widgetbootstrapTwoCol,widgetbootstrapThreeCol,widgetbootstrapAlert,widgetcommonBox',
 
     /*defaults : {
         name: 'accordion',
@@ -154,6 +154,39 @@ CKEDITOR.plugins.add( 'widgetbootstrap', {
 
             upcast: function( element ) {
                 return element.name == 'div' && element.hasClass( 'three-col' );
+            }
+
+        } );
+
+        var allowedTitle = editor.config.widgetcommon_allowedTitle!= undefined ? editor.config.widgetcommon_allowedTitle : 'strong em';
+
+        var allowedWidget = editor.config.widgetcommon_allowedWidget != undefined ? editor.config.widgetcommon_allowedFull : 'p br ul ol li a strong em img[!src,alt,width,height]';
+
+        editor.widgets.add('widgetcommonBox', {
+
+            button: showButtons ? 'Add box' : undefined,
+
+            template:
+            '<div class="panel panel-default">' +
+            '<div class="panel-heading box-title">Title</h2></div>' +
+            '<div class="panel-body box-content">Content</div>' +
+            '</div>',
+
+            editables: {
+                title: {
+                    selector: '.box-title',
+                    allowedContent: allowedTitle
+                },
+                content: {
+                    selector: '.box-content',
+                    allowedContent: allowedWidget
+                }
+            },
+
+            allowedContent: allowedFull,
+
+            upcast: function( element ) {
+                return element.name == 'div' && element.hasClass( 'two-col-right' );
             }
 
         } );

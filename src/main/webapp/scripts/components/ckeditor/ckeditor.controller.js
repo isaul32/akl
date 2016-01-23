@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('CkeditorCtrl', function ($scope, $translate) {
+    .controller('CkeditorCtrl', function ($scope, $rootScope, $translate, $element) {
         var lang = $translate.use();
         if (lang === undefined) {
             lang = 'en';
         }
+
 
         var addBowerPlugin = function (name) {
             CKEDITOR.plugins.addExternal(name,
@@ -23,22 +24,26 @@ angular.module('aklApp')
         addCustomPlugin('widgetbootstrap');
         addCustomPlugin('base64image');
         addCustomPlugin('inlinesave');
+        addCustomPlugin('inlinecancel');
+        addCustomPlugin('ckwebspeech');
+        addCustomPlugin('chart');
+        addCustomPlugin('fontawesome');
 
         // Toolbar configs
         var toolbarGroups = [
-            { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-            { name: 'editing',     groups: [ 'find', 'selection' ] },
+            { name: 'clipboard', groups: ['clipboard', 'undo'] },
+            { name: 'editing', groups: ['find', 'selection'] },
             { name: 'links' },
             { name: 'insert' },
             { name: 'forms' },
             '/',
-            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-            { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+            { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+            { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
             { name: 'styles' },
             { name: 'colors' },
-            { name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
+            { name: 'document', groups: ['mode', 'document', 'doctools'] },
             { name: 'tools' },
-            { name: 'others' }
+            { name: 'others', groups: ['ckwebspeech'] }
         ];
 
         $scope.content = '<h1>Säännöt</h1><p>samat kaikille!</p>';
@@ -47,9 +52,9 @@ angular.module('aklApp')
         $scope.options = {
             //skin: 'bootstrapck,/scripts/components/ckeditor/skins/bootstrapck/',
             //skin: 'flat,/scripts/components/ckeditor/skins/flat/',
-            skin: 'minimalist,/scripts/components/ckeditor/skins/minimalist/',
+            //skin: 'minimalist,/scripts/components/ckeditor/skins/minimalist/',
             language: lang,
-            extraPlugins: 'youtube,autogrow,widgetbootstrap,base64image,inlinesave,justify,tableresize',
+            extraPlugins: 'youtube,autogrow,widgetbootstrap,base64image,inlinesave,inlinecancel,ckwebspeech,chart,fontawesome,justify,tableresize,colorbutton',
             toolbarGroups: toolbarGroups,
             disableNativeSpellChecker: true,
             allowedContent: true,
@@ -69,11 +74,19 @@ angular.module('aklApp')
                 onFailure: function(editor, status, request) {
                     console.log('save failed', editor, status, request);
                 }
+            },
+            inlinecancel: {
+                onCancel: function(editor) {
+                    console.log('cancel', editor);
+                }
+            },
+            ckwebspeech: {
+                'culture' : 'fi-FI'
             }
         };
 
         // Called when the editor is completely ready.
         $scope.onReady = function () {
-            // ...
+
         };
     });

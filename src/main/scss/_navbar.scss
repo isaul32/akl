@@ -14,7 +14,7 @@ $active-border-size: 2px;
                 &:focus {
                     background-color: transparent;
                     padding-bottom: $navbar-padding-vertical - $active-border-size;
-                    border-bottom: $active-border-size solid $sprimary-green-color;
+                    border-bottom: $active-border-size solid $primary-green-color;
                 }
             }
         }
