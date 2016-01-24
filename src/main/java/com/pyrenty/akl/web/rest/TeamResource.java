@@ -53,6 +53,7 @@ public class TeamResource {
     @Inject
     private TeamSearchRepository teamSearchRepository;
 
+    // TODO: remove this testing
     @RequestMapping(value = "/teams/{id}/captain}",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
