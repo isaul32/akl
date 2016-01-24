@@ -22,6 +22,10 @@ angular.module('aklApp')
 
         getAccount();
 
+        $rootScope.$on('$stateChangeStart', function () {
+            getAccount();
+        });
+
         $scope.logout = function () {
             Auth.logout();
             $state.go('home');
