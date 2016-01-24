@@ -22,6 +22,9 @@ angular.module('aklApp')
                 var url = '//' + loc.host + loc.pathname + 'websocket/tracker';
                 var socket = new SockJS(url);
                 stompClient = Stomp.over(socket);
+                // Disable debug logging
+                stompClient.debug = null;
+
                 var headers = {};
                 headers['X-CSRF-TOKEN'] = $cookies[$http.defaults.xsrfCookieName];
                 stompClient.connect(headers, function(frame) {

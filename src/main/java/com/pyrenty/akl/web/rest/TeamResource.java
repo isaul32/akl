@@ -2,7 +2,9 @@ package com.pyrenty.akl.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Team;
+import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.TeamRepository;
+import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.repository.search.TeamSearchRepository;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
@@ -43,10 +45,32 @@ public class TeamResource {
     private TeamRepository teamRepository;
 
     @Inject
+    private UserRepository userRepository;
+
+    @Inject
     private TeamMapper teamMapper;
 
     @Inject
     private TeamSearchRepository teamSearchRepository;
+
+    @RequestMapping(value = "/teams/{id}/captain}",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Object> addCaptain(@PathVariable Long id) {
+
+        // Testing
+        Team team = teamRepository.findOne(id);
+        User user = userRepository.findOne(3L);
+        //team.setCaptain(user);
+
+        user.setCaptain(team);
+
+        userRepository.save(user);
+        //teamRepository.saveAndFlush(team);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     /**
      * POST  /teams -> Create a new team.
@@ -124,6 +148,7 @@ public class TeamResource {
     @Timed
     public ResponseEntity<TeamDTO> get(@PathVariable Long id) {
         log.debug("REST request to get Team : {}", id);
+
         return Optional.ofNullable(teamRepository.findOne(id))
             .map(teamMapper::teamToTeamDTO)
             .map(teamDTO -> new ResponseEntity<>(

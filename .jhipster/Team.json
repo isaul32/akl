@@ -5,7 +5,7 @@
             "relationshipName": "captain",
             "otherEntityName": "user",
             "relationshipType": "one-to-one",
-            "otherEntityRelationshipName": "team",
+            "otherEntityRelationshipName": "captain",
             "ownerSide": false
         },
         {
@@ -13,7 +13,7 @@
             "relationshipName": "member",
             "otherEntityName": "user",
             "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "team",
+            "otherEntityRelationshipName": "member",
             "ownerSide": false
         },
         {
@@ -21,7 +21,7 @@
             "relationshipName": "standin",
             "otherEntityName": "user",
             "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "team",
+            "otherEntityRelationshipName": "standin",
             "ownerSide": false
         }
     ],

@@ -7,7 +7,7 @@ angular.module('aklApp')
                 parent: 'entity',
                 url: '/teams',
                 data: {
-                    roles: ['ROLE_USER'],
+                    roles: [],
                     pageTitle: 'aklApp.team.home.title'
                 },
                 views: {

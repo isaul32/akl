@@ -41,7 +41,9 @@
             <column name="reset_key" type="varchar(20)"/>
             <column name="community_id" type="varchar(20)"/>
             <column name="steam_id" type="varchar(20)"/>
-            <column name="team_id" type="bigint"/>
+            <column name="captain_id" type="bigint"/>
+            <column name="member_id" type="bigint"/>
+            <column name="standin_id" type="bigint"/>
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>

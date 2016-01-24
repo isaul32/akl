@@ -79,8 +79,18 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "steam_id", length = 20)
     private String steamId;
 
+    @JsonIgnore
+    @OneToOne
+    private Team captain;
+
+    @JsonIgnore
     @ManyToOne
-    private Team team;
+    private Team member;
+
+    @JsonIgnore
+    @ManyToOne
+    private Team standin;
+
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "reset_date", nullable = true)
@@ -188,12 +198,28 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.steamId = steamId;
     }
 
-    public Team getTeam() {
-        return team;
+    public Team getCaptain() {
+        return captain;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setCaptain(Team captain) {
+        this.captain = captain;
+    }
+
+    public Team getMember() {
+        return member;
+    }
+
+    public void setMember(Team member) {
+        this.member = member;
+    }
+
+    public Team getStandin() {
+        return standin;
+    }
+
+    public void setStandin(Team standin) {
+        this.standin = standin;
     }
 
     public DateTime getResetDate() {
@@ -245,6 +271,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
+        System.out.println("login" + login);
         return login.hashCode();
     }
 

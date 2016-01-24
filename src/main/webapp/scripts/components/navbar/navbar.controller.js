@@ -10,11 +10,10 @@ angular.module('aklApp')
             Principal.identity().then(function(account) {
                 $scope.account = account;
 
-                if ($scope.isAuthenticated()) {
-                    $http.get('api/steam/user/' + $scope.account.communityId).success(
-                        function (data) {
-                            $scope.steamUser = data;
-                        });
+                if ($scope.isAuthenticated() && $scope.account.communityId !== null) {
+                    $http.get('api/steam/user/' + $scope.account.communityId).success(function (data) {
+                        $scope.steamUser = data;
+                    });
                 }
             });
         };
