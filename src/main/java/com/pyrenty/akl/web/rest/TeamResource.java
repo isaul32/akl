@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,7 +55,7 @@ public class TeamResource {
     private TeamSearchRepository teamSearchRepository;
 
     // TODO: remove this testing
-    @RequestMapping(value = "/teams/{id}/captain}",
+    /*@RequestMapping(value = "/teams/{id}/captain}",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -71,7 +72,7 @@ public class TeamResource {
         //teamRepository.saveAndFlush(team);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
+    }*/
 
     /**
      * POST  /teams -> Create a new team.
@@ -79,6 +80,7 @@ public class TeamResource {
     @RequestMapping(value = "/teams",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<TeamDTO> create(@Valid @RequestBody TeamDTO teamDTO) throws URISyntaxException {
         log.debug("REST request to save Team : {}", teamDTO);
@@ -99,6 +101,7 @@ public class TeamResource {
     @RequestMapping(value = "/teams",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<TeamDTO> update(@Valid @RequestBody TeamDTO teamDTO) throws URISyntaxException {
         log.debug("REST request to update Team : {}", teamDTO);
@@ -164,6 +167,7 @@ public class TeamResource {
     @RequestMapping(value = "/teams/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.debug("REST request to delete Team : {}", id);
