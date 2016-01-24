@@ -14,6 +14,12 @@ angular.module('aklApp')
                     'content@': {
                         templateUrl: 'scripts/app/admin/docs/docs.html'
                     }
+                },
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('health');
+                        return $translate.refresh();
+                    }]
                 }
             });
     });
