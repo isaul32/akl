@@ -15,7 +15,7 @@
             "rules": "Rules",
             "entities": {
                 "main": "Entities",
-                "gameServer": "Game Server",
+                "gameServer": "Game Servers",
                 "localizedText": "LocalizedText",
                 "text": "Text",
                 "team": "Team",
@@ -33,6 +33,7 @@
             },
             "admin": {
                 "main": "Administration",
+                "user": "User management",
                 "tracker": "User tracker",
                 "metrics": "Metrics",
                 "health": "Health",
