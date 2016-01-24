@@ -25,6 +25,7 @@
                 "main": "Account",
                 "settings": "Settings",
                 "password": "Password",
+                "steam": "Steam",
                 "sessions": "Sessions",
                 "login": "Authenticate",
                 "logout": "Log out",

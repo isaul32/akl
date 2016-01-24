@@ -3,21 +3,22 @@
 angular.module('aklApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('docs', {
-                parent: 'admin',
-                url: '/docs',
+            .state('steam', {
+                parent: 'account',
+                url: '/steam',
                 data: {
-                    roles: ['ROLE_ADMIN'],
-                    pageTitle: 'global.menu.admin.apidocs'
+                    roles: ['ROLE_USER'],
+                    pageTitle: 'global.menu.account.steam'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/admin/docs/docs.html'
+                        templateUrl: 'scripts/app/account/steam/steam.html',
+                        controller: 'SteamController'
                     }
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('global');
+                        $translatePartialLoader.addPart('steam');
                         return $translate.refresh();
                     }]
                 }

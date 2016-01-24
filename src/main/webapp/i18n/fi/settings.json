@@ -10,12 +10,6 @@
             "steamId": "Steam ID",
             "button": "Tallenna"
         },
-        "steam": {
-            "title": "Steam asetukset käyttäjälle",
-            "communityId": "Steam Community ID",
-            "steamId": "Steam ID",
-            "change": "Vaihda liitetty Steam käyttäjä"
-        },
         "messages": {
             "error": {
                 "fail": "<strong>An error has occurred!</strong> Settings could not be saved.",

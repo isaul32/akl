@@ -109,7 +109,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .loginProcessingUrl("/api/login/openid")
             .loginPage("/api/login")
             .authenticationUserDetailsService(steamUserService)
-            .defaultSuccessUrl("/#/settings")
+            .defaultSuccessUrl("/#/steam")
             .permitAll(false)
         .and()
             .headers()
