@@ -107,7 +107,7 @@ public class TeamResource {
                 .map(team -> teamMapper.teamToTeamDTO(team))
                 .collect(Collectors.toList()), HttpStatus.OK);
         }
-        
+
         Page<Team> page = teamRepository.findAll(PaginationUtil.generatePageRequest(offset, limit));
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/teams", offset, limit);
         return new ResponseEntity<>(page.getContent().stream()

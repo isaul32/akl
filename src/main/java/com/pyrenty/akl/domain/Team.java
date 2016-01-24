@@ -1,6 +1,5 @@
 package com.pyrenty.akl.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -49,17 +48,14 @@ public class Team implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "team")
-    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "team")
     private User captain;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "team")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<User> members = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "team")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<User> standins = new HashSet<>();
 
@@ -115,24 +111,24 @@ public class Team implements Serializable {
         return captain;
     }
 
-    public void setCaptain(User user) {
-        this.captain = user;
+    public void setCaptain(User captain) {
+        this.captain = captain;
     }
 
     public Set<User> getMembers() {
         return members;
     }
 
-    public void setMembers(Set<User> users) {
-        this.members = users;
+    public void setMembers(Set<User> members) {
+        this.members = members;
     }
 
     public Set<User> getStandins() {
         return standins;
     }
 
-    public void setStandins(Set<User> users) {
-        this.standins = users;
+    public void setStandins(Set<User> standins) {
+        this.standins = standins;
     }
 
     @Override

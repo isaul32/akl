@@ -1,8 +1,6 @@
 package com.pyrenty.akl.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
@@ -82,8 +80,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String steamId;
 
     @ManyToOne
-    @Getter
-    @Setter
     private Team team;
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -190,6 +186,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setSteamId(String steamId) {
         this.steamId = steamId;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public DateTime getResetDate() {

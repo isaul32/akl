@@ -9,7 +9,6 @@ angular.module('aklApp')
         var getAccount = function () {
             Principal.identity().then(function(account) {
                 $scope.account = account;
-                console.log(account);
 
                 if ($scope.isAuthenticated()) {
                     $http.get('api/steam/user/' + $scope.account.communityId).success(

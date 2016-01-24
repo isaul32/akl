@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
+import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.domain.enumeration.Rank;
 
 /**
@@ -29,6 +30,12 @@ public class TeamDTO implements Serializable {
     private Rank rank;
 
     private String description;
+
+    private User captain;
+
+    private Set<User> members = new HashSet<>();
+
+    private Set<User> standins = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -76,6 +83,30 @@ public class TeamDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getCaptain() {
+        return captain;
+    }
+
+    public void setCaptain(User captain) {
+        this.captain = captain;
+    }
+
+    public Set<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Set<User> members) {
+        this.members = members;
+    }
+
+    public Set<User> getStandins() {
+        return standins;
+    }
+
+    public void setStandins(Set<User> standins) {
+        this.standins = standins;
     }
 
     @Override
