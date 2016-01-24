@@ -26,39 +26,39 @@ public class Team implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
 
     @NotNull
-    @Size(min = 1, max = 16)        
+    @Size(min = 1, max = 16)
     @Column(name = "tag", length = 16, nullable = false)
     private String tag;
 
     @NotNull
-    @Size(min = 1, max = 255)        
+    @Size(min = 1, max = 255)
     @Column(name = "name", length = 255, nullable = false)
     private String name;
 
-    @Size(max = 255)        
+    @Size(max = 255)
     @Column(name = "image_url", length = 255)
     private String imageUrl;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "rank")
     private Rank rank;
-    
+
     @Column(name = "description")
     private String description;
 
-    @OneToOne(mappedBy = "team")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "team")
     @JsonIgnore
     private User captain;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<User> members = new HashSet<>();
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<User> standins = new HashSet<>();

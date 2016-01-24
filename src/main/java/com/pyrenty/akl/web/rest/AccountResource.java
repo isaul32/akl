@@ -121,6 +121,7 @@ public class AccountResource {
                         user.getLangKey(),
                         user.getCommunityId(),
                         user.getSteamId(),
+                        user.getTeam(),
                         user.getAuthorities().stream().map(Authority::getName)
                             .collect(Collectors.toList())),
                 HttpStatus.OK);

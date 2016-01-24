@@ -1,6 +1,8 @@
 package com.pyrenty.akl.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
@@ -79,13 +81,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "steam_id", length = 20)
     private String steamId;
 
+    @ManyToOne
+    @Getter
+    @Setter
+    private Team team;
+
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "reset_date", nullable = true)
     private DateTime resetDate = null;
-
-    @OneToOne
-    @JoinColumn(name = "team_id")
-    private Team team;
 
     @JsonIgnore
     @ManyToMany
@@ -232,11 +235,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
         User user = (User) o;
 
-        if (!login.equals(user.login)) {
-            return false;
-        }
+        return login.equals(user.login);
 
-        return true;
     }
 
     @Override

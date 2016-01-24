@@ -32,6 +32,12 @@
             <column name="rank" type="varchar(255)"/>
             <column name="description" type="varchar(255)"/>
         </createTable>
-        
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/teams.csv"
+                  separator=";"
+                  tableName="TEAM">
+        </loadData>
+
     </changeSet>
 </databaseChangeLog>
