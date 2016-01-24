@@ -2,8 +2,8 @@
     "aklApp": {
         "team" : {
             "home": {
-                "title": "Teams",
-                "createLabel": "Create a new Team",
+                "title": "Joukkueet",
+                "createLabel": "Luo uusi joukkue",
                 "createOrEditLabel": "Create or edit a Team"
             },
             "created": "A new Team is created with identifier {{ param }}",
@@ -13,16 +13,16 @@
                 "question": "Are you sure you want to delete Team {{ id }}?"
             },
             "detail": {
-                "title": "Team"
+                "title": "Tiimi"
             },
-            "tag": "Tag",
-            "name": "Name",
-            "imageUrl": "ImageUrl",
-            "rank": "Rank",
-            "description": "Description",
-            "captain": "Captain",
-            "member": "Member",
-            "standin": "Standin"
+            "tag": "Tagi",
+            "name": "Nimi",
+            "imageUrl": "Kuvan osoite",
+            "rank": "Taso",
+            "description": "Kuvaus",
+            "captain": "Kapteeni",
+            "members": "Jäsen",
+            "standins": "Varajäsen"
         }
     }
 }

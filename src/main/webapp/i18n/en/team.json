@@ -17,12 +17,12 @@
             },
             "tag": "Tag",
             "name": "Name",
-            "imageUrl": "ImageUrl",
+            "imageUrl": "Image url",
             "rank": "Rank",
             "description": "Description",
             "captain": "Captain",
-            "member": "Member",
-            "standin": "Standin"
+            "members": "Member",
+            "standins": "Standin"
         }
     }
 }
