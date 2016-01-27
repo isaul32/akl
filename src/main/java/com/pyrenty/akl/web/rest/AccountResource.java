@@ -118,6 +118,7 @@ public class AccountResource {
                         user.getFirstName(),
                         user.getLastName(),
                         user.getEmail(),
+                        user.isActivated(),
                         user.getLangKey(),
                         user.getCommunityId(),
                         user.getSteamId(),
