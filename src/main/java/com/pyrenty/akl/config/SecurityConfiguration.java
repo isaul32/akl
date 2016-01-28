@@ -115,6 +115,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .headers()
             .frameOptions()
             .disable()
+            .contentTypeOptions()
+            .disable()
         .and()
             .authorizeRequests()
             .antMatchers("/api/register").permitAll()

@@ -10,24 +10,23 @@ bower install
 mvn install
 cp .akl.properties ~/
 ```
-# Run
+# Run development
 ```
 mvn spring-boot:run &
 gulp serve &
 ```
-or use install.sh
 
 
 # Private configs
 Put all private configs to ~/.akl.properties file. 
 
 # Tools
-Maven 3, Node LTS, NPM, Bower, Jhipster, Gulp...
+Maven 3, Node, NPM, Bower, Gulp, Jhipster...
 
 # Technologies
 
 ## Backend
-Java 8, Postgres, Tomcat, Spring, H2, Ehcache, Swagger, Thymeleaf...
+Java 8, Postgres, Tomcat 8 (WebSocket), Spring, H2, Ehcache, Swagger, Thymeleaf...
 
 ## Frontend
-AngularJS, AngularUI Router, Bootstrap, Font Awesome...
+AngularJS, AngularUI Router, Bootstrap...

@@ -3,7 +3,6 @@ package com.pyrenty.akl.web.rest;
 import com.pyrenty.akl.Application;
 import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.repository.TeamRepository;
-import com.pyrenty.akl.repository.search.TeamSearchRepository;
 import com.pyrenty.akl.web.rest.dto.TeamDTO;
 import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 
@@ -63,9 +62,6 @@ public class TeamResourceTest {
     private TeamMapper teamMapper;
 
     @Inject
-    private TeamSearchRepository teamSearchRepository;
-
-    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     private MockMvc restTeamMockMvc;
@@ -78,7 +74,6 @@ public class TeamResourceTest {
         TeamResource teamResource = new TeamResource();
         ReflectionTestUtils.setField(teamResource, "teamRepository", teamRepository);
         ReflectionTestUtils.setField(teamResource, "teamMapper", teamMapper);
-        ReflectionTestUtils.setField(teamResource, "teamSearchRepository", teamSearchRepository);
         this.restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource).setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -165,11 +160,11 @@ public class TeamResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(team.getId().intValue())))
-                .andExpect(jsonPath("$.[*].tag").value(hasItem(DEFAULT_TAG.toString())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-                .andExpect(jsonPath("$.[*].imageUrl").value(hasItem(DEFAULT_IMAGE_URL.toString())))
+                .andExpect(jsonPath("$.[*].tag").value(hasItem(DEFAULT_TAG)))
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+                .andExpect(jsonPath("$.[*].imageUrl").value(hasItem(DEFAULT_IMAGE_URL)))
                 .andExpect(jsonPath("$.[*].rank").value(hasItem(DEFAULT_RANK.toString())))
-                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
+                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
 
     @Test
@@ -183,11 +178,11 @@ public class TeamResourceTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(team.getId().intValue()))
-            .andExpect(jsonPath("$.tag").value(DEFAULT_TAG.toString()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.imageUrl").value(DEFAULT_IMAGE_URL.toString()))
+            .andExpect(jsonPath("$.tag").value(DEFAULT_TAG))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.imageUrl").value(DEFAULT_IMAGE_URL))
             .andExpect(jsonPath("$.rank").value(DEFAULT_RANK.toString()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
 
     @Test
@@ -212,7 +207,7 @@ public class TeamResourceTest {
         team.setImageUrl(UPDATED_IMAGE_URL);
         team.setRank(UPDATED_RANK);
         team.setDescription(UPDATED_DESCRIPTION);
-        
+
         TeamDTO teamDTO = teamMapper.teamToTeamDTO(team);
 
         restTeamMockMvc.perform(put("/api/teams")

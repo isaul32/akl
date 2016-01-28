@@ -1,11 +1,9 @@
 'use strict';
 
 angular.module('aklApp')
-    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector, localStorageService) {
+    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector) {
         return {
             responseError: function(response) {
-                // If we have an unauthorized request we redirect to the login page
-                // Don't do this check on the account API to avoid infinite loop
                 if (response.status == 401 && response.data.path !== undefined && response.data.path.indexOf("/api/account") == -1){
                     var Auth = $injector.get('Auth');
                     var $state = $injector.get('$state');

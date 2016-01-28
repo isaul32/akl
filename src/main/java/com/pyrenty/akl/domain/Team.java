@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import javax.persistence.CascadeType;
@@ -24,7 +23,6 @@ import com.pyrenty.akl.domain.enumeration.Rank;
 @Entity
 @Table(name = "TEAM")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName="team")
 public class Team implements Serializable {
 
     @Id
@@ -152,9 +150,8 @@ public class Team implements Serializable {
 
         Team team = (Team) o;
 
-        if ( ! Objects.equals(id, team.id)) return false;
+        return Objects.equals(id, team.id);
 
-        return true;
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.pyrenty.akl.web.rest;
 import com.pyrenty.akl.Application;
 import com.pyrenty.akl.domain.Text;
 import com.pyrenty.akl.repository.TextRepository;
-import com.pyrenty.akl.repository.search.TextSearchRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,9 +45,6 @@ public class TextResourceTest {
     private TextRepository textRepository;
 
     @Inject
-    private TextSearchRepository textSearchRepository;
-
-    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     private MockMvc restTextMockMvc;
@@ -60,7 +56,6 @@ public class TextResourceTest {
         MockitoAnnotations.initMocks(this);
         TextResource textResource = new TextResource();
         ReflectionTestUtils.setField(textResource, "textRepository", textRepository);
-        ReflectionTestUtils.setField(textResource, "textSearchRepository", textSearchRepository);
         this.restTextMockMvc = MockMvcBuilders.standaloneSetup(textResource).setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -84,7 +79,6 @@ public class TextResourceTest {
         // Validate the Text in the database
         List<Text> texts = textRepository.findAll();
         assertThat(texts).hasSize(databaseSizeBeforeCreate + 1);
-        Text testText = texts.get(texts.size() - 1);
     }
 
     @Test
@@ -130,7 +124,7 @@ public class TextResourceTest {
 		int databaseSizeBeforeUpdate = textRepository.findAll().size();
 
         // Update the text
-        
+
 
         restTextMockMvc.perform(put("/api/texts")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -140,7 +134,6 @@ public class TextResourceTest {
         // Validate the Text in the database
         List<Text> texts = textRepository.findAll();
         assertThat(texts).hasSize(databaseSizeBeforeUpdate);
-        Text testText = texts.get(texts.size() - 1);
     }
 
     @Test

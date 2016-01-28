@@ -2,10 +2,7 @@ package com.pyrenty.akl.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Team;
-import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.TeamRepository;
-import com.pyrenty.akl.repository.UserRepository;
-import com.pyrenty.akl.repository.search.TeamSearchRepository;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
 import com.pyrenty.akl.web.rest.dto.TeamDTO;
@@ -31,7 +28,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Team.
@@ -45,34 +41,9 @@ public class TeamResource {
     @Inject
     private TeamRepository teamRepository;
 
-    @Inject
-    private UserRepository userRepository;
 
     @Inject
     private TeamMapper teamMapper;
-
-    @Inject
-    private TeamSearchRepository teamSearchRepository;
-
-    // TODO: remove this testing
-    /*@RequestMapping(value = "/teams/{id}/captain}",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public ResponseEntity<Object> addCaptain(@PathVariable Long id) {
-
-        // Testing
-        Team team = teamRepository.findOne(id);
-        User user = userRepository.findOne(3L);
-        //team.setCaptain(user);
-
-        user.setCaptain(team);
-
-        userRepository.save(user);
-        //teamRepository.saveAndFlush(team);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }*/
 
     /**
      * POST  /teams -> Create a new team.
@@ -89,7 +60,6 @@ public class TeamResource {
         }
         Team team = teamMapper.teamDTOToTeam(teamDTO);
         Team result = teamRepository.save(team);
-        teamSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/teams/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert("team", result.getId().toString()))
                 .body(teamMapper.teamToTeamDTO(result));
@@ -110,7 +80,6 @@ public class TeamResource {
         }
         Team team = teamMapper.teamDTOToTeam(teamDTO);
         Team result = teamRepository.save(team);
-        teamSearchRepository.save(team);
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert("team", teamDTO.getId().toString()))
                 .body(teamMapper.teamToTeamDTO(result));
@@ -172,21 +141,7 @@ public class TeamResource {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.debug("REST request to delete Team : {}", id);
         teamRepository.delete(id);
-        teamSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("team", id.toString())).build();
     }
 
-    /**
-     * SEARCH  /_search/teams/:query -> search for the team corresponding
-     * to the query.
-     */
-    @RequestMapping(value = "/_search/teams/{query}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public List<Team> search(@PathVariable String query) {
-        return StreamSupport
-            .stream(teamSearchRepository.search(queryString(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 }

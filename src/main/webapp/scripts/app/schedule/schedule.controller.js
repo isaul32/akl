@@ -2,7 +2,7 @@
 
 angular.module('aklApp')
     .controller('ScheduleController', function ($scope) {
-        
+
         // Some test data
         var date = new Date();
         var d = date.getDate();

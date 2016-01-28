@@ -1,7 +1,6 @@
 package com.pyrenty.akl.security;
 
 import com.pyrenty.akl.domain.PersistentToken;
-import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import org.joda.time.LocalDate;

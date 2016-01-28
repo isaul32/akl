@@ -120,9 +120,8 @@ public class TeamDTO implements Serializable {
 
         TeamDTO teamDTO = (TeamDTO) o;
 
-        if ( ! Objects.equals(id, teamDTO.id)) return false;
+        return Objects.equals(id, teamDTO.id);
 
-        return true;
     }
 
     @Override

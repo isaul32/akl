@@ -110,22 +110,20 @@ public class AccountResource {
     @Timed
     public ResponseEntity<UserDTO> getAccount() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
-            .map(user -> {
-                return new ResponseEntity<>(
-                    new UserDTO(
-                        user.getLogin(),
-                        null,
-                        user.getFirstName(),
-                        user.getLastName(),
-                        user.getEmail(),
-                        user.isActivated(),
-                        user.getLangKey(),
-                        user.getCommunityId(),
-                        user.getSteamId(),
-                        user.getAuthorities().stream().map(Authority::getName)
-                            .collect(Collectors.toList())),
-                HttpStatus.OK);
-            })
+            .map(user -> new ResponseEntity<>(
+                new UserDTO(
+                    user.getLogin(),
+                    null,
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getEmail(),
+                    user.isActivated(),
+                    user.getLangKey(),
+                    user.getCommunityId(),
+                    user.getSteamId(),
+                    user.getAuthorities().stream().map(Authority::getName)
+                        .collect(Collectors.toList())),
+            HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
@@ -196,11 +194,10 @@ public class AccountResource {
     @Timed
     public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
         String decodedSeries = URLDecoder.decode(series, "UTF-8");
-        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
-            persistentTokenRepository.findByUser(u).stream()
-                .filter(persistentToken -> StringUtils.equals(persistentToken.getSeries(), decodedSeries))
-                .findAny().ifPresent(t -> persistentTokenRepository.delete(decodedSeries));
-        });
+        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(
+            u-> persistentTokenRepository.findByUser(u).stream()
+            .filter(persistentToken -> StringUtils.equals(persistentToken.getSeries(), decodedSeries))
+            .findAny().ifPresent(t -> persistentTokenRepository.delete(decodedSeries)));
     }
 
     @RequestMapping(value = "/account/reset_password/init",

@@ -1,17 +1,11 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('CkeditorCtrl', function ($scope, $rootScope, $translate, $element) {
+    .controller('CkeditorCtrl', function ($scope, $rootScope, $translate) {
         var lang = $translate.use();
         if (lang === undefined) {
             lang = 'en';
         }
-
-
-        var addBowerPlugin = function (name) {
-            CKEDITOR.plugins.addExternal(name,
-                '/bower_components/ckeditor-youtube-plugin/' + name + '/', 'plugin.js');
-        };
 
         var addCustomPlugin = function (name) {
             CKEDITOR.plugins.addExternal(name,
@@ -19,7 +13,6 @@ angular.module('aklApp')
         };
 
         // Load plugins from custom paths
-        addBowerPlugin('youtube');
         addCustomPlugin('autogrow');
         addCustomPlugin('widgetbootstrap');
         addCustomPlugin('base64image');
@@ -28,13 +21,14 @@ angular.module('aklApp')
         addCustomPlugin('ckwebspeech');
         addCustomPlugin('chart');
         addCustomPlugin('fontawesome');
+        addCustomPlugin('youtube');
 
         // Toolbar configs
         var toolbarGroups = [
             { name: 'clipboard', groups: ['clipboard', 'undo'] },
             { name: 'editing', groups: ['find', 'selection'] },
             { name: 'links' },
-            { name: 'insert' },
+            { name: 'insert'},
             { name: 'forms' },
             '/',
             { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
@@ -54,7 +48,7 @@ angular.module('aklApp')
             //skin: 'flat,/scripts/components/ckeditor/skins/flat/',
             //skin: 'minimalist,/scripts/components/ckeditor/skins/minimalist/',
             language: lang,
-            extraPlugins: 'youtube,autogrow,widgetbootstrap,base64image,inlinesave,inlinecancel,ckwebspeech,chart,fontawesome,justify,tableresize,colorbutton',
+            extraPlugins: 'autogrow,widgetbootstrap,base64image,inlinesave,inlinecancel,ckwebspeech,chart,fontawesome,justify,tableresize,colorbutton,youtube',
             toolbarGroups: toolbarGroups,
             disableNativeSpellChecker: true,
             allowedContent: true,

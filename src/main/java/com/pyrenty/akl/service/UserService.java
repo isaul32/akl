@@ -1,12 +1,10 @@
 package com.pyrenty.akl.service;
 
 import com.pyrenty.akl.domain.Authority;
-import com.pyrenty.akl.domain.PersistentToken;
 import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.AuthorityRepository;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.UserRepository;
-import com.pyrenty.akl.repository.search.UserSearchRepository;
 import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.util.RandomUtil;
 import org.joda.time.DateTime;
@@ -40,9 +38,6 @@ public class UserService {
     private UserRepository userRepository;
 
     @Inject
-    private UserSearchRepository userSearchRepository;
-
-    @Inject
     private PersistentTokenRepository persistentTokenRepository;
 
     @Inject
@@ -56,7 +51,6 @@ public class UserService {
                 user.setActivated(true);
                 user.setActivationKey(null);
                 userRepository.save(user);
-                userSearchRepository.save(user);
                 log.debug("Activated user: {}", user);
                 return user;
             });
@@ -82,7 +76,7 @@ public class UserService {
 
     public Optional<User> requestPasswordReset(String mail) {
        return userRepository.findOneByEmail(mail)
-           .filter(user -> user.isActivated() == true)
+           .filter(User::isActivated)
            .map(user -> {
                user.setResetKey(RandomUtil.generateResetKey());
                user.setResetDate(DateTime.now());
@@ -93,7 +87,6 @@ public class UserService {
 
     public User createUser(User newUser) {
         userRepository.save(newUser);
-        userSearchRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -119,7 +112,6 @@ public class UserService {
         authorities.add(authority);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
-        userSearchRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -131,7 +123,6 @@ public class UserService {
             u.setEmail(email);
             u.setLangKey(langKey);
             userRepository.save(u);
-            userSearchRepository.save(u);
             log.debug("Changed Information for User: {}", u);
         });
     }
@@ -141,7 +132,6 @@ public class UserService {
             u.setCommunityId(communityId);
             u.setSteamId(steamId);
             userRepository.save(u);
-            userSearchRepository.save(u);
             log.debug("Changed Steam Information for User: {}", u);
         });
     }
@@ -195,7 +185,6 @@ public class UserService {
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
-            userSearchRepository.delete(user);
         }
     }
 }

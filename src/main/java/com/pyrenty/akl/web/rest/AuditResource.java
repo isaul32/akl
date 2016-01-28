@@ -1,6 +1,5 @@
 package com.pyrenty.akl.web.rest;
 
-import com.pyrenty.akl.security.AuthoritiesConstants;
 import com.pyrenty.akl.service.AuditEventService;
 import com.pyrenty.akl.web.propertyeditors.LocaleDateTimeEditor;
 import org.joda.time.LocalDateTime;

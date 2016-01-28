@@ -3,7 +3,6 @@ package com.pyrenty.akl.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.LocalizedText;
 import com.pyrenty.akl.repository.LocalizedTextRepository;
-import com.pyrenty.akl.repository.search.LocalizedTextSearchRepository;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
 import com.pyrenty.akl.web.rest.dto.LocalizedTextDTO;
@@ -25,9 +24,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing LocalizedText.
@@ -44,9 +40,6 @@ public class LocalizedTextResource {
     @Inject
     private LocalizedTextMapper localizedTextMapper;
 
-    @Inject
-    private LocalizedTextSearchRepository localizedTextSearchRepository;
-
     /**
      * POST  /localizedTexts -> Create a new localizedText.
      */
@@ -61,7 +54,6 @@ public class LocalizedTextResource {
         }
         LocalizedText localizedText = localizedTextMapper.localizedTextDTOToLocalizedText(localizedTextDTO);
         LocalizedText result = localizedTextRepository.save(localizedText);
-        localizedTextSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/localizedTexts/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert("localizedText", result.getId().toString()))
                 .body(localizedTextMapper.localizedTextToLocalizedTextDTO(result));
@@ -81,7 +73,6 @@ public class LocalizedTextResource {
         }
         LocalizedText localizedText = localizedTextMapper.localizedTextDTOToLocalizedText(localizedTextDTO);
         LocalizedText result = localizedTextRepository.save(localizedText);
-        localizedTextSearchRepository.save(localizedText);
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert("localizedText", localizedTextDTO.getId().toString()))
                 .body(localizedTextMapper.localizedTextToLocalizedTextDTO(result));
@@ -132,21 +123,6 @@ public class LocalizedTextResource {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.debug("REST request to delete LocalizedText : {}", id);
         localizedTextRepository.delete(id);
-        localizedTextSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("localizedText", id.toString())).build();
-    }
-
-    /**
-     * SEARCH  /_search/localizedTexts/:query -> search for the localizedText corresponding
-     * to the query.
-     */
-    @RequestMapping(value = "/_search/localizedTexts/{query}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public List<LocalizedText> search(@PathVariable String query) {
-        return StreamSupport
-            .stream(localizedTextSearchRepository.search(queryString(query)).spliterator(), false)
-            .collect(Collectors.toList());
     }
 }

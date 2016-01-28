@@ -3,7 +3,6 @@ package com.pyrenty.akl.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,13 +17,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "TEXT")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName="text")
 public class Text implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
 
     @OneToMany(mappedBy = "text")
     @JsonIgnore
@@ -58,9 +56,8 @@ public class Text implements Serializable {
 
         Text text = (Text) o;
 
-        if ( ! Objects.equals(id, text.id)) return false;
+        return Objects.equals(id, text.id);
 
-        return true;
     }
 
     @Override

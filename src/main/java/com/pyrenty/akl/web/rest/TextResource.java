@@ -3,7 +3,6 @@ package com.pyrenty.akl.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Text;
 import com.pyrenty.akl.repository.TextRepository;
-import com.pyrenty.akl.repository.search.TextSearchRepository;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -23,7 +22,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+//import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Text.
@@ -37,8 +36,6 @@ public class TextResource {
     @Inject
     private TextRepository textRepository;
 
-    @Inject
-    private TextSearchRepository textSearchRepository;
 
     /**
      * POST  /texts -> Create a new text.
@@ -53,7 +50,6 @@ public class TextResource {
             return ResponseEntity.badRequest().header("Failure", "A new text cannot already have an ID").body(null);
         }
         Text result = textRepository.save(text);
-        textSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/texts/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert("text", result.getId().toString()))
                 .body(result);
@@ -72,7 +68,6 @@ public class TextResource {
             return create(text);
         }
         Text result = textRepository.save(text);
-        textSearchRepository.save(text);
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert("text", text.getId().toString()))
                 .body(result);
@@ -119,21 +114,7 @@ public class TextResource {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.debug("REST request to delete Text : {}", id);
         textRepository.delete(id);
-        textSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("text", id.toString())).build();
     }
 
-    /**
-     * SEARCH  /_search/texts/:query -> search for the text corresponding
-     * to the query.
-     */
-    @RequestMapping(value = "/_search/texts/{query}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public List<Text> search(@PathVariable String query) {
-        return StreamSupport
-            .stream(textSearchRepository.search(queryString(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 }

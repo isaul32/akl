@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -29,7 +31,6 @@
         <gatling.version>2.1.6</gatling.version>
         <hibernate.version>4.3.10.Final</hibernate.version>
         <hikaricp.version>2.4.0</hikaricp.version>
-        <jacoco-maven-plugin.version>0.7.4.201502262128</jacoco-maven-plugin.version>
         <java.version>1.8</java.version>
         <javax.inject.version>1</javax.inject.version>
         <joda-time-hibernate.version>1.4</joda-time-hibernate.version>
@@ -45,14 +46,10 @@
         <metrics-spark-reporter.version>1.2</metrics-spark-reporter.version>
         <metrics-spring.version>3.1.2</metrics-spring.version>
         <postgresql.version>9.4-1201-jdbc41</postgresql.version>
-        <!-- Sonar properties -->
         <project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
         <run.addResources>false</run.addResources>
         <sonar-maven-plugin.version>2.6</sonar-maven-plugin.version>
         <sonar.exclusions>src/main/webapp/assets/**/*.*, src/main/webapp/bower_components/**/*.*, src/main/webapp/dist/**/*.*</sonar.exclusions>
-        <sonar.jacoco.itReportPath>${project.testresult.directory}/coverage/jacoco/jacoco-it.exec</sonar.jacoco.itReportPath>
-        <sonar.jacoco.reportPath>${project.testresult.directory}/coverage/jacoco/jacoco.exec</sonar.jacoco.reportPath>
-        <sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
 
         <sonar.javascript.jstestdriver.reportsPath>${project.testresult.directory}/karma</sonar.javascript.jstestdriver.reportsPath>
         <sonar.javascript.lcov.reportPath>${project.testresult.directory}/coverage/report-lcov/lcov.info</sonar.javascript.lcov.reportPath>
@@ -67,16 +64,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.lukaspradel</groupId>
-            <artifactId>steam-web-api</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-openid</artifactId>
-            <version>${spring-security.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-hibernate4</artifactId>
@@ -111,6 +98,11 @@
             <artifactId>json-path</artifactId>
             <scope>test</scope>
             <!-- parent POM declares this dependency in default (compile) scope -->
+        </dependency>
+        <dependency>
+            <groupId>com.lukaspradel</groupId>
+            <artifactId>steam-web-api</artifactId>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>com.mattbertolini</groupId>
@@ -325,10 +317,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
@@ -389,6 +377,11 @@
             <artifactId>spring-security-messaging</artifactId>
             <version>${spring-security.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-openid</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <resources>
@@ -407,8 +400,8 @@
                 </excludes>
             </resource>
             <resource>
-                <directory>${project.basedir}/src/main/webapp</directory>
                 <filtering>true</filtering>
+                <directory>${project.basedir}/src/main/webapp</directory>
                 <excludes>
                     <exclude>**/*.woff</exclude>
                     <exclude>**/*.woff2</exclude>
@@ -488,23 +481,13 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <argLine>-Xmx256m ${surefireArgLine}</argLine>
-                    <!-- Force alphabetical order to have a reproducible build -->
-                    <runOrder>alphabetical</runOrder>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <packagingExcludes>WEB-INF/lib/tomcat-*.jar</packagingExcludes>
                     <webResources>
                         <resource>
                             <directory>${project.basedir}/src/main/webapp</directory>
-                            <targetPath />
-                            <filtering>true</filtering>
+                            <targetPath/>
                             <excludes>
                                 <exclude>**/*.woff</exclude>
                                 <exclude>**/*.woff2</exclude>
@@ -550,37 +533,7 @@
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>${sonar-maven-plugin.version}</version>
             </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>pre-unit-tests</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                            <!-- Sets the path to the file which contains the execution data. -->
-                            <destFile>${project.testresult.directory}/coverage/jacoco/jacoco.exec</destFile>
-                            <!-- Sets the name of the property containing the settings for JaCoCo runtime agent. -->
-                            <propertyName>surefireArgLine</propertyName>
-                        </configuration>
-                    </execution>
-                    <!-- Ensures that the code coverage report for unit tests is created after unit tests have been run -->
-                    <execution>
-                        <id>post-unit-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${project.testresult.directory}/coverage/jacoco/jacoco.exec</dataFile>
-                            <outputDirectory>${project.testresult.directory}/coverage/jacoco</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
@@ -635,7 +588,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <!-- log configuration -->
                 <logback.loglevel>DEBUG</logback.loglevel>
             </properties>
             <dependencies>
@@ -661,7 +613,6 @@
                 </plugins>
             </build>
             <properties>
-                <!-- log configuration -->
                 <logback.loglevel>DEBUG</logback.loglevel>
             </properties>
             <dependencies>
@@ -676,30 +627,66 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>com.github.trecloux</groupId>
-                        <artifactId>yeoman-maven-plugin</artifactId>
-                        <version>0.4</version>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>0.0.28</version>
                         <executions>
                             <execution>
-                                <id>run-frontend-build</id>
-                                <phase>generate-resources</phase>
+                                <id>install node and npm</id>
                                 <goals>
-                                    <goal>build</goal>
+                                    <goal>install-node-and-npm</goal>
                                 </goals>
                                 <configuration>
-                                    <buildTool>gulp</buildTool>
+                                    <nodeVersion>v4.3.0</nodeVersion>
+                                    <npmVersion>2.14.12</npmVersion>
                                 </configuration>
                             </execution>
+                            <execution>
+                                <id>npm install</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>install</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>bower install</id>
+                                <goals>
+                                    <goal>bower</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>install</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>gulp build</id>
+                                <goals>
+                                    <goal>gulp</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>build --no-color</arguments>
+                                </configuration>
+                            </execution>
+                            <!--<execution>
+                                <id>javascript tests</id>
+                                <goals>
+                                    <goal>karma</goal>
+                                </goals>
+                                <configuration>
+                                    <karmaConfPath>src/test/javascript/karma.conf.ci.js</karmaConfPath>
+                                </configuration>
+                            </execution>-->
                         </executions>
-                        <configuration>
-                            <yeomanProjectDirectory>${project.basedir}</yeomanProjectDirectory>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <artifactId>maven-clean-plugin</artifactId>
                         <version>2.5</version>
                         <configuration>
                             <filesets>
+                                <fileset>
+                                    <directory>src/main/webapp/bower_components</directory>
+                                </fileset>
                                 <fileset>
                                     <directory>src/main/webapp/dist</directory>
                                 </fileset>
@@ -724,7 +711,6 @@
                 </plugins>
             </build>
             <properties>
-                <!-- log configuration -->
                 <logback.loglevel>INFO</logback.loglevel>
             </properties>
             <dependencies>

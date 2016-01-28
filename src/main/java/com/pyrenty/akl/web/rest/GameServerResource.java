@@ -1,14 +1,11 @@
 package com.pyrenty.akl.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.pyrenty.akl.domain.GameServer;
 import com.pyrenty.akl.service.GameServerService;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import com.pyrenty.akl.web.rest.dto.GameServerDTO;
-import com.pyrenty.akl.web.rest.mapper.GameServerMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing GameServer.
@@ -38,8 +30,6 @@ public class GameServerResource {
     @Inject
     private GameServerService gameServerService;
 
-    @Inject
-    private GameServerMapper gameServerMapper;
 
     /**
      * POST  /gameServers -> Create a new gameServer.
@@ -120,16 +110,4 @@ public class GameServerResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("gameServer", id.toString())).build();
     }
 
-    /**
-     * SEARCH  /_search/gameServers/:query -> search for the gameServer corresponding
-     * to the query.
-     */
-    /*@RequestMapping(value = "/_search/gameServers/{query}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public List<GameServerDTO> searchGameServers(@PathVariable String query) {
-        log.debug("Request to search GameServers for query {}", query);
-        return gameServerService.search(query);
-    }*/
 }

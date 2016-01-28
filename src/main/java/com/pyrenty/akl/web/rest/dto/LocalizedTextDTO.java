@@ -51,9 +51,8 @@ public class LocalizedTextDTO implements Serializable {
 
         LocalizedTextDTO localizedTextDTO = (LocalizedTextDTO) o;
 
-        if ( ! Objects.equals(id, localizedTextDTO.id)) return false;
+        return Objects.equals(id, localizedTextDTO.id);
 
-        return true;
     }
 
     @Override

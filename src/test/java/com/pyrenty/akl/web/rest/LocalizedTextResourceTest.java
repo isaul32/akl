@@ -3,7 +3,6 @@ package com.pyrenty.akl.web.rest;
 import com.pyrenty.akl.Application;
 import com.pyrenty.akl.domain.LocalizedText;
 import com.pyrenty.akl.repository.LocalizedTextRepository;
-import com.pyrenty.akl.repository.search.LocalizedTextSearchRepository;
 import com.pyrenty.akl.web.rest.dto.LocalizedTextDTO;
 import com.pyrenty.akl.web.rest.mapper.LocalizedTextMapper;
 
@@ -56,8 +55,6 @@ public class LocalizedTextResourceTest {
     @Inject
     private LocalizedTextMapper localizedTextMapper;
 
-    @Inject
-    private LocalizedTextSearchRepository localizedTextSearchRepository;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -72,7 +69,6 @@ public class LocalizedTextResourceTest {
         LocalizedTextResource localizedTextResource = new LocalizedTextResource();
         ReflectionTestUtils.setField(localizedTextResource, "localizedTextRepository", localizedTextRepository);
         ReflectionTestUtils.setField(localizedTextResource, "localizedTextMapper", localizedTextMapper);
-        ReflectionTestUtils.setField(localizedTextResource, "localizedTextSearchRepository", localizedTextSearchRepository);
         this.restLocalizedTextMockMvc = MockMvcBuilders.standaloneSetup(localizedTextResource).setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -116,7 +112,7 @@ public class LocalizedTextResourceTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(localizedText.getId().intValue())))
                 .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())))
-                .andExpect(jsonPath("$.[*].text").value(hasItem(DEFAULT_TEXT.toString())));
+                .andExpect(jsonPath("$.[*].text").value(hasItem(DEFAULT_TEXT)));
     }
 
     @Test
@@ -131,7 +127,7 @@ public class LocalizedTextResourceTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(localizedText.getId().intValue()))
             .andExpect(jsonPath("$.language").value(DEFAULT_LANGUAGE.toString()))
-            .andExpect(jsonPath("$.text").value(DEFAULT_TEXT.toString()));
+            .andExpect(jsonPath("$.text").value(DEFAULT_TEXT));
     }
 
     @Test
@@ -153,7 +149,7 @@ public class LocalizedTextResourceTest {
         // Update the localizedText
         localizedText.setLanguage(UPDATED_LANGUAGE);
         localizedText.setText(UPDATED_TEXT);
-        
+
         LocalizedTextDTO localizedTextDTO = localizedTextMapper.localizedTextToLocalizedTextDTO(localizedText);
 
         restLocalizedTextMockMvc.perform(put("/api/localizedTexts")

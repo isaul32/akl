@@ -2,7 +2,7 @@
 
 angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ui.bootstrap', // for modal dialogs
-    'ngResource', 'ui.router', 'ngCookies', 'ngCacheBuster', 'ngFileUpload', 'infinite-scroll',
+    'ngResource', 'ui.router', 'ngCookies', 'ngCacheBuster', 'angularFileUpload',
     'ckeditor', 'ui.calendar'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Language, Auth, Principal, ENV, VERSION) {
@@ -102,9 +102,4 @@ angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprec
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
 
-        // use the HTML5 History API
-        /*$locationProvider.html5Mode({
-            enabled: true,
-            requireBase: false
-        });*/
     });

@@ -88,7 +88,6 @@ public class GameServerResourceIntTest {
         MockitoAnnotations.initMocks(this);
         GameServerResource gameServerResource = new GameServerResource();
         ReflectionTestUtils.setField(gameServerResource, "gameServerService", gameServerService);
-        ReflectionTestUtils.setField(gameServerResource, "gameServerMapper", gameServerMapper);
         this.restGameServerMockMvc = MockMvcBuilders.standaloneSetup(gameServerResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
