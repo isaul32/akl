@@ -42,6 +42,8 @@
   },
   "resolutions": {
     "jquery": "2.2.0",
-    "angular": "1.5.0"
+    "angular": "1.5.0",
+    "angular-translate": "2.9.1",
+    "angular-cookies": "1.5.0"
   }
 }
