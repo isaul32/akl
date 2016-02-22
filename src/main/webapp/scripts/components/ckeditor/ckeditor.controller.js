@@ -7,22 +7,6 @@ angular.module('aklApp')
             lang = 'en';
         }
 
-        var addCustomPlugin = function (name) {
-            CKEDITOR.plugins.addExternal(name,
-                '/scripts/components/ckeditor/plugins/' + name + '/', 'plugin.js');
-        };
-
-        // Load plugins from custom paths
-        addCustomPlugin('autogrow');
-        addCustomPlugin('widgetbootstrap');
-        addCustomPlugin('base64image');
-        addCustomPlugin('inlinesave');
-        addCustomPlugin('inlinecancel');
-        addCustomPlugin('ckwebspeech');
-        addCustomPlugin('chart');
-        addCustomPlugin('fontawesome');
-        addCustomPlugin('youtube');
-
         // Toolbar configs
         var toolbarGroups = [
             { name: 'clipboard', groups: ['clipboard', 'undo'] },

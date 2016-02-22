@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('TeamController', function ($scope, Team, TeamSearch, ParseLinks) {
+    .controller('TeamController', function ($scope, Team, ParseLinks) {
         $scope.teams = [];
         $scope.page = 1;
         $scope.loadAll = function() {
@@ -30,16 +30,6 @@ angular.module('aklApp')
                     $('#deleteTeamConfirmation').modal('hide');
                     $scope.clear();
                 });
-        };
-
-        $scope.search = function () {
-            TeamSearch.query({query: $scope.searchQuery}, function(result) {
-                $scope.teams = result;
-            }, function(response) {
-                if(response.status === 404) {
-                    $scope.loadAll();
-                }
-            });
         };
 
         $scope.refresh = function () {

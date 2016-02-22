@@ -656,7 +656,7 @@
                                     <goal>gulp</goal>
                                 </goals>
                                 <configuration>
-                                    <arguments>build --no-color</arguments>
+                                    <arguments>build</arguments>
                                 </configuration>
                             </execution>
                         </executions>

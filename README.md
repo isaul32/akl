@@ -4,9 +4,7 @@ Akateeminen Kynäriliiga
 # Install
 ```
 npm install -g gulp
-npm install -g bower
 npm install
-bower install
 mvn install
 cp .akl.properties ~/
 ```
@@ -21,7 +19,7 @@ gulp serve &
 Put all private configs to ~/.akl.properties file. 
 
 # Tools
-Maven 3, Node, NPM, Bower, Gulp, Jhipster...
+Maven 3, Node, NPM, Gulp, Jhipster...
 
 # Technologies
 

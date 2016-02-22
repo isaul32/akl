@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('TeamDetailController', function ($scope, $rootScope, $stateParams, entity, Team, User) {
+    .controller('TeamDetailController', function ($scope, $rootScope, $stateParams, entity, Team) {
         $scope.team = entity;
         $scope.load = function (id) {
             Team.get({id: id}, function(result) {
