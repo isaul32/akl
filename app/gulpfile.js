@@ -172,7 +172,13 @@ gulp.task('views', function() {
         .pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('assets', ['fonts', 'images', 'sass', 'ckeditor', 'i18n', 'swagger']);
+gulp.task('assets', ['fonts', 'images', 'sass', 'ckeditor', 'i18n', 'swagger'], function () {
+    return gulp.src([
+        config.app + 'favicon.ico',
+        config.app + 'robots.txt'
+    ])
+        .pipe(gulp.dest(config.dist));
+});
 
 gulp.task('fonts', function () {
     return gulp.src(['node_modules/bootstrap-sass/assets/fonts/**/*',
