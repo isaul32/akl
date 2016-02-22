@@ -172,7 +172,7 @@ gulp.task('views', function() {
         .pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('assets', ['fonts', 'images', 'sass', 'ckeditor', 'i18n', 'swagger'], function () {
+gulp.task('assets', ['fonts', 'images', 'sass', 'ckeditor', 'i18n'], function () {
     return gulp.src([
         config.app + 'favicon.ico',
         config.app + 'robots.txt'
@@ -209,11 +209,6 @@ gulp.task('i18n', function () {
             'node_modules/angular-i18n/angular-locale_fi.js',
             'node_modules/angular-i18n/angular-locale_en.js'])
         .pipe(gulp.dest(config.dist + 'i18n'));
-});
-
-gulp.task('swagger', function () {
-    return gulp.src('node_modules/swagger-ui/dist/**/*')
-        .pipe(gulp.dest(config.dist + 'swagger-ui'));
 });
 
 gulp.task('browserify', function () {
