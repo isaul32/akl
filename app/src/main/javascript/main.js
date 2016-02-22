@@ -27,7 +27,7 @@ require('angular-ui-bootstrap');
 require('angular-ui-calendar');
 require('angular-ui-router');
 require('angular-moment');
-require('../../../node_modules/angular-ckeditor/angular-ckeditor.min');
+require('../../../node_modules/angular-ckeditor/angular-ckeditor.min.js');
 require('restangular');
 
 // App

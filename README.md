@@ -4,22 +4,25 @@ Akateeminen Kynäriliiga
 # Install
 ```
 npm install -g gulp
-npm install
 mvn install
 cp .akl.properties ~/
 ```
-# Run development
+# Run backend development
 ```
-mvn spring-boot:run &
-gulp serve &
+cd service/
+mvn spring-boot:run
 ```
-
+# Run frontend development
+```
+cd app/
+gulp serve
+```
 
 # Private configs
 Put all private configs to ~/.akl.properties file. 
 
 # Tools
-Maven 3, Node, NPM, Gulp, Jhipster...
+Maven 3, Node, NPM, Gulp...
 
 # Technologies
 

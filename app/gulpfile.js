@@ -134,8 +134,8 @@ gulp.task('watch', function() {
 });
 
 var config = {
-    app: 'src/main/webapp/',
-    dist: 'src/main/webapp/dist/',
+    app: 'src/main/javascript/',
+    dist: 'target/dist/',
     scss: 'src/main/scss/',
     ckeditor: 'src/main/ckeditor/',
     port: 9000,
