@@ -3,7 +3,6 @@
 
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
-    usemin = require('gulp-usemin'),
     autoprefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
@@ -20,7 +19,7 @@ var gulp = require('gulp'),
     proxy = require('proxy-middleware'),
     flatten = require('gulp-flatten'),
     sequence = require('gulp-sequence'),
-    clean = require('gulp-clean'),
+    del = require('del'),
     url = require('url'),
     fs = require('fs');
 
@@ -143,11 +142,6 @@ var config = {
     apiPort: 8080
 };
 
-gulp.task('clean', function () {
-    return gulp.src(config.dist, {read: false})
-        .pipe(clean());
-});
-
 var bopts = {
     entries: [config.app + 'main.js'],
     cache: {},
@@ -167,6 +161,10 @@ function bundle() {
         .pipe(gulp.dest(config.dist + 'js'))
         .pipe(browserSync.reload({stream: true, once: true}));
 }
+
+gulp.task('clean', function () {
+    return del(config.dist);
+});
 
 gulp.task('views', function() {
     return gulp.src([config.app + '**/*.html', '!' + config.dist + '**/*.html'])
