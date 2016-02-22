@@ -1,24 +1,8 @@
 ######################
-# Project Specific
-######################
-/src/main/javascript/assets/styles/main.css
-/src/main/webapp/dist
-
-######################
 # Node
 ######################
-/node/**
-/node_modules/**
-
-######################
-# Bower
-######################
-/src/main/webapp/bower_components/**
-
-######################
-# SASS
-######################
-.sass-cache/**
+app/node/**
+app/node_modules/**
 
 ######################
 # Eclipse
@@ -66,11 +50,8 @@ local.properties
 ######################
 /log/**
 /target/**
-
-######################
-# Gradle
-######################
-.gradle/**
+app/target/**
+service/target/**
 
 ######################
 # Package Files
@@ -122,8 +103,3 @@ Desktop.ini
 *.*~
 *~
 .merge_file*
-
-######################
-# Gradle Wrapper
-######################
-!gradle/wrapper/gradle-wrapper.jar

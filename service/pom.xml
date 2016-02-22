@@ -453,12 +453,6 @@
                     <webResources>
                         <resource>
                             <directory>${project.basedir}/src/main/webapp</directory>
-                            <targetPath />
-                            <excludes>
-                                <exclude>**/*.woff</exclude>
-                                <exclude>**/*.woff2</exclude>
-                                <exclude>**/*.ttf</exclude>
-                            </excludes>
                         </resource>
                     </webResources>
                 </configuration>
