@@ -145,8 +145,8 @@ var config = {
 var bopts = {
     entries: [config.app + 'main.js'],
     cache: {},
-    packageCache: {},
-    plugin: [watchify] // Watch
+    packageCache: {}
+    //plugin: [watchify] // Watch
 };
 
 var b = browserify(bopts);
