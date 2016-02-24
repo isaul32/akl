@@ -1,13 +1,10 @@
 package com.pyrenty.akl.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 
@@ -23,11 +20,9 @@ public class Text implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String fi;
 
-    @OneToMany(mappedBy = "text")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<LocalizedText> localizedTexts = new HashSet<>();
+    private String en;
 
     public Long getId() {
         return id;
@@ -37,12 +32,20 @@ public class Text implements Serializable {
         this.id = id;
     }
 
-    public Set<LocalizedText> getLocalizedTexts() {
-        return localizedTexts;
+    public String getFi() {
+        return fi;
     }
 
-    public void setLocalizedTexts(Set<LocalizedText> localizedTexts) {
-        this.localizedTexts = localizedTexts;
+    public void setFi(String fi) {
+        this.fi = fi;
+    }
+
+    public String getEn() {
+        return en;
+    }
+
+    public void setEn(String en) {
+        this.en = en;
     }
 
     @Override

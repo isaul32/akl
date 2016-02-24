@@ -22,6 +22,8 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="fi" type="text"/>
+            <column name="en" type="text"/>
         </createTable>
         
     </changeSet>

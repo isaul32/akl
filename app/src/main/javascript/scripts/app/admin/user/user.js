@@ -13,7 +13,7 @@ angular.module('aklApp')
                 views: {
                     'content@': {
                         templateUrl: 'scripts/app/admin/user/user.html',
-                        controller: 'UserController'
+                        //controller: 'UserController'
                     }
                 },
                 resolve: {
