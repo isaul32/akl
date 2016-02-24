@@ -34,30 +34,6 @@ var config = {
     apiPort: 8080
 };
 
-var proxy = httpProxy.createProxyServer({
-    target: {
-        host: 'localhost',
-        port: 8080,
-        ws: true
-    }
-});
-var app = express();
-
-app.use(express.static(config.dist));
-
-app.all(/^\/api/, function(req, res) {
-    proxy.web(req, res);
-});
-
-app.get(/^\/websocket/, function(req, res) {
-    proxy.web(req, res);
-});
-
-http.createServer(app).listen(config.port)
-    .on('upgrade', function (req, socket, head) {
-        proxy.ws(req, socket, head);
-    });
-
 var bopts = {
     entries: [config.app + 'main.js'],
     cache: {},
@@ -67,7 +43,7 @@ var bopts = {
 
 var b = browserify(bopts);
 
-function bundle() {
+var bundle = function () {
     b.bundle()
         .on('error', gutil.log.bind(gutil, 'Browserify error'))
         .pipe(source('bundle.js'))
@@ -76,7 +52,7 @@ function bundle() {
         //.pipe(uglify())
         .pipe(gulp.dest(config.dist + 'js'))
         .pipe(browserSync.reload({stream: true, once: true}));
-}
+};
 
 gulp.task('clean', function () {
     return del(config.dist);
@@ -131,28 +107,32 @@ gulp.task('browserify', function () {
     return bundle();
 });
 
-gulp.task('browser-sync', function() {
-    /*browserSync({
-        server: {
-            baseDir: config.dist,
-            middleware: function (req, res, next) {
+gulp.task('dev', function () {
 
-                var pathname = url.parse(req.url).pathname;
+    var proxy = httpProxy.createProxyServer({
+        target: {
+            host: 'localhost',
+            port: 8080,
+            ws: true
+        }
+    });
 
-                if(pathname.match(/\/api/)) {
-                    proxy.web(req, res);
-                } else if (pathname.match(/\/websocket/)) {
-                    proxy.ws(req, res);
-                } else {
-                    next();
-                }
-            }
-        },
-        port: config.port,
-        open: false
-    }).on('upgrade', function (req, socket, head) {
-        proxy.ws(req, socket, head);
-    });*/
+    var app = express();
+
+    app.use(express.static(config.dist));
+
+    app.all(/^\/api/, function(req, res) {
+        proxy.web(req, res);
+    });
+
+    app.get(/^\/websocket/, function(req, res) {
+        proxy.web(req, res);
+    });
+
+    http.createServer(app).listen(config.port)
+        .on('upgrade', function (req, socket, head) {
+            proxy.ws(req, socket, head);
+        });
 });
 
 gulp.task('watch', function() {
@@ -162,7 +142,7 @@ gulp.task('watch', function() {
 
 gulp.task('build', sequence('clean', ['views', 'assets', 'browserify']));
 gulp.task('dist', ['build']);
-gulp.task('serve', sequence('build', ['browser-sync', 'watch']));
+gulp.task('serve', sequence('build', ['browser-sync', 'watch'], 'dev'));
 gulp.task('default', ['build']);
 
 b.on('update', bundle);
