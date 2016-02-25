@@ -9,7 +9,9 @@
     </parent>
 
     <artifactId>service</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
+
     <name>service</name>
 
     <properties>
