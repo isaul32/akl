@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp').controller('GameServerDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'GameServer',
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'GameServer',
         function($scope, $stateParams, $uibModalInstance, entity, GameServer) {
 
         $scope.gameServer = entity;

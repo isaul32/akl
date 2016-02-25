@@ -53,9 +53,9 @@ angular.module('aklApp')
                 parent: 'gameServer',
                 url: '/new',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_USER']
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $uibModal) {
+                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
                         templateUrl: 'scripts/app/entities/gameServer/gameServer-dialog.html',
                         controller: 'GameServerDialogController',
@@ -87,7 +87,7 @@ angular.module('aklApp')
                 data: {
                     authorities: ['ROLE_USER'],
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $uibModal) {
+                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
                         templateUrl: 'scripts/app/entities/gameServer/gameServer-dialog.html',
                         controller: 'GameServerDialogController',
@@ -110,8 +110,8 @@ angular.module('aklApp')
                 data: {
                     authorities: ['ROLE_USER'],
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
-                    $modal.open({
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
                         templateUrl: 'scripts/app/entities/gameServer/gameServer-delete-dialog.html',
                         controller: 'GameServerDeleteController',
                         size: 'md',
