@@ -136,13 +136,14 @@ gulp.task('dev', function () {
 });
 
 gulp.task('watch', function() {
+    gulp.watch(config.app + '**/*.js', ['browserify']);
     gulp.watch(config.scss + '**/*.scss', ['sass']);
     gulp.watch([config.app + '**/*.html', '!' + config.dist + '**/*.html'], ['views']);
 });
 
 gulp.task('build', sequence('clean', ['views', 'assets', 'browserify']));
 gulp.task('dist', ['build']);
-gulp.task('serve', sequence('build', ['browser-sync', 'watch'], 'dev'));
+gulp.task('serve', sequence('build', ['dev', 'watch']));
 gulp.task('default', ['build']);
 
 b.on('update', bundle);

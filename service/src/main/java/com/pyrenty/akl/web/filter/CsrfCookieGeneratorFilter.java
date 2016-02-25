@@ -31,6 +31,8 @@ public class CsrfCookieGeneratorFilter extends OncePerRequestFilter {
             cookie.setPath("/");
             response.addCookie(cookie);
         }
+
+
         filterChain.doFilter(request, response);
     }
 }
