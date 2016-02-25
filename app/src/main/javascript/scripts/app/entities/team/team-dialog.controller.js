@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('aklApp').controller('TeamDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Team', 'User',
-        function($scope, $stateParams, $modalInstance, entity, Team, User) {
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Team', 'User',
+        function($scope, $stateParams, $uibModalInstance, entity, Team, User) {
 
         $scope.team = entity;
         $scope.users = User.query();
@@ -14,7 +14,7 @@ angular.module('aklApp').controller('TeamDialogController',
 
         var onSaveFinished = function (result) {
             $scope.$emit('aklApp:teamUpdate', result);
-            $modalInstance.close(result);
+            $uibModalInstance.close(result);
         };
 
         $scope.save = function () {
@@ -26,6 +26,6 @@ angular.module('aklApp').controller('TeamDialogController',
         };
 
         $scope.clear = function() {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
         };
 }]);

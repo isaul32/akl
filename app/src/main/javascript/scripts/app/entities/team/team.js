@@ -55,8 +55,8 @@ angular.module('aklApp')
                 data: {
                     roles: ['ROLE_USER']
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
-                    $modal.open({
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
                         templateUrl: 'scripts/app/entities/team/team-dialog.html',
                         controller: 'TeamDialogController',
                         size: 'lg',
@@ -78,8 +78,8 @@ angular.module('aklApp')
                 data: {
                     roles: ['ROLE_USER']
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
-                    $modal.open({
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
                         templateUrl: 'scripts/app/entities/team/team-dialog.html',
                         controller: 'TeamDialogController',
                         size: 'lg',

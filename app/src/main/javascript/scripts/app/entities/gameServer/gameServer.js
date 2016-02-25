@@ -55,8 +55,8 @@ angular.module('aklApp')
                 data: {
                     authorities: ['ROLE_USER'],
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
-                    $modal.open({
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
                         templateUrl: 'scripts/app/entities/gameServer/gameServer-dialog.html',
                         controller: 'GameServerDialogController',
                         size: 'lg',
@@ -87,8 +87,8 @@ angular.module('aklApp')
                 data: {
                     authorities: ['ROLE_USER'],
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
-                    $modal.open({
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
                         templateUrl: 'scripts/app/entities/gameServer/gameServer-dialog.html',
                         controller: 'GameServerDialogController',
                         size: 'lg',

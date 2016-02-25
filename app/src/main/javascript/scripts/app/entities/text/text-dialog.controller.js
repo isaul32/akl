@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('aklApp').controller('TextDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Text', 'LocalizedText',
-        function($scope, $stateParams, $modalInstance, entity, Text, LocalizedText) {
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Text', 'LocalizedText',
+        function($scope, $stateParams, $uibModalInstance, entity, Text, LocalizedText) {
 
         $scope.text = entity;
         $scope.localizedtexts = LocalizedText.query();
@@ -14,7 +14,7 @@ angular.module('aklApp').controller('TextDialogController',
 
         var onSaveFinished = function (result) {
             $scope.$emit('aklApp:textUpdate', result);
-            $modalInstance.close(result);
+            $uibModalInstance.close(result);
         };
 
         $scope.save = function () {
@@ -26,6 +26,6 @@ angular.module('aklApp').controller('TextDialogController',
         };
 
         $scope.clear = function() {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
         };
 }]);

@@ -108,15 +108,38 @@ gulp.task('browserify', function () {
 });
 
 gulp.task('dev', function () {
+    var proxy;
+    var startProxy = function () {
+        proxy = httpProxy.createProxyServer({
+            target: {
+                host: 'localhost',
+                port: 8080,
+                ws: true
+            }
+        });
+    };
 
-    var proxy = httpProxy.createProxyServer({
-        target: {
-            host: 'localhost',
-            port: 8080,
-            ws: true
-        }
+    startProxy();
+
+    proxy.on('error', function (err, req, res) {
+        // Try reconnect
+        console.log('Proxy cannot connect to API. Please start API service.');
+        proxy.close();
     });
 
+    // Websocket events
+    proxy.on('open', function (proxySocket) {
+        console.log('WS Client connected');
+
+        proxySocket.on('data', function (msg) {
+            console.log(msg);
+        });
+    });
+    proxy.on('close', function (res, socket, head) {
+        console.log('WS Client disconnected');
+    });
+
+    // App server
     var app = express();
 
     app.use(express.static(config.dist));
@@ -125,7 +148,41 @@ gulp.task('dev', function () {
         proxy.web(req, res);
     });
 
+    app.all(/^\/health/, function(req, res) {
+        proxy.web(req, res);
+    });
+
+    app.all(/^\/configprops/, function(req, res) {
+        proxy.web(req, res);
+    });
+
+    app.all(/^\/v2\/api-docs/, function(req, res) {
+        proxy.web(req, res);
+    });
+
+    app.all(/^\/swagger-ui/, function(req, res) {
+        // /swagger-ui -> /
+        req.url =
+            '/' + req.url
+                .split("/")
+                .slice(2, req.url.split("/").length)
+                .join("/");
+
+        proxy.web(req, res);
+    });
+
+    app.all(/^\/metrics/, function(req, res) {
+        proxy.web(req, res);
+    });
     app.get(/^\/websocket/, function(req, res) {
+        proxy.web(req, res);
+    });
+
+    app.all(/^\/dump/, function(req, res) {
+        proxy.web(req, res);
+    });
+
+    app.all(/^\/console/, function(req, res) {
         proxy.web(req, res);
     });
 

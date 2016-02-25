@@ -1,5 +1,8 @@
 'use strict';
 
+// Must declare
+CKEDITOR.basePath = '/ckeditor/';
+
 // Vendor libs
 global.jQuery = require('jquery');
 global.$ = require('jquery');

@@ -51,10 +51,10 @@ angular.module('aklApp')
                 parent: 'text',
                 url: '/new',
                 data: {
-                    roles: ['ROLE_USER'],
+                    roles: ['ROLE_USER']
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
-                    $modal.open({
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
                         templateUrl: 'scripts/app/entities/text/text-dialog.html',
                         controller: 'TextDialogController',
                         size: 'lg',
@@ -76,8 +76,8 @@ angular.module('aklApp')
                 data: {
                     roles: ['ROLE_USER'],
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
-                    $modal.open({
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
                         templateUrl: 'scripts/app/entities/text/text-dialog.html',
                         controller: 'TextDialogController',
                         size: 'lg',

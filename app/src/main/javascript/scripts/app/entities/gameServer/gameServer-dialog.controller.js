@@ -2,7 +2,7 @@
 
 angular.module('aklApp').controller('GameServerDialogController',
     ['$scope', '$stateParams', '$modalInstance', 'entity', 'GameServer',
-        function($scope, $stateParams, $modalInstance, entity, GameServer) {
+        function($scope, $stateParams, $uibModalInstance, entity, GameServer) {
 
         $scope.gameServer = entity;
         $scope.load = function(id) {
@@ -13,7 +13,7 @@ angular.module('aklApp').controller('GameServerDialogController',
 
         var onSaveSuccess = function (result) {
             $scope.$emit('aklApp:gameServerUpdate', result);
-            $modalInstance.close(result);
+            $uibModalInstance.close(result);
             $scope.isSaving = false;
         };
 
@@ -31,6 +31,6 @@ angular.module('aklApp').controller('GameServerDialogController',
         };
 
         $scope.clear = function() {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
         };
 }]);
