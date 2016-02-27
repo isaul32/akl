@@ -14,7 +14,6 @@ spring:
         serverName: localhost
         username: akl
         password:
-
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQL82Dialect
         database: POSTGRESQL
@@ -29,11 +28,6 @@ spring:
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: false
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
-
-#    data:
-#        elasticsearch:
-#            cluster-name: akl
-#            cluster-nodes: localhost:9200
     thymeleaf:
         mode: XHTML
         cache: true
