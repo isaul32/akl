@@ -15,7 +15,6 @@ var gulp = require('gulp'),
     watchify = require('watchify'),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
-    browserSync = require('browser-sync'),
     flatten = require('gulp-flatten'),
     sequence = require('gulp-sequence'),
     del = require('del'),
@@ -50,8 +49,7 @@ var bundle = function () {
         .pipe(ngAnnotate())
         //.pipe(buffer())
         //.pipe(uglify())
-        .pipe(gulp.dest(config.dist + 'js'))
-        .pipe(browserSync.reload({stream: true, once: true}));
+        .pipe(gulp.dest(config.dist + 'js'));
 };
 
 gulp.task('clean', function () {
@@ -60,8 +58,7 @@ gulp.task('clean', function () {
 
 gulp.task('views', function() {
     return gulp.src([config.app + '**/*.html', '!' + config.dist + '**/*.html'])
-        .pipe(gulp.dest(config.dist))
-        .pipe(browserSync.reload({stream: true}));
+        .pipe(gulp.dest(config.dist));
 });
 
 gulp.task('assets', ['fonts', 'images', 'sass', 'ckeditor', 'i18n'], function () {
@@ -86,8 +83,7 @@ gulp.task('images', function () {
 gulp.task('sass', function () {
     return gulp.src(config.scss + 'main.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest(config.dist + 'css'))
-        .pipe(browserSync.reload({stream: true}));
+        .pipe(gulp.dest(config.dist + 'css'));
 });
 
 gulp.task('ckeditor', function () {
@@ -108,18 +104,13 @@ gulp.task('browserify', function () {
 });
 
 gulp.task('dev', function () {
-    var proxy;
-    var startProxy = function () {
-        proxy = httpProxy.createProxyServer({
-            target: {
-                host: 'localhost',
-                port: 8080,
-                ws: true
-            }
-        });
-    };
-
-    startProxy();
+    var proxy = httpProxy.createProxyServer({
+        target: {
+            host: 'localhost',
+            port: 8080,
+            ws: true
+        }
+    });
 
     proxy.on('error', function (err, req, res) {
         // Try reconnect
