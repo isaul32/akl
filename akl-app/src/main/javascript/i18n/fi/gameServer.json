@@ -1,0 +1,27 @@
+{
+    "aklApp": {
+        "gameServer" : {
+            "home": {
+                "title": "GameServers",
+                "createLabel": "Create a new GameServer",
+                "createOrEditLabel": "Create or edit a GameServer"
+            },
+            "created": "A new GameServer is created with identifier {{ param }}",
+            "updated": "A GameServer is updated with identifier {{ param }}",
+            "deleted": "A GameServer is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete GameServer {{ id }}?"
+            },
+            "detail": {
+                "title": "GameServer"
+            },
+            "name": "Name",
+            "server_ip": "Server_ip",
+            "rcon_ip": "Rcon_ip",
+            "rcon_password": "Rcon_password",
+            "server_port": "Server_port",
+            "rcon_port": "Rcon_port",
+            "state": "State"
+        }
+    }
+}

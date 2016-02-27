@@ -14,8 +14,8 @@
         <maven>3.0.0</maven>
     </prerequisites>
     <modules>
-        <module>app</module>
-        <module>service</module>
+        <module>akl-app</module>
+        <module>akl-service</module>
     </modules>
 
     <properties>

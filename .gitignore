@@ -1,8 +1,8 @@
 ######################
 # Node
 ######################
-app/node/**
-app/node_modules/**
+akl-app/node/**
+akl-app/node_modules/**
 
 ######################
 # Eclipse
@@ -50,8 +50,8 @@ local.properties
 ######################
 /log/**
 /target/**
-app/target/**
-service/target/**
+akl-app/target/**
+akl-service/target/**
 
 ######################
 # Package Files

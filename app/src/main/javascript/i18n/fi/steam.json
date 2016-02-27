@@ -1,8 +1,0 @@
-{
-    "steam": {
-        "title": "Steam asetukset käyttäjälle <b>{{username}}</b>",
-        "communityId": "Steam Community ID",
-        "steamId": "Steam ID",
-        "change": "Vaihda liitetty Steam käyttäjä"
-    }
-}

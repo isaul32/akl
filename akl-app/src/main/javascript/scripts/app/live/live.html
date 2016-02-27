@@ -1,0 +1,41 @@
+<div class="live-container">
+    <div id="live-right" class="live-right">
+        <iframe id="twitch-chat" frameborder="0" scrolling="no" height="500px"></iframe>
+    </div>
+    <div class="live-left">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="twitch-container">
+                        <div class="embed-container">
+                            <iframe id="embed-iframe" frameborder="0" allowFullScreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $.ajax({
+            url: 'https://api.twitch.tv/kraken/streams?limit=1&game=Counter-Strike:%20Global%20Offensive',
+            success: function (result) {
+                var user = result.streams[0].channel.name;
+                $('#twitch-chat').attr('src', 'http://twitch.tv/' + user + '/chat?popout=');
+                $('#embed-iframe').attr('src', 'http://player.twitch.tv/?channel=' + user + '&autoplay=true&volume=0.50');
+            }
+        });
+
+        var resize = function () {
+            console.log($('#live-right').css('color'));
+            // Hack to check mobile size screen
+            if ($('#live-right').css('color') !== 'rgb(0, 0, 0)') {
+                $('#twitch-chat').css('height', $('#twitch-container').height() + 'px');
+            } else {
+                $('#twitch-chat').height('500px');
+            }
+        };
+
+        $('#embed-iframe').load(function () { resize(); });
+        $(window).resize(function () { resize(); });
+    </script>
+</div>

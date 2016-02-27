@@ -1,0 +1,19 @@
+{
+    "login": {
+        "title": "Kirjautuminen",
+        "form": {
+            "password": "Salasana",
+            "password.placeholder": "Salasanasi",
+            "rememberme": "Muista minut",
+            "button": "Kirjaudu"
+        },
+        "messages": {
+            "error": {
+                "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again."
+            }
+        },
+        "password" : {
+            "forgot": "Did you forget your password?"
+        }
+    }
+}

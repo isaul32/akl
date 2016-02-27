@@ -1,0 +1,26 @@
+{
+    "aklApp": {
+        "Rank" : {
+            "SELECT": "{VALUE, select, s1{s1} s2{s2} s3{s3} s4{s4} se{se} sem{sem} gn1{gn1} gn2{gn2} gn3{gn3} gn4{gn4} gnm{gnm} mg1{mg1} mg2{mg2} mge{mge} dmg{dmg} le{le} lem{lem} smfc{smfc} ge{ge} other{}}",
+            "s1": "Silver I",
+            "s2": "Silver II",
+            "s3": "Silver III",
+            "s4": "Silver IV",
+            "se": "Silver 1 Elite",
+            "sem": "Silver 1 Elite Maste",
+            "gn1": "Gold Nova I",
+            "gn2": "Gold Nova II",
+            "gn3": "Gold Nova III",
+            "gn4": "Gold Nova IV",
+            "gnm": "Gold Nova Master",
+            "mg1": "Master Guardian I",
+            "mg2": "Master Guardian II",
+            "mge": "Master Guardian Elite",
+            "dmg": "Distinguished Master Guardian",
+            "le": "Legenrady Eagle",
+            "lem": "Legenrady Eagle Master",
+            "smfc": "Supreme Master First Class",
+            "ge": "The Global Elite"
+        }
+    }
+}

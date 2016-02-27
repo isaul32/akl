@@ -1,9 +1,0 @@
-{
-    "aklApp": {
-        "Language" : {
-            "SELECT": "{VALUE, select, fi{fi} en{en} other{}}",
-            "fi": "fi",
-            "en": "en"
-        }
-    }
-}

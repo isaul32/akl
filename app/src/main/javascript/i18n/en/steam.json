@@ -1,8 +1,0 @@
-{
-    "steam": {
-        "title": "Steam settings for <b>{{username}}</b>",
-        "communityId": "Steam Community ID",
-        "steamId": "Steam ID",
-        "change": "Change Steam user"
-    }
-}
