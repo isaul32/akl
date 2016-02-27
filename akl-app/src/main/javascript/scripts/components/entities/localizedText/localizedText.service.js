@@ -2,7 +2,7 @@
 
 angular.module('aklApp')
     .factory('LocalizedText', function ($resource, DateUtils) {
-        return $resource('api/localizedTexts/:id', {}, {
+        return $resource('/api/localizedTexts/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

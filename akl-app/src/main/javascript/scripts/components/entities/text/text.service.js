@@ -2,7 +2,7 @@
 
 angular.module('aklApp')
     .factory('Text', function ($resource, DateUtils) {
-        return $resource('api/texts/:id', {}, {
+        return $resource('/api/texts/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

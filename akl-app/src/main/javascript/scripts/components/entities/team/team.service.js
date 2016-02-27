@@ -2,7 +2,7 @@
 
 angular.module('aklApp')
     .factory('Team', function ($resource, DateUtils) {
-        return $resource('api/teams/:id', {}, {
+        return $resource('/api/teams/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
