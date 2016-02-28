@@ -2,7 +2,7 @@
 
 angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ui.bootstrap', 'ngResource', 'ui.router', 'ngCookies', 'angularFileUpload',
-    'angularMoment', 'ui.calendar', 'ckeditor'])
+    'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate,
                    Language, Auth, Principal, amMoment, ENV, VERSION) {

@@ -4,6 +4,7 @@
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
     autoprefixer = require('gulp-autoprefixer'),
+    templatecache = require('gulp-angular-templatecache'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     sass = require('gulp-sass'),
@@ -57,8 +58,12 @@ gulp.task('clean', function () {
 });
 
 gulp.task('views', function() {
-    return gulp.src([config.app + '**/*.html', '!' + config.dist + '**/*.html'])
+    gulp.src([config.app + 'index.html', config.app + '404.html'])
         .pipe(gulp.dest(config.dist));
+
+    return gulp.src([config.app + '**/*.html', '!' + config.dist + '**/*.html'])
+        .pipe(templatecache('templates.js', { module:'templateCache', standalone:true }))
+        .pipe(gulp.dest(config.dist + 'js'));
 });
 
 gulp.task('assets', ['fonts', 'images', 'sass', 'ckeditor', 'i18n'], function () {
