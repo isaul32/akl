@@ -1,7 +1,7 @@
 'use strict';
 
 require('../../../node_modules/ckeditor/ckeditor');
-CKEDITOR.basePath = '/ckeditor/'; // Must declare
+CKEDITOR.basePath = '/akl-app/ckeditor/'; // Must declare
 
 // Vendor libs
 global.jQuery = require('jquery');

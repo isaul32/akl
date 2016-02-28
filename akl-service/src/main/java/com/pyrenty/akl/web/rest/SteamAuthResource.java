@@ -10,4 +10,9 @@ public class SteamAuthResource {
     public String login() {
         return "login";
     }
+
+    @RequestMapping("/return")
+    public String returnBack() {
+        return "return";
+    }
 }

@@ -17,27 +17,28 @@ angular.module('aklApp')
         }
         return {
             connect: function () {
-                //building absolute path so that websocket doesnt fail when deploying with a context path
-                var loc = window.location;
-                //var url = '//' + loc.host + loc.pathname + 'websocket/tracker';
-                var url = '//' + loc.host + SERVICE_PATH + '/websocket/tracker';
-                var socket = new SockJS(url);
-                stompClient = Stomp.over(socket);
-                // Disable debug logging
-                stompClient.debug = null;
+                if (!stompClient) {
+                    var loc = window.location;
+                    //var url = '//' + loc.host + loc.pathname + 'websocket/tracker';
+                    var url = '//' + loc.host + SERVICE_PATH + '/websocket/tracker';
+                    var socket = new SockJS(url);
+                    stompClient = Stomp.over(socket);
+                    // Disable debug logging
+                    stompClient.debug = null;
 
-                var headers = {};
-                headers['X-CSRF-TOKEN'] = $cookies[$http.defaults.xsrfCookieName];
-                stompClient.connect(headers, function(frame) {
-                    connected.resolve("success");
-                    sendActivity();
-                    if (!alreadyConnectedOnce) {
-                        $rootScope.$on('$stateChangeStart', function (event) {
-                            sendActivity();
-                        });
-                        alreadyConnectedOnce = true;
-                    }
-                });
+                    var headers = {};
+                    headers['X-CSRF-TOKEN'] = $cookies[$http.defaults.xsrfCookieName];
+                    stompClient.connect(headers, function(frame) {
+                        connected.resolve("success");
+                        sendActivity();
+                        if (!alreadyConnectedOnce) {
+                            $rootScope.$on('$stateChangeStart', function (event) {
+                                sendActivity();
+                            });
+                            alreadyConnectedOnce = true;
+                        }
+                    });
+                }
             },
             subscribe: function() {
                 connected.promise.then(function() {
