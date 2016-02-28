@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('aklApp')
-    .factory('GameServer', function ($resource, DateUtils) {
-        return $resource('/api/gameServers/:id', {}, {
+    .factory('GameServer', function ($resource, DateUtils, API_URL) {
+        return $resource(API_URL + '/gameServers/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

@@ -117,7 +117,7 @@ gulp.task('dev', function () {
         }
     });
 
-    proxy.on('error', function (err, req, res) {
+    proxy.on('error', function () {
         // Try reconnect
         console.log('Proxy cannot connect to API. Please start API service.');
         proxy.close();
@@ -131,7 +131,7 @@ gulp.task('dev', function () {
             console.log(msg);
         });
     });
-    proxy.on('close', function (res, socket, head) {
+    proxy.on('close', function () {
         console.log('WS Client disconnected');
     });
 
@@ -140,7 +140,11 @@ gulp.task('dev', function () {
 
     app.use(express.static(config.dist));
 
-    app.all(/^\/api/, function(req, res) {
+    app.all(/^\/akl-service/, function(req, res) {
+        proxy.web(req, res);
+    });
+
+    /*app.all(/^\/api/, function(req, res) {
         proxy.web(req, res);
     });
 
@@ -180,7 +184,7 @@ gulp.task('dev', function () {
 
     app.all(/^\/console/, function(req, res) {
         proxy.web(req, res);
-    });
+    });*/
 
     http.createServer(app).listen(config.port)
         .on('upgrade', function (req, socket, head) {

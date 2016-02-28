@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('aklApp')
-    .factory('Team', function ($resource, DateUtils) {
-        return $resource('/api/teams/:id', {}, {
+    .factory('Team', function ($resource, DateUtils, API_URL) {
+        return $resource(API_URL + '/teams/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

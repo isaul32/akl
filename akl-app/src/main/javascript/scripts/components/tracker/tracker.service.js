@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .factory('Tracker', function ($rootScope, $cookies, $http, $q) {
+    .factory('Tracker', function ($rootScope, $cookies, $http, $q, SERVICE_PATH) {
         var stompClient = null;
         var subscriber = null;
         var listener = $q.defer();
@@ -20,7 +20,7 @@ angular.module('aklApp')
                 //building absolute path so that websocket doesnt fail when deploying with a context path
                 var loc = window.location;
                 //var url = '//' + loc.host + loc.pathname + 'websocket/tracker';
-                var url = '//' + loc.host + '/websocket/tracker';
+                var url = '//' + loc.host + SERVICE_PATH + '/websocket/tracker';
                 var socket = new SockJS(url);
                 stompClient = Stomp.over(socket);
                 // Disable debug logging

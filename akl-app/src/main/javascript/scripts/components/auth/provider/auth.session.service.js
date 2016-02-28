@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('aklApp')
-    .factory('AuthServerProvider', function loginService($http, localStorageService, $window, Tracker) {
+    .factory('AuthServerProvider', function loginService($http, localStorageService, $window, Tracker, API_URL) {
         return {
             login: function(credentials) {
                 var data = 'j_username=' + encodeURIComponent(credentials.username) +
                     '&j_password=' + encodeURIComponent(credentials.password) +
                     '&remember-me=' + credentials.rememberMe + '&submit=Login';
-                return $http.post('/api/authentication', data, {
+                return $http.post(API_URL + '/authentication', data, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
@@ -17,11 +17,12 @@ angular.module('aklApp')
             },
             logout: function() {
                 Tracker.disconnect();
+
                 // logout from the server
-                $http.post('/api/logout').success(function (response) {
+                $http.post(API_URL + '/logout').success(function (response) {
                     localStorageService.clearAll();
                     // to get a new csrf token call the api
-                    $http.get('/api/account');
+                    $http.get(API_URL + '/account');
                     return response;
                 });
             },

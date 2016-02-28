@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('NavbarController', function ($rootScope, $scope, $location, $state, Auth, Principal, ENV, $http) {
+    .controller('NavbarController', function ($rootScope, $scope, $location, $state, Auth, Principal, ENV, $http, API_URL) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.$state = $state;
         $scope.inProduction = ENV === 'prod';
@@ -11,7 +11,7 @@ angular.module('aklApp')
                 $scope.account = account;
 
                 if ($scope.isAuthenticated() && $scope.account.communityId !== null) {
-                    $http.get('api/steam/user/' + $scope.account.communityId).success(function (data) {
+                    $http.get(API_URL + '/steam/user/' + $scope.account.communityId).success(function (data) {
                         $scope.steamUser = data;
                     });
                 }

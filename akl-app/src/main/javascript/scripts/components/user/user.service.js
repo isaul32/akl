@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('aklApp')
-    .factory('User', function ($resource) {
-        return $resource('/api/users/:login', {}, {
+    .factory('User', function ($resource, API_URL) {
+        return $resource(API_URL + '/users/:login', {}, {
                 'query': {method: 'GET', isArray: true},
                 'get': {
                     method: 'GET',

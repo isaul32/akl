@@ -3,7 +3,6 @@
 angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ui.bootstrap', 'ngResource', 'ui.router', 'ngCookies', 'angularFileUpload',
     'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache'])
-
     .run(function ($rootScope, $location, $window, $http, $state, $translate,
                    Language, Auth, Principal, amMoment, ENV, VERSION) {
         $rootScope.ENV = ENV;
@@ -102,5 +101,9 @@ angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprec
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
 
     })
-    .constant("ENV", "dev")
-    .constant("VERSION", "0.0.1-SNAPSHOT");
+    .constant('ENV', 'dev')
+    .constant('VERSION', '0.0.1-SNAPSHOT')
+    .constant('SERVICE_URL', window.location.origin + '/akl-service')
+    .constant('SERVICE_PATH', '/akl-service')
+    .constant('API_URL', window.location.origin + '/akl-service' + '/api')
+    .constant('API_PATH', '/akl-service' + '/api');

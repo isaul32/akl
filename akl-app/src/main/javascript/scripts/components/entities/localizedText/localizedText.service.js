@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('aklApp')
-    .factory('LocalizedText', function ($resource, DateUtils) {
-        return $resource('/api/localizedTexts/:id', {}, {
+    .factory('LocalizedText', function ($resource, DateUtils, API_URL) {
+        return $resource(API_URL + '/localizedTexts/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
