@@ -1,7 +1,7 @@
 package com.pyrenty.akl.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.pyrenty.akl.domain.User;
+import com.pyrenty.akl.domain.user.User;
 import com.pyrenty.akl.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

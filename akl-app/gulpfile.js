@@ -148,48 +148,6 @@ gulp.task('dev', function () {
         proxy.web(req, res);
     });
 
-    /*app.all(/^\/api/, function(req, res) {
-        proxy.web(req, res);
-    });
-
-    app.all(/^\/health/, function(req, res) {
-        proxy.web(req, res);
-    });
-
-    app.all(/^\/configprops/, function(req, res) {
-        proxy.web(req, res);
-    });
-
-    app.all(/^\/v2\/api-docs/, function(req, res) {
-        proxy.web(req, res);
-    });
-
-    app.all(/^\/swagger-ui/, function(req, res) {
-        // /swagger-ui -> /
-        req.url =
-            '/' + req.url
-                .split("/")
-                .slice(2, req.url.split("/").length)
-                .join("/");
-
-        proxy.web(req, res);
-    });
-
-    app.all(/^\/metrics/, function(req, res) {
-        proxy.web(req, res);
-    });
-    app.get(/^\/websocket/, function(req, res) {
-        proxy.web(req, res);
-    });
-
-    app.all(/^\/dump/, function(req, res) {
-        proxy.web(req, res);
-    });
-
-    app.all(/^\/console/, function(req, res) {
-        proxy.web(req, res);
-    });*/
-
     http.createServer(app).listen(config.port)
         .on('upgrade', function (req, socket, head) {
             proxy.ws(req, socket, head);

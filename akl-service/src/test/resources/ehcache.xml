@@ -12,7 +12,7 @@
             overflowToDisk="false"
             />
 
-    <cache name="com.pyrenty.akl.domain.User"
+    <cache name="com.pyrenty.akl.domain.user.User"
            timeToLiveSeconds="3600">
     </cache>
 
@@ -20,7 +20,7 @@
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="com.pyrenty.akl.domain.User.authorities"
+    <cache name="com.pyrenty.akl.domain.user.User.authorities"
            timeToLiveSeconds="3600">
     </cache>
 
@@ -28,7 +28,7 @@
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="com.pyrenty.akl.domain.User.persistentTokens"
+    <cache name="com.pyrenty.akl.domain.user.User.persistentTokens"
            timeToLiveSeconds="3600">
     </cache>
 

@@ -3,7 +3,7 @@ package com.pyrenty.akl.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Authority;
 import com.pyrenty.akl.domain.PersistentToken;
-import com.pyrenty.akl.domain.User;
+import com.pyrenty.akl.domain.user.User;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.SecurityUtils;

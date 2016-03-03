@@ -1,6 +1,6 @@
 package com.pyrenty.akl.security;
 
-import com.pyrenty.akl.domain.User;
+import com.pyrenty.akl.domain.user.User;
 import com.pyrenty.akl.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

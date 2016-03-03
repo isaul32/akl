@@ -1,6 +1,10 @@
-package com.pyrenty.akl.domain;
+package com.pyrenty.akl.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pyrenty.akl.domain.AbstractAuditingEntity;
+import com.pyrenty.akl.domain.Authority;
+import com.pyrenty.akl.domain.PersistentToken;
+import com.pyrenty.akl.domain.Team;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;

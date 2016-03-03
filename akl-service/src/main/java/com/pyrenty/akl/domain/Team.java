@@ -2,6 +2,7 @@ package com.pyrenty.akl.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.pyrenty.akl.domain.user.User;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
 

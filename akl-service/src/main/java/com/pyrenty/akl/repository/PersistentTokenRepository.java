@@ -1,7 +1,7 @@
 package com.pyrenty.akl.repository;
 
 import com.pyrenty.akl.domain.PersistentToken;
-import com.pyrenty.akl.domain.User;
+import com.pyrenty.akl.domain.user.User;
 import org.joda.time.LocalDate;
 import org.springframework.data.jpa.repository.JpaRepository;
 

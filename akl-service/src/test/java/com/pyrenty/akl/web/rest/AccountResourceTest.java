@@ -2,7 +2,7 @@ package com.pyrenty.akl.web.rest;
 
 import com.pyrenty.akl.Application;
 import com.pyrenty.akl.domain.Authority;
-import com.pyrenty.akl.domain.User;
+import com.pyrenty.akl.domain.user.User;
 import com.pyrenty.akl.repository.AuthorityRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.AuthoritiesConstants;
