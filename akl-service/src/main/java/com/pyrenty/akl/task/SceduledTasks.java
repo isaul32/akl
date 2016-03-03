@@ -1,4 +1,4 @@
-package com.pyrenty.akl.component;
+package com.pyrenty.akl.task;
 
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.Async;
@@ -28,11 +28,13 @@ public class SceduledTasks {
     Runnable gameRunnable = () -> {
         System.out.println("Game executing started");
         System.out.println("The time is now " + dateFormat.format(new Date()));
-        };
+        Thread.currentThread().interrupt();
+    };
 
     @Async
     public void scheduleGame() {
         ScheduledExecutorService localExecutor = Executors.newSingleThreadScheduledExecutor();
+
         scheduler = new ConcurrentTaskScheduler(localExecutor);
         scheduler.schedule(gameRunnable, new Date(System.currentTimeMillis() + 10000));
         System.out.println("Scheduled game");
