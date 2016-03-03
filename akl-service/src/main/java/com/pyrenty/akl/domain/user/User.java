@@ -73,6 +73,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_key", length = 20)
     private String resetKey;
 
+    @OneToOne
+    private UserProfile profile;
+
     @Size(max = 20)
     @Column(name = "community_id", length = 20)
     private String communityId;
@@ -182,6 +185,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setResetKey(String resetKey) {
         this.resetKey = resetKey;
+    }
+
+    public UserProfile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(UserProfile profile) {
+        this.profile = profile;
     }
 
     public String getCommunityId() {
