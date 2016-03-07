@@ -26,7 +26,7 @@
             <column name="birthdate" type="timestamp"/>
             <column name="guild" type="varchar(255)"/>
             <column name="rank" type="varchar(255)"/>
-            <column name="description" type="text"/>
+            <column name="description_id" type="bigint"/>
         </createTable>
 
     </changeSet>

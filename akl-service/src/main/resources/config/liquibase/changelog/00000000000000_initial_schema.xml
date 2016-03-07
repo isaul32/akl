@@ -44,6 +44,7 @@
             <column name="captain_id" type="bigint"/>
             <column name="member_id" type="bigint"/>
             <column name="standin_id" type="bigint"/>
+            <column name="profile_id" type="bigint"/>
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>

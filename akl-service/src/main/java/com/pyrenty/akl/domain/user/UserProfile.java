@@ -1,5 +1,6 @@
 package com.pyrenty.akl.domain.user;
 
+import com.pyrenty.akl.domain.Text;
 import com.pyrenty.akl.domain.enumeration.Rank;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -9,10 +10,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 
-/**
- * Created by Sauli on 3.3.2016.
- */
-
 @Entity
 @Table(name = "USER_PROFILE")
 public class UserProfile implements Serializable {
@@ -21,7 +18,7 @@ public class UserProfile implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column( name = "image" )
+    @Column(name = "image")
     @Lob
     private byte[] image;
 
@@ -30,10 +27,13 @@ public class UserProfile implements Serializable {
     @Max(3000)
     private DateTime birthdate;
 
+    @Column
     private String guild;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rank")
     private Rank rank;
 
-    @Column(columnDefinition = "TEXT", insertable = true, updatable = false)
-    private String description;
+    @OneToOne
+    private Text description;
 }
