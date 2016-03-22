@@ -604,6 +604,24 @@
                             </arguments>
                         </configuration>
                     </plugin>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>2.2</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.slf4j</groupId>
+                                <artifactId>slf4j-simple</artifactId>
+                                <version>1.7.9</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <url>${akl.deploy.url}</url>
+                            <username>${akl.deploy.username}</username>
+                            <password>${akl.deploy.password}</password>
+                            <update>true</update>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
             <properties>
