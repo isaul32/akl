@@ -30,10 +30,9 @@ require('angular-ui-bootstrap');
 require('angular-ui-calendar');
 require('angular-ui-router');
 require('angular-moment');
-require('../../../node_modules/angular-ckeditor/angular-ckeditor.min.js');
 require('restangular');
 
-// App
+// App files
 require('./scripts/app/app');
 
 require('./scripts/components/auth/auth.service');
@@ -45,6 +44,7 @@ require('./scripts/components/auth/services/password.service');
 require('./scripts/components/auth/services/register.service');
 require('./scripts/components/auth/services/sessions.service');
 require('./scripts/components/auth/provider/auth.session.service');
+require('./scripts/components/ckeditor/angular-ckeditor');
 require('./scripts/components/ckeditor/ckeditor.controller');
 require('./scripts/components/ckeditor/ckeditor.directive');
 require('./scripts/components/form/form.directive');
