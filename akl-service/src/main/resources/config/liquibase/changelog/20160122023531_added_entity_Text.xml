@@ -25,6 +25,12 @@
             <column name="fi" type="text"/>
             <column name="en" type="text"/>
         </createTable>
-        
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/texts.csv"
+                  separator=";"
+                  tableName="TEXT">
+        </loadData>
+
     </changeSet>
 </databaseChangeLog>

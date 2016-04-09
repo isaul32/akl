@@ -126,6 +126,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/teams/**").permitAll()
+            .antMatchers("/api/texts/**").permitAll()
             .antMatchers("/api/authenticate").permitAll()
             .antMatchers("/api/login").authenticated()
             .antMatchers("/api/login/openid").authenticated()

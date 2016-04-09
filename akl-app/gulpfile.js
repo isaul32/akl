@@ -128,7 +128,7 @@ gulp.task('dev', function () {
         console.log('WS Client connected');
 
         proxySocket.on('data', function (msg) {
-            console.log(msg);
+            //console.log(msg);
         });
     });
     proxy.on('close', function () {

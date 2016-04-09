@@ -2,7 +2,7 @@
 
 angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ui.bootstrap', 'ngResource', 'ui.router', 'ngCookies', 'angularFileUpload',
-    'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache'])
+    'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache', 'restangular'])
     .run(function ($rootScope, $location, $window, $http, $state, $translate,
                    Language, Auth, Principal, amMoment, ENV, VERSION) {
         $rootScope.ENV = ENV;
@@ -51,7 +51,8 @@ angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprec
             }
         };
     })
-    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider,
+                      $translateProvider, tmhDynamicLocaleProvider, RestangularProvider) {
 
         //enable CSRF
         $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
@@ -100,6 +101,9 @@ angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprec
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
 
+
+        // Restangular
+        RestangularProvider.setBaseUrl('/akl-service/api');
     })
     .constant('ENV', 'dev')
     .constant('VERSION', '0.0.1-SNAPSHOT')

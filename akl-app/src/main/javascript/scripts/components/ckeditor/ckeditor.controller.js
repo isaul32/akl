@@ -24,7 +24,7 @@ angular.module('aklApp')
             { name: 'others', groups: ['ckwebspeech'] }
         ];
 
-        $scope.content = '<h1>Säännöt</h1><p>samat kaikille!</p>';
+        //console.log($scope.content);
 
         // Editor options.
         $scope.options = {
