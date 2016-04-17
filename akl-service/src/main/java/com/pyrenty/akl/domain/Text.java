@@ -22,11 +22,11 @@ public class Text implements Serializable {
     private Long id;
 
     @Lob
-    @Type(type="org.hibernate.type.MaterializedClobType")
+    @Type(type = "org.hibernate.type.TextType")
     private String fi;
 
     @Lob
-    @Type(type="org.hibernate.type.MaterializedClobType")
+    @Type(type = "org.hibernate.type.TextType")
     private String en;
 
     public Long getId() {
