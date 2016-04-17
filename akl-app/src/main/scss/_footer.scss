@@ -17,3 +17,12 @@
     font-size: 10px;
     color: #ccc
 }
+
+.footer-text {
+    font-size: 10px;
+    color: #ccc;
+
+    a {
+        color: $primary-green-color;
+    }
+}

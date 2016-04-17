@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('MainController', function ($scope, Principal) {
+    .controller('MainController', function ($scope, Principal, text, $translate) {
         Principal.identity().then(function(account) {
             $scope.account = account;
             $scope.isAuthenticated = Principal.isAuthenticated;
         });
 
-        $scope.content = "<h1>Testi</h1>";
+        $scope.lang = $translate.use();
+        $scope.text = text.data;
     });

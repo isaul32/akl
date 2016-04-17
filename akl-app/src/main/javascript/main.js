@@ -18,6 +18,7 @@ require('bootstrap-sass');
 
 require('angular');
 require('angular-cookies');
+require('angular-sanitize');
 require('angular-dynamic-locale');
 require('angular-file-upload');
 require('angular-local-storage');

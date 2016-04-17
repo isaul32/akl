@@ -3,8 +3,6 @@
 angular.module('aklApp')
     .controller('RulesController', function ($scope, $translate, text) {
         $scope.eventSources = [];
-        var lang = $translate.use();
-        text.get().then(function (res) {
-            $scope.text = res.data[lang];
-        });
+        $scope.lang = $translate.use();
+        $scope.text = text.data;
     });

@@ -11,11 +11,6 @@ CKEDITOR.plugins.add( 'inlinesave',
 					
 					if (typeof config == "undefined") { // Give useful error message if user doesn't define config.inlinesave
 						throw new Error("CKEditor inlinesave: You must define config.inlinesave in your configuration file. See http://ckeditor.com/addon/inlinesave");
-						return;
-					}
-					if (typeof config.postUrl == "undefined") { // Give useful error message if user doesn't define config.inlinesave.postUrl
-						throw new Error("CKEditor inlinesave: You must define config.inlinesave.postUrl in your configuration file. See http://ckeditor.com/addon/inlinesave");
-						return;
 					}
 
 					if (typeof config.onSave == "function") {
@@ -26,24 +21,6 @@ CKEDITOR.plugins.add( 'inlinesave',
 					CKEDITOR.tools.extend(postData, config.postData || {}, true);  // Clone config.postData to prevent changing the config.
 					postData.editabledata = editor.getData();
 					postData.editorID = editor.container.getId();
-					
-					// Use pure javascript (no dependencies) and send the data in json format...
-					var xhttp = new XMLHttpRequest();
-					xhttp.onreadystatechange = function() {
-						if (xhttp.readyState == 4) {
-							// If success, call onSuccess callback if defined
-							if (typeof config.onSuccess == "function" && xhttp.status == 200) {
-								config.onSuccess(editor, xhttp.response); // Allow server to return data
-							}
-							// If error, call onFailure callback if defined
-							else if (typeof config.onFailure == "function") {
-								config.onFailure(editor, xhttp.status, xhttp);
-							}
-						}
-					};
-					xhttp.open("POST", config.postUrl, true);
-					xhttp.setRequestHeader("Content-type", 'application/json');
-					xhttp.send(JSON.stringify(postData));	// Send data in JSON format...
 				}
 			});
 		editor.ui.addButton( 'Inlinesave',

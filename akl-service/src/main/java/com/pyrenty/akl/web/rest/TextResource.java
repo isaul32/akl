@@ -54,11 +54,13 @@ public class TextResource {
     /**
      * PUT  /texts -> Updates an existing text.
      */
-    @RequestMapping(value = "/texts",
+    @RequestMapping(value = "/texts/{id}",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Text> update(@RequestBody Text text) throws URISyntaxException {
+    public ResponseEntity<Text> update(@PathVariable Long id,
+                                       @RequestBody Text text) throws URISyntaxException {
+        text.setId(id);
         log.debug("REST request to update Text : {}", text);
         if (text.getId() == null) {
             return create(text);

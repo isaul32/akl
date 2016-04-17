@@ -21,7 +21,7 @@ angular.module('aklApp')
                         return $translate.refresh();
                     }],
                     text: ['Api', function (Api) {
-                        return Api.one("texts", 1);
+                        return Api.one('texts', 2).get();
                     }]
                 }
             });

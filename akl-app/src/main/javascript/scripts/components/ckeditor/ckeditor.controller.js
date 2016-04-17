@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('CkeditorCtrl', function ($scope, $rootScope, $translate) {
+    .controller('CkeditorCtrl', function ($scope, $rootScope, $translate, AlertService, Principal) {
+        $scope.isAuthenticated = Principal.isAuthenticated;
+        
         var lang = $translate.use();
         if (lang === undefined) {
             lang = 'en';
@@ -24,8 +26,6 @@ angular.module('aklApp')
             { name: 'others', groups: ['ckwebspeech'] }
         ];
 
-        //console.log($scope.content);
-
         // Editor options.
         $scope.options = {
             //skin: 'bootstrapck,/scripts/components/ckeditor/skins/bootstrapck/',
@@ -39,32 +39,24 @@ angular.module('aklApp')
             entities: false,
             disableAutoInline: true,
             inlinesave: {
-                postUrl: '/myurl',
-                postData: {
-                    test: true
-                },
-                onSave: function(editor) {
-                    console.log('clicked save', editor);
-                },
-                onSuccess: function(editor, data) {
-                    console.log('save successful', editor, data);
-                },
-                onFailure: function(editor, status, request) {
-                    console.log('save failed', editor, status, request);
+                postUrl: '/',
+                onSave: function() {
+                    $scope.text.save().then(function (res) {
+                        $scope.text = res.data;
+                        $scope.editMode = false;
+                    });
                 }
             },
             inlinecancel: {
-                onCancel: function(editor) {
-                    console.log('cancel', editor);
+                onCancel: function() {
+                    $scope.text = $scope.text.get().then(function (res) {
+                        $scope.text = res.data;
+                        $scope.editMode = false;
+                    })
                 }
             },
             ckwebspeech: {
                 'culture' : 'fi-FI'
             }
-        };
-
-        // Called when the editor is completely ready.
-        $scope.onReady = function () {
-
         };
     });

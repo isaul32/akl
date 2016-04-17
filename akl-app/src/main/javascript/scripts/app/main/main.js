@@ -19,6 +19,9 @@ angular.module('aklApp')
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('main');
                         return $translate.refresh();
+                    }],
+                    text: ['Api', function (Api) {
+                        return Api.one('texts', 1).get();
                     }]
                 }
             });

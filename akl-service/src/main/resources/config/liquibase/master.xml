@@ -4,10 +4,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160117142202_added_entity_GameServer.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160122023531_added_entity_Text.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160122024412_added_entity_Team.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160303222400_added_entity_UserProfile.xml" relativeToChangelogFile="false"/>
-    <!-- JHipster will add liquibase changelogs here -->
+    <include file="classpath:config/liquibase/changelog/0_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/1_added_entity_GameServer.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/2_added_entity_Text.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/3_added_entity_Team.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/4_added_entity_UserProfile.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

@@ -1,15 +1,28 @@
 <div class="container green-content">
+
     <div class="row">
         <div class="col-md-12">
-            content: {{ text }}
-            <!--<div ng-controller="CkeditorCtrl">-->
-                <div ckeditor="options"
-                     ng-model="text"
-                     placeholder="Title"
-                     ready="onReady()"
-                     contenteditable="true">
+
+            <div ng-controller="CkeditorCtrl">
+                <div ng-show="isAuthenticated" has-role="ROLE_CMS">
+                    <a href="" ng-click="editMode = true" class="ckeditor-edit" ng-hide="editMode">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        <span translate="global.ckeditor.edit"></span>
+                    </a>
+                    <div ng-if="editMode">
+                        <div ckeditor="options"
+                             ng-model="text[lang]"
+                             placeholder="Title"
+                             contenteditable="true">
+                        </div>
+                    </div>
                 </div>
-            <!--</div>-->
+
+                <div ng-hide="editMode">
+                    <div ng-bind-html="text[lang]"></div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

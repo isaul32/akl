@@ -150,3 +150,9 @@ ul#strength {
     // Not sure about this
     //@include button-variant($btn-primary-color, #37867B, $secondary-green-color);
 }
+
+.ckeditor-edit {
+    position: relative;
+    top: -20px;
+    float: right;
+}

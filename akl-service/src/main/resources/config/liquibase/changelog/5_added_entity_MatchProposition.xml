@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <property name="now" value="now()" dbms="mysql,h2"/>
     <property name="now" value="current_timestamp" dbms="postgresql"/>
@@ -14,23 +14,18 @@
     <property name="floatType" value="real" dbms="postgresql, h2"/>
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
-    <!--
-        Added the entity Text.
-    -->
-    <changeSet id="20160122023531" author="jhipster">
-        <createTable tableName="TEXT">
+    <changeSet id="5" author="isaul">
+        <createTable tableName="MATCH_PROPOSITION">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="fi" type="text"/>
-            <column name="en" type="text"/>
+            <column name="team1_id" type="bigint"/>
+            <column name="team2_id" type="bigint"/>
+            <column name="datetime" type="timestamp"/>
+            <column name="match_type" type="bigint"/>
+            <column name="match_type" type="bigint"/>
+            <column name="team1_accepted" type="boolean"/>
+            <column name="team2_accepted" type="boolean"/>
         </createTable>
-
-        <loadData encoding="UTF-8"
-                  file="config/liquibase/texts.csv"
-                  separator=";"
-                  tableName="TEXT">
-        </loadData>
-
     </changeSet>
 </databaseChangeLog>

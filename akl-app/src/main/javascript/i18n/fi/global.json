@@ -1,7 +1,7 @@
 {
     "global": {
         "title": "Akateeminen Kynäriliiga",
-        "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
+        "footer": "AKL:n järjestää <a href=\"http://tietoteekkarikilta.fi/\">Tampereen TietoTeekkarikilta</a>",
         "menu": {
             "home": "Etusivu",
             "live": "Live",
@@ -41,6 +41,9 @@
                 "database": "Database"
             },
             "language": "Kieli"
+        },
+        "ckeditor": {
+            "edit": "Muokkaa"
         },
         "form": {
             "username": "Käyttäjätunnus",
