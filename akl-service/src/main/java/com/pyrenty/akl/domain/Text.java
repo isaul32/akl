@@ -20,12 +20,10 @@ public class Text implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Lob
-    @Column(name = "fi")
+    @Column(columnDefinition = "clob")
     private String fi;
 
-    @Lob
-    @Column(name = "en")
+    @Column(columnDefinition = "clob")
     private String en;
 
     public Long getId() {

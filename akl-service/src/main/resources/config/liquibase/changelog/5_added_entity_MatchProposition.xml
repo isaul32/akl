@@ -22,8 +22,7 @@
             <column name="team1_id" type="bigint"/>
             <column name="team2_id" type="bigint"/>
             <column name="datetime" type="timestamp"/>
-            <column name="match_type" type="bigint"/>
-            <column name="match_type" type="bigint"/>
+            <column name="match_type" type="int"/>
             <column name="team1_accepted" type="boolean"/>
             <column name="team2_accepted" type="boolean"/>
         </createTable>

@@ -126,7 +126,7 @@ public class TextResourceTest {
         // Update the text
 
 
-        restTextMockMvc.perform(put("/api/texts")
+        restTextMockMvc.perform(put("/api/texts/{id}", text.getId())
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(text)))
                 .andExpect(status().isOk());

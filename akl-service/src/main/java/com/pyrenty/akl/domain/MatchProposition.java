@@ -26,12 +26,15 @@ public class MatchProposition {
     private Date datetime;
 
     @NotNull
+    @Column(name = "match_type")
     private Integer matchType;
 
     @NotNull
+    @Column(name = "team1_accepted")
     private Boolean team1Accepted;
 
     @NotNull
+    @Column(name = "team2_accepted")
     private Boolean team2Accepted;
 
     public Team getTeam1() {
