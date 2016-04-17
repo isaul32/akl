@@ -21,11 +21,11 @@ public class Text implements Serializable {
     private Long id;
 
     @Lob
-    @Column(name = "fi")
+    @Column(name = "fi", columnDefinition = "text")
     private String fi;
 
     @Lob
-    @Column(name = "en")
+    @Column(name = "en", columnDefinition = "text")
     private String en;
 
     public Long getId() {
