@@ -2,6 +2,7 @@ package com.pyrenty.akl.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,11 +22,11 @@ public class Text implements Serializable {
     private Long id;
 
     @Lob
-    @Column(name = "fi", columnDefinition = "text")
+    @Type(type = "org.hibernate.type.TextType")
     private String fi;
 
     @Lob
-    @Column(name = "en", columnDefinition = "text")
+    @Type(type = "org.hibernate.type.TextType")
     private String en;
 
     public Long getId() {
