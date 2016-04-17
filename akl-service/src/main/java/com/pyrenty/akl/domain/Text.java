@@ -21,12 +21,10 @@ public class Text implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
+    @Column(columnDefinition="TEXT")
     private String fi;
 
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
+    @Column(columnDefinition="TEXT")
     private String en;
 
     public Long getId() {
