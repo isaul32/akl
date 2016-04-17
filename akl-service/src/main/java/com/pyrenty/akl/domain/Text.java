@@ -2,7 +2,6 @@ package com.pyrenty.akl.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,10 +20,10 @@ public class Text implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "clob")
     private String fi;
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "clob")
     private String en;
 
     public Long getId() {
