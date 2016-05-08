@@ -1,22 +1,15 @@
 <div class="container" ng-cloak="">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1 translate="steam.title" translate-values="{username: '{{settingsAccount.login}}'}">Steam settings for <b>{{settingsAccount.login}}</b></h1>
-
-            <div class="form-group">
-                <label for="communityId" translate="steam.communityId">Steam Community ID</label>
-                <input id="communityId" class="form-control" type="text" ng-model="settingsAccount.communityId" disabled="">
-            </div>
-
-            <div class="form-group">
-                <label for="steamId" translate="steam.steamId">Steam ID</label>
-                <input id="steamId" class="form-control" type="text" ng-model="settingsAccount.steamId" disabled="">
-            </div>
-
-            <a href="{{url}}" class="btn btn-primary" role="button">
-                <span class="fa fa-steam"></span>&nbsp;
-                <span translate="steam.change">Change Steam user</span>
-            </a>
+      <div class="col-md-6 col-md-offset-4">
+          <h1 translate="steam.title">Authenticate through Steam</h1>
+          <p translate="steam.help"></p>
+          <a href="{{url}}" role="button">
+              <img src="images/sits_small.png" alt="">
+          </a>
+          <p translate="steam.info"></p>
+          <a ui-sref="login">
+              <small translate="steam.adminlogin"></small>
+          </a>
         </div>
     </div>
 

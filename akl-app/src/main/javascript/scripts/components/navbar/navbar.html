@@ -167,34 +167,30 @@
                             &nbsp;<span translate="global.menu.admin.database">Database</span></a></li>
                     </ul>
                 </li>
-                <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
+                <li ui-sref-active="active" ng-switch-when="false">
+                    <a ui-sref="steam">
+                        <span class="glyphicon glyphicon-log-in"></span>&nbsp;
+                        <span translate="global.menu.account.login">Login</span>
+                    </a>
+                </li>
+                <li ng-class="{active: $state.includes('account')}" ng-switch-when="true" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
                             <span class="glyphicon glyphicon-user"></span>&nbsp;
-                            <span class="hidden-tablet" translate="global.menu.account.main" ng-switch-when="false">
-                                Account
-                            </span>
-                            <span class="hidden-tablet" ng-switch-when="true" ng-bind="account.login">
+                            <span class="hidden-tablet" ng-bind="account.login">
                             </span>
                             <b class="caret"></b>
                         </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="settings"><span class="glyphicon glyphicon-wrench"></span>
+                        <li ui-sref-active="active"><a ui-sref="settings"><span class="glyphicon glyphicon-wrench"></span>
                             &nbsp;<span translate="global.menu.account.settings">Settings</span></a></li>
-                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="password"><span class="glyphicon glyphicon-lock"></span>
+                        <li ui-sref-active="active"><a ui-sref="password"><span class="glyphicon glyphicon-lock"></span>
                             &nbsp;<span translate="global.menu.account.password">Password</span></a></li>
-                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="steam"><span class="fa fa-steam"></span>
-                            &nbsp;<span translate="global.menu.account.steam">Steam</span></a></li>
-                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="sessions"><span class="glyphicon glyphicon-cloud"></span>
+                        <li ui-sref-active="active"><a ui-sref="sessions"><span class="glyphicon glyphicon-cloud"></span>
                             &nbsp;<span translate="global.menu.account.sessions">Sessions</span></a></li>
-                        <li ui-sref-active="active" ng-switch-when="true"><a href="" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span>
+                        <li ui-sref-active="active"><a href="" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span>
                             &nbsp;<span translate="global.menu.account.logout">Log out</span></a></li>
-                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="login"><span class="glyphicon glyphicon-log-in"></span>
-                            &nbsp;<span translate="global.menu.account.login">Authenticate</span></a></li>
-
-                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="register"><span class="glyphicon glyphicon-plus-sign"></span>
-                            &nbsp;<span translate="global.menu.account.register">Register</span></a></li>
                     </ul>
                 </li>
             </ul>

@@ -77,11 +77,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private UserProfile profile;
 
     @Size(max = 20)
-    @Column(name = "community_id", length = 20)
+    @Column(name = "community_id", length = 20, unique = true)
     private String communityId;
 
     @Size(max = 20)
-    @Column(name = "steam_id", length = 20)
+    @Column(name = "steam_id", length = 20, unique = true)
     private String steamId;
 
     @JsonIgnore
