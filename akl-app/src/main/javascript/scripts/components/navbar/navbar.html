@@ -167,7 +167,7 @@
                             &nbsp;<span translate="global.menu.admin.database">Database</span></a></li>
                     </ul>
                 </li>
-                <li ui-sref-active="active" ng-switch-when="false">
+                <li ng-class="{active: $state.includes('account')}" ng-switch-when="false">
                     <a ui-sref="steam">
                         <span class="glyphicon glyphicon-log-in"></span>&nbsp;
                         <span translate="global.menu.account.login">Login</span>
