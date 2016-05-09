@@ -48,14 +48,12 @@ angular.module('aklApp')
                             setVisible();
                         }
 
-                        if (Principal.isInRole(role) === false) {
-                            setHidden();
-                            return;
-                        }
                         Principal.isInRole(role)
                             .then(function (result) {
                                 if (result) {
                                     setVisible();
+                                } else {
+                                    setHidden();
                                 }
                             });
                     },
