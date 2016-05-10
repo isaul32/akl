@@ -12,7 +12,7 @@ angular.module('aklApp')
                     Auth.logout();
                     $rootScope.returnToState = to;
                     $rootScope.returnToStateParams = params;
-                    $state.go('login');
+                    $state.go('steam');
                 }
                 return $q.reject(response);
             }
