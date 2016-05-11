@@ -31,6 +31,8 @@ public class TeamDTO implements Serializable {
 
     private String description;
 
+    private Boolean activated;
+
     private User captain;
 
     private Set<User> members = new HashSet<>();
@@ -83,6 +85,14 @@ public class TeamDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getActivated() {
+        return this.activated;
+    }
+
+    public void setActivated(Boolean activated) {
+        this.activated = activated;
     }
 
     public User getCaptain() {

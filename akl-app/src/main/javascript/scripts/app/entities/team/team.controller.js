@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('TeamController', function ($scope, Team, ParseLinks) {
+    .controller('TeamController', function ($scope, Team, ParseLinks, Principal) {
+        $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.teams = [];
         $scope.page = 1;
         $scope.loadAll = function() {
@@ -15,6 +16,28 @@ angular.module('aklApp')
             $scope.loadAll();
         };
         $scope.loadAll();
+
+        Principal.identity().then(function(identity) {
+            $scope.identity = identity;
+            return Principal.isInRole('ROLE_ADMIN');
+        }).then(function(result) {
+            $scope.isAdmin = result;
+        });
+
+        $scope.hasPermissions = function(team) {
+            return $scope.isAdmin || $scope.identity && ($scope.identity.id === team.captain.id);
+        };
+
+        $scope.isInactive = function (team) {
+            return $scope.isAdmin && !team.activated;
+        };
+
+        $scope.activate = function (id) {
+            Team.activate({id: id}, function(result) {
+                $scope.loadAll();
+                $scope.clear();
+            });
+        };
 
         $scope.delete = function (id) {
             Team.get({id: id}, function(result) {

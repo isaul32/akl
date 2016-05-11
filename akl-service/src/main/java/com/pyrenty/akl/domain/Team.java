@@ -2,10 +2,12 @@ package com.pyrenty.akl.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.ser.std.StdArraySerializers;
 import com.pyrenty.akl.domain.user.User;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -52,6 +54,9 @@ public class Team implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "activated")
+    private boolean activated;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "captain")
     @JsonIgnore
     private User captain;
@@ -67,6 +72,15 @@ public class Team implements Serializable {
     @JsonManagedReference
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<User> standins = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JoinTable(
+            name = "TEAM_REQUEST",
+            joinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
+    )
+    private Set<User> requests = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -116,6 +130,14 @@ public class Team implements Serializable {
         this.description = description;
     }
 
+    public boolean getActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+
     public User getCaptain() {
         return captain;
     }
@@ -138,6 +160,14 @@ public class Team implements Serializable {
 
     public void setStandins(Set<User> standins) {
         this.standins = standins;
+    }
+
+    public Set<User> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(Set<User> requests) {
+        this.requests = requests;
     }
 
     @Override
@@ -169,6 +199,7 @@ public class Team implements Serializable {
                 ", imageUrl='" + imageUrl + "'" +
                 ", rank='" + rank + "'" +
                 ", description='" + description + "'" +
+                ", activated='" + activated + "'" +
                 '}';
     }
 }

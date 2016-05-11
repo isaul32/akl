@@ -219,6 +219,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.captain = captain;
     }
 
+    private boolean captainSameAsFormer(Team team) {
+        if (this.captain == null) {
+            return team == null;
+        }
+
+        return this.captain.equals(team);
+    }
+
     public Team getMember() {
         return member;
     }

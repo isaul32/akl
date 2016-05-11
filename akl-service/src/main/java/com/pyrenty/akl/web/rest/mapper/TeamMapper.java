@@ -10,7 +10,7 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface TeamMapper {
-
+    @Mapping(target = "activated", source = "activated")
     TeamDTO teamToTeamDTO(Team team);
 
     @Mapping(target = "captain", ignore = true)
