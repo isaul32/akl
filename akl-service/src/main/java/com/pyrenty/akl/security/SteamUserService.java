@@ -2,6 +2,7 @@ package com.pyrenty.akl.security;
 
 import com.lukaspradel.steamapi.core.exception.SteamApiException;
 import com.lukaspradel.steamapi.data.json.playersummaries.GetPlayerSummaries;
+import com.lukaspradel.steamapi.data.json.playersummaries.Player;
 import com.pyrenty.akl.domain.user.User;
 import com.pyrenty.akl.repository.SteamCommunityRepository;
 import com.pyrenty.akl.service.UserService;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -57,7 +59,14 @@ public class SteamUserService implements AuthenticationUserDetailsService<OpenID
 
                     GetPlayerSummaries summaries = steamCommunityRepository.findSteamUser(communityId);
 
-                    user = userService.createSteamLoginUser(communityId, communityId, steamId);
+                    Optional<Player> player = summaries.getResponse().getPlayers().stream().findFirst();
+
+                    if (player.isPresent()) {
+                        user = userService.createSteamLoginUser(communityId, steamId,
+                                player.get().getPersonaname());
+                    } else {
+                        user = userService.createSteamLoginUser(communityId, steamId, null);
+                    }
 
                     return new org.springframework.security.core.userdetails
                             .User(user.getLogin(), "", AuthorityUtils.createAuthorityList("ROLE_USER"));

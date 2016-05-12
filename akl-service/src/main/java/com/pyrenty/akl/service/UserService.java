@@ -91,16 +91,16 @@ public class UserService {
         return newUser;
     }
 
-    public User createSteamLoginUser(String login, String communityId, String steamId) {
+    public User createSteamLoginUser(String communityId, String steamId, String nickname) {
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");
         Set<Authority> authorities = new HashSet<>();
-        newUser.setLogin(login);
-        newUser.setNickname(login);
+        newUser.setLogin(communityId);
         // Steam users won't login by password
         newUser.setPassword(passwordEncoder.encode(RandomUtil.generatePassword()));
         newUser.setCommunityId(communityId);
         newUser.setSteamId(steamId);
+        newUser.setNickname(nickname);
         // Don't know email yet so can't do the activation routine
         newUser.setActivated(true);
         authorities.add(authority);

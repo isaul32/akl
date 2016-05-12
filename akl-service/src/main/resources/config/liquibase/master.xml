@@ -12,5 +12,4 @@
     <include file="classpath:config/liquibase/changelog/5_added_entity_MatchProposition.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/6_added_unique_constraints_to_steam_ids.xml" relativeToChangelogFile="false" />
     <include file="classpath:config/liquibase/changelog/7_added_entity_Team_Request.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/8_added_nickname_to_User_entity.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
