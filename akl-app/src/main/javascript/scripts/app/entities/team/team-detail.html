@@ -30,7 +30,7 @@
                         </td>
                         <td>
                             <span class="form-control-static">
-                                <a ui-sref="user({ id: team.captain.id })">{{team.captain.login}}</a>
+                                <a ui-sref="user({ id: team.captain.id })">{{team.captain.nickname || team.captain.login}}</a>
                             </span>
                         </td>
                     </tr>
@@ -40,7 +40,7 @@
                         </td>
                         <td>
                             <p ng-repeat="member in team.members">
-                                <span class="form-control-static">{{member.login}}</span>
+                                <span class="form-control-static">{{member.nickname || member.login}}</span>
                             </p>
                         </td>
                     </tr>

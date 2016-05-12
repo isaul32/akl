@@ -62,6 +62,8 @@
                             </a>
                         </td>
                         <td translate="{{'aklApp.Rank.' + team.rank}}"></td>
+                        <td>{{team.description}}</td>
+                        <td>{{team.captain.nickname || team.captain.login}}</td>
                         <td>
                             <div class="pull-right">
                                 <button type="submit" ng-if="isInactive(team)"
