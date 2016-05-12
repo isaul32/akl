@@ -6,26 +6,33 @@
             "firstname.placeholder": "Etunimesi",
             "lastname": "Sukunimi",
             "lastname.placeholder": "Sukunimesi",
+            "nickname": "Nimimerkki",
+            "nickname.placeholder": "Nimimerkkisi",
             "language": "Kieli",
             "steamId": "Steam ID",
             "button": "Tallenna"
         },
         "messages": {
             "error": {
-                "fail": "<strong>An error has occurred!</strong> Settings could not be saved.",
-                "emailexists": "<strong>E-mail is already in use!</strong> Please choose another one."
+                "fail": "<strong>Asetusten tallennuksessa on tapahtunut virhe!</strong> Asetuksia ei pystytty tallentamaan.",
+                "emailexists": "<strong>Sähköpostiosoite on jo käytössä!</strong> Valitse jokin toinen sähköpostiosoite."
             },
-            "success": "<strong>Settings saved!</strong>",
+            "success": "<strong>Asetukset tallennettu!</strong>",
             "validate": {
                 "firstname": {
-                    "required": "Your first name is required.",
-                    "minlength": "Your first name is required to be at least 1 character",
-                    "maxlength": "Your first name cannot be longer than 50 characters"
+                    "required": "Etunimi on pakollinen.",
+                    "minlength": "Etunimesi pitää olla vähintään yhden merkin pituinen",
+                    "maxlength": "Etunimesi pituus ei saa ylittää 50 merkkiä, lyhennä etunimeäsi"
                 },
                 "lastname": {
-                    "required": "Your last name is required.",
-                    "minlength": "Your last name is required to be at least 1 character",
-                    "maxlength": "Your last name cannot be longer than 50 characters"
+                    "required": "Sukunimi on pakollinen.",
+                    "minlength": "Sukunimesi pitää olla vähintään yhden merkin pituinen",
+                    "maxlength": "Sukunimesi pituus ei saa ylittää 50 merkkiä, lyhennä sukunimeäsi"
+                },
+                "nickname": {
+                    "required": "Nimimerkki on pakollinen",
+                    "minlength": "Nimimerkkisi pitää olla vähintään yhden merkin pituinen",
+                    "maxlength": "Nimimerkkisi pituus ei saa ylittää 255 merkkiä, lyhennä nimimerkkiäsi"
                 }
             }
         }

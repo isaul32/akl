@@ -20,6 +20,14 @@ $active-border-size: 2px;
         }
     }
 
+    .account-title {
+        display: inline-block;
+        vertical-align: top;
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .navbar-nav {}
 
     .nav-pills > li > a {

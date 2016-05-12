@@ -6,6 +6,8 @@
             "firstname.placeholder": "Your first name",
             "lastname": "Last Name",
             "lastname.placeholder": "Your last name",
+            "nickname": "Nickname",
+            "nickname.placeholder": "Your nickname",
             "language": "Language",
             "steamId": "Steam ID",
             "button": "Save"
@@ -26,6 +28,11 @@
                     "required": "Your last name is required.",
                     "minlength": "Your last name is required to be at least 1 character",
                     "maxlength": "Your last name cannot be longer than 50 characters"
+                },
+                "nickname": {
+                    "required": "Your nickname is required.",
+                    "minlength": "Your first name is required to be at least 1 character",
+                    "maxlength": "Your nickname cannot be longer than 255 characters"
                 }
             }
         }

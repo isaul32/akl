@@ -203,6 +203,7 @@ public class AccountResourceTest {
             "password",         // password
             "Bob",              // firstName
             "Green",            // lastName
+            "BobTheGreat",      // nickname
             "invalid",          // e-mail <-- invalid
             true,                   // activated
             "76561198233249860",    // communityId

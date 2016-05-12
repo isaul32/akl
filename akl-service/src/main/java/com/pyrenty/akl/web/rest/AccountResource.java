@@ -117,6 +117,7 @@ public class AccountResource {
                     null,
                     user.getFirstName(),
                     user.getLastName(),
+                    user.getNickname(),
                     user.getEmail(),
                     user.isActivated(),
                     user.getLangKey(),
@@ -140,7 +141,7 @@ public class AccountResource {
             .findOneByLogin(userDTO.getLogin())
             .filter(u -> u.getLogin().equals(SecurityUtils.getCurrentLogin()))
             .map(u -> {
-                userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
+                userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getNickname(), userDTO.getEmail(),
                     userDTO.getLangKey());
                 return new ResponseEntity<String>(HttpStatus.OK);
             })

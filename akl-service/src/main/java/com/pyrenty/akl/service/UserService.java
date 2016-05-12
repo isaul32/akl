@@ -136,23 +136,15 @@ public class UserService {
         return newUser;
     }
 
-    public void updateUserInformation(String firstName, String lastName, String email, String langKey) {
+    public void updateUserInformation(String firstName, String lastName, String nickname, String email, String langKey) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
             u.setFirstName(firstName);
             u.setLastName(lastName);
+            u.setNickname(nickname);
             u.setEmail(email);
             u.setLangKey(langKey);
             userRepository.save(u);
             log.debug("Changed Information for User: {}", u);
-        });
-    }
-
-    public void updateUserSteamInformation(String communityId, String steamId) {
-        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
-            u.setCommunityId(communityId);
-            u.setSteamId(steamId);
-            userRepository.save(u);
-            log.debug("Changed Steam Information for User: {}", u);
         });
     }
 
