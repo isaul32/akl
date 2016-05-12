@@ -50,7 +50,7 @@ angular.module('aklApp')
                                 $rootScope.returnToStateParams = $rootScope.toStateParams;
 
                                 // now, send them to the signin state so they can log in
-                                $state.go('login');
+                                $state.go('steam');
                             }
                         }
                     });

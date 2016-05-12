@@ -13,8 +13,8 @@ angular.module('aklApp')
                 return _authenticated;
             },
             isInRole: function (role) {
-                if (!_authenticated) {
-                   return false;
+               if (!_authenticated) {
+                   return $q.when(false);
                }
 
                return this.identity().then(function(_id) {

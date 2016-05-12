@@ -1,8 +1,8 @@
 {
     "steam": {
-        "title": "Steam settings for <b>{{username}}</b>",
-        "communityId": "Steam Community ID",
-        "steamId": "Steam ID",
-        "change": "Change Steam user"
+        "title": "Log in through Steam",
+        "help": "Log in with your Steam account by clicking the Sign in through Steam -button",
+        "info": "League players can only log in through Steam. During the initial login an AKL account is created and associated with the selected Steam profile.",
+        "adminlogin": "Admin login"
     }
 }

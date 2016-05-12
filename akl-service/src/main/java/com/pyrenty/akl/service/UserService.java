@@ -91,6 +91,25 @@ public class UserService {
         return newUser;
     }
 
+    public User createSteamLoginUser(String login, String communityId, String steamId) {
+        User newUser = new User();
+        Authority authority = authorityRepository.findOne("ROLE_USER");
+        Set<Authority> authorities = new HashSet<>();
+        newUser.setLogin(login);
+        // Steam users won't login by password
+        newUser.setPassword(passwordEncoder.encode(RandomUtil.generatePassword()));
+        newUser.setCommunityId(communityId);
+        newUser.setSteamId(steamId);
+        // Don't know email yet so can't do the activation routine
+        newUser.setActivated(true);
+        authorities.add(authority);
+        newUser.setAuthorities(authorities);
+
+        userRepository.save(newUser);
+        log.debug("Created Information for Steam User: {}", newUser);
+        return newUser;
+    }
+
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
                                       String langKey) {
 
@@ -147,9 +166,28 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User getUserWithAuthorities() {
-        User currentUser = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).get();
-        currentUser.getAuthorities().size(); // eagerly load the association
-        return currentUser;
+        Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
+
+        if (user.isPresent()) {
+            User currentUser = user.get();
+            currentUser.getAuthorities().size(); // eagerly load the association
+            return currentUser;
+        }
+
+        return null;
+    }
+
+    @Transactional(readOnly = true)
+    public User getSteamUserWithAuthorities(String communityId) {
+        Optional<User> user = userRepository.findOneByCommunityId(communityId);
+
+        if (user.isPresent()) {
+            User currentUser = user.get();
+            currentUser.getAuthorities().size(); // eagerly load the association
+            return currentUser;
+        }
+
+        return null;
     }
 
     /**

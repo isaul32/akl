@@ -8,6 +8,7 @@ angular.module('aklApp')
                 $scope.team = result;
             });
         };
+
         $rootScope.$on('aklApp:teamUpdate', function(event, result) {
             $scope.team = result;
         });

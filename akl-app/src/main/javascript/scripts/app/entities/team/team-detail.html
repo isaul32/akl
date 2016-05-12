@@ -75,7 +75,9 @@
                             <span translate="aklApp.team.standins">Standins</span>
                         </td>
                         <td>
-                            <span class="form-control-static">{{team.standins}}</span>
+                            <p ng-repeat="standin in team.standins">
+                                <span class="form-control-static">{{standin.login}}</span>
+                            </p>
                         </td>
                     </tr>
                     </tbody>

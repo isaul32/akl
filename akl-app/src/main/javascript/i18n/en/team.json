@@ -6,6 +6,7 @@
                 "createLabel": "Create a new Team",
                 "createOrEditLabel": "Create or edit a Team"
             },
+            "activate": "Activate",
             "created": "A new Team is created with identifier {{ param }}",
             "updated": "A Team is updated with identifier {{ param }}",
             "deleted": "A Team is deleted with identifier {{ param }}",

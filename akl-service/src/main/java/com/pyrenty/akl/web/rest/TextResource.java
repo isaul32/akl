@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -39,6 +40,7 @@ public class TextResource {
     @RequestMapping(value = "/texts",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_CMS') or hasRole('ROLE_ADMIN')")
     @Timed
     public ResponseEntity<Text> create(@RequestBody Text text) throws URISyntaxException {
         log.debug("REST request to save Text : {}", text);
@@ -57,6 +59,7 @@ public class TextResource {
     @RequestMapping(value = "/texts/{id}",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_CMS') or hasRole('ROLE_ADMIN')")
     @Timed
     public ResponseEntity<Text> update(@PathVariable Long id,
                                        @RequestBody Text text) throws URISyntaxException {
@@ -108,6 +111,7 @@ public class TextResource {
     @RequestMapping(value = "/texts/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_CMS') or hasRole('ROLE_ADMIN')")
     @Timed
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.debug("REST request to delete Text : {}", id);

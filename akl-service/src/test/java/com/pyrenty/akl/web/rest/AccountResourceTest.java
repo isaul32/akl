@@ -198,6 +198,7 @@ public class AccountResourceTest {
     @Transactional
     public void testRegisterInvalidEmail() throws Exception {
         UserDTO u = new UserDTO(
+            1L,
             "bob",              // login
             "password",         // password
             "Bob",              // firstName

@@ -10,4 +10,6 @@
     <include file="classpath:config/liquibase/changelog/3_added_entity_Team.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/4_added_entity_UserProfile.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/5_added_entity_MatchProposition.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/6_added_unique_constraints_to_steam_ids.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/7_added_entity_Team_Request.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

@@ -15,7 +15,8 @@ angular.module('aklApp')
                 rememberMe: $scope.rememberMe
             }).then(function () {
                 $scope.authenticationError = false;
-                if ($rootScope.previousStateName === 'register') {
+                if ($rootScope.previousStateName === 'register'
+                   || $rootScope.previousStateName === 'steam') {
                     $state.go('home');
                 } else {
                     $rootScope.back();
