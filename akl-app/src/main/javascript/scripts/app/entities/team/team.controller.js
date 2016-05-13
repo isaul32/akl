@@ -25,6 +25,10 @@ angular.module('aklApp')
             $scope.isAdmin = result;
         });
 
+        $scope.canCreateTeam = function() {
+            return $scope.identity && $scope.identity.email || $scope.isAdmin;
+        };
+
         $scope.hasPermissions = function(team) {
             return $scope.isAdmin || $scope.identity && ($scope.identity.id === team.captain.id);
         };

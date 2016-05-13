@@ -4,14 +4,15 @@
             "home": {
                 "title": "Joukkueet",
                 "createLabel": "Luo uusi joukkue",
-                "createOrEditLabel": "Create or edit a Team"
+                "createOrEditLabel": "Create or edit a Team",
+                "creation.info": "Et voi luoda tiimiä ennen kuin olet täyttänyt omat henkilökohtaiset tietosi. Mene <a ui-sref='settings'>asetukset-sivulle</a> ja päivitä tietosi. Nimi ja sähköpostitiedot ovat pakollisia."
             },
             "activate": "Aktivoi",
             "created": "A new Team is created with identifier {{ param }}",
             "updated": "A Team is updated with identifier {{ param }}",
             "deleted": "A Team is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Team {{ id }}?"
+                "question": "Oletko varma että haluat poistaa joukkueen {{ id }}?"
             },
             "detail": {
                 "title": "Tiimi"

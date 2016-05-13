@@ -4,6 +4,7 @@
             "home": {
                 "title": "Teams",
                 "createLabel": "Create a new Team",
+                "creation.info": "You can't create a team until you've saved your settings (personal details etc). Go to the <a ui-sref='settings'>settings page</a> to update your details. Name and email details are required information.",
                 "createOrEditLabel": "Create or edit a Team"
             },
             "activate": "Activate",
