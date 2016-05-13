@@ -76,7 +76,7 @@ public class Team implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinTable(
-            name = "TEAM_REQUEST",
+            name = "team_request",
             joinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
     )

@@ -14,6 +14,10 @@ p {
     word-break: break-all;
 }
 
+textarea {
+    resize: vertical;
+}
+
 .development {
     position: absolute;
     width: 62px;

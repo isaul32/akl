@@ -5,6 +5,7 @@ angular.module('aklApp')
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.teams = [];
         $scope.page = 1;
+        
         $scope.loadAll = function() {
             Team.query({page: $scope.page, per_page: 20}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));

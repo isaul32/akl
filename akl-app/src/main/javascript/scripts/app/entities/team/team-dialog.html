@@ -7,11 +7,33 @@
         <h4 class="modal-title" id="myTeamLabel" translate="aklApp.team.home.createOrEditLabel">Create or edit a Team</h4>
     </div>
     <div class="modal-body">
-        <jh-alert-error></jh-alert-error>
-        <div class="form-group">
+        <akl-alert-error></akl-alert-error>
+        <!--<div class="form-group">
             <label for="id" translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
                     ng-model="team.id" readonly>
+        </div>-->
+
+        <div class="form-group">
+            <label translate="aklApp.team.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                   ng-model="team.name"
+                   required ng-minlength="1" ng-maxlength="255">
+
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.name.$error.minlength" translate="entity.validation.minlength" translate-value-min="1">
+                    This field is required to be at least 1 characters.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="255">
+                    This field cannot be longer than 255 characters.
+                </p>
+            </div>
         </div>
 
         <div class="form-group">
@@ -35,28 +57,8 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
-            <label translate="aklApp.team.name" for="field_name">Name</label>
-            <input type="text" class="form-control" name="name" id="field_name"
-                    ng-model="team.name"
-                    required ng-minlength="1" ng-maxlength="255">
 
-            <div ng-show="editForm.name.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.name.$error.minlength" translate="entity.validation.minlength" translate-value-min="1">
-                    This field is required to be at least 1 characters.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="255">
-                    This field cannot be longer than 255 characters.
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
+        <!--<div class="form-group">
             <label translate="aklApp.team.imageUrl" for="field_imageUrl">ImageUrl</label>
             <input type="text" class="form-control" name="imageUrl" id="field_imageUrl"
                     ng-model="team.imageUrl"
@@ -68,38 +70,42 @@
                     This field cannot be longer than 255 characters.
                 </p>
             </div>
-        </div>
+        </div>-->
+
         <div class="form-group">
             <label translate="aklApp.team.rank" for="field_rank">Rank</label>
             <select class="form-control" name="rank" ng-model="team.rank" id="field_rank">
-                <option value="s1" translate="aklApp.Rank.s1">s1</option>
-                <option value="s2" translate="aklApp.Rank.s2">s2</option>
-                <option value="s3" translate="aklApp.Rank.s3">s3</option>
-                <option value="s4" translate="aklApp.Rank.s4">s4</option>
-                <option value="se" translate="aklApp.Rank.se">se</option>
-                <option value="sem" translate="aklApp.Rank.sem">sem</option>
-                <option value="gn1" translate="aklApp.Rank.gn1">gn1</option>
-                <option value="gn2" translate="aklApp.Rank.gn2">gn2</option>
-                <option value="gn3" translate="aklApp.Rank.gn3">gn3</option>
-                <option value="gn4" translate="aklApp.Rank.gn4">gn4</option>
-                <option value="gnm" translate="aklApp.Rank.gnm">gnm</option>
-                <option value="mg1" translate="aklApp.Rank.mg1">mg1</option>
-                <option value="mg2" translate="aklApp.Rank.mg2">mg2</option>
-                <option value="mge" translate="aklApp.Rank.mge">mge</option>
-                <option value="dmg" translate="aklApp.Rank.dmg">dmg</option>
-                <option value="le" translate="aklApp.Rank.le">le</option>
-                <option value="lem" translate="aklApp.Rank.lem">lem</option>
-                <option value="smfc" translate="aklApp.Rank.smfc">smfc</option>
                 <option value="ge" translate="aklApp.Rank.ge">ge</option>
+                <option value="smfc" translate="aklApp.Rank.smfc">smfc</option>
+                <option value="lem" translate="aklApp.Rank.lem">lem</option>
+                <option value="le" translate="aklApp.Rank.le">le</option>
+                <option value="dmg" translate="aklApp.Rank.dmg">dmg</option>
+                <option value="mge" translate="aklApp.Rank.mge">mge</option>
+                <option value="mg2" translate="aklApp.Rank.mg2">mg2</option>
+                <option value="mg1" translate="aklApp.Rank.mg1">mg1</option>
+                <option value="gnm" translate="aklApp.Rank.gnm">gnm</option>
+                <option value="gn4" translate="aklApp.Rank.gn4">gn4</option>
+                <option value="gn3" translate="aklApp.Rank.gn3">gn3</option>
+                <option value="gn2" translate="aklApp.Rank.gn2">gn2</option>
+                <option value="gn1" translate="aklApp.Rank.gn1">gn1</option>
+                <option value="sem" translate="aklApp.Rank.sem">sem</option>
+                <option value="se" translate="aklApp.Rank.se">se</option>
+                <option value="s4" translate="aklApp.Rank.s4">s4</option>
+                <option value="s3" translate="aklApp.Rank.s3">s3</option>
+                <option value="s2" translate="aklApp.Rank.s2">s2</option>
+                <option value="s1" translate="aklApp.Rank.s1">s1</option>
             </select>
-
         </div>
+
         <div class="form-group">
             <label translate="aklApp.team.description" for="field_description">Description</label>
-            <input type="text" class="form-control" name="description" id="field_description"
-                    ng-model="team.description"
-                    >
-
+            <textarea class="form-control" name="description" id="field_description" ng-model="team.description" style="min-height: 100px"></textarea>
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="255">
+                    This field cannot be longer than 255 characters.
+                </p>
+            </div>
         </div>
     </div>
     <div class="modal-footer">

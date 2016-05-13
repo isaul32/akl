@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('aklApp')
-    .directive('jhAlert', function(AlertService) {
+    .directive('aklAlert', function(AlertService) {
 		return {
             restrict: 'E',
             template: '<div class="alerts">' +
-			                '<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"><pre>{{ alert.msg }}</pre></alert>' +
+			                '<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{ alert.msg }}</uib-alert>' +
 			            '</div>',
 			controller: ['$scope', 
 	            function($scope) {
@@ -17,11 +17,11 @@ angular.module('aklApp')
 	        ]
         }
     })
-    .directive('jhAlertError', function(AlertService, $rootScope, $translate) {
+    .directive('aklAlertError', function(AlertService, $rootScope, $translate) {
 		return {
             restrict: 'E',
             template: '<div class="alerts">' +
-			                '<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"><pre>{{ alert.msg }}</pre></alert>' +
+			                '<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{ alert.msg }}</uib-alert>' +
 			            '</div>',
 			controller: ['$scope', 
 	            function($scope) {

@@ -1,6 +1,6 @@
 <div class="container">
 
-    <jh-alert></jh-alert>
+    <akl-alert></akl-alert>
 
     <div class="row">
         <div class="col-md-12">
@@ -50,26 +50,20 @@
                         <th translate="aklApp.team.tag">Tag</th>
                         <th translate="aklApp.team.name">Name</th>
                         <th translate="aklApp.team.rank">Rank</th>
-                        <th translate="aklApp.team.description">Description</th>
-                        <th translate="aklApp.team.captain">Captain</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="team in teams">
                         <td>{{team.tag}}</td>
-                        <td>{{team.name}}</td>
+                        <td>
+                            <a ui-sref="team.detail({id:team.id})">
+                                {{team.name}}
+                            </a>
+                        </td>
                         <td translate="{{'aklApp.Rank.' + team.rank}}"></td>
-                        <td>{{team.description}}</td>
-                        <td>{{team.captain.login}}</td>
                         <td>
                             <div class="pull-right">
-                                <button type="submit"
-                                        ui-sref="team.detail({id:team.id})"
-                                        class="btn btn-info btn-sm">
-                                    <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
-                                    <span translate="entity.action.view">View</span>
-                                </button>
                                 <button type="submit" ng-if="isInactive(team)"
                                         ng-click="activate(team.id)"
                                         class="btn btn-primary btn-sm">

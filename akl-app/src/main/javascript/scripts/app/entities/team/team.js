@@ -44,8 +44,8 @@ angular.module('aklApp')
                         $translatePartialLoader.addPart('rank');
                         return $translate.refresh();
                     }],
-                    entity: ['$stateParams', 'Team', function($stateParams, Team) {
-                        return Team.get({id : $stateParams.id});
+                    team: ['$stateParams', 'Api', function($stateParams, Api) {
+                        return Api.one('teams', $stateParams.id).get();
                     }]
                 }
             })

@@ -1,43 +1,15 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-
-            <h2><span translate="aklApp.team.detail.title">Team</span> {{team.id}}</h2>
+            <h2>{{team.name}} (<b>{{team.tag}}</b>)</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
+                <table class="table">
                     <tr>
-                        <th translate="entity.detail.field">Field</th>
-                        <th translate="entity.detail.value">Value</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <span translate="aklApp.team.tag">Tag</span>
-                        </td>
-                        <td>
-                            <span class="form-control-static">{{team.tag}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span translate="aklApp.team.name">Name</span>
-                        </td>
-                        <td>
-                            <span class="form-control-static">{{team.name}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span translate="aklApp.team.imageUrl">ImageUrl</span>
-                        </td>
-                        <td>
-                            <span class="form-control-static">{{team.imageUrl}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        <td style="width: 200px">
                             <span translate="aklApp.team.rank">Rank</span>
                         </td>
                         <td>
@@ -49,7 +21,7 @@
                             <span translate="aklApp.team.description">Description</span>
                         </td>
                         <td>
-                            <span class="form-control-static">{{team.description}}</span>
+                            <span class="form-control-static" style="white-space: pre-wrap;">{{team.description}}</span>
                         </td>
                     </tr>
                     <tr>
@@ -57,7 +29,9 @@
                             <span translate="aklApp.team.captain">Captain</span>
                         </td>
                         <td>
-                            <span class="form-control-static">{{team.captain.login}}</span>
+                            <span class="form-control-static">
+                                <a ui-sref="user({ id: team.captain.id })">{{team.captain.login}}</a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -80,7 +54,6 @@
                             </p>
                         </td>
                     </tr>
-                    </tbody>
                 </table>
             </div>
 

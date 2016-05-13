@@ -22,8 +22,8 @@
             "rank": "Taso",
             "description": "Kuvaus",
             "captain": "Kapteeni",
-            "members": "Jäsen",
-            "standins": "Varajäsen"
+            "members": "Jäsenet",
+            "standins": "Varajäsenet"
         }
     }
 }
