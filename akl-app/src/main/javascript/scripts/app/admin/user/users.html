@@ -1,7 +1,54 @@
 <div class="container">
+
+    <jh-alert></jh-alert>
+
     <div class="row">
         <div class="col-md-12">
             <h2 translate="user.title" class="ng-scope">Users</h2>
+        </div>
+    </div>
+
+    <div class="modal fade" id="changeUserAuthorities">
+        <div class="modal-dialog" style="width: 800px">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="changeAuthorities()">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="clear()">&times;</button>
+                        <h4 class="modal-title">Authorities</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Change <b>{{ user.login }}</b> authorities.</p>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th ng-repeat="authority in authorities">
+                                            {{ authority.name }}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td ng-repeat="authority in userAuthorities" class="text-center">
+                                            <input type="checkbox" ng-model="authority.value">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -10,8 +57,7 @@
             <div class="modal-content">
                 <form name="deleteForm" ng-submit="confirmDelete()">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                ng-click="clear()">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="clear()">&times;</button>
                         <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
                     </div>
                     <div class="modal-body">
@@ -62,16 +108,10 @@
                                     <span translate="entity.action.view">View</span>
                                 </button>
                                 <button type="submit"
-                                        ng-click="activate(team.id)"
+                                        ng-click="openAuthorities(index)"
                                         class="btn btn-primary btn-sm">
-                                    <span class="glyphicon glyphicon-ok"></span>
-
-                                    <span translate="user.permissions">Permissions</span>
-                                </button>
-                                <button type="submit"
-                                        class="btn btn-primary btn-sm">
-                                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;
-                                    <span translate="entity.action.edit">Edit</span>
+                                    <span class="glyphicon glyphicon-ok"></span>&nbsp;
+                                    <span translate="user.authorities">Authorities</span>
                                 </button>
                                 <button type="submit"
                                         ng-click="delete(index)"

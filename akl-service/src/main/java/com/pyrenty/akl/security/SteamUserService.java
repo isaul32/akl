@@ -44,7 +44,7 @@ public class SteamUserService implements AuthenticationUserDetailsService<OpenID
                     String steamId = convertCommunityIdToSteamId(
                             Long.parseUnsignedLong(parts[5]));
 
-                    User user = userService.getSteamUserWithAuthorities(communityId);
+                    User user = userService.getUserWithAuthorities(communityId);
 
                     if (user != null) {
                         List<GrantedAuthority> authorities = user.getAuthorities().stream()

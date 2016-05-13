@@ -63,7 +63,6 @@ require('./scripts/components/interceptor/notification.interceptor');
 require('./scripts/components/navbar/navbar.controller');
 require('./scripts/components/navbar/navbar.directive');
 require('./scripts/components/footer/footer.controller');
-require('./scripts/components/user/user.service');
 require('./scripts/components/util/api.service');
 require('./scripts/components/util/base64.service');
 require('./scripts/components/util/dateutil.service');

@@ -5,11 +5,13 @@ import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.inject.Inject;
 
 @Controller
 @RequestMapping("/api")
+@ApiIgnore
 public class SteamAuthResource {
     @Inject
     private UserService userService;

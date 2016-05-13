@@ -1,5 +1,6 @@
 {
     "user": {
-        "title": "User management"
+        "title": "User management",
+        "authorities": "Authorities"
     }
 }

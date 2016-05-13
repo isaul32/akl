@@ -16,5 +16,6 @@ public interface TeamMapper {
     @Mapping(target = "captain", ignore = true)
     @Mapping(target = "members", ignore = true)
     @Mapping(target = "standins", ignore = true)
+    @Mapping(target = "requests", ignore = true)
     Team teamDTOToTeam(TeamDTO teamDTO);
 }

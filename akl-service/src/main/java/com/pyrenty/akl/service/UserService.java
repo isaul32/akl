@@ -178,7 +178,20 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User getSteamUserWithAuthorities(String communityId) {
+    public User getUserWithAuthorities(Long id) {
+        Optional<User> user = userRepository.findOneById(id);
+
+        if (user.isPresent()) {
+            User currentUser = user.get();
+            currentUser.getAuthorities().size(); // eagerly load the association
+            return currentUser;
+        }
+
+        return null;
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserWithAuthorities(String communityId) {
         Optional<User> user = userRepository.findOneByCommunityId(communityId);
 
         if (user.isPresent()) {

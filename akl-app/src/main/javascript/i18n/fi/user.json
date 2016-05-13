@@ -1,6 +1,6 @@
 {
     "user": {
         "title": "Käyttäjähallinta",
-        "permissions": "Oikeudet"
+        "authorities": "Oikeudet"
     }
 }

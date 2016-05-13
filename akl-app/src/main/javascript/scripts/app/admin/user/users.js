@@ -26,6 +26,9 @@ angular.module('aklApp')
                     }],*/
                     users: ['Api', '$stateParams', function (Api, $stateParams) {
                         return Api.all('users').getList();
+                    }],
+                    authorities: ['Api', function (Api) {
+                        return Api.all('users').all('authorities').getList();
                     }]
                 }
             });
