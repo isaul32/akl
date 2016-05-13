@@ -23,6 +23,9 @@
             <column name="login" type="varchar(50)">
                 <constraints unique="true" nullable="false"/>
             </column>
+            <column name="nickname" type="varchar(20)">
+                <constraints unique="true" nullable="false"/>
+            </column>
             <column name="password" type="varchar(60)"/>
             <column name="first_name" type="varchar(50)"/>
             <column name="last_name" type="varchar(50)"/>

@@ -38,6 +38,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(length = 50, unique = true, nullable = false)
     private String login;
 
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(length = 20, unique = true, nullable = false)
+    private String nickname;
+
     @JsonIgnore
     @NotNull
     @Size(min = 60, max = 60)
@@ -129,6 +134,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getPassword() {

@@ -4,7 +4,7 @@ angular.module('aklApp')
     .controller('ScheduleController', function ($scope) {
 
         // Some test data
-        var date = new Date();
+        /*var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
@@ -16,6 +16,16 @@ angular.module('aklApp')
             {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
             {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
             {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
+        ];*/
+        $scope.events = [
+            {
+                title: 'Ilmoittautuminen alkaa',
+                start: new Date(2016, 5 - 1, 15)
+            },
+            {
+                title: 'Ilmoittautuminen päättyy',
+                start: new Date(2016, 6 - 1, 15)
+            }
         ];
 
         $scope.eventSources = [$scope.events];
@@ -29,7 +39,6 @@ angular.module('aklApp')
         $scope.uiConfig = {
             calendar: {
                 editable: false,
-                //theme: true,
                 firstDay: 1,
                 header: {
                     left: 'title',

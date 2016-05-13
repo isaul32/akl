@@ -7,6 +7,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+// todo: This is not a valid DTO
 public class UserDTO {
 
     public static final int PASSWORD_MIN_LENGTH = 5;
@@ -47,6 +48,7 @@ public class UserDTO {
     private List<String> roles;
 
     public UserDTO() {
+
     }
 
     public UserDTO(Long id, String login, String password, String firstName, String lastName, String email, boolean activated, String langKey,

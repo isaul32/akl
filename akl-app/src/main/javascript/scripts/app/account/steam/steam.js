@@ -5,7 +5,7 @@ angular.module('aklApp')
         $stateProvider
             .state('steam', {
                 parent: 'account',
-                url: '/login-steam',
+                url: '/steam',
                 data: {
                     roles: [],
                     pageTitle: 'login.title'

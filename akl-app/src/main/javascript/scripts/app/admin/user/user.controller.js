@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('UsersController', function ($scope, users, $state, Api, authorities) {
+    .controller('UserController', function ($scope, users, $state, Api, authorities) {
         $scope.users = users.data;
         $scope.authorities = authorities.data;
 

@@ -3,6 +3,6 @@
         "title": "Kirjaudu sisään Steamin kautta",
         "help": "Kirjaudu sisään Steam tililläsi klikkaamalla Sign in through Steam -painiketta",
         "info": "Liigan pelaajat voivat kirjautua vain Steamin kautta. Ensimmäisen kirjautumisen yhteydessä pelaajalle luodaan AKL-tili, joka yhdistetään valittuun Steam profiiliin.",
-        "adminlogin": "Admin kirjautuminen"
+        "user-login": "Käyttäjällä kirjautuminen"
     }
 }

@@ -96,6 +96,7 @@ public class UserService {
         Authority authority = authorityRepository.findOne("ROLE_USER");
         Set<Authority> authorities = new HashSet<>();
         newUser.setLogin(login);
+        newUser.setNickname(login);
         // Steam users won't login by password
         newUser.setPassword(passwordEncoder.encode(RandomUtil.generatePassword()));
         newUser.setCommunityId(communityId);

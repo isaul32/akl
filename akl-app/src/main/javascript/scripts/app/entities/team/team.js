@@ -5,7 +5,7 @@ angular.module('aklApp')
         $stateProvider
             .state('team', {
                 parent: 'entity',
-                url: '/teams',
+                url: '/team',
                 data: {
                     roles: [],
                     pageTitle: 'aklApp.team.home.title'

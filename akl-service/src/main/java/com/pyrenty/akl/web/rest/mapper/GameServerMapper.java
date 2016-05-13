@@ -10,7 +10,6 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface GameServerMapper {
-
     GameServerDTO gameServerToGameServerDTO(GameServer gameServer);
 
     GameServer gameServerDTOToGameServer(GameServerDTO gameServerDTO);

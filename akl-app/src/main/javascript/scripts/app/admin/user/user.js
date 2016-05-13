@@ -5,7 +5,7 @@ angular.module('aklApp')
         $stateProvider
             .state('user', {
                 parent: 'admin',
-                url: '/users',
+                url: '/user',
                 data: {
                     roles: ['ROLE_ADMIN'],
                     pageTitle: 'user.title'
@@ -13,7 +13,7 @@ angular.module('aklApp')
                 views: {
                     'content@': {
                         templateUrl: 'scripts/app/admin/user/users.html',
-                        controller: 'UsersController'
+                        controller: 'UserController'
                     }
                 },
                 resolve: {
@@ -29,6 +29,30 @@ angular.module('aklApp')
                     }],
                     authorities: ['Api', function (Api) {
                         return Api.all('users').all('authorities').getList();
+                    }]
+                }
+            })
+            .state('user.detail', {
+                parent: 'admin',
+                url: '/user/{id}',
+                data: {
+                    roles: [],
+                    pageTitle: 'user.detail.title'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/admin/user/user-detail.html',
+                        controller: 'UserDetailController'
+                    }
+                },
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('user');
+                        $translatePartialLoader.addPart('rank');
+                        return $translate.refresh();
+                    }],
+                    user: ['$stateParams', 'Api', function($stateParams, Api) {
+                        return Api.one('users', $stateParams.id).get();
                     }]
                 }
             });

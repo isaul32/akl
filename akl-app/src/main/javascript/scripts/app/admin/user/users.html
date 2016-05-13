@@ -93,7 +93,11 @@
                 <tbody>
                     <tr ng-repeat="(index, user) in users">
                         <td>{{ user.id }}</td>
-                        <td>{{ user.login }}</td>
+                        <td>
+                            <a ui-sref="user.detail({ id: user.id })">
+                                {{ user.login }}
+                            </a>
+                        </td>
                         <td>{{ user.firstName }}</td>
                         <td>{{ user.lastName }}</td>
                         <td>{{ user.email }}</td>
@@ -102,11 +106,6 @@
                         </td>
                         <td>
                             <div class="pull-right">
-                                <button type="submit"
-                                        class="btn btn-info btn-sm">
-                                    <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
-                                    <span translate="entity.action.view">View</span>
-                                </button>
                                 <button type="submit"
                                         ng-click="openAuthorities(index)"
                                         class="btn btn-primary btn-sm">

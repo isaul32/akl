@@ -6,6 +6,8 @@ import com.pyrenty.akl.domain.user.User;
 import com.pyrenty.akl.repository.AuthorityRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.service.UserService;
+import com.pyrenty.akl.web.rest.dto.UserBaseDTO;
+import com.pyrenty.akl.web.rest.mapper.UserMapper;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -41,6 +43,9 @@ public class UserResource {
 
     @Inject
     private AuthorityRepository authorityRepository;
+
+    @Inject
+    private UserMapper userMapper;
 
     @RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -81,9 +86,6 @@ public class UserResource {
     @Timed
     ResponseEntity<Void> updateUserAuthorities(@PathVariable Long id, @RequestBody Set<Authority> authorities) {
         User user = userService.getUserWithAuthorities(id);
-        log.debug(authorities.toString());
-        authorities.stream()
-                .forEach(a -> log.debug(a.getName()));
         user.setAuthorities(authorities);
         userRepository.save(user);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert("authority", id.toString())).build();
@@ -103,10 +105,11 @@ public class UserResource {
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    ResponseEntity<User> getUser(@PathVariable Long id) {
-        log.debug("REST request to get User : {}", id);
+    ResponseEntity<UserBaseDTO> getUser(@PathVariable Long id) {
+        log.debug("REST request to get UserDTO : {}", id);
         return userRepository.findOneById(id)
-                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+                .map(user -> userMapper.userToUserBaseDTO(user))
+                .map(userDTO -> new ResponseEntity<>(userDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
