@@ -21,8 +21,11 @@ angular.module('aklApp')
                         $translatePartialLoader.addPart('user');
                         return $translate.refresh();
                     }],
-                    users:  ['User', function (User) {
-                        return User.query();
+                    /*count: ['Api', function (Api) {
+                        return Api.all('users').one('count').get();
+                    }],*/
+                    users: ['Api', '$stateParams', function (Api, $stateParams) {
+                        return Api.all('users').getList();
                     }]
                 }
             });

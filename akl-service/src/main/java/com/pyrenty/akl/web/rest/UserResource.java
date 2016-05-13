@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -40,6 +41,22 @@ public class UserResource {
             return page.getContent();
         } else {
             return userRepository.findAll();
+        }
+    }
+
+    @RequestMapping(value = "/users/count", method = RequestMethod.GET)
+    @Timed
+    public long getCount() {
+        return userRepository.count();
+    }
+
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    @Transactional
+    @Timed
+    void deleteUser(@PathVariable Long id) {
+        User user = userRepository.findOne(id);
+        if (user != null) {
+            userRepository.delete(user);
         }
     }
 

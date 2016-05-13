@@ -24,7 +24,7 @@ public class SteamAuthResource {
         User user = userService.getUserWithAuthorities();
 
         if (user != null && user.getEmail() == null) {
-            return "return_settings";
+            return "return";
         }
 
         return "return";

@@ -4,21 +4,29 @@
             <h2 translate="user.title" class="ng-scope">Users</h2>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-2">
-            <input type="email" class="form-control" id="inputEmail1" placeholder="Search">
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <ul class="pagination">
-                <li><a href="#">1</a></li>
-                <li class="active"><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-            </ul>
+    <div class="modal fade" id="deleteUserConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete()">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete <b>{{ user.login }}</b>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -37,14 +45,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="user in users">
+                    <tr ng-repeat="(index, user) in users">
                         <td>{{ user.id }}</td>
                         <td>{{ user.login }}</td>
                         <td>{{ user.firstName }}</td>
                         <td>{{ user.lastName }}</td>
                         <td>{{ user.email }}</td>
                         <td>
-                            <a ng-href="https://steamcommunity.com/id/{{ user.communityId }}">{{ user.communityId }}</a>
+                            <a ng-href="https://steamcommunity.com/profiles/{{ user.communityId }}">{{ user.communityId }}</a>
                         </td>
                         <td>
                             <div class="pull-right">
@@ -66,6 +74,7 @@
                                     <span translate="entity.action.edit">Edit</span>
                                 </button>
                                 <button type="submit"
+                                        ng-click="delete(index)"
                                         class="btn btn-danger btn-sm">
                                     <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;
                                     <span translate="entity.action.delete">Delete</span>
@@ -78,15 +87,4 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <ul class="pagination">
-                <li><a href="#">1</a></li>
-                <li class="active"><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-            </ul>
-        </div>
-    </div>
 </div>
