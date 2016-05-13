@@ -11,7 +11,7 @@ import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "USER_PROFILE")
+@Table(name = "user_profile")
 public class UserProfile implements Serializable {
 
     @Id

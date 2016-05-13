@@ -24,7 +24,7 @@ import com.pyrenty.akl.domain.enumeration.Rank;
  * A Team.
  */
 @Entity
-@Table(name = "TEAM")
+@Table(name = "team")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Team implements Serializable {
 

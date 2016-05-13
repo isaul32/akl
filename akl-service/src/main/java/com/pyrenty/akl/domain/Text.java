@@ -12,7 +12,7 @@ import java.util.Objects;
  * A Text.
  */
 @Entity
-@Table(name = "TEXT")
+@Table(name = "text")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Text implements Serializable {
 

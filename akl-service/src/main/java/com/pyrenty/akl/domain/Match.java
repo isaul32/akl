@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
  * Created by Sauli on 9.4.2016.
  */
 //@Entity
-//@Table(name = "MATCH")
+//@Table(name = "match")
 public class Match {
 
     /*@Id

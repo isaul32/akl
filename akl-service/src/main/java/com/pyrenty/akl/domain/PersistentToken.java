@@ -21,7 +21,7 @@ import java.io.Serializable;
  * @see com.pyrenty.akl.security.CustomPersistentRememberMeServices
  */
 @Entity
-@Table(name = "JHI_PERSISTENT_TOKEN")
+@Table(name = "persistent_token")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class PersistentToken implements Serializable {
 

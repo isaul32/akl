@@ -18,7 +18,7 @@
         Added the entity Text.
     -->
     <changeSet id="2" author="jhipster">
-        <createTable tableName="TEXT">
+        <createTable tableName="text">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -27,9 +27,9 @@
         </createTable>
 
         <loadData encoding="UTF-8"
-                  file="config/liquibase/texts.csv"
+                  file="config/liquibase/data/texts.csv"
                   separator=";"
-                  tableName="TEXT">
+                  tableName="text">
         </loadData>
 
     </changeSet>

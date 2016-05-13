@@ -15,7 +15,7 @@
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
     <changeSet id="5" author="isaul">
-        <createTable tableName="MATCH_PROPOSITION">
+        <createTable tableName="match_proposition">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>

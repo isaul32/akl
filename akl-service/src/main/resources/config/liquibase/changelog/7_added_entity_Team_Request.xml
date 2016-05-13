@@ -18,7 +18,7 @@
         Add Team Request entity
     -->
     <changeSet id="7" author="pinqvin">
-        <createTable tableName="TEAM_REQUEST">
+        <createTable tableName="team_request">
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
@@ -27,30 +27,30 @@
             </column>
         </createTable>
 
-        <addPrimaryKey tableName="TEAM_REQUEST" columnNames="user_id, team_id"/>
+        <addPrimaryKey tableName="team_request" columnNames="user_id, team_id"/>
 
-        <addForeignKeyConstraint baseTableName="TEAM_REQUEST" baseColumnNames="user_id"
+        <addForeignKeyConstraint baseTableName="team_request" baseColumnNames="user_id"
                                  constraintName="fk_team_request_user"
-                                 referencedTableName="JHI_USER"
+                                 referencedTableName="user"
                                  referencedColumnNames="id"/>
 
-        <addForeignKeyConstraint baseTableName="TEAM_REQUEST" baseColumnNames="team_id"
+        <addForeignKeyConstraint baseTableName="team_request" baseColumnNames="team_id"
                                  constraintName="fk_team_request_team"
                                  referencedTableName="TEAM"
                                  referencedColumnNames="id"/>
 
-        <addUniqueConstraint tableName="TEAM_REQUEST" columnNames="user_id"/>
+        <addUniqueConstraint tableName="team_request" columnNames="user_id"/>
         
-        <addColumn tableName="TEAM">
+        <addColumn tableName="team">
             <column name="activated" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
             </column>
         </addColumn>
 
         <loadUpdateData encoding="UTF-8"
-                        tableName="TEAM"
+                        tableName="team"
                         primaryKey="id"
-                        file="config/liquibase/team_update_activated.csv"
+                        file="config/liquibase/data/team_update_activated.csv"
                         separator=";"/>
     </changeSet>
 </databaseChangeLog>

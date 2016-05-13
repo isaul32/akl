@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by Sauli on 9.4.2016.
  */
 @Entity
-@Table(name = "MATCH_PROPOSITION")
+@Table(name = "match_proposition")
 public class MatchProposition {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

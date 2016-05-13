@@ -18,7 +18,7 @@
         Added the entity Team.
     -->
     <changeSet id="3" author="jhipster">
-        <createTable tableName="TEAM">
+        <createTable tableName="team">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -34,9 +34,9 @@
         </createTable>
 
         <loadData encoding="UTF-8"
-                  file="config/liquibase/teams.csv"
+                  file="config/liquibase/data/teams.csv"
                   separator=";"
-                  tableName="TEAM">
+                  tableName="team">
         </loadData>
 
     </changeSet>
