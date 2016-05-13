@@ -4,8 +4,7 @@ angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprec
     'ui.bootstrap', 'ngResource', 'ui.router', 'ngCookies', 'angularFileUpload',
     'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache', 'restangular', 'ngSanitize'])
     .run(function ($rootScope, $location, $window, $http, $state, $translate,
-                   Language, Auth, Principal, amMoment, ENV, VERSION) {
-        $rootScope.ENV = ENV;
+                   Language, Auth, Principal, amMoment, VERSION) {
         $rootScope.VERSION = VERSION;
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             $rootScope.toState = toState;
@@ -101,11 +100,9 @@ angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprec
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
 
-
         // Restangular
         RestangularProvider.setBaseUrl('/akl-service/api');
     })
-    .constant('ENV', 'dev')
     .constant('VERSION', '1.0.0')
     .constant('SERVICE_URL', window.location.origin + '/akl-service')
     .constant('SERVICE_PATH', '/akl-service')

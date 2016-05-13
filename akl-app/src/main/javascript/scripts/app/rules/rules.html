@@ -1,11 +1,14 @@
-<div class="container green-content">
-
+<div class="container">
     <div class="row">
         <div class="col-md-12">
 
             <div ng-controller="CkeditorCtrl">
+                <div ng-hide="editMode">
+                    <div ng-bind-html="text[lang]"></div>
+                </div>
+
                 <div ng-show="isAuthenticated" has-role="ROLE_CMS">
-                    <a href="" ng-click="editMode = true" class="ckeditor-edit" ng-hide="editMode">
+                    <a href="" ng-click="editMode = true" class="pull-right" ng-hide="editMode">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                         <span translate="global.ckeditor.edit"></span>
                     </a>
@@ -16,10 +19,6 @@
                              contenteditable="true">
                         </div>
                     </div>
-                </div>
-
-                <div ng-hide="editMode">
-                    <div ng-bind-html="text[lang]"></div>
                 </div>
             </div>
 

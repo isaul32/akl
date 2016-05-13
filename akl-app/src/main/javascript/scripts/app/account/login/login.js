@@ -5,7 +5,7 @@ angular.module('aklApp')
         $stateProvider
             .state('login', {
                 parent: 'account',
-                url: '/admin-login',
+                url: '/login',
                 data: {
                     roles: [],
                     pageTitle: 'login.title'

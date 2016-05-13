@@ -10,8 +10,8 @@ body {
     color: #333;
 }
 
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-    display: none !important;
+p {
+    word-break: break-all;
 }
 
 .development {
@@ -25,13 +25,6 @@ body {
     background-image: url("../images/dev_ribbon.png");
     background-position: center center;
     background-repeat: no-repeat;
-}
-
-.browserupgrade {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
 }
 
 .hero-unit {
@@ -56,33 +49,6 @@ body {
     background-color: red;
 }
 
-.hipster {
-    display: inline-block;
-    width: 347px;
-    height: 497px;
-    background: url("../images/hipster.png") no-repeat center top;
-    background-size: contain;
-}
-
-.pad {
-    padding: 10px;
-}
-
-/* wait autoprefixer update to allow simple generation of high pixel density media query */
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (   min--moz-device-pixel-ratio: 2),
-only screen and (     -o-min-device-pixel-ratio: 2/1),
-only screen and (        min-device-pixel-ratio: 2),
-only screen and (                min-resolution: 192dpi),
-only screen and (                min-resolution: 2dppx) {
-    .hipster {
-        background: url("../images/hipster2x.png") no-repeat center top;
-        background-size: contain;
-    }
-}
-
-/* make sure browsers use the pointer cursor for anchors, even with no href */
 a:hover {
     cursor: pointer;
 }
@@ -131,8 +97,7 @@ ul#strength {
     margin-right:1px;
     width:20px;
 }
-/* end Password strength bar style */
-/* Custom alerts for notification */
+
 .alerts .alert{
     text-overflow: ellipsis;
 }
@@ -143,16 +108,4 @@ ul#strength {
     color: inherit;
     padding: 0;
     margin: 0;
-}
-/* end of Custom alerts for notification */
-
-.btn-primary {
-    // Not sure about this
-    //@include button-variant($btn-primary-color, #37867B, $secondary-green-color);
-}
-
-.ckeditor-edit {
-    position: relative;
-    top: -20px;
-    float: right;
 }

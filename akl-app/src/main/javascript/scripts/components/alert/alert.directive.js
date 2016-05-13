@@ -4,8 +4,8 @@ angular.module('aklApp')
     .directive('jhAlert', function(AlertService) {
 		return {
             restrict: 'E',
-            template: '<div class="alerts" ng-cloak="">' +
-			                '<alert ng-cloak="" ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"><pre>{{ alert.msg }}</pre></alert>' +
+            template: '<div class="alerts">' +
+			                '<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"><pre>{{ alert.msg }}</pre></alert>' +
 			            '</div>',
 			controller: ['$scope', 
 	            function($scope) {
@@ -20,8 +20,8 @@ angular.module('aklApp')
     .directive('jhAlertError', function(AlertService, $rootScope, $translate) {
 		return {
             restrict: 'E',
-            template: '<div class="alerts" ng-cloak="">' +
-			                '<alert ng-cloak="" ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"><pre>{{ alert.msg }}</pre></alert>' +
+            template: '<div class="alerts">' +
+			                '<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"><pre>{{ alert.msg }}</pre></alert>' +
 			            '</div>',
 			controller: ['$scope', 
 	            function($scope) {

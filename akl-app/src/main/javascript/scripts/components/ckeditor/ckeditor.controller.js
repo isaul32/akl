@@ -28,11 +28,8 @@ angular.module('aklApp')
 
         // Editor options.
         $scope.options = {
-            //skin: 'bootstrapck,/scripts/components/ckeditor/skins/bootstrapck/',
-            //skin: 'flat,/scripts/components/ckeditor/skins/flat/',
-            //skin: 'minimalist,/scripts/components/ckeditor/skins/minimalist/',
             language: lang,
-            extraPlugins: 'autogrow,widgetbootstrap,base64image,inlinesave,inlinecancel,ckwebspeech,chart,fontawesome,justify,tableresize,colorbutton,youtube',
+            extraPlugins: 'autogrow,widgetbootstrap,base64image,inlinesave,inlinecancel,ckwebspeech,chart,fontawesome,justify,youtube',
             toolbarGroups: toolbarGroups,
             disableNativeSpellChecker: true,
             allowedContent: true,

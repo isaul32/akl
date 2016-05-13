@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('NavbarController', function ($rootScope, $scope, $location, $state, Auth, Principal, ENV, $http, API_URL) {
+    .controller('NavbarController', function ($rootScope, $scope, $location, $state, Auth, Principal, $http, API_URL) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.$state = $state;
-        $scope.inProduction = ENV === 'prod';
 
         var getAccount = function () {
             Principal.identity().then(function(account) {

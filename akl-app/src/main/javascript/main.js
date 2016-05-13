@@ -1,7 +1,7 @@
 'use strict';
 
 require('../../../node_modules/ckeditor/ckeditor');
-CKEDITOR.basePath = '/akl-app/ckeditor/'; // Must declare
+CKEDITOR.basePath = '/akl-app/ckeditor/';
 
 // Vendor libs
 global.jQuery = require('jquery');
@@ -113,8 +113,8 @@ require('./scripts/app/admin/logs/logs.controller');
 require('./scripts/app/admin/metrics/metrics');
 require('./scripts/app/admin/metrics/metrics.controller');
 require('./scripts/app/admin/metrics/metrics.modal.controller');
-require('./scripts/app/admin/user/user');
-require('./scripts/app/admin/user/user.controller');
+require('./scripts/app/admin/user/users');
+require('./scripts/app/admin/user/users.controller');
 require('./scripts/app/admin/tracker/tracker');
 require('./scripts/app/admin/tracker/tracker.controller');
 

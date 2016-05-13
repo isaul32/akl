@@ -10,7 +10,7 @@ spring:
         active: dev
     datasource:
         dataSourceClassName: org.h2.jdbcx.JdbcDataSource
-        url: jdbc:h2:mem:jhipster;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:mem:akl;DB_CLOSE_DELAY=-1
         databaseName:
         serverName:
         username:
@@ -22,7 +22,7 @@ spring:
         show_sql: true
         generate-ddl: false
         hibernate:
-            ddl-auto: none
+            ddl-auto: validate
             naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
         properties:
             hibernate.cache.use_second_level_cache: true

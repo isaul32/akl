@@ -30,15 +30,6 @@ public class Application {
     @Inject
     private Environment env;
 
-    /**
-     * Initializes akl.
-     * <p/>
-     * Spring profiles can be configured with a program arguments --spring.profiles.active=your-active-profile
-     * <p/>
-     * <p>
-     * You can find more information on how profiles work with JHipster on <a href="http://jhipster.github.io/profiles.html">http://jhipster.github.io/profiles.html</a>.
-     * </p>
-     */
     @PostConstruct
     public void initApplication() throws IOException {
         if (env.getActiveProfiles().length == 0) {
@@ -61,9 +52,6 @@ public class Application {
         }
     }
 
-    /**
-     * Main method, used to run the application.
-     */
     public static void main(String[] args) throws UnknownHostException {
         SpringApplication app = new SpringApplication(Application.class);
         app.setBannerMode(Banner.Mode.OFF);
@@ -83,9 +71,6 @@ public class Application {
 
     }
 
-    /**
-     * If no profile has been configured, set by default the "dev" profile.
-     */
     private static void addDefaultProfile(SpringApplication app, SimpleCommandLinePropertySource source) {
         if (!source.containsProperty("spring.profiles.active") &&
                 !System.getenv().containsKey("SPRING_PROFILES_ACTIVE")) {
@@ -94,9 +79,6 @@ public class Application {
         }
     }
 
-    /**
-     * Set the liquibases.scan.packages to avoid an exception from ServiceLocator.
-     */
     private static void addLiquibaseScanPackages() {
         System.setProperty("liquibase.scan.packages", Joiner.on(",").join(
             "liquibase.change", "liquibase.database", "liquibase.parser",

@@ -38,7 +38,6 @@ var bopts = {
     entries: [config.app + 'main.js'],
     cache: {},
     packageCache: {}
-    //plugin: [watchify] // Watch
 };
 
 var b = browserify(bopts);
@@ -48,8 +47,6 @@ var bundle = function () {
         .on('error', gutil.log.bind(gutil, 'Browserify error'))
         .pipe(source('bundle.js'))
         .pipe(ngAnnotate())
-        //.pipe(buffer())
-        //.pipe(uglify())
         .pipe(gulp.dest(config.dist + 'js'));
 };
 

@@ -5,21 +5,24 @@ angular.module('aklApp')
         $stateProvider
             .state('user', {
                 parent: 'admin',
-                url: '/user',
+                url: '/users',
                 data: {
                     roles: ['ROLE_ADMIN'],
                     pageTitle: 'user.title'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/admin/user/user.html',
-                        //controller: 'UserController'
+                        templateUrl: 'scripts/app/admin/user/users.html',
+                        controller: 'UsersController'
                     }
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('user');
                         return $translate.refresh();
+                    }],
+                    users:  ['User', function (User) {
+                        return User.query();
                     }]
                 }
             });

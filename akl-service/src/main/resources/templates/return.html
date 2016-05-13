@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Return</title>
 </head>
 <body>
-<script type="text/javascript">
-    /*<![CDATA[*/
-    window.location = window.location.origin + '/akl-app';
-    /*]]>*/
-</script>
-<a href="/akl-app">Return back to app.</a>
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        window.location = window.location.origin + '/akl-app';
+        /*]]>*/
+    </script>
+    <a href="/akl-app" th:text="#{page.link}">ack to the homepage</a>
 </body>
 </html>

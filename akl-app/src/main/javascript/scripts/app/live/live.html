@@ -26,8 +26,6 @@
         });
 
         var resize = function () {
-            console.log($('#live-right').css('color'));
-            // Hack to check mobile size screen
             if ($('#live-right').css('color') !== 'rgb(0, 0, 0)') {
                 $('#twitch-chat').css('height', $('#twitch-container').height() + 'px');
             } else {

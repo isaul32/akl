@@ -106,38 +106,12 @@
                         <span translate="global.menu.rules">Rules</span>
                     </a>
                 </li>
-                <li ui-sref-active="active">
+                <!--<li ui-sref-active="active">
                     <a ui-sref="live" style="color: red;">
                         <span class="fa fa-twitch"></span>&nbsp;
                         <span translate="global.menu.live">Live</span>
                     </a>
-                </li>
-                <li ui-sref-active="active" ng-switch-when="true" has-role="ROLE_ADMIN" class="dropdown pointer">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                        <span>
-                            <span class="glyphicon glyphicon-th-list"></span>&nbsp;
-                            <span class="hidden-tablet" translate="global.menu.entities.main">
-                                Entities
-                            </span>
-                            <b class="caret"></b>
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a ui-sref="gameServer">
-                                <span class="fa fa-server"></span>&nbsp;
-                                <span translate="global.menu.entities.gameServer">Game Server</span>
-                            </a>
-                        </li>
-                        <li ui-sref-active="active" ><a ui-sref="localizedText"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.localizedText">localizedText</span></a></li>
-                        <li ui-sref-active="active" ><a ui-sref="text"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.text">text</span></a></li>
-                        <li ui-sref-active="active" ><a ui-sref="team"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.team">team</span></a></li>
-                        <!-- JHipster will add entities to the menu here -->
-                    </ul>
-                </li>
+                </li>-->
                 <li ng-class="{active: $state.includes('admin')}"  ng-switch-when="true" has-role="ROLE_ADMIN" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>

@@ -1,3 +1,6 @@
 {
-    "title": "Käyttäjähallinta"
+    "user": {
+        "title": "Käyttäjähallinta",
+        "permissions": "Oikeudet"
+    }
 }

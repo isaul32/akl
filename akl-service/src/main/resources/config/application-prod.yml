@@ -13,7 +13,7 @@ spring:
         databaseName: akl
         serverName: localhost
         username: akl
-        password:
+        password: akl
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQL82Dialect
         database: POSTGRESQL
@@ -21,7 +21,7 @@ spring:
         show_sql: false
         generate-ddl: false
         hibernate:
-            ddl-auto: none
+            ddl-auto: validate
             naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
         properties:
             hibernate.cache.use_second_level_cache: true

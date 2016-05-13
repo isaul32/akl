@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Your request cannot be processed</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous" />
+    <title th:text="#{page.title}">Akateeminen Kynäriliiga</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
     <style>
         body {
             background-color: #fafafa;
@@ -20,14 +20,13 @@
                 </h3>
             </div>
             <div class="panel-body">
-                <!--<p th:text="#{error.subtitle}">Sorry, an error has occurred.</p>-->
                 <p>
                     <span th:text="#{error.status}">Status:</span>&nbsp;<span th:text="${error}"></span>&nbsp;(<span th:text="${error}"></span>)<br/>
                     <span th:if="${!#strings.isEmpty(message)}">
                     <span th:text="#{error.message}">Message:</span>&nbsp;<span th:text="${message}"></span><br/>
                 </span>
                 </p>
-                <a href="/akl-app">Back to the homepage</a>
+                <a href="/akl-app" th:text="#{page.link}">Back to the homepage</a>
             </div>
         </div>
     </div>

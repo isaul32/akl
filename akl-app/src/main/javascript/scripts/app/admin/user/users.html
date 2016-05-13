@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 translate="user.title" class="ng-scope">Users</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="email" class="form-control" id="inputEmail1" placeholder="Search">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <ul class="pagination">
+                <li><a href="#">1</a></li>
+                <li class="active"><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-stiped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Login</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                        <th>Community ID</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in users">
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.login }}</td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            <a ng-href="https://steamcommunity.com/id/{{ user.communityId }}">{{ user.communityId }}</a>
+                        </td>
+                        <td>
+                            <div class="pull-right">
+                                <button type="submit"
+                                        class="btn btn-info btn-sm">
+                                    <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
+                                    <span translate="entity.action.view">View</span>
+                                </button>
+                                <button type="submit"
+                                        ng-click="activate(team.id)"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-ok"></span>
+
+                                    <span translate="user.permissions">Permissions</span>
+                                </button>
+                                <button type="submit"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;
+                                    <span translate="entity.action.edit">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;
+                                    <span translate="entity.action.delete">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <ul class="pagination">
+                <li><a href="#">1</a></li>
+                <li class="active"><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
