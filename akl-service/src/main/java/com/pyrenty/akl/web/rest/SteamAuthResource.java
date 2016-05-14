@@ -1,7 +1,6 @@
 package com.pyrenty.akl.web.rest;
 
-import com.pyrenty.akl.domain.user.User;
-import com.pyrenty.akl.security.SecurityUtils;
+import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

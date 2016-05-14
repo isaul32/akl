@@ -2,6 +2,8 @@ package com.pyrenty.akl.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Team;
+import com.pyrenty.akl.domain.User;
+import com.pyrenty.akl.service.TeamService;
 import com.pyrenty.akl.domain.enumeration.MembershipRoles;
 import com.pyrenty.akl.domain.user.User;
 import com.pyrenty.akl.repository.TeamRepository;
@@ -52,7 +54,6 @@ import java.util.stream.StreamSupport;
 @RestController
 @RequestMapping("/api")
 public class TeamResource {
-
     private final Logger log = LoggerFactory.getLogger(TeamResource.class);
 
     @Inject
@@ -70,67 +71,36 @@ public class TeamResource {
     @Inject
     private UserMapper userMapper;
 
-    /**
-     * POST  /teams -> Create a new team.
-     */
-    @RequestMapping(value = "/teams",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/teams", method = RequestMethod.POST)
     @Transactional
     @Timed
     public ResponseEntity<TeamDTO> create(@Valid @RequestBody TeamDTO teamDTO) throws URISyntaxException {
+        log.debug("REST request to save Team : {}", teamDTO);
+
         User user = userService.getUserWithAuthorities();
 
         if (user.getEmail() == null) {
             throw new CustomParameterizedException("Can't create a team without an email set");
-        }
-
-        log.debug("REST request to save Team : {}", teamDTO);
-        if (teamDTO.getId() != null) {
+        } else if (teamDTO.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new team cannot already have an ID").body(null);
         }
-        Team team = teamMapper.teamDTOToTeam(teamDTO);
-        team.setActivated(false);
-        Team result = teamRepository.save(team);
-        User currentUser = userService.getUserWithAuthorities();
-        currentUser.setCaptain(result);
-        userRepository.save(currentUser);
-        return ResponseEntity.created(new URI("/api/teams/" + result.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert("team", result.getId().toString()))
-                .body(teamMapper.teamToTeamDTO(result));
+
+        Team team = teamService.create(teamMapper.teamDTOToTeam(teamDTO));
+
+        return ResponseEntity.created(new URI("/api/teams/" + team.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert("team", team.getId().toString()))
+                .body(teamMapper.teamToTeamDTO(team));
     }
 
-    /**
-     * GET  /teams -> get all the teams.
-     */
-    @RequestMapping(value = "/teams",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/teams", method = RequestMethod.GET)
     @Timed
-    @Transactional(readOnly = true)
     public ResponseEntity<List<TeamDTO>> getAll(@RequestParam(value = "page" , required = false) Integer offset,
                                                 @RequestParam(value = "per_page", required = false) Integer limit,
-                                                @RequestParam(required = false) String filter,
-                                                HttpServletRequest request)
-        throws URISyntaxException {
-        if ("captain-is-null".equals(filter)) {
-            log.debug("REST request to get all Teams where captain is null");
-            return new ResponseEntity<>(StreamSupport
-                .stream(teamRepository.findAll().spliterator(), false)
-                .filter(team -> team.getCaptain() == null)
-                .map(team -> teamMapper.teamToTeamDTO(team))
-                .collect(Collectors.toList()), HttpStatus.OK);
-        }
+                                                @RequestParam(required = false) String filter) throws URISyntaxException {
+        log.debug("REST request to get all Teams");
 
-        Page<Team> page;
-        Pageable paging = PaginationUtil.generatePageRequest(offset, limit);
-
-        if (request.isUserInRole("ROLE_ADMIN")) {
-            page = teamRepository.findAll(paging);
-        } else {
-            page = teamRepository.findByActivated(true, paging);
-        }
+        Page<Team> page = teamService.getAll(PaginationUtil.generatePageRequest(offset, limit));
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/teams", offset, limit);
         return new ResponseEntity<>(page.getContent().stream()
@@ -138,90 +108,38 @@ public class TeamResource {
             .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
 
-    /**
-     * GET  /teams/:id -> get the "id" team.
-     */
-    @RequestMapping(value = "/teams/{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/teams/{id}", method = RequestMethod.GET)
     @Timed
-    public ResponseEntity<TeamDTO> get(@PathVariable Long id,
-                                       HttpServletRequest request) {
+    public ResponseEntity<TeamDTO> get(@PathVariable Long id) {
         log.debug("REST request to get Team : {}", id);
 
-        Optional<Team> optional;
-
-        if (request.isUserInRole("ROLE_ADMIN")) {
-            optional = Optional.ofNullable(teamRepository.findOne(id));
-        } else {
-            optional = Optional.ofNullable(teamRepository.findOneByActivated(id, true));
-        }
-
-        return optional
+        return teamService.get(id)
             .map(teamMapper::teamToTeamDTO)
-            .map(teamDTO -> new ResponseEntity<>(
-                teamDTO,
-                HttpStatus.OK))
+            .map(teamDTO -> new ResponseEntity<>(teamDTO, HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * PUT  /teams/:id -> update the "id" team.
-     */
-    @RequestMapping(value = "/teams/{id}",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/teams/{id}", method = RequestMethod.PUT)
+    @Timed
     public ResponseEntity<TeamDTO> put(@PathVariable Long id,
-                                       @Valid @RequestBody TeamDTO teamBody,
-                                       HttpServletRequest request) {
-        User user = userService.getUserWithAuthorities();
-
-        if (!request.isUserInRole("ROLE_ADMIN") && !user.getCaptain().getId().equals(id)) {
-            throw new AccessDeniedException("You are not allowed to edit this team");
-        }
-
+                                       @Valid @RequestBody TeamDTO bodyDTO) {
         log.debug("REST request to put Team : {}", id);
 
-        return Optional.ofNullable(teamRepository.findOne(id))
-                .map(team -> {
-                    team.setTag(teamBody.getTag());
-                    team.setName(teamBody.getName());
-                    team.setRank(teamBody.getRank());
-                    team.setDescription(teamBody.getDescription());
-                    team.setImageUrl(teamBody.getImageUrl());
-                    teamRepository.save(team);
-                    return team;
-                })
+        return Optional.ofNullable(teamService.update(teamMapper.teamDTOToTeam(bodyDTO)))
                 .map(teamMapper::teamToTeamDTO)
-                .map(teamDTO -> new ResponseEntity<>(
-                        teamDTO,
-                        HttpStatus.OK
-                ))
+                .map(teamDTO -> new ResponseEntity<>(teamDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * POST    /teams/:id/activate -> activate the "id" team.
-     */
-    @RequestMapping(value = "/teams/{id}/activate")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/teams/{id}/activate", method = RequestMethod.POST)
     @Transactional
     @Timed
     public ResponseEntity<Void> activate(@PathVariable Long id) {
-        return Optional.ofNullable(teamRepository.findOne(id))
-                .map(team -> {
-                    team.setActivated(true);
-                    teamRepository.save(team);
-                    return team;
-                })
+        return Optional.ofNullable(teamService.activate(id))
                 .map(team -> new ResponseEntity<Void>(HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * POST /teams/:id/requests -> Create new membership request
-     */
     @RequestMapping(value = "/teams/{id}/requests",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -252,9 +170,6 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * GET /team/:id/requests -> Get list of users requesting membership
-     */
     @RequestMapping(value = "/teams/{id}/requests",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -356,24 +271,13 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * DELETE  /teams/:id -> delete the "id" team.
-     */
-    @RequestMapping(value = "/teams/{id}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/teams/{id}", method = RequestMethod.DELETE)
     @Timed
-    public ResponseEntity<Void> delete(@PathVariable Long id,
-                                       HttpServletRequest request) {
-        User user = userService.getUserWithAuthorities();
-
-        if (!request.isUserInRole("ROLE_ADMIN") && !user.getCaptain().getId().equals(id)) {
-            throw new AccessDeniedException("You are not allowed to delete this team");
-        }
-
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.debug("REST request to delete Team : {}", id);
-        teamRepository.delete(id);
+
+        teamService.delete(id);
+
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("team", id.toString())).build();
     }
 

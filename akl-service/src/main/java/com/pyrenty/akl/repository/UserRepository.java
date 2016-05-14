@@ -1,6 +1,6 @@
 package com.pyrenty.akl.repository;
 
-import com.pyrenty.akl.domain.user.User;
+import com.pyrenty.akl.domain.User;
 
 import org.joda.time.DateTime;
 import org.springframework.data.jpa.repository.JpaRepository;

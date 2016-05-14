@@ -1,7 +1,7 @@
 package com.pyrenty.akl.service;
 
 import com.pyrenty.akl.domain.Authority;
-import com.pyrenty.akl.domain.user.User;
+import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.AuthorityRepository;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.UserRepository;
@@ -11,6 +11,8 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,6 @@ import java.util.Set;
 @Service
 @Transactional
 public class UserService {
-
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Inject
@@ -98,12 +99,14 @@ public class UserService {
         newUser.setLogin(communityId);
         // Steam users won't login by password
         newUser.setPassword(passwordEncoder.encode(RandomUtil.generatePassword()));
+        newUser.setDescription("");
         newUser.setCommunityId(communityId);
         newUser.setSteamId(steamId);
 
         if (nickname != null) {
             newUser.setNickname(nickname.substring(0, Math.min(nickname.length(), 50)));
         }
+
         // Don't know email yet so can't do the activation routine
         newUser.setActivated(true);
         authorities.add(authority);
@@ -132,6 +135,7 @@ public class UserService {
         newUser.setActivated(false);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
+        newUser.setDescription("");
         authorities.add(authority);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
@@ -233,5 +237,35 @@ public class UserService {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
+    public void deleteUser(Long id) {
+        User user = userRepository.getOne(id);
+        if (user != null) {
+            userRepository.delete(user);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<Authority> getAllAuthorities() {
+        return authorityRepository.findAll();
+    }
+
+    public void updateUserAuthorities(Long id, Set<Authority> authorities) {
+        User user = userRepository.getOne(id);
+        if (user != null) {
+            user.setAuthorities(authorities);
+            userRepository.save(user);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<User> getUser(Long id) {
+        return Optional.ofNullable(userRepository.getOne(id));
     }
 }

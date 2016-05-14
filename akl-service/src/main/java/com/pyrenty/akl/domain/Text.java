@@ -1,8 +1,5 @@
 package com.pyrenty.akl.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -13,7 +10,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "text")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Text implements Serializable {
 
     @Id

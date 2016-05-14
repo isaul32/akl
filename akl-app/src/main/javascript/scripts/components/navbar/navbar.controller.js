@@ -4,6 +4,8 @@ angular.module('aklApp')
     .controller('NavbarController', function ($rootScope, $scope, $location, $state, Auth, Principal, AccountTeam, $http, API_URL) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.$state = $state;
+        //$scope.live = live.data;
+        //console.log($scope.live);
 
         var getAccount = function () {
             Principal.identity().then(function(account) {

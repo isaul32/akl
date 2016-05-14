@@ -2,11 +2,18 @@ package com.pyrenty.akl.web.rest.dto;
 
 import ch.qos.logback.classic.Logger;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 public class LoggerDTO {
-
+    @Setter
+    @Getter
     private String name;
 
+    @Setter
+    @Getter
     private String level;
 
     public LoggerDTO(Logger logger) {
@@ -16,29 +23,5 @@ public class LoggerDTO {
 
     @JsonCreator
     public LoggerDTO() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    @Override
-    public String toString() {
-        return "LoggerDTO{" +
-                "name='" + name + '\'' +
-                ", level='" + level + '\'' +
-                '}';
     }
 }

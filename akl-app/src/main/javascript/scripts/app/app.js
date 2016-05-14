@@ -78,7 +78,10 @@ angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprec
                 ],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('global');
-                }]
+                }]/*,
+                live: ['Api', function (Api) {
+                    return Api.all('live').get();
+                }]*/
             }
         });
 

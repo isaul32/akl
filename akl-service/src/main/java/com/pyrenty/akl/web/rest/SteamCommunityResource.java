@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.inject.Inject;
+
 @RestController
 @RequestMapping("/api")
 public class SteamCommunityResource {
@@ -24,12 +26,10 @@ public class SteamCommunityResource {
     @Value("${akl.steam.web-api-key}")
     private String webApiKey;
 
-    @Autowired
+    @Inject
     private SteamCommunityRepository steamCommunityRepository;
 
-    @RequestMapping(value = "/steam/user/{communityId}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/steam/user/{communityId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     ResponseEntity<GetPlayerSummaries> getSteamUser(@PathVariable String communityId) throws SteamApiException {
         log.debug("REST request to get Steam profile : {}", communityId);

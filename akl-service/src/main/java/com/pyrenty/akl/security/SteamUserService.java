@@ -3,7 +3,7 @@ package com.pyrenty.akl.security;
 import com.lukaspradel.steamapi.core.exception.SteamApiException;
 import com.lukaspradel.steamapi.data.json.playersummaries.GetPlayerSummaries;
 import com.lukaspradel.steamapi.data.json.playersummaries.Player;
-import com.pyrenty.akl.domain.user.User;
+import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.SteamCommunityRepository;
 import com.pyrenty.akl.service.UserService;
 import org.slf4j.Logger;
