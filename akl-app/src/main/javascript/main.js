@@ -1,14 +1,14 @@
 'use strict';
 
-require('../../../node_modules/ckeditor/ckeditor');
-CKEDITOR.basePath = '/akl-app/ckeditor/';
-
 // Vendor libs
 global.jQuery = require('jquery');
 global.$ = require('jquery');
 global._ = require('lodash');
 global.moment = require('moment');
 global.SockJS = require('sockjs-client');
+global.CKEDITOR_BASEPATH = '/akl-app/ckeditor/';
+
+require('../../../node_modules/ckeditor/ckeditor');
 
 require('stompjs');
 require('fullcalendar');
@@ -45,7 +45,6 @@ require('./scripts/components/auth/services/password.service');
 require('./scripts/components/auth/services/register.service');
 require('./scripts/components/auth/services/sessions.service');
 require('./scripts/components/auth/provider/auth.session.service');
-require('./scripts/components/ckeditor/ckeditor.service');
 require('./scripts/components/ckeditor/ckeditor.directive');
 require('./scripts/components/ckeditor/ckeditor.controller');
 require('./scripts/components/form/form.directive');

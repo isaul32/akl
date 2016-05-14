@@ -5,12 +5,8 @@ import com.pyrenty.akl.web.rest.dto.TeamDTO;
 
 import org.mapstruct.*;
 
-/**
- * Mapper for the entity Team and its DTO TeamDTO.
- */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = { UserMapper.class })
 public interface TeamMapper {
-    @Mapping(target = "activated", source = "activated")
     TeamDTO teamToTeamDTO(Team team);
 
     @Mapping(target = "captain", ignore = true)

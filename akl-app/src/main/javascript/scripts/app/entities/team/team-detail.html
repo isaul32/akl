@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h2>{{team.name}} (<b>{{team.tag}}</b>)</h2>
+            <h1>{{team.name}} (<b>{{team.tag}}</b>)</h1>
         </div>
     </div>
     <div class="row">
@@ -30,7 +30,7 @@
                         </td>
                         <td>
                             <span class="form-control-static">
-                                <a ui-sref="user({ id: team.captain.id })">{{team.captain.login}}</a>
+                                <a ui-sref="user({ id: team.captain.id })">{{team.captain.nickname}}</a>
                             </span>
                         </td>
                     </tr>
@@ -40,7 +40,11 @@
                         </td>
                         <td>
                             <p ng-repeat="member in team.members">
-                                <span class="form-control-static">{{member.login}}</span>
+                                <span class="form-control-static">
+                                    <a ui-sref="user({ id: team.member.id })">
+                                        {{member.nickname}}
+                                    </a>
+                                </span>
                             </p>
                         </td>
                     </tr>
@@ -50,7 +54,11 @@
                         </td>
                         <td>
                             <p ng-repeat="standin in team.standins">
-                                <span class="form-control-static">{{standin.login}}</span>
+                                <span class="form-control-static">
+                                    <a ui-sref="user({ id: team.standin.id })">
+                                        {{member.nickname}}
+                                    </a>
+                                </span>
                             </p>
                         </td>
                     </tr>

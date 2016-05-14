@@ -14,7 +14,7 @@ import com.pyrenty.akl.domain.enumeration.GameServerState;
  */
 @Entity
 @Table(name = "game_server")
-//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class GameServer implements Serializable {
 
     @Id

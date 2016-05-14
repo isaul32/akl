@@ -45,7 +45,12 @@ public class TeamService {
 
     @Transactional(readOnly = true)
     public Page<Team> getAll(Pageable pageable) {
-        return teamRepository.findAll(pageable);
+        Page<Team> page = teamRepository.findAll(pageable);
+        page.getContent().stream().forEach(team -> {
+            team.getMembers().size();
+            team.getStandins().size();
+        });
+        return page;
     }
 
     @PreAuthorize("isAuthenticated()")

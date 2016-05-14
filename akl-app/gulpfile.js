@@ -89,8 +89,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('ckeditor', function () {
-    return gulp.src(['node_modules/ckeditor/**/*',
-            config.ckeditor + '**/*'])
+    return gulp.src(['node_modules/ckeditor/**/*', config.ckeditor + '**/*'])
         .pipe(gulp.dest(config.dist + 'ckeditor'));
 });
 
