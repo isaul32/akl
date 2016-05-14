@@ -3,7 +3,7 @@ package com.pyrenty.akl.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Authority;
 import com.pyrenty.akl.domain.PersistentToken;
-import com.pyrenty.akl.domain.user.User;
+import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.SecurityUtils;
@@ -48,9 +48,6 @@ public class AccountResource {
     @Inject
     private MailService mailService;
 
-    /**
-     * POST  /register -> register the user.
-     */
     @RequestMapping(value = "/register",
             method = RequestMethod.POST,
             produces = MediaType.TEXT_PLAIN_VALUE)
@@ -76,9 +73,6 @@ public class AccountResource {
         );
     }
 
-    /**
-     * GET  /activate -> activate the registered user.
-     */
     @RequestMapping(value = "/activate",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -114,6 +108,7 @@ public class AccountResource {
                 new UserDTO(
                     user.getId(),
                     user.getLogin(),
+                    user.getNickname(),
                     null,
                     user.getFirstName(),
                     user.getLastName(),
@@ -128,9 +123,6 @@ public class AccountResource {
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
-    /**
-     * POST  /account -> update the current user information.
-     */
     @RequestMapping(value = "/account",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -147,9 +139,6 @@ public class AccountResource {
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
-    /**
-     * POST  /change_password -> changes the current user's password
-     */
     @RequestMapping(value = "/account/change_password",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -162,9 +151,6 @@ public class AccountResource {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /**
-     * GET  /account/sessions -> get the current open sessions.
-     */
     @RequestMapping(value = "/account/sessions",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)

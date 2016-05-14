@@ -24,7 +24,7 @@ angular.module('aklApp')
                     /*count: ['Api', function (Api) {
                         return Api.all('users').one('count').get();
                     }],*/
-                    users: ['Api', '$stateParams', function (Api, $stateParams) {
+                    users: ['Api', '$stateParams', function (Api) {
                         return Api.all('users').getList();
                     }],
                     authorities: ['Api', function (Api) {

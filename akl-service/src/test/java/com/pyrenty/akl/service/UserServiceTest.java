@@ -2,7 +2,7 @@ package com.pyrenty.akl.service;
 
 import com.pyrenty.akl.Application;
 import com.pyrenty.akl.domain.PersistentToken;
-import com.pyrenty.akl.domain.user.User;
+import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import org.joda.time.DateTime;

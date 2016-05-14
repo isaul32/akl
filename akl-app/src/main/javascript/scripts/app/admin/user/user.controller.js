@@ -36,12 +36,12 @@ angular.module('aklApp')
         };
 
         $scope.changeAuthorities = function () {
+            $('#changeUserAuthorities').modal('hide');
             _.remove($scope.userAuthorities, function (authority) {
                 return authority.value === false;
             });
             $scope.user.post('authorities', $scope.userAuthorities)
                 .then(function () {
-                    $('#changeUserAuthorities').modal('hide');
                     $scope.userAuthorities = [];
                     $scope.clear();
                 });

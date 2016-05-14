@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
-import com.pyrenty.akl.domain.user.User;
+import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.domain.enumeration.Rank;
 
 /**

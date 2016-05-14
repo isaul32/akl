@@ -61,7 +61,7 @@
                         <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete <b>{{ user.login }}</b>?</p>
+                        <p>Are you sure you want to delete <b>{{ user.nickname }}</b>?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -82,7 +82,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Login</th>
+                        <th>Nickname</th>
                         <th>First name</th>
                         <th>Last name</th>
                         <th>Email</th>
@@ -95,7 +95,7 @@
                         <td>{{ user.id }}</td>
                         <td>
                             <a ui-sref="user.detail({ id: user.id })">
-                                {{ user.login }}
+                                {{ user.nickname }}
                             </a>
                         </td>
                         <td>{{ user.firstName }}</td>

@@ -1,19 +1,17 @@
-package com.pyrenty.akl.domain.user;
+package com.pyrenty.akl.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pyrenty.akl.domain.AbstractAuditingEntity;
-import com.pyrenty.akl.domain.Authority;
-import com.pyrenty.akl.domain.PersistentToken;
-import com.pyrenty.akl.domain.Team;
+import com.pyrenty.akl.domain.enumeration.Rank;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import org.hibernate.annotations.Type;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -78,8 +76,26 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_key", length = 20)
     private String resetKey;
 
-    @OneToOne
-    private UserProfile profile;
+    @Setter
+    @Getter
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime birthdate;
+
+    @Setter
+    @Getter
+    @Column
+    private String guild;
+
+    @Setter
+    @Getter
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rank")
+    private Rank rank;
+
+    @Setter
+    @Getter
+    @Column(name = "description")
+    private String description;
 
     @Size(max = 20)
     @Column(name = "community_id", length = 20, unique = true)
@@ -198,14 +214,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setResetKey(String resetKey) {
         this.resetKey = resetKey;
-    }
-
-    public UserProfile getProfile() {
-        return profile;
-    }
-
-    public void setProfile(UserProfile profile) {
-        this.profile = profile;
     }
 
     public String getCommunityId() {

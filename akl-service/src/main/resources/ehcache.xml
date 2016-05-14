@@ -17,7 +17,7 @@
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="com.pyrenty.akl.domain.user.User"
+    <cache name="com.pyrenty.akl.domain.User"
            timeToLiveSeconds="3600">
     </cache>
 
@@ -25,7 +25,7 @@
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="com.pyrenty.akl.domain.user.User.authorities"
+    <cache name="com.pyrenty.akl.domain.User.authorities"
            timeToLiveSeconds="3600">
     </cache>
 
@@ -33,7 +33,7 @@
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="com.pyrenty.akl.domain.user.User.persistentTokens"
+    <cache name="com.pyrenty.akl.domain.User.persistentTokens"
            timeToLiveSeconds="3600">
     </cache>
 </ehcache>

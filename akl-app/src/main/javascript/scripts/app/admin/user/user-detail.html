@@ -3,14 +3,87 @@
     <akl-alert></akl-alert>
 
     <div class="row">
-        <div class="col-md-12">
-            <pre>{{ user | json}}</pre>
+        <div class="col-md-8 col-md-offset-2">
+            <h2>User <b>{{user.nickname}}</b></h2>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <td style="width: 200px">
+                            <span>Nick</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{user.nickname}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>First name</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{user.firstName}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>Last name</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{user.lastName}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>Birthdate</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{user.birthdate}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>Guild</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{user.guild}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>Rank</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{user.rank}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>Description</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static" style="white-space: pre-wrap;">
+                                {{user.description}}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>Steam profile</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">
+                                <a ng-href="https://steamcommunity.com/profiles/{{ user.communityId }}">{{ user.communityId }}</a>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <button type="submit"
+                    onclick="window.history.back()"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+            </button>
         </div>
     </div>
-
-    <button type="submit"
-            onclick="window.history.back()"
-            class="btn btn-info">
-        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
-    </button>
 </div>

@@ -30,10 +30,6 @@ public class GameServerResource {
     @Inject
     private GameServerService gameServerService;
 
-
-    /**
-     * POST  /gameServers -> Create a new gameServer.
-     */
     @RequestMapping(value = "/gameServers",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,9 +45,6 @@ public class GameServerResource {
             .body(result);
     }
 
-    /**
-     * PUT  /gameServers -> Updates an existing gameServer.
-     */
     @RequestMapping(value = "/gameServers",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -67,9 +60,6 @@ public class GameServerResource {
             .body(result);
     }
 
-    /**
-     * GET  /gameServers -> get all the gameServers.
-     */
     @RequestMapping(value = "/gameServers",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -80,9 +70,6 @@ public class GameServerResource {
         return gameServerService.findAll();
             }
 
-    /**
-     * GET  /gameServers/:id -> get the "id" gameServer.
-     */
     @RequestMapping(value = "/gameServers/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -97,9 +84,6 @@ public class GameServerResource {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * DELETE  /gameServers/:id -> delete the "id" gameServer.
-     */
     @RequestMapping(value = "/gameServers/{id}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
