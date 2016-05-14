@@ -36,6 +36,7 @@
     <logger name="springfox" level="WARN"/>
     <logger name="liquibase" level="WARN"/>
     <logger name="sun.rmi.transport" level="WARN"/>
+    <logger name="sun.net.www.protocol.http.HttpURLConnection" level="OFF"/>
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>

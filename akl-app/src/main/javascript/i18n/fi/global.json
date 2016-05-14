@@ -15,8 +15,7 @@
             "rules": "Säännöt",
             "entities": {
                 "main": "Entiteetit",
-                "gameServer": "Pelipalvelimet",
-                "additionalEntity": "JHipster will add additional entities here (do not translate!)"
+                "gameServer": "Pelipalvelimet"
             },
             "account": {
                 "main": "Käyttäjä",

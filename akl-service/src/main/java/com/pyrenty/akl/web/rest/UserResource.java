@@ -17,7 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -67,7 +67,6 @@ public class UserResource {
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
-    @Transactional
     @Timed
     void deleteUser(@PathVariable Long id) {
         User user = userRepository.findOne(id);
@@ -77,21 +76,25 @@ public class UserResource {
     }
 
     @RequestMapping(value = "/users/authorities", method = RequestMethod.GET, produces =  MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Timed
     List<Authority> getAuthorities() {
         return authorityRepository.findAll();
     }
 
     @RequestMapping(value = "/users/{id}/authorities", method = RequestMethod.POST, produces =  MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Timed
     ResponseEntity<Void> updateUserAuthorities(@PathVariable Long id, @RequestBody Set<Authority> authorities) {
         User user = userService.getUserWithAuthorities(id);
         user.setAuthorities(authorities);
         userRepository.save(user);
+
         return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert("authority", id.toString())).build();
     }
 
     @RequestMapping(value = "/users/{id}/authorities", method = RequestMethod.GET, produces =  MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Timed
     ResponseEntity<Set<Authority>> getUserAuthorities(@PathVariable Long id) {
         User user = userService.getUserWithAuthorities(id);

@@ -18,8 +18,7 @@
                 "gameServer": "Game Servers",
                 "localizedText": "LocalizedText",
                 "text": "Text",
-                "team": "Team",
-                "additionalEntity": "JHipster will add additional entities here (do not translate!)"
+                "team": "Team"
             },
             "account": {
                 "main": "Account",

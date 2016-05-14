@@ -98,8 +98,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .loginProcessingUrl("/api/authentication")
             .successHandler(ajaxAuthenticationSuccessHandler)
             .failureHandler(ajaxAuthenticationFailureHandler)
-            .usernameParameter("j_username")
-            .passwordParameter("j_password")
+            .usernameParameter("username")
+            .passwordParameter("password")
             .permitAll()
         .and()
             .logout()
@@ -123,12 +123,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .disable()
         .and()
             .authorizeRequests()
-            // Admin API
             .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/audits/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/api/users/authorities").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/api/users/*/authorities").hasAuthority(AuthoritiesConstants.ADMIN)
-            // Auth API
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/teams/**").permitAll()
