@@ -59,11 +59,32 @@
                         <span translate="global.menu.schedule">Schedule</span>
                     </a>
                 </li>
-                <li ui-sref-active="active">
+                <li ui-sref-active="active" ng-if="!team">
                     <a ui-sref="team">
                         <span class="fa fa-users"></span>&nbsp;
-                        <span translate="global.menu.teams">Teams</span>
+                        <span translate="global.menu.teams.main">Teams</span>
                     </a>
+                </li>
+                <li ui-sref-active="active" ng-if="team" class="dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                        <span class="fa fa-users"></span>&nbsp;
+                        <span class="hidden-tablet" translate="global.menu.teams.main">Teams</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a ui-sref="team.detail({id: team.id})">
+                                <span class="fa fa-user"></span>&nbsp;
+                                <span translate="global.menu.teams.own">Your team</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ui-sref="team">
+                                <span class="fa fa-users"></span>&nbsp;
+                                <span translate="global.menu.teams.main">Teams</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li ui-sref-active="active" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">

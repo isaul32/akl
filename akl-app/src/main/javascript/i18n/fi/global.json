@@ -6,7 +6,10 @@
             "home": "Etusivu",
             "live": "Live",
             "schedule": "Aikataulu",
-            "teams": "Joukkueet",
+            "teams": {
+                "main": "Joukkueet",
+                "own": "Oma joukkue"
+            },
             "league": "Liiga",
             "groups": "Lohkopelit",
             "playoffs": "Pudotuspelit",

@@ -5,12 +5,15 @@ import com.pyrenty.akl.domain.Authority;
 import com.pyrenty.akl.domain.PersistentToken;
 import com.pyrenty.akl.domain.user.User;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
+import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.MailService;
 import com.pyrenty.akl.service.UserService;
 import com.pyrenty.akl.web.rest.dto.KeyAndPasswordDTO;
+import com.pyrenty.akl.web.rest.dto.TeamDTO;
 import com.pyrenty.akl.web.rest.dto.UserDTO;
+import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +44,12 @@ public class AccountResource {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    private TeamRepository teamRepository;
+
+    @Inject
+    private TeamMapper teamMapper;
 
     @Inject
     private PersistentTokenRepository persistentTokenRepository;
@@ -127,6 +136,24 @@ public class AccountResource {
                         .collect(Collectors.toList())),
             HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    /**
+     * GET /account/team -> get the team of the current user
+     */
+    @RequestMapping(value = "/account/team",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<TeamDTO> getTeam() {
+        return Optional.ofNullable(userService.getUserWithAuthorities())
+                .map(user -> teamRepository.findOneForUser(user.getId()))
+                .map(teamMapper::teamToTeamDTO)
+                .map(teamDTO -> new ResponseEntity<>(
+                        teamDTO,
+                        HttpStatus.OK
+                ))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**

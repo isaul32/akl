@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('NavbarController', function ($rootScope, $scope, $location, $state, Auth, Principal, $http, API_URL) {
+    .controller('NavbarController', function ($rootScope, $scope, $location, $state, Auth, Principal, AccountTeam, $http, API_URL) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.$state = $state;
 
@@ -14,6 +14,10 @@ angular.module('aklApp')
                         $scope.steamUser = data;
                     });
                 }
+
+                return AccountTeam.team();
+            }).then(function(team) {
+                $scope.team = team;
             });
         };
 

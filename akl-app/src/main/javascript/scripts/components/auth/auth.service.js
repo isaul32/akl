@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish, Tracker) {
+    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish, Tracker, AccountTeam) {
         return {
             login: function (credentials, callback) {
                 var cb = callback || angular.noop;
@@ -17,7 +17,10 @@ angular.module('aklApp')
                         $translate.refresh();
                         Tracker.sendActivity();
                         deferred.resolve(data);
+
+                        return AccountTeam.team(true);
                     });
+
                     return cb();
                 }).catch(function (err) {
                     this.logout();
@@ -31,6 +34,7 @@ angular.module('aklApp')
             logout: function () {
                 AuthServerProvider.logout();
                 Principal.authenticate(null);
+                AccountTeam.setTeam(null);
             },
 
             authorize: function(force) {
@@ -53,6 +57,8 @@ angular.module('aklApp')
                                 $state.go('steam');
                             }
                         }
+
+                        return AccountTeam.team(force);
                     });
             },
             createAccount: function (account, callback) {

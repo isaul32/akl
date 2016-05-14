@@ -37,7 +37,9 @@ var config = {
 var bopts = {
     entries: [config.app + 'main.js'],
     cache: {},
-    packageCache: {}
+    packageCache: {},
+    debug: true
+    //plugin: [watchify] // Watch
 };
 
 var b = browserify(bopts);

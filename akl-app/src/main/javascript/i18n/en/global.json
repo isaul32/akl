@@ -6,7 +6,10 @@
             "home": "Home",
             "live": "Live",
             "schedule": "Schedule",
-            "teams": "Teams",
+            "teams": {
+                "main": "Teams",
+                "own": "Your team"
+            },
             "league": "League",
             "groups": "Groups",
             "playoffs": "Playoffs",
