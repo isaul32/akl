@@ -58,7 +58,7 @@
                 <div class="form-group">
                     <label for="nickname" translate="settings.form.nickname">Nickname</label>
                     <input type="text" class="form-control" id="nickname" name="nickname" placeholder="{{'settings.form.nickname.placeholder' | translate}}"
-                           ng-model="settingsAccount.nickname" ng-minlength=1 ng-maxlength=255 required maxlength="255">
+                           ng-model="settingsAccount.nickname" ng-minlength=1 ng-maxlength=255 required maxlength="50">
                     <div ng-show="form.nickname.$dirty && form.nickname.$invalid">
                         <p class="help-block"
                            ng-show="form.nickname.$error.required" translate="settings.messages.validate.nickname.required">
@@ -70,7 +70,7 @@
                         </p>
                         <p class="help-block"
                            ng-show="form.nickname.$error.maxlength" translate="settings.messages.validate.nickname.maxlength">
-                            Your nickname cannot be longer than 255 characters.
+                            Your nickname cannot be longer than 50 characters.
                         </p>
                     </div>
                 </div>

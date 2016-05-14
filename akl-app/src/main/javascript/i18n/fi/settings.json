@@ -32,7 +32,7 @@
                 "nickname": {
                     "required": "Nimimerkki on pakollinen",
                     "minlength": "Nimimerkkisi pitää olla vähintään yhden merkin pituinen",
-                    "maxlength": "Nimimerkkisi pituus ei saa ylittää 255 merkkiä, lyhennä nimimerkkiäsi"
+                    "maxlength": "Nimimerkkisi pituus ei saa ylittää 50 merkkiä, lyhennä nimimerkkiäsi"
                 }
             }
         }

@@ -111,7 +111,7 @@ angular.module('aklApp')
             })
             .state('team.detail.accept', {
                 parent: 'team.detail',
-                url: '/{id}/member/{userId}/accept',
+                url: '/member/{userId}/accept',
                 data: {
                     roles: ['ROLE_USER']
                 },

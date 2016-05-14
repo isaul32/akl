@@ -100,7 +100,10 @@ public class UserService {
         newUser.setPassword(passwordEncoder.encode(RandomUtil.generatePassword()));
         newUser.setCommunityId(communityId);
         newUser.setSteamId(steamId);
-        newUser.setNickname(nickname);
+
+        if (nickname != null) {
+            newUser.setNickname(nickname.substring(0, Math.min(nickname.length(), 50)));
+        }
         // Don't know email yet so can't do the activation routine
         newUser.setActivated(true);
         authorities.add(authority);

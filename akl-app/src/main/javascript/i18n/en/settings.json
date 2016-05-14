@@ -32,7 +32,7 @@
                 "nickname": {
                     "required": "Your nickname is required.",
                     "minlength": "Your first name is required to be at least 1 character",
-                    "maxlength": "Your nickname cannot be longer than 255 characters"
+                    "maxlength": "Your nickname cannot be longer than 50 characters"
                 }
             }
         }
