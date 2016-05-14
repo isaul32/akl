@@ -30,7 +30,12 @@
                     "member": "Member",
                     "standin": "Standin"
                 },
-                "info": "Select membership type"
+                "info": "Select membership type",
+                "decline": {
+                    "title": "Confirm membership declination",
+                    "question": "Are you sure you want to decline this membership request?",
+                    "action": "Decline request"
+                }
             },
             "membershipRequiredInfo": "You can't request a team membership until you've added your personal details in the settings menu. Go to <a ui-sref='settings'>settings-page</a> and fill your personal details to request membership",
             "tag": "Tag",

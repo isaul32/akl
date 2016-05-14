@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('TeamDetailController', function ($scope, $rootScope, Team, Principal, AccountTeam, team, requests, API_URL) {
+    .controller('TeamDetailController', function ($scope, $rootScope, $state, Team, Principal, AccountTeam, team, requests, API_URL) {
         $scope.team = team.data;
         $scope.requests = requests;
 
@@ -21,6 +21,23 @@ angular.module('aklApp')
 
         $scope.requestInvite = function() {
             $('#membershipRequestConfirmation').modal('show');
+        };
+
+        $scope.declineRequest = function(id) {
+            $scope.declineRequestId = id;
+            $('#membershipRequestDeclination').modal('show');
+        };
+
+        $scope.sendDecline = function() {
+            Team.declineRequest({id: $scope.team.id, userId: $scope.declineRequestId}).$promise
+            .then(function() {
+                var accessor = $('#membershipRequestDeclination');    
+                accessor.modal('hide');
+                accessor.on('hidden.bs.modal', function() {
+                    accessor.off('hidden.bs.modal');
+                    $state.go('team.detail', {id: $scope.team.id}, {reload: true});
+                });
+            });
         };
 
         $scope.sendRequest = function() {

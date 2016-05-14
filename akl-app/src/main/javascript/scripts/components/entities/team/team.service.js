@@ -23,6 +23,10 @@ angular.module('aklApp')
                 method: 'POST',
                 url: API_URL + '/teams/:id/requests/:userId'
             },
+            'declineRequest': {
+                method: 'DELETE',
+                url: API_URL + '/teams/:id/requests/:userId'
+            },
             'self': {
                 method: 'GET',
                 url: API_URL + '/account/team'

@@ -30,7 +30,12 @@
                     "member": "Jäsen",
                     "standin": "Varajäsen"
                 },
-                "info": "Valitse jäsenyystyyppi"
+                "info": "Valitse jäsenyystyyppi",
+                "decline": {
+                    "title": "Jäsenyyden hylkäämisen varmistus",
+                    "question": "Oletko varma että haluat hylätä tämän jäsenpyynnön?",
+                    "action": "Hylkää jäsenyys"
+                }
             },
             "membershipRequiredInfo": "Et voi pyytää jäsenyyttä ennen kuin olet täyttänyt omat tietosi. Mene <a ui-sref='settings'>asetukset-sivulle</a> ja täytä tietosi",
             "tag": "Tagi",
