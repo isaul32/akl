@@ -109,11 +109,11 @@
             "title": "Confirm delete operation"
         },
         "validation": {
-            "required": "This field is required.",
-            "minlength": "This field is required to be at least {{min}} characters.",
-            "maxlength": "This field cannot be longer than {{max}} characters.",
-            "min": "This field should be more than {{min}}.",
-            "max": "This field cannot be more than {{max}}.",
+            "required": "Tämä kenttä on pakollinen.",
+            "minlength": "Tämän kentän tulee olla vähintään {{min}} merkkiä pitkä.",
+            "maxlength": "Tämän kentän pituus ei saa ylittää {{max}} merkkiä.",
+            "min": "Tämän kentän tulisi olla enemmän kuin {{min}}.",
+            "max": "Tämän kentän tulisi olla vähemmän kuin {{max}}.",
             "minbytes": "This field should be more than {{min}} bytes.",
             "maxbytes": "This field cannot be more than {{max}} bytes.",
             "pattern": "This field should follow pattern {{pattern}}.",

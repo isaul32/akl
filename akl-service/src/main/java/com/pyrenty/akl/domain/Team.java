@@ -43,6 +43,10 @@ public class Team implements Serializable {
     @Column(name = "name", length = 255, nullable = false)
     private String name;
 
+    @Size(max = 100)
+    @Column(name = "representing")
+    private String representing;
+
     @Size(max = 255)
     @Column(name = "image_url", length = 255)
     private String imageUrl;
@@ -104,6 +108,14 @@ public class Team implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRepresenting() {
+        return representing;
+    }
+
+    public void setRepresenting(String representing) {
+        this.representing = representing;
     }
 
     public String getImageUrl() {

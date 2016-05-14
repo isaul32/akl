@@ -24,6 +24,8 @@ public class TeamDTO implements Serializable {
     @Size(min = 1, max = 255)
     private String name;
 
+    private String representing;
+
     @Size(max = 255)
     private String imageUrl;
 
@@ -61,6 +63,14 @@ public class TeamDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRepresenting() {
+        return representing;
+    }
+
+    public void setRepresenting(String representing) {
+        this.representing = representing;
     }
 
     public String getImageUrl() {

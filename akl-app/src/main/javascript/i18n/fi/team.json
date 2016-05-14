@@ -18,6 +18,8 @@
             "detail": {
                 "title": "Tiimi"
             },
+            "representing": "Edustettava taho",
+            "representingHelp": "Edustettava kerho/taho/koulu. Esimerkiksi Tampereen TietoTeekkarikilta tai Tampereen teknillinen yliopisto",
             "requests": "Jäsenhakemukset",
             "request": {
                 "title": "Varmista jäsenyyspyynnön lähettäminen",
@@ -47,7 +49,7 @@
             "members": "Jäsenet",
             "standins": "Varajäsenet",
             "requestMembership": "Pyydä jäsenyyttä",
-            "captainNotice": "HUOM: Kun luot uuden tiimin, sinusta tulee tiimin kapteeni. Vain tiimin kapteeni (ja ylläpitäjät) voivat muokata tiimin tietoja ja hyväksy/hylätä tiimin jäsenpyyntöjä",
+            "captainNotice": "HUOM: Kun luot uuden tiimin, sinusta tulee tiimin kapteeni. Vain tiimin kapteeni (ja ylläpitäjät) voivat muokata tiimin tietoja ja hyväksyä/hylätä tiimin jäsenpyyntöjä",
             "authorizationNotice": "Tiimit hyväksytään manuaalisesti ylläpidon toimesta. Tiimit eivät näy julkisesti ennen hyväksyntää"
         }
     }

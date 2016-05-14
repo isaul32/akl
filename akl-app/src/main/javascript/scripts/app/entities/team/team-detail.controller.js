@@ -33,8 +33,7 @@ angular.module('aklApp')
             .then(function() {
                 var accessor = $('#membershipRequestDeclination');    
                 accessor.modal('hide');
-                accessor.on('hidden.bs.modal', function() {
-                    accessor.off('hidden.bs.modal');
+                accessor.one('hidden.bs.modal', function() {
                     $state.go('team.detail', {id: $scope.team.id}, {reload: true});
                 });
             });

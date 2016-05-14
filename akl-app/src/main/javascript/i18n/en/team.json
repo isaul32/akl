@@ -18,6 +18,8 @@
             "detail": {
                 "title": "Team"
             },
+            "representing": "Representing",
+            "representingHelp": "The guild/organization/school you are representing. For example: Tampereen TietoTeekkarikilta or Tampere University of Technology",
             "requests": "Membership requests",
             "request": {
                 "title": "Confirm membership request",
