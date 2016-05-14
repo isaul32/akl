@@ -3,6 +3,7 @@
 angular.module('aklApp')
     .factory('Principal', function Principal($q, Account, Tracker) {
         var _identity,
+            _deferred,
             _authenticated = false;
 
         return {
@@ -41,6 +42,10 @@ angular.module('aklApp')
                 _authenticated = identity !== null;
             },
             identity: function (force) {
+                if (_deferred) {
+                    return _deferred.promise;
+                }
+                
                 var deferred = $q.defer();
 
                 if (force === true) {
@@ -55,20 +60,24 @@ angular.module('aklApp')
                     return deferred.promise;
                 }
 
+                _deferred = deferred;
+
                 // retrieve the identity data from the server, update the identity object, and then resolve.
                 Account.get().$promise
                     .then(function (account) {
                         _identity = account.data;
                         _authenticated = true;
-                        deferred.resolve(_identity);
+                        _deferred.resolve(_identity);
+                        _deferred = null;
                         Tracker.connect();
                     })
                     .catch(function() {
                         _identity = null;
                         _authenticated = false;
-                        deferred.resolve(_identity);
+                        _deferred.resolve(_identity);
+                        _deferred = null;
                     });
-                return deferred.promise;
+                return _deferred.promise;
             }
         };
     });

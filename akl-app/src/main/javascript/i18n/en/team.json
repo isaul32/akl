@@ -17,10 +17,19 @@
             "detail": {
                 "title": "Team"
             },
+            "requests": "Membership requests",
             "request": {
                 "title": "Confirm membership request",
                 "question": "Are you sure you want to request an invitation to this team? You can't join multiple teams and can't make more membership requests while you have a pending one",
-                "action": "Send request"
+                "action": "Send request",
+                "accept": "Accept request",
+                "acceptOrEdit": "Accept or edit membership",
+                "role": "Membership role",
+                "roles": {
+                    "member": "Member",
+                    "standin": "Standin"
+                },
+                "info": "Select membership type"
             },
             "membershipRequiredInfo": "You can't request a team membership until you've added your personal details in the settings menu. Go to <a ui-sref='settings'>settings-page</a> and fill your personal details to request membership",
             "tag": "Tag",

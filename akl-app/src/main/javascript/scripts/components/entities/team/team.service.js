@@ -2,7 +2,7 @@
 
 angular.module('aklApp')
     .factory('Team', function ($resource, DateUtils, API_URL) {
-        return $resource(API_URL + '/teams/:id', {id: '@id'}, {
+        return $resource(API_URL + '/teams/:id', {id: '@id', userId: '@userId'}, {
             'query': { method: 'GET', isArray: true},
             'get': { method: 'GET' },
             'update': { method:'PUT' },
@@ -12,7 +12,16 @@ angular.module('aklApp')
             },
             'requestInvite': {
                 method: 'POST',
-                url: API_URL + '/teams/:id/request_invite'
+                url: API_URL + '/teams/:id/requests'
+            },
+            'requests': {
+                method: 'GET',
+                url: API_URL + '/teams/:id/requests',
+                isArray: true
+            },
+            'acceptRequest': {
+                method: 'POST',
+                url: API_URL + '/teams/:id/requests/:userId'
             },
             'self': {
                 method: 'GET',

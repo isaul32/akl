@@ -134,3 +134,4 @@ require('./scripts/app/entities/team/team');
 require('./scripts/app/entities/team/team.controller');
 require('./scripts/app/entities/team/team-detail.controller');
 require('./scripts/app/entities/team/team-dialog.controller');
+require('./scripts/app/entities/team/team-member-dialog.controller');

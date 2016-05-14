@@ -2,10 +2,15 @@ package com.pyrenty.akl.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Team;
+import com.pyrenty.akl.domain.enumeration.MembershipRoles;
 import com.pyrenty.akl.domain.user.User;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
+import com.pyrenty.akl.security.AuthoritiesConstants;
+import com.pyrenty.akl.security.InvalidRoleException;
 import com.pyrenty.akl.service.UserService;
+import com.pyrenty.akl.web.rest.dto.TeamRequestDTO;
+import com.pyrenty.akl.web.rest.dto.UserBaseDTO;
 import com.pyrenty.akl.web.rest.dto.UserDTO;
 import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
 import com.pyrenty.akl.web.rest.mapper.UserMapper;
@@ -15,6 +20,7 @@ import com.pyrenty.akl.web.rest.dto.TeamDTO;
 import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -35,6 +41,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -59,6 +66,9 @@ public class TeamResource {
 
     @Inject
     private TeamMapper teamMapper;
+
+    @Inject
+    private UserMapper userMapper;
 
     /**
      * POST  /teams -> Create a new team.
@@ -209,7 +219,10 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/teams/{id}/request_invite",
+    /**
+     * POST /teams/:id/requests -> Create new membership request
+     */
+    @RequestMapping(value = "/teams/{id}/requests",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
@@ -232,6 +245,110 @@ public class TeamResource {
                     Set<User> requests = team.getRequests();
                     requests.add(currentUser);
                     team.setRequests(requests);
+                    teamRepository.save(team);
+                    return team;
+                })
+                .map(team -> new ResponseEntity<Void>(HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * GET /team/:id/requests -> Get list of users requesting membership
+     */
+    @RequestMapping(value = "/teams/{id}/requests",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("isAuthenticated()")
+    @Timed
+    public ResponseEntity<List<UserBaseDTO>> getRequests(@PathVariable Long id,
+                                                         HttpServletRequest request) {
+        User user = userService.getUserWithAuthorities();
+
+        if (!request.isUserInRole("ROLE_ADMIN") && !user.getCaptain().getId().equals(id)) {
+            throw new AccessDeniedException("You are not allowed to see membership requests");
+        }
+
+        Optional<Team> team = Optional.ofNullable(teamRepository.findOne(id));
+
+        if (!team.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(team.get().getRequests().stream()
+                .map(userMapper::userToUserBaseDTO)
+                .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/teams/{id}/requests/{userId}",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("isAuthenticated()")
+    @Timed
+    public ResponseEntity<Void> approveRequest(@PathVariable Long id,
+                                               @PathVariable Long userId,
+                                               @Valid @RequestBody TeamRequestDTO teamRequest,
+                                               HttpServletRequest request) {
+        User user = userService.getUserWithAuthorities();
+
+        if (!request.isUserInRole("ROLE_ADMIN") && !user.getCaptain().getId().equals(id)) {
+            throw new AccessDeniedException("You are not allowed to accept membership requests");
+        }
+
+        if (!teamRequest.getRole().equals(MembershipRoles.ROLE_MEMBER.toString()) &&
+                !teamRequest.getRole().equals(MembershipRoles.ROLE_STANDIN.toString())) {
+            throw new InvalidRoleException();
+        }
+
+        User newMember = userRepository.findOne(userId);
+
+        if (newMember == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return Optional.ofNullable(teamRepository.findOne(id))
+                .map(team -> {
+                    Set<User> requests = team.getRequests();
+                    requests.remove(newMember);
+                    teamRepository.save(team);
+
+                    if (teamRequest.getRole().equals(MembershipRoles.ROLE_MEMBER.toString())) {
+                        newMember.setMember(team);
+                    } else if (teamRequest.getRole().equals(MembershipRoles.ROLE_STANDIN.toString())) {
+                        newMember.setStandin(team);
+                    }
+
+                    userRepository.save(newMember);
+                    return team;
+                })
+                .map(team -> new ResponseEntity<Void>(HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @RequestMapping(value = "/teams/{id}/requests/{userId}",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("isAuthenticated()")
+    @Timed
+    public ResponseEntity<Void> declineRequest(@PathVariable Long id,
+                                               @PathVariable long userId,
+                                               HttpServletRequest request) {
+        User user = userService.getUserWithAuthorities();
+
+        if (!request.isUserInRole("ROLE_ADMIN") && !user.getCaptain().getId().equals(id)) {
+            throw new AccessDeniedException("You are not allowed to decline membership requests");
+        }
+
+        User declinedMember = userRepository.findOne(userId);
+
+        if (declinedMember == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return Optional.ofNullable(teamRepository.findOne(id))
+                .map(team -> {
+                    Set<User> requests = team.getRequests();
+                    requests.remove(declinedMember);
+
                     teamRepository.save(team);
                     return team;
                 })

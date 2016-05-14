@@ -78,6 +78,21 @@
                         </td>
                     </tr>
                 </table>
+
+                <h3 translate="aklApp.team.requests">Membership requests</h3>
+                <table class="table" ng-if="requests">
+                  <tr ng-repeat="request in requests">
+                    <td>{{request.nickname || request.login }}</td>
+                    <td>
+                      <div class="pull-right">
+                        <a ui-sref="team.detail.accept({id: team.id, userId: request.id})" class="btn btn-success btn-sm">
+                          <span class="glyphicon glyphicon-ok"></span>&nbsp;
+                          <span translate="aklApp.team.request.accept">Accept request</span>
+                        </a>
+                      </div>
+                  </tr>
+                </table>
+                
                 <div class="row">
                     <div class="col-md-12">
                         <button type="submit"

@@ -46,6 +46,17 @@ angular.module('aklApp')
                     }],
                     team: ['$stateParams', 'Api', function($stateParams, Api) {
                         return Api.one('teams', $stateParams.id).get();
+                    }],
+                    requests: ['$stateParams', 'Principal', 'Team', function($stateParams, Principal, Team) {
+                        return Principal.identity().then(function() {
+                            return Principal.isInRole('ROLE_ADMIN');
+                        }).then(function(isAdmin) {
+                            if (isAdmin) {
+                                return Team.requests({id: $stateParams.id});
+                            }
+
+                            return null;
+                        });
                     }]
                 }
             })
@@ -93,6 +104,29 @@ angular.module('aklApp')
                     }, function() {
                         $state.go('^');
                     })
+                }]
+            })
+            .state('team.detail.accept', {
+                parent: 'team.detail',
+                url: '/{id}/member/{userId}/accept',
+                data: {
+                    roles: ['ROLE_USER']
+                },
+                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
+                        templateUrl: 'scripts/app/entities/team/team-member-dialog.html',
+                        controller: 'TeamMemberDialogController',
+                        size: 'lg',
+                        resolve: {
+                            team: ['Team', function(Team) {
+                                return Team.get({id: $stateParams.id});
+                            }]
+                        }
+                    }).result.then(function(result) {
+                        $state.go('team.detail', {id: $stateParams.id}, {reload: true});
+                    }, function() {
+                        $state.go('^');
+                    });
                 }]
             });
     });

@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('TeamDetailController', function ($scope, $rootScope, Team, Principal, AccountTeam, team, API_URL) {
+    .controller('TeamDetailController', function ($scope, $rootScope, Team, Principal, AccountTeam, team, requests, API_URL) {
         $scope.team = team.data;
+        $scope.requests = requests;
 
         $scope.isAuthenticated = Principal.isAuthenticated;
 

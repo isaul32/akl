@@ -1,6 +1,7 @@
 package com.pyrenty.akl.web.rest.dto;
 
 public class UserBaseDTO {
+    private Long id;
     private String nickname;
     private String firstName;
     private String lastName;
@@ -8,6 +9,14 @@ public class UserBaseDTO {
 
     public UserBaseDTO() {
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNickname() {

@@ -17,10 +17,19 @@
             "detail": {
                 "title": "Tiimi"
             },
+            "requests": "Jäsenhakemukset",
             "request": {
                 "title": "Varmista jäsenyyspyynnön lähettäminen",
                 "question": "Oletko varma että haluat pyytää jäsenyyttä tähän joukkueeseen? Voit kuulua vain yhteen joukkueeseen ja et voi lähettää uusia jäsenyyspyyntöjä",
-                "action": "Lähetä pyyntö"
+                "action": "Lähetä pyyntö",
+                "accept": "Hyväksy jäsenyys",
+                "acceptOrEdit": "Hyväksy tai muokkaa jäsenyyttä",
+                "role": "Jäsenyystyyppi",
+                "roles": {
+                    "member": "Jäsen",
+                    "standin": "Varajäsen"
+                },
+                "info": "Valitse jäsenyystyyppi"
             },
             "membershipRequiredInfo": "Et voi pyytää jäsenyyttä ennen kuin olet täyttänyt omat tietosi. Mene <a ui-sref='settings'>asetukset-sivulle</a> ja täytä tietosi",
             "tag": "Tagi",
