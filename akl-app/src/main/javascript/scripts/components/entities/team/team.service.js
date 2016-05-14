@@ -10,6 +10,10 @@ angular.module('aklApp')
                 method: 'POST',
                 url: API_URL + '/teams/:id/activate'
             },
+            'requestInvite': {
+                method: 'POST',
+                url: API_URL + '/teams/:id/request_invite'
+            },
             'self': {
                 method: 'GET',
                 url: API_URL + '/account/team'

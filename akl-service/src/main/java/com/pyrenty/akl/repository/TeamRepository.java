@@ -17,6 +17,7 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
     @Query("SELECT t FROM Team t " +
         "LEFT JOIN FETCH t.members " +
         "LEFT JOIN FETCH t.standins " +
+        "LEFT JOIN FETCH t.requests " +
         "WHERE t.id = :id")
     Team findOne(@Param("id") Long id);
 
@@ -32,8 +33,10 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
     @Query("Select t from Team t " +
         "LEFT JOIN FETCH t.members m " +
         "LEFT JOIN FETCH t.standins s " +
+        "LEFT JOIN FETCH t.requests r " +
         "WHERE t.captain.id = :user OR " +
         "m.id = :user OR " +
-        "s.id = :user")
+        "s.id = :user OR " +
+        "r.id = :user")
     Team findOneForUser(@Param("user") Long userId);
 }

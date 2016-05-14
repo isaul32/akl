@@ -17,6 +17,11 @@
             "detail": {
                 "title": "Team"
             },
+            "request": {
+                "title": "Confirm membership request",
+                "question": "Are you sure you want to request an invitation to this team? You can't join multiple teams and can't make more membership requests while you have a pending one",
+                "action": "Send request"
+            },
             "tag": "Tag",
             "name": "Name",
             "imageUrl": "Image url",
@@ -24,7 +29,8 @@
             "description": "Description",
             "captain": "Captain",
             "members": "Member",
-            "standins": "Standin"
+            "standins": "Standin",
+            "requestMembership": "Request membership"
         }
     }
 }

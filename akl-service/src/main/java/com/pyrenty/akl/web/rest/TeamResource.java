@@ -6,7 +6,9 @@ import com.pyrenty.akl.domain.user.User;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.service.UserService;
+import com.pyrenty.akl.web.rest.dto.UserDTO;
 import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
+import com.pyrenty.akl.web.rest.mapper.UserMapper;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
 import com.pyrenty.akl.web.rest.dto.TeamDTO;
@@ -32,6 +34,7 @@ import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -193,6 +196,7 @@ public class TeamResource {
      */
     @RequestMapping(value = "/teams/{id}/activate")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Transactional
     @Timed
     public ResponseEntity<Void> activate(@PathVariable Long id) {
         return Optional.ofNullable(teamRepository.findOne(id))
@@ -202,7 +206,33 @@ public class TeamResource {
                     return team;
                 })
                 .map(team -> new ResponseEntity<Void>(HttpStatus.OK))
-                .orElse(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @RequestMapping(value = "/teams/{id}/request_invite",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("isAuthenticated()")
+    @Timed
+    public ResponseEntity<Void> requestInvite(@PathVariable Long id) {
+        User currentUser = userService.getUserWithAuthorities();
+
+        Optional<Team> currentTeam = Optional.ofNullable(teamRepository.findOneForUser(currentUser.getId()));
+
+        if (currentTeam.isPresent()) {
+            return ResponseEntity.badRequest().header("Failure", "You can't join multiple teams").body(null);
+        }
+
+        return Optional.ofNullable(teamRepository.findOne(id))
+                .map(team -> {
+                    Set<User> requests = team.getRequests();
+                    requests.add(currentUser);
+                    team.setRequests(requests);
+                    teamRepository.save(team);
+                    return team;
+                })
+                .map(team -> new ResponseEntity<Void>(HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**

@@ -1,4 +1,27 @@
 <div class="container">
+    <div class="modal fade" id="membershipRequestConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="requestForm" ng-submit="requestInvite()">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" translate="aklApp.team.request.title">Confirm membership request</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="aklApp.team.request.question">Are you sure you want to request an invitation to this team? You can't join multiple teams and can't make more membership requests while you have a pending one</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="requestForm.$invalid" class="btn btn-primary" ng-click="sendRequest()">
+                            <span class="glyphicon glyphicon-envelope"></span>&nbsp;<span translate="aklApp.team.request.action">Send request</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <h2>{{team.name}} (<b>{{team.tag}}</b>)</h2>
@@ -55,15 +78,22 @@
                         </td>
                     </tr>
                 </table>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit"
+                                onclick="window.history.back()"
+                                class="btn btn-info">
+                            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
+                            <span translate="entity.action.back">Back</span>
+                        </button>
+                        <button type="submit" ng-if="isAuthenticated() && !currentTeam"
+                                class="btn btn-primary" ng-click="requestInvite()">
+                            <span class="glyphicon glyphicon-envelope"></span>&nbsp;
+                            <span translate="aklApp.team.requestMembership">Request membershipp</span>
+                        </button>
+                  </div>
+                </div>
             </div>
-
-            <button type="submit"
-                    onclick="window.history.back()"
-                    class="btn btn-info">
-                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
-                <span translate="entity.action.back">Back</span>
-            </button>
-
         </div>
     </div>
 </div>

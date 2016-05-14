@@ -17,6 +17,11 @@
             "detail": {
                 "title": "Tiimi"
             },
+            "request": {
+                "title": "Varmista jäsenyyspyynnön lähettäminen",
+                "question": "Oletko varma että haluat pyytää jäsenyyttä tähän joukkueeseen? Voit kuulua vain yhteen joukkueeseen ja et voi lähettää uusia jäsenyyspyyntöjä",
+                "action": "Lähetä pyyntö"
+            },
             "tag": "Tagi",
             "name": "Nimi",
             "imageUrl": "Kuvan osoite",
@@ -24,7 +29,8 @@
             "description": "Kuvaus",
             "captain": "Kapteeni",
             "members": "Jäsenet",
-            "standins": "Varajäsenet"
+            "standins": "Varajäsenet",
+            "requestMembership": "Pyydä jäsenyyttä"
         }
     }
 }
