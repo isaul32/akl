@@ -73,14 +73,15 @@
                         </td>
                         <td>
                             <p ng-repeat="standin in team.standins">
-                                <span class="form-control-static">{{standin.login}}</span>
+                                <span class="form-control-static">{{standin.nickname || standin.login}}</span>
                             </p>
                         </td>
                     </tr>
                 </table>
 
+                <div ng-if="requests && requests.length > 0">
                 <h3 translate="aklApp.team.requests">Membership requests</h3>
-                <table class="table" ng-if="requests">
+                <table class="table">
                   <tr ng-repeat="request in requests">
                     <td>{{request.nickname || request.login }}</td>
                     <td>
@@ -92,14 +93,15 @@
                       </div>
                   </tr>
                 </table>
+                </div>
                 
                 <div class="row">
                     <div class="col-md-12">
                         <button type="submit"
-                                onclick="window.history.back()"
+                                ui-sref="team"
                                 class="btn btn-info">
                             <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
-                            <span translate="entity.action.back">Back</span>
+                            <span translate="aklApp.team.toListing">Back to team listing</span>
                         </button>
                         <button type="submit" ng-if="isAuthenticated() && currentUser.email && !currentUserTeam"
                                 class="btn btn-primary" ng-click="requestInvite()">

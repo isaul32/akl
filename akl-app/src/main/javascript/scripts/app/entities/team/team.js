@@ -22,12 +22,38 @@ angular.module('aklApp')
                         $translatePartialLoader.addPart('rank');
                         $translatePartialLoader.addPart('global');
                         return $translate.refresh();
+                    }],
+                    currentTeam: ['AccountTeam', function(AccountTeam) {
+                        return AccountTeam.team();
                     }]
                 }
             })
+            .state('team.new', {
+                parent: 'team',
+                url: '/new',
+                data: {
+                    roles: ['ROLE_USER']
+                },
+                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
+                        templateUrl: 'scripts/app/entities/team/team-dialog.html',
+                        controller: 'TeamDialogController',
+                        size: 'lg',
+                        resolve: {
+                            entity: function () {
+                                return {tag: null, name: null, imageUrl: null, rank: null, description: null, id: null};
+                            }
+                        }
+                    }).result.then(function(result) {
+                        $state.go('team', null, { reload: true });
+                    }, function() {
+                        $state.go('team');
+                    })
+                }]
+            })
             .state('team.detail', {
                 parent: 'entity',
-                url: '/team/{id}',
+                url: '/team/{id:int}',
                 data: {
                     roles: [],
                     pageTitle: 'aklApp.team.detail.title'
@@ -59,29 +85,6 @@ angular.module('aklApp')
                         });
                     }]
                 }
-            })
-            .state('team.new', {
-                parent: 'team',
-                url: '/new',
-                data: {
-                    roles: ['ROLE_USER']
-                },
-                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                    $uibModal.open({
-                        templateUrl: 'scripts/app/entities/team/team-dialog.html',
-                        controller: 'TeamDialogController',
-                        size: 'lg',
-                        resolve: {
-                            entity: function () {
-                                return {tag: null, name: null, imageUrl: null, rank: null, description: null, id: null};
-                            }
-                        }
-                    }).result.then(function(result) {
-                        $state.go('team', null, { reload: true });
-                    }, function() {
-                        $state.go('team');
-                    })
-                }]
             })
             .state('team.edit', {
                 parent: 'team',

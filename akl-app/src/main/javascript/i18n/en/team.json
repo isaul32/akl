@@ -7,6 +7,7 @@
                 "creation.info": "You can't create a team until you've saved your settings (personal details etc). Go to the <a ui-sref='settings'>settings page</a> to update your details. Name and email details are required information.",
                 "createOrEditLabel": "Create or edit a Team"
             },
+            "toListing": "Back to team listing",
             "activate": "Activate",
             "created": "A new Team is created with identifier {{ param }}",
             "updated": "A Team is updated with identifier {{ param }}",
