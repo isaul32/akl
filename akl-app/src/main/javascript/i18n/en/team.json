@@ -9,7 +9,7 @@
             },
             "toListing": "Back to team listing",
             "activate": "Activate",
-            "created": "A new Team is created with identifier {{ param }}",
+            "created": "A new Team has been created with identifier {{ param }}. The team needs to be manually accepted by admins",
             "updated": "A Team is updated with identifier {{ param }}",
             "deleted": "A Team is deleted with identifier {{ param }}",
             "delete": {
@@ -46,7 +46,9 @@
             "captain": "Captain",
             "members": "Member",
             "standins": "Standin",
-            "requestMembership": "Request membership"
+            "requestMembership": "Request membership",
+            "captainNotice": "NOTICE: You become the captain of the team that you create. Only the captain (adn admins) can change team details and accept/decline membership requests",
+            "authorizationNotice": "Teams are manually accepted by admins and they won't appear in the team listing before they are accepted"
         }
     }
 }

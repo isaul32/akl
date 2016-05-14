@@ -107,6 +107,8 @@
                 </p>
             </div>
         </div>
+        <p ng-if="!team.id" translate="aklApp.team.captainNotice">NOTICE: You become the captain of the team that you create. Only the captain (and admins) can change team details and accept/decline membership requests</p>
+        <p ng-if="!team.id" translate="aklApp.team.authorizationNotice">Teams are manually accepted by admins and they won't appear in the team listing before they are accepted</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">

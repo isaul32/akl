@@ -9,9 +9,9 @@
             },
             "toListing": "Takaisin joukkuelistaukseen",
             "activate": "Aktivoi",
-            "created": "A new Team is created with identifier {{ param }}",
-            "updated": "A Team is updated with identifier {{ param }}",
-            "deleted": "A Team is deleted with identifier {{ param }}",
+            "created": "Uusi joukkue on luotu tunnisteella {{ param }}. Joukkue hyväksytään ylläpidon toimesta manuaalisesti",
+            "updated": "Päivitettiin joukkueen tiedot onnistuneesti (id: {{ param }})",
+            "deleted": "Poistettiin joukkue onnistuneesti (id: {{ param }})",
             "delete": {
                 "question": "Oletko varma että haluat poistaa joukkueen {{ id }}?"
             },
@@ -46,7 +46,9 @@
             "captain": "Kapteeni",
             "members": "Jäsenet",
             "standins": "Varajäsenet",
-            "requestMembership": "Pyydä jäsenyyttä"
+            "requestMembership": "Pyydä jäsenyyttä",
+            "captainNotice": "HUOM: Kun luot uuden tiimin, sinusta tulee tiimin kapteeni. Vain tiimin kapteeni (ja ylläpitäjät) voivat muokata tiimin tietoja ja hyväksy/hylätä tiimin jäsenpyyntöjä",
+            "authorizationNotice": "Tiimit hyväksytään manuaalisesti ylläpidon toimesta. Tiimit eivät näy julkisesti ennen hyväksyntää"
         }
     }
 }
