@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('aklApp').controller('TeamDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Team',
-        function($scope, $stateParams, $uibModalInstance, entity, Team) {
+       ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Team', 'AccountTeam',
+        function($scope, $stateParams, $uibModalInstance, entity, Team, AccountTeam) {
 
         $scope.team = entity;
         $scope.load = function(id) {
@@ -14,6 +14,8 @@ angular.module('aklApp').controller('TeamDialogController',
         var onSaveFinished = function (result) {
             $scope.$emit('aklApp:teamUpdate', result);
             $uibModalInstance.close(result);
+            // Refresh team associated with the account
+            AccountTeam.team(true);
         };
 
         $scope.save = function () {

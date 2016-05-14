@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('TeamController', function ($scope, Team, ParseLinks, Principal) {
+    .controller('TeamController', function ($scope, Team, ParseLinks, Principal, currentTeam) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.teams = [];
         $scope.page = 1;
+        $scope.currentTeam = currentTeam;
         
         $scope.loadAll = function() {
             Team.query({page: $scope.page, per_page: 20}, function(result, headers) {

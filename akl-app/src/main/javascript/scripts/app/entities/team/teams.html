@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <div class="row" ng-if="isAuthenticated() && canCreateTeam()">
+    <div class="row" ng-if="isAuthenticated() && canCreateTeam() && !currentTeam">
         <div class="col-md-4">
             <button class="btn btn-primary" ui-sref="team.new">
                 <span class="glyphicon glyphicon-flash"></span> <span translate="aklApp.team.home.createLabel">Create a new Team</span>
