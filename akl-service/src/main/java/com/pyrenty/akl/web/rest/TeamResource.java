@@ -217,6 +217,10 @@ public class TeamResource {
     public ResponseEntity<Void> requestInvite(@PathVariable Long id) {
         User currentUser = userService.getUserWithAuthorities();
 
+        if (currentUser.getEmail() == null) {
+            throw new CustomParameterizedException("Can't join a team without an email set");
+        }
+
         Optional<Team> currentTeam = Optional.ofNullable(teamRepository.findOneForUser(currentUser.getId()));
 
         if (currentTeam.isPresent()) {

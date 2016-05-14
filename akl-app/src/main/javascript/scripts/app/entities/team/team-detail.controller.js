@@ -6,24 +6,26 @@ angular.module('aklApp')
 
         $scope.isAuthenticated = Principal.isAuthenticated;
 
-        var getCurrentTeam = function(force) {
+        var getCurrentUserDetails = function(force) {
             AccountTeam.team(force).then(function(team) {
-                $scope.currentTeam = team;
+                $scope.currentUserTeam = team;
+                return Principal.identity();
+            })
+            .then(function(user) {
+                $scope.currentUser = user;
             });
         };
 
-        getCurrentTeam();
+        getCurrentUserDetails();
 
         $scope.requestInvite = function() {
             $('#membershipRequestConfirmation').modal('show');
         };
 
         $scope.sendRequest = function() {
-            Principal.identity().then(function(user) {
-                return Team.requestInvite({id: $scope.team.id}).$promise;
-            })
+            Team.requestInvite({id: $scope.team.id}).$promise
             .then(function() {
-                getCurrentTeam(true);
+                getCurrentUserDetails(true);
                 $('#membershipRequestConfirmation').modal('hide');
             });
         };

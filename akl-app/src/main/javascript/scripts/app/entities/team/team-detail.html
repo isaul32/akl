@@ -86,11 +86,12 @@
                             <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
                             <span translate="entity.action.back">Back</span>
                         </button>
-                        <button type="submit" ng-if="isAuthenticated() && !currentTeam"
+                        <button type="submit" ng-if="isAuthenticated() && currentUser.email && !currentUserTeam"
                                 class="btn btn-primary" ng-click="requestInvite()">
                             <span class="glyphicon glyphicon-envelope"></span>&nbsp;
                             <span translate="aklApp.team.requestMembership">Request membershipp</span>
                         </button>
+                        <p ng-if="isAuthenticated() && !currentUser.email && !currentUserTeam" translate="aklApp.team.membershipRequiredInfo" translate-compile>You can't request a team membership until you've added your personal details in the settings menu. Go to <a ui-sref="settings">settings</a> and fill your details to request membership</p>
                   </div>
                 </div>
             </div>

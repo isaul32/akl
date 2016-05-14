@@ -22,6 +22,7 @@
                 "question": "Are you sure you want to request an invitation to this team? You can't join multiple teams and can't make more membership requests while you have a pending one",
                 "action": "Send request"
             },
+            "membershipRequiredInfo": "You can't request a team membership until you've added your personal details in the settings menu. Go to <a ui-sref='settings'>settings-page</a> and fill your personal details to request membership",
             "tag": "Tag",
             "name": "Name",
             "imageUrl": "Image url",
