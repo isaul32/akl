@@ -1,6 +1,8 @@
 <div class="container">
 
-    <div class="modal fade" id="membershipRequestConfirmation">
+    <akl-alert></akl-alert>
+
+    <div id="membershipRequestConfirmation" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form name="requestForm" ng-submit="sendRequest()">
@@ -24,7 +26,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="membershipRequestDeclination">
+    <div id="membershipRequestDeclination" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form name="requestForm" ng-submit="sendDecline()">
@@ -51,10 +53,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1>{{team.name}} (<b>{{team.tag}}</b>)</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
+
             <div class="table-responsive">
                 <table class="table">
                     <tr>
@@ -87,7 +86,7 @@
                         </td>
                         <td>
                             <span class="form-control-static">
-                                <a ui-sref="user({ id: team.captain.id })">
+                                <a ui-sref="user.detail({ id: team.captain.id })">
                                     {{team.captain.nickname || team.captain.login}}
                                 </a>
                             </span>
@@ -100,7 +99,7 @@
                         <td>
                             <p ng-repeat="member in team.members">
                                 <span class="form-control-static">
-                                    <a ui-sref="user({ id: team.member.id })">
+                                    <a ui-sref="user.detail({ id: member.id })">
                                         {{member.nickname || member.login}}
                                     </a>
                                 </span>
@@ -114,7 +113,7 @@
                         <td>
                             <p ng-repeat="standin in team.standins">
                                 <span class="form-control-static">
-                                    <a ui-sref="user({ id: team.standin.id })">
+                                    <a ui-sref="user.detail({ id: standin.id })">
                                         {{standin.nickname || standin.login}}
                                     </a>
                                 </span>
@@ -122,9 +121,11 @@
                         </td>
                     </tr>
                 </table>
+            </div>
 
-                <div ng-if="requests && requests.length > 0">
+            <div ng-if="requests && requests.length > 0">
                 <h3 translate="aklApp.team.requests">Membership requests</h3>
+
                 <table class="table">
                   <tr ng-repeat="request in requests">
                     <td>{{request.nickname || request.login }}</td>
@@ -141,25 +142,24 @@
                       </div>
                   </tr>
                 </table>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <button type="submit"
-                                ui-sref="team"
-                                class="btn btn-info">
-                            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
-                            <span translate="aklApp.team.toListing">Back to team listing</span>
-                        </button>
-                        <button type="submit" ng-if="isAuthenticated() && currentUser.email && !currentUserTeam"
-                                class="btn btn-primary" ng-click="requestInvite()">
-                            <span class="glyphicon glyphicon-envelope"></span>&nbsp;
-                            <span translate="aklApp.team.requestMembership">Request membershipp</span>
-                        </button>
-                        <p ng-if="isAuthenticated() && !currentUser.email && !currentUserTeam" translate="aklApp.team.membershipRequiredInfo" translate-compile>You can't request a team membership until you've added your personal details in the settings menu. Go to <a ui-sref="settings">settings</a> and fill your details to request membership</p>
-                  </div>
-                </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit"
+                    ui-sref="team"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
+                <span translate="aklApp.team.toListing">Back to team listing</span>
+            </button>
+            <button type="submit" ng-if="isAuthenticated() && currentUser.email && !currentUserTeam"
+                    class="btn btn-primary" ng-click="requestInvite()">
+                <span class="glyphicon glyphicon-envelope"></span>&nbsp;
+                <span translate="aklApp.team.requestMembership">Request membershipp</span>
+            </button>
+            <p ng-if="isAuthenticated() && !currentUser.email && !currentUserTeam" translate="aklApp.team.membershipRequiredInfo" translate-compile>You can't request a team membership until you've added your personal details in the settings menu. Go to <a ui-sref="settings">settings</a> and fill your details to request membership.</p>
         </div>
     </div>
 </div>

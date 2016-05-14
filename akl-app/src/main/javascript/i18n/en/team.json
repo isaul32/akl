@@ -9,7 +9,7 @@
             },
             "toListing": "Back to team listing",
             "activate": "Activate",
-            "created": "A new Team has been created with identifier {{ param }}. The team needs to be manually accepted by admins",
+            "created": "A new Team has been created with identifier {{ param }}. The team needs to be manually accepted by admins.",
             "updated": "A Team is updated with identifier {{ param }}",
             "deleted": "A Team is deleted with identifier {{ param }}",
             "delete": {
@@ -19,11 +19,11 @@
                 "title": "Team"
             },
             "representing": "Representing",
-            "representingHelp": "The guild/organization/school you are representing. For example: Tampereen TietoTeekkarikilta or Tampere University of Technology",
+            "representingHelp": "The guild/organization/school you are representing. For example: Tampereen TietoTeekkarikilta or Tampere University of Technology.",
             "requests": "Membership requests",
             "request": {
                 "title": "Confirm membership request",
-                "question": "Are you sure you want to request an invitation to this team? You can't join multiple teams and can't make more membership requests while you have a pending one",
+                "question": "Are you sure you want to request an invitation to this team? You can't join multiple teams and can't make more membership requests while you have a pending one.",
                 "action": "Send request",
                 "accept": "Accept request",
                 "acceptOrEdit": "Accept or edit membership",
@@ -39,7 +39,7 @@
                     "action": "Decline request"
                 }
             },
-            "membershipRequiredInfo": "You can't request a team membership until you've added your personal details in the settings menu. Go to <a ui-sref='settings'>settings-page</a> and fill your personal details to request membership",
+            "membershipRequiredInfo": "You can't request a team membership until you've added your personal details in the settings menu. Go to <a ui-sref='settings'>settings-page</a> and fill your personal details to request membership.",
             "tag": "Tag",
             "name": "Name",
             "imageUrl": "Image url",

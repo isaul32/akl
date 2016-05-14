@@ -3,17 +3,14 @@ package com.pyrenty.akl.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.domain.User;
-import com.pyrenty.akl.service.TeamService;
 import com.pyrenty.akl.domain.enumeration.MembershipRoles;
-import com.pyrenty.akl.domain.user.User;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
-import com.pyrenty.akl.security.AuthoritiesConstants;
 import com.pyrenty.akl.security.InvalidRoleException;
+import com.pyrenty.akl.service.TeamService;
 import com.pyrenty.akl.service.UserService;
 import com.pyrenty.akl.web.rest.dto.TeamRequestDTO;
-import com.pyrenty.akl.web.rest.dto.UserBaseDTO;
-import com.pyrenty.akl.web.rest.dto.UserDTO;
+import com.pyrenty.akl.web.rest.dto.UserPublicDTO;
 import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
 import com.pyrenty.akl.web.rest.mapper.UserMapper;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
@@ -22,9 +19,7 @@ import com.pyrenty.akl.web.rest.dto.TeamDTO;
 import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -43,9 +38,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 
 /**
@@ -71,6 +64,9 @@ public class TeamResource {
     @Inject
     private UserMapper userMapper;
 
+    @Inject
+    private TeamService teamService;
+
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/teams", method = RequestMethod.POST)
     @Transactional
@@ -95,7 +91,7 @@ public class TeamResource {
 
     @RequestMapping(value = "/teams", method = RequestMethod.GET)
     @Timed
-    public ResponseEntity<List<TeamDTO>> getAll(@RequestParam(value = "page" , required = false) Integer offset,
+    public ResponseEntity<List<TeamDTO>> getAll(@RequestParam(value = "page", required = false) Integer offset,
                                                 @RequestParam(value = "per_page", required = false) Integer limit,
                                                 @RequestParam(required = false) String filter) throws URISyntaxException {
         log.debug("REST request to get all Teams");
@@ -104,8 +100,8 @@ public class TeamResource {
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/teams", offset, limit);
         return new ResponseEntity<>(page.getContent().stream()
-            .map(teamMapper::teamToTeamDTO)
-            .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
+                .map(teamMapper::teamToTeamDTO)
+                .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/teams/{id}", method = RequestMethod.GET)
@@ -114,9 +110,9 @@ public class TeamResource {
         log.debug("REST request to get Team : {}", id);
 
         return teamService.get(id)
-            .map(teamMapper::teamToTeamDTO)
-            .map(teamDTO -> new ResponseEntity<>(teamDTO, HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map(teamMapper::teamToTeamDTO)
+                .map(teamDTO -> new ResponseEntity<>(teamDTO, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(value = "/teams/{id}", method = RequestMethod.PUT)
@@ -175,8 +171,8 @@ public class TeamResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
     @Timed
-    public ResponseEntity<List<UserBaseDTO>> getRequests(@PathVariable Long id,
-                                                         HttpServletRequest request) {
+    public ResponseEntity<List<UserPublicDTO>> getRequests(@PathVariable Long id,
+                                                           HttpServletRequest request) {
         User user = userService.getUserWithAuthorities();
 
         if (!request.isUserInRole("ROLE_ADMIN") && !user.getCaptain().getId().equals(id)) {
@@ -190,7 +186,7 @@ public class TeamResource {
         }
 
         return new ResponseEntity<>(team.get().getRequests().stream()
-                .map(userMapper::userToUserBaseDTO)
+                .map(userMapper::userToUserPublicDTO)
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 

@@ -1,7 +1,6 @@
 package com.pyrenty.akl.repository;
 
 import com.pyrenty.akl.domain.Team;
-import com.pyrenty.akl.domain.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
