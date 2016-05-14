@@ -7,10 +7,15 @@
 
     <diskStore path="java.io.tmpdir"/>
 
-    <defaultCache
-            eternal="false"
-            overflowToDisk="false"
-            />
+    <defaultCache eternal="false" overflowToDisk="false"/>
+
+    <cache name="twitch"
+           timeToLiveSeconds="60">
+    </cache>
+
+    <cache name="steamUser"
+           timeToLiveSeconds="3600">
+    </cache>
 
     <cache name="com.pyrenty.akl.domain.User"
            timeToLiveSeconds="3600">

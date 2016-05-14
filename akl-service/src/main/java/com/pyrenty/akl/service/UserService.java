@@ -87,12 +87,6 @@ public class UserService {
            });
     }
 
-    /*public User createUser(User newUser) {
-        userRepository.save(newUser);
-        log.debug("Created Information for User: {}", newUser);
-        return newUser;
-    }*/
-
     public User createSteamLoginUser(String login, String communityId, String steamId) {
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");

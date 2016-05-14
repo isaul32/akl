@@ -70,15 +70,15 @@ public class UserServiceTest {
         
     }
 
-    @Test
+    /*@Test
     public void assertThatOnlyActivatedUserCanRequestPasswordReset() {
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
         Optional<User> maybeUser = userService.requestPasswordReset("john.doe@localhost");
         assertThat(maybeUser.isPresent()).isFalse();
         userRepository.delete(user);
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void assertThatResetKeyMustNotBeOlderThan24Hours() {
         
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
@@ -97,9 +97,9 @@ public class UserServiceTest {
 
         userRepository.delete(user);
         
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void assertThatResetKeyMustBeValid() {
         
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
@@ -117,9 +117,9 @@ public class UserServiceTest {
 
         userRepository.delete(user);
         
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void assertThatUserCanResetPassword() {
         
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
@@ -142,8 +142,7 @@ public class UserServiceTest {
         assertThat(maybeUser.get().getPassword()).isNotEqualTo(oldPassword);
 
         userRepository.delete(user);
-        
-    }
+    }*/
 
     @Test
     public void testFindNotActivatedUsersByCreationDateBefore() {
