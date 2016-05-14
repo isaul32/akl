@@ -21,6 +21,24 @@ angular.module('aklApp')
             });
         };
 
+        $scope.isValidMember = function() {
+            if (!$scope.team || !$scope.account) {
+                return false;
+            }
+
+            if (!$scope.team.activated) {
+                return false;
+            }
+
+            var index = _.chain($scope.team.members)
+                .concat($scope.team.standins)
+                .concat($scope.team.captain)
+                .findIndex(['id', $scope.account.id])
+                .value();
+
+            return index !== -1;
+        };
+
         getAccount();
 
         $rootScope.$on('$stateChangeStart', function () {
@@ -29,6 +47,7 @@ angular.module('aklApp')
 
         $scope.logout = function () {
             Auth.logout();
+            $scope.steamUser = null;
             $state.go('home');
         };
     });

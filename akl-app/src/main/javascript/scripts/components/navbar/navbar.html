@@ -59,13 +59,13 @@
                         <span translate="global.menu.schedule">Schedule</span>
                     </a>
                 </li>
-                <li ui-sref-active="active" ng-if="!team">
+                <li ui-sref-active="active" ng-if="!isValidMember()">
                     <a ui-sref="team">
                         <span class="fa fa-users"></span>&nbsp;
                         <span translate="global.menu.teams.main">Teams</span>
                     </a>
                 </li>
-                <li ui-sref-active="active" ng-if="team" class="dropdown pointer">
+                <li ui-sref-active="active" ng-if="isValidMember()" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span class="fa fa-users"></span>&nbsp;
                         <span class="hidden-tablet" translate="global.menu.teams.main">Teams</span>
