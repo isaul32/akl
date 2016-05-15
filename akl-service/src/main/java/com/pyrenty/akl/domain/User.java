@@ -19,7 +19,7 @@ import java.util.Set;
 import org.joda.time.DateTime;
 
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
 
