@@ -3,11 +3,11 @@
         "title": "User settings for <b>{{username}}</b>",
         "form": {
             "firstname": "First Name",
-            "firstname.placeholder": "Your first name",
             "lastname": "Last Name",
-            "lastname.placeholder": "Your last name",
             "nickname": "Nickname",
-            "nickname.placeholder": "Your nickname",
+            "guild": "Subject association / guild",
+            "description": "Description",
+            "rank": "Taso",
             "language": "Language",
             "steamId": "Steam ID",
             "button": "Save"

@@ -16,10 +16,29 @@
             </div>
 
             <form name="form" role="form" novalidate ng-submit="save()" show-validation>
+                <div class="form-group">
+                    <label for="nickname" translate="settings.form.nickname">Nickname</label>
+                    <input type="text" class="form-control" id="nickname" name="nickname"
+                           ng-model="settingsAccount.nickname" ng-minlength=1 ng-maxlength=50 required maxlength="50">
+                    <div ng-show="form.nickname.$dirty && form.nickname.$invalid">
+                        <p class="help-block"
+                           ng-show="form.nickname.$error.required" translate="settings.messages.validate.nickname.required">
+                            Your nickname is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="form.nickname.$error.minlength" translate="settings.messages.validate.nickname.minlength">
+                            Your nickname is required to be at least 1 character.
+                        </p>
+                        <p class="help-block"
+                           ng-show="form.nickname.$error.maxlength" translate="settings.messages.validate.nickname.maxlength">
+                            Your nickname cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label for="firstName" translate="settings.form.firstname">First Name</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="{{'settings.form.firstname.placeholder' | translate}}"
+                    <input type="text" class="form-control" id="firstName" name="firstName"
                            ng-model="settingsAccount.firstName" ng-minlength=1 ng-maxlength=50 required maxlength="50">
                     <div ng-show="form.firstName.$dirty && form.firstName.$invalid">
                         <p class="help-block"
@@ -36,9 +55,10 @@
                         </p>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label for="lastName" translate="settings.form.lastname">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="{{'settings.form.lastname.placeholder' | translate}}"
+                    <input type="text" class="form-control" id="lastName" name="lastName"
                            ng-model="settingsAccount.lastName" ng-minlength=1 ng-maxlength=50 required maxlength="50">
                     <div ng-show="form.lastName.$dirty && form.lastName.$invalid">
                         <p class="help-block"
@@ -55,28 +75,10 @@
                         </p>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="nickname" translate="settings.form.nickname">Nickname</label>
-                    <input type="text" class="form-control" id="nickname" name="nickname" placeholder="{{'settings.form.nickname.placeholder' | translate}}"
-                           ng-model="settingsAccount.nickname" ng-minlength=1 ng-maxlength=255 required maxlength="50">
-                    <div ng-show="form.nickname.$dirty && form.nickname.$invalid">
-                        <p class="help-block"
-                           ng-show="form.nickname.$error.required" translate="settings.messages.validate.nickname.required">
-                            Your nickname is required.
-                        </p>
-                        <p class="help-block"
-                           ng-show="form.nickname.$error.minlength" translate="settings.messages.validate.nickname.minlength">
-                            Your nickname is required to be at least 1 character.
-                        </p>
-                        <p class="help-block"
-                           ng-show="form.nickname.$error.maxlength" translate="settings.messages.validate.nickname.maxlength">
-                            Your nickname cannot be longer than 50 characters.
-                        </p>
-                    </div>
-                </div>
+
                 <div class="form-group">
                     <label for="email" translate="global.form.email">E-mail</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
+                    <input type="email" class="form-control" id="email" name="email"
                            ng-model="settingsAccount.email" ng-minlength=5 ng-maxlength=100 required maxlength="100">
                     <div ng-show="form.email.$dirty && form.email.$invalid">
                         <p class="help-block"
@@ -97,6 +99,59 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="guild" translate="settings.form.guild">Guild</label>
+                    <input type="text" class="form-control" id="guild" name="guild"
+                           ng-model="settingsAccount.guild" ng-minlength=1 ng-maxlength=50 required maxlength="50">
+                    <div ng-show="form.guild.$dirty && form.guild.$invalid">
+                        <p class="help-block"
+                           ng-show="form.guild.$error.required" translate="settings.messages.validate.guild.required">
+                            Your guild is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="form.guild.$error.minlength" translate="settings.messages.validate.guild.minlength">
+                            Your guild is required to be at least 1 character.
+                        </p>
+                        <p class="help-block"
+                           ng-show="form.guild.$error.maxlength" translate="settings.messages.validate.guild.maxlength">
+                            Your guild cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" translate="settings.form.description">Description</label>
+                    <textarea id="description" name="description" class="form-control"
+                              ng-model="settingsAccount.description" ng-minlength=1 ng-maxlength=255 required maxlength="255">
+                    </textarea>
+                </div>
+
+                <div class="form-group">
+                    <label translate="settings.form.rank" for="rank">Rank</label>
+                    <select class="form-control" id="rank" name="rank" ng-model="settingsAccount.rank">
+                        <option value="ge" translate="aklApp.Rank.ge">ge</option>
+                        <option value="smfc" translate="aklApp.Rank.smfc">smfc</option>
+                        <option value="lem" translate="aklApp.Rank.lem">lem</option>
+                        <option value="le" translate="aklApp.Rank.le">le</option>
+                        <option value="dmg" translate="aklApp.Rank.dmg">dmg</option>
+                        <option value="mge" translate="aklApp.Rank.mge">mge</option>
+                        <option value="mg2" translate="aklApp.Rank.mg2">mg2</option>
+                        <option value="mg1" translate="aklApp.Rank.mg1">mg1</option>
+                        <option value="gnm" translate="aklApp.Rank.gnm">gnm</option>
+                        <option value="gn4" translate="aklApp.Rank.gn4">gn4</option>
+                        <option value="gn3" translate="aklApp.Rank.gn3">gn3</option>
+                        <option value="gn2" translate="aklApp.Rank.gn2">gn2</option>
+                        <option value="gn1" translate="aklApp.Rank.gn1">gn1</option>
+                        <option value="sem" translate="aklApp.Rank.sem">sem</option>
+                        <option value="se" translate="aklApp.Rank.se">se</option>
+                        <option value="s4" translate="aklApp.Rank.s4">s4</option>
+                        <option value="s3" translate="aklApp.Rank.s3">s3</option>
+                        <option value="s2" translate="aklApp.Rank.s2">s2</option>
+                        <option value="s1" translate="aklApp.Rank.s1">s1</option>
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label for="langKey" translate="settings.form.language">Language</label>
                     <select id="langKey" name="langKey" class="form-control" ng-model="settingsAccount.langKey" ng-controller="LanguageController" ng-options="code as (code | findLanguageFromKey) for code in languages"></select>

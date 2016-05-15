@@ -83,6 +83,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Setter
     @Getter
+    @Size(min = 1, max = 50)
     @Column
     private String guild;
 

@@ -13,7 +13,7 @@
             }
         },
         "password" : {
-            "forgot": "Unohditko salasanasi?"
+            "forgot": "Salasana unohtunut?"
         }
     }
 }

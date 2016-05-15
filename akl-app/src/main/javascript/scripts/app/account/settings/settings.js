@@ -19,6 +19,7 @@ angular.module('aklApp')
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('settings');
+                        $translatePartialLoader.addPart('rank');
                         return $translate.refresh();
                     }]
                 }

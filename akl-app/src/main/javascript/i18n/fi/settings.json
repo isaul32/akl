@@ -3,12 +3,12 @@
         "title": "Asetukset käyttäjälle <b>{{username}}</b>",
         "form": {
             "firstname": "Etunimi",
-            "firstname.placeholder": "Etunimesi",
             "lastname": "Sukunimi",
-            "lastname.placeholder": "Sukunimesi",
             "nickname": "Nimimerkki",
-            "nickname.placeholder": "Nimimerkkisi",
             "language": "Kieli",
+            "guild": "Ainejärjestö / kilta",
+            "description": "Vapaa kuvaus",
+            "rank": "Taso",
             "steamId": "Steam ID",
             "button": "Tallenna"
         },

@@ -54,6 +54,10 @@
         <div class="col-md-12">
             <h1>{{team.name}} (<b>{{team.tag}}</b>)</h1>
 
+            <div class="alert alert-warning" ng-if="isAuthenticated() && !currentUser.email && !currentUserTeam">
+                <p translate="aklApp.team.membershipRequiredInfo" translate-compile>You can't request a team membership until you've added your personal details in the settings menu. Go to <a ui-sref="settings">settings</a> and fill your details to request membership.</p>
+            </div>
+
             <div class="table-responsive">
                 <table class="table">
                     <tr>
@@ -159,7 +163,6 @@
                 <span class="glyphicon glyphicon-envelope"></span>&nbsp;
                 <span translate="aklApp.team.requestMembership">Request membershipp</span>
             </button>
-            <p ng-if="isAuthenticated() && !currentUser.email && !currentUserTeam" translate="aklApp.team.membershipRequiredInfo" translate-compile>You can't request a team membership until you've added your personal details in the settings menu. Go to <a ui-sref="settings">settings</a> and fill your details to request membership.</p>
         </div>
     </div>
 </div>
