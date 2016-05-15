@@ -19,7 +19,7 @@ public class TextService {
 
     @Transactional(readOnly = true)
     public Optional<Text> get(Long id) {
-        return Optional.ofNullable(textRepository.getOne(id));
+        return Optional.ofNullable(textRepository.findOne(id));
     }
 
     @Transactional(readOnly = true)
