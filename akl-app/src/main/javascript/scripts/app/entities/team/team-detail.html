@@ -127,7 +127,7 @@
                 </table>
             </div>
 
-            <div ng-if="requests && requests.length > 0">
+            <div ng-if="currentUser.id === team.captain.id && requests.length > 0">
                 <h3 translate="aklApp.team.requests">Membership requests</h3>
 
                 <table class="table">

@@ -232,7 +232,7 @@ public class TeamResource {
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
                     // Check maximum members and standins count
-                    if (teamRequest.getRole().equals(MembershipRoles.ROLE_MEMBER.toString()) && team.getMembers().size() >= 5) {
+                    if (teamRequest.getRole().equals(MembershipRoles.ROLE_MEMBER.toString()) && team.getMembers().size() >= 4) {
                         throw new CustomParameterizedException("Team have maximum amount of members");
                     }
 

@@ -74,15 +74,7 @@ angular.module('aklApp')
                         return Api.one('teams', $stateParams.id).get();
                     }],
                     requests: ['$stateParams', 'Principal', 'Team', function($stateParams, Principal, Team) {
-                        return Principal.identity().then(function() {
-                            return Principal.isInRole('ROLE_ADMIN');
-                        }).then(function(isAdmin) {
-                            if (isAdmin) {
-                                return Team.requests({id: $stateParams.id});
-                            }
-
-                            return null;
-                        });
+                        return Team.requests({id: $stateParams.id});
                     }]
                 }
             })

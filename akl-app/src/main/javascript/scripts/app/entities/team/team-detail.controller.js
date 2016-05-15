@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('TeamDetailController', function ($scope, $rootScope, $state, Team, Principal, AccountTeam, team, requests, API_URL) {
+    .controller('TeamDetailController', function ($scope, $rootScope, $state, Team, Principal, AccountTeam, team, requests) {
         $scope.team = team.data;
         $scope.requests = requests;
 
