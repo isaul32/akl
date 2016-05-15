@@ -60,28 +60,28 @@
         "messages": {
             "info": {
                 "authenticated": "If you want to <a href=\"#/login\">authenticate</a>, you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\").",
-                "register": "You don't have an account yet? <a href=\"#/register\">Register a new account</a>"
+                "register": "Ei vielä tunnusta? <a href=\"#/register\">Luo uusi tunnus</a>"
             },
             "error": {
-                "dontmatch" : "The password and its confirmation do not match!"
+                "dontmatch" : "Salasanat eivät täsmää!"
             },
             "validate": {
                 "newpassword": {
-                    "required": "Your password is required.",
-                    "minlength": "Your password is required to be at least 5 characters.",
-                    "maxlength": "Your password cannot be longer than 50 characters.",
-                    "strength": "Password strength:"
+                    "required": "Salasana vaaditaan.",
+                    "minlength": "Salasanan pituus pitää olla vähintään 5 merkkiä.",
+                    "maxlength": "Salasanan pituus ei voi olla yli 50 merkkiä.",
+                    "strength": "Salasanan vahvuus:"
                 },
                 "confirmpassword": {
-                    "required": "Your confirmation password is required.",
-                    "minlength": "Your confirmation password is required to be at least 5 characters.",
-                    "maxlength": "Your confirmation password cannot be longer than 50 characters."
+                    "required": "Salasanana vahvistaminen vaaditaan.",
+                    "minlength": "Salasanan pituus pitää olla vähintään 5 merkkiä.",
+                    "maxlength": "Salasanan pituus ei voi olla yli 50 merkkiä."
                 },
                 "email": {
-                    "required": "Your e-mail is required.",
-                    "invalid": "Your e-mail is invalid.",
-                    "minlength": "Your e-mail is required to be at least 5 characters.",
-                    "maxlength": "Your e-mail cannot be longer than 50 characters."
+                    "required": "Sähköposti vaaditaan",
+                    "invalid": "Sähköposti ei ole kelvollinen",
+                    "minlength": "Sähköpostin pituus pitää olla vähintään 5 merkkiä.",
+                    "maxlength": "Sähköpostin pituus ei voi olla yli 50 merkkiä."
                 }
             }
         },
@@ -105,7 +105,7 @@
             "value": "Arvo"
         },
         "delete": {
-            "title": "Confirm delete operation"
+            "title": "Vahvista toiminto"
         },
         "validation": {
             "required": "Tämä kenttä on pakollinen.",
@@ -116,12 +116,12 @@
             "minbytes": "This field should be more than {{min}} bytes.",
             "maxbytes": "This field cannot be more than {{max}} bytes.",
             "pattern": "This field should follow pattern {{pattern}}.",
-            "number": "This field should be a number.",
-            "datetimelocal": "This field should be a date and time."
+            "number": "Tämän kentän pitäisi olla numero",
+            "datetimelocal": "Tämän kentän pitäisi olla aika."
         }
     },
     "error" : {
-        "serverNotReachable" : "Server not reachable",
-        "NotNull" : "Field {{fieldName}} cannot be empty!"
+        "serverNotReachable" : "Palvelin ei ole saatavilla",
+        "NotNull" : "Kenttä {{fieldName}} ei voi olla tyhjä!"
     }
 }

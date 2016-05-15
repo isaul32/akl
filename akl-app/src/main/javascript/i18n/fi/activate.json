@@ -1,9 +1,9 @@
 {
     "activate": {
-        "title": "Activation",
+        "title": "Aktivointi",
         "messages": {
-            "success": "<strong>Your user has been activated.</strong> Please <a href=\"#/login\">authenticate</a>.",
-            "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up."
+            "success": "<strong>Käyttäjäsi on aktivoitu.</strong> Kirjaudu <a href=\"#/login\">täältä</a>.",
+            "error": "<strong>Käyttäjääsi ei voitu aktivoida.</strong> Koita aktivoida uudestaa tai tee uusi tunnus."
         }
     }
 }

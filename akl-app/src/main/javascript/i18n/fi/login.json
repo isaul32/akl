@@ -9,11 +9,11 @@
         },
         "messages": {
             "error": {
-                "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again."
+                "authentication": "<strong>Kirjautuminen epäonnistui!</strong> Tarkista tietosi ja koita uudestaan."
             }
         },
         "password" : {
-            "forgot": "Did you forget your password?"
+            "forgot": "Unohditko salasanasi?"
         }
     }
 }

@@ -7,17 +7,17 @@
         "messages": {
             "validate": {
                 "login": {
-                    "required": "Your login is required.",
-                    "minlength": "Your login is required to be at least 1 character.",
-                    "maxlength": "Your login cannot be longer than 50 characters.",
-                    "pattern": "Your login can only contain lower-case letters and digits."
+                    "required": "Kirjautumisnimi vaaditaan.",
+                    "minlength": "Kirjautumisnimen pitää olla vähintään 1 merkin.",
+                    "maxlength": "Kirjautumisnimen ei saa olla yli 50 merkkiä.",
+                    "pattern": "Kirjautumisnimi voi sisältää vain pieniä kirjaimia (a-z) ja numeroita."
                 }
             },
-            "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
+            "success": "<strong>Rekisteröinti onnistui!</strong> Vahvista tunnus sähköpostista.",
             "error": {
-                "fail": "<strong>Registration failed!</strong> Please try again later.",
-                "userexists": "<strong>Login name already registered!</strong> Please choose another one.",
-                "emailexists": "<strong>E-mail is already in use!</strong> Please choose another one."
+                "fail": "<strong>Rekisteröinti epäonnistui!</strong> Koita myöhemmin uudestaan.",
+                "userexists": "<strong>Kirjautumisnimi on jo käytössä!</strong> Valite jokin toinen.",
+                "emailexists": "<strong>Sähköposti on jo käytössä!</strong> Valitse jokin toinen."
             }
         }
     }

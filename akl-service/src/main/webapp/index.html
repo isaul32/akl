@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
   <meta charset="UTF-8" />
-  <title th:text="#{page.title}">Akateeminen Kynäriliiga</title>
+  <title>Akateeminen Kynäriliiga</title>
   <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
   <link href='css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
@@ -23,8 +23,7 @@
   <script src='lib/marked.js' type='text/javascript'></script>
   <script src='lib/swagger-oauth.js' type='text/javascript'></script>
 
-  <script th:inline="javascript">
-    /*<![CDATA[*/
+  <script>
     $(function () {
       var url = "v2/api-docs";
 
@@ -95,7 +94,6 @@
         }
       }
     });
-    /*]]>*/
   </script>
 </head>
 
