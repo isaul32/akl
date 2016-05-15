@@ -27,11 +27,12 @@ angular.module('aklApp')
         });
 
         $scope.canCreateTeam = function() {
-            return $scope.identity && $scope.identity.email || $scope.isAdmin;
+            return $scope.identity && $scope.identity.email && $scope.identity.activated;
         };
 
         $scope.hasPermissions = function(team) {
-            return $scope.isAdmin || $scope.identity && ($scope.identity.id === team.captain.id);
+            //return $scope.isAdmin || $scope.identity && ($scope.identity.id === team.captain.id);
+            return $scope.isAdmin;
         };
 
         $scope.isInactive = function (team) {

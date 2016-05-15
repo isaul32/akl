@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -64,7 +63,6 @@ public class GameServerResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @Transactional(readOnly = true)
     public List<GameServerDTO> getAllGameServers() {
         log.debug("REST request to get all GameServers");
         return gameServerService.findAll();

@@ -58,9 +58,8 @@ public class AccountResource {
     @Inject
     private MailService mailService;
 
-    @RequestMapping(value = "/register",
-            method = RequestMethod.POST,
-            produces = MediaType.TEXT_PLAIN_VALUE)
+    // Normal register is not used
+    /*@RequestMapping(value = "/register", method = RequestMethod.POST)
     @Timed
     public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO, HttpServletRequest request) {
         return userRepository.findOneByLogin(userDTO.getLogin())
@@ -81,7 +80,7 @@ public class AccountResource {
                     return new ResponseEntity<>(HttpStatus.CREATED);
                 })
         );
-    }
+    }*/
 
     @RequestMapping(value = "/activate",
             method = RequestMethod.GET,
@@ -162,10 +161,26 @@ public class AccountResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<String> saveAccount(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<String> saveAccount(@RequestBody UserDTO userDTO, HttpServletRequest request) {
         return userRepository
             .findOneByLogin(userDTO.getLogin())
             .filter(u -> u.getLogin().equals(SecurityUtils.getCurrentLogin()))
+            .map(u -> {
+                // Send activation message
+                if (!u.isActivated()) {
+                    String baseUrl = request.getScheme() +         // "http"
+                            "://" +                                // "://"
+                            request.getServerName() +              // "myhost"
+                            ":" +                                  // ":"
+                            request.getServerPort();               // "80"
+                    mailService.sendActivationEmail(u, baseUrl);
+                } else {
+                    // Lock email
+                    userDTO.setEmail(u.getEmail());
+                }
+
+                return u;
+            })
             .map(u -> {
                 userService.updateUserInformation(userDTO.getNickname(), userDTO.getFirstName(), userDTO.getLastName(),
                         userDTO.getEmail(), userDTO.getBirthdate(), userDTO.getGuild(),

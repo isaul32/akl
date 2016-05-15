@@ -7,6 +7,10 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", uses = { UserMapper.class })
 public interface TeamMapper {
+    @Mapping(target = "members", ignore = true)
+    @Mapping(target = "standins", ignore = true)
+    TeamDTO teamToTeamDTOWithoutMembers(Team team);
+
     TeamDTO teamToTeamDTO(Team team);
 
     @Mapping(target = "captain", ignore = true)

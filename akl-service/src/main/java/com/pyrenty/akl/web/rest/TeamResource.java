@@ -20,13 +20,13 @@ import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -69,15 +69,14 @@ public class TeamResource {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/teams", method = RequestMethod.POST)
-    @Transactional
     @Timed
     public ResponseEntity<TeamDTO> create(@Valid @RequestBody TeamDTO teamDTO) throws URISyntaxException {
         log.debug("REST request to save Team : {}", teamDTO);
 
         User user = userService.getUserWithAuthorities();
 
-        if (user.getEmail() == null) {
-            throw new CustomParameterizedException("Can't create a team without an email set");
+        if (!user.isActivated()) {
+            throw new CustomParameterizedException("Can't create a team without an email set and activated");
         } else if (teamDTO.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new team cannot already have an ID").body(null);
         }
@@ -93,14 +92,21 @@ public class TeamResource {
     @Timed
     public ResponseEntity<List<TeamDTO>> getAll(@RequestParam(value = "page", required = false) Integer offset,
                                                 @RequestParam(value = "per_page", required = false) Integer limit,
-                                                @RequestParam(required = false) String filter) throws URISyntaxException {
+                                                HttpServletRequest request) throws URISyntaxException {
         log.debug("REST request to get all Teams");
 
-        Page<Team> page = teamService.getAll(PaginationUtil.generatePageRequest(offset, limit));
+        Page<Team> page;
+        Pageable paging = PaginationUtil.generatePageRequest(offset, limit);
+
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            page = teamRepository.findAll(paging);
+        } else {
+            page = teamRepository.findByActivated(true, paging);
+        }
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/teams", offset, limit);
         return new ResponseEntity<>(page.getContent().stream()
-                .map(teamMapper::teamToTeamDTO)
+                .map(teamMapper::teamToTeamDTOWithoutMembers)
                 .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
 
@@ -117,7 +123,6 @@ public class TeamResource {
 
     @RequestMapping(value = "/teams/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasRole('ADMIN')")
-    @Transactional
     @Timed
     public ResponseEntity<TeamDTO> put(@PathVariable Long id,
                                        @Valid @RequestBody TeamDTO teamDTO) {
@@ -140,7 +145,6 @@ public class TeamResource {
     }
 
     @RequestMapping(value = "/teams/{id}/activate", method = RequestMethod.POST)
-    @Transactional
     @Timed
     public ResponseEntity<Void> activate(@PathVariable Long id) {
         return Optional.ofNullable(teamService.activate(id))
@@ -148,16 +152,14 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/teams/{id}/requests",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/teams/{id}/requests", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<Void> requestInvite(@PathVariable Long id) {
         User currentUser = userService.getUserWithAuthorities();
 
-        if (currentUser.getEmail() == null) {
-            throw new CustomParameterizedException("Can't join a team without an email set");
+        if (!currentUser.isActivated()) {
+            throw new CustomParameterizedException("Can't join a team without an email set and activated");
         }
 
         Optional<Team> currentTeam = Optional.ofNullable(teamRepository.findOneForUser(currentUser.getId()));
@@ -248,9 +250,7 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/teams/{id}/requests/{userId}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/teams/{id}/requests/{userId}", method = RequestMethod.DELETE)
     @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<Void> declineRequest(@PathVariable Long id,

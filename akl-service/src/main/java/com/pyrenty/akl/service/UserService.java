@@ -109,7 +109,8 @@ public class UserService {
         }
 
         // Don't know email yet so can't do the activation routine
-        newUser.setActivated(true);
+        newUser.setActivated(false);
+        newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
         newUser.setAuthorities(authorities);
 

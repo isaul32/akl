@@ -111,11 +111,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private Team captain;
 
     @JsonIgnore
-    @ManyToOne
+    @OneToOne
     private Team member;
 
     @JsonIgnore
-    @ManyToOne
+    @OneToOne
     private Team standin;
 
 

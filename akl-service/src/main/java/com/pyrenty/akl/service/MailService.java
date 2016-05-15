@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 import java.util.Locale;
+import java.util.Optional;
 
 /**
  * Service for sending e-mails.
@@ -75,7 +76,8 @@ public class MailService {
     @Async
     public void sendActivationEmail(User user, String baseUrl) {
         log.debug("Sending activation e-mail to '{}'", user.getEmail());
-        Locale locale = Locale.forLanguageTag(user.getLangKey());
+
+        Locale locale = user.getLangKey() != null ? Locale.forLanguageTag(user.getLangKey()) : Locale.getDefault();
         Context context = new Context(locale);
         context.setVariable("user", user);
         context.setVariable("baseUrl", baseUrl);
@@ -87,6 +89,7 @@ public class MailService {
     @Async
     public void sendPasswordResetMail(User user, String baseUrl) {
         log.debug("Sending password reset e-mail to '{}'", user.getEmail());
+
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
         context.setVariable("user", user);

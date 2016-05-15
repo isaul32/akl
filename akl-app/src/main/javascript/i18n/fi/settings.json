@@ -38,7 +38,8 @@
                 "birthdate": {
                     "required": "Syntymäpäivä on pakollinen"
                 }
-            }
+            },
+            "email": "Käytä oppilaitoksen sähköpostiosoitetta ensisijaisesti. Sähköpostiin lähetetään varmennusviesti."
         }
     }
 }
