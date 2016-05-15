@@ -124,11 +124,11 @@ public class TeamResource {
     @RequestMapping(value = "/teams/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasRole('ADMIN')")
     @Timed
-    public ResponseEntity<TeamDTO> put(@PathVariable Long id,
+    public ResponseEntity<TeamDTO> update(@PathVariable Long id,
                                        @Valid @RequestBody TeamDTO teamDTO) {
         log.debug("REST request to put Team : {}", id);
 
-        return Optional.ofNullable(teamRepository.getOne(teamDTO.getId()))
+        return Optional.ofNullable(teamRepository.findOne(teamDTO.getId()))
                 .map(team -> {
                     team.setName(teamDTO.getName());
                     team.setTag(teamDTO.getTag());

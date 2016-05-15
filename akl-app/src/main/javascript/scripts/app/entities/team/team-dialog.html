@@ -17,7 +17,7 @@
         <div class="form-group">
             <label translate="aklApp.team.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
-                   ng-model="team.name"
+                   ng-model="team.name" required
                    required ng-minlength="1" ng-maxlength="255">
 
             <div ng-show="editForm.name.$invalid">
@@ -39,7 +39,7 @@
         <div class="form-group">
             <label translate="aklApp.team.tag" for="field_tag">Tag</label>
             <input type="text" class="form-control" name="tag" id="field_tag"
-                    ng-model="team.tag"
+                    ng-model="team.tag" required
                     required ng-minlength="1" ng-maxlength="16">
 
             <div ng-show="editForm.tag.$invalid">
@@ -89,7 +89,7 @@
 
         <div class="form-group">
             <label translate="aklApp.team.rank" for="field_rank">Rank</label>
-            <select class="form-control" name="rank" ng-model="team.rank" id="field_rank">
+            <select class="form-control" name="rank" ng-model="team.rank" id="field_rank" required>
                 <option value="ge" translate="aklApp.Rank.ge">ge</option>
                 <option value="smfc" translate="aklApp.Rank.smfc">smfc</option>
                 <option value="lem" translate="aklApp.Rank.lem">lem</option>
