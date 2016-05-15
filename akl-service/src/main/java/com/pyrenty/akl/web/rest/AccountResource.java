@@ -3,8 +3,6 @@ package com.pyrenty.akl.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Authority;
 import com.pyrenty.akl.domain.PersistentToken;
-import com.pyrenty.akl.domain.User;
-import com.pyrenty.akl.domain.enumeration.Rank;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.*;
@@ -173,6 +170,7 @@ public class AccountResource {
                             request.getServerName() +              // "myhost"
                             ":" +                                  // ":"
                             request.getServerPort();               // "80"
+                    u.setEmail(userDTO.getEmail());
                     mailService.sendActivationEmail(u, baseUrl);
                 } else {
                     // Lock email
