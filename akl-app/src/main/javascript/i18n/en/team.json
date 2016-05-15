@@ -4,7 +4,7 @@
             "home": {
                 "title": "Teams",
                 "createLabel": "Create a new Team",
-                "creation.info": "You can't create a team until you've saved your settings (personal details etc). Go to the <a ui-sref='settings'>settings page</a> to update your details. Name and email details are required information.",
+                "creation.info": "You can't create a team until you've saved your settings and activated your e-mail address. Go to the <a ui-sref='settings'>settings</a> page to update your details.",
                 "createOrEditLabel": "Create or edit a Team"
             },
             "toListing": "Back to team listing",
@@ -39,7 +39,7 @@
                     "action": "Decline request"
                 }
             },
-            "membershipRequiredInfo": "You can't request a team membership until you've added your personal details in the settings menu. Go to <a ui-sref='settings'>settings-page</a> and fill your personal details to request membership.",
+            "membershipRequiredInfo": "You can't request a team membership until you've saved your settings and activated your e-mail address. Go to <a ui-sref='settings'>settings</a> page and fill your personal details to request membership.",
             "tag": "Tag",
             "name": "Name",
             "imageUrl": "Image url",

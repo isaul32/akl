@@ -5,7 +5,7 @@
                 "title": "Joukkueet",
                 "createLabel": "Luo uusi joukkue",
                 "createOrEditLabel": "Luo tai muokkaa joukkue",
-                "creation.info": "Et voi luoda tiimiä ennen kuin olet täyttänyt omat henkilökohtaiset tietosi. Mene <a ui-sref='settings'>asetukset</a>-sivulle ja päivitä tietosi."
+                "creation.info": "Et voi luoda tiimiä ennen kuin olet täyttänyt omat henkilökohtaiset tietosi ja aktivoinut sähköpostisi. Mene <a ui-sref='settings'>asetukset</a>-sivulle ja päivitä tietosi."
             },
             "toListing": "Takaisin joukkuelistaukseen",
             "activate": "Aktivoi",
@@ -39,7 +39,7 @@
                     "action": "Hylkää jäsenyys"
                 }
             },
-            "membershipRequiredInfo": "Et voi pyytää jäsenyyttä ennen kuin olet täyttänyt omat tietosi. Mene <a ui-sref='settings'>asetukset</a>-sivulle ja täytä tietosi.",
+            "membershipRequiredInfo": "Et voi pyytää jäsenyyttä ennen kuin olet täyttänyt omat tietosi ja aktivoinut sähköpostisi. Mene <a ui-sref='settings'>asetukset</a>-sivulle ja täytä tietosi.",
             "tag": "Tagi",
             "name": "Nimi",
             "imageUrl": "Kuvan osoite",
