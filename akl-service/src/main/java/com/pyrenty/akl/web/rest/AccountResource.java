@@ -12,6 +12,7 @@ import com.pyrenty.akl.service.UserService;
 import com.pyrenty.akl.web.rest.dto.KeyAndPasswordDTO;
 import com.pyrenty.akl.web.rest.dto.TeamDTO;
 import com.pyrenty.akl.web.rest.dto.UserDTO;
+import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
 import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -162,6 +163,13 @@ public class AccountResource {
         return userRepository
             .findOneByLogin(userDTO.getLogin())
             .filter(u -> u.getLogin().equals(SecurityUtils.getCurrentLogin()))
+            .map(u -> {
+                if (userRepository.findOneByEmail(userDTO.getEmail()).isPresent()) {
+                    throw new CustomParameterizedException("Email is already used.", "emailexists");
+                }
+
+                return u;
+            })
             .map(u -> {
                 // Send activation message
                 if (!u.isActivated()) {

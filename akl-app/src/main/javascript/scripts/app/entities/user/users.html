@@ -91,7 +91,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="(index, user) in users">
+                    <tr ng-repeat="(index, user) in users | orderBy:'id'">
                         <td>{{ user.id }}</td>
                         <td>
                             <a ui-sref="user({ id: user.id })">

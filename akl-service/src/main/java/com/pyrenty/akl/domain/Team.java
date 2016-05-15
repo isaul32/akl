@@ -30,7 +30,7 @@ public class Team implements Serializable {
 
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "name", length = 255, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Size(max = 100)
