@@ -31,7 +31,7 @@
 
         <addForeignKeyConstraint baseTableName="team_request" baseColumnNames="user_id"
                                  constraintName="fk_team_request_user"
-                                 referencedTableName="user"
+                                 referencedTableName="akl_user"
                                  referencedColumnNames="id"/>
 
         <addForeignKeyConstraint baseTableName="team_request" baseColumnNames="team_id"
