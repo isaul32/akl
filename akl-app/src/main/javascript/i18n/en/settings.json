@@ -39,7 +39,7 @@
                     "required": "Your birthdate is required."
                 }
             },
-            "email": "Use your school email primarily. You have confirm email."
+            "email": "Use your school email primarily. A confirmation message will be sent to your email."
         }
     }
 }
