@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Authority;
 import com.pyrenty.akl.domain.PersistentToken;
 import com.pyrenty.akl.domain.User;
+import com.pyrenty.akl.domain.enumeration.Rank;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
@@ -122,6 +123,10 @@ public class AccountResource {
                     user.getFirstName(),
                     user.getLastName(),
                     user.getEmail(),
+                    user.getBirthdate(),
+                    user.getGuild(),
+                    user.getDescription(),
+                    user.getRank(),
                     user.isActivated(),
                     user.getLangKey(),
                     user.getCommunityId(),
@@ -162,8 +167,9 @@ public class AccountResource {
             .findOneByLogin(userDTO.getLogin())
             .filter(u -> u.getLogin().equals(SecurityUtils.getCurrentLogin()))
             .map(u -> {
-                userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getNickname(), userDTO.getEmail(),
-                    userDTO.getLangKey());
+                userService.updateUserInformation(userDTO.getNickname(), userDTO.getFirstName(), userDTO.getLastName(),
+                        userDTO.getEmail(), userDTO.getBirthdate(), userDTO.getGuild(),
+                        userDTO.getDescription(), userDTO.getRank(), userDTO.getLangKey());
                 return new ResponseEntity<String>(HttpStatus.OK);
             })
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));

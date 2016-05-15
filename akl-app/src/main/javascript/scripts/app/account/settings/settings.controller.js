@@ -6,6 +6,7 @@ angular.module('aklApp')
         $scope.error = null;
         Principal.identity(true).then(function(account) {
             $scope.settingsAccount = account;
+            $scope.settingsAccount.birthdate = new Date($scope.settingsAccount.birthdate);
         });
 
         $scope.save = function () {

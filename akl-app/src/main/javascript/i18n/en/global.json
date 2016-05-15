@@ -47,7 +47,8 @@
             },
             "language": "Language",
             "team": "Teams",
-            "team.detail": "Team"
+            "team.detail": "Team",
+            "user": "Player"
         },
         "ckeditor": {
             "edit": "Edit"

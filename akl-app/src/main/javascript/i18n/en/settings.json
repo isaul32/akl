@@ -5,6 +5,7 @@
             "firstname": "First Name",
             "lastname": "Last Name",
             "nickname": "Nickname",
+            "birthdate": "Birthdate",
             "guild": "Subject association / guild",
             "description": "Description",
             "rank": "Taso",
@@ -33,6 +34,9 @@
                     "required": "Your nickname is required.",
                     "minlength": "Your first name is required to be at least 1 character",
                     "maxlength": "Your nickname cannot be longer than 50 characters"
+                },
+                "birthdate": {
+                    "required": "Your birthdate is required."
                 }
             }
         }

@@ -1,8 +1,10 @@
 package com.pyrenty.akl.web.rest.dto;
 
+import com.pyrenty.akl.domain.enumeration.Rank;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
+import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -41,6 +43,15 @@ public class UserDTO {
     @Size(min = 5, max = 100)
     private String email;
 
+    private DateTime birthdate;
+
+    @Size(min = 1, max = 50)
+    private String guild;
+
+    private String description;
+
+    private Rank rank;
+
     private boolean activated = false;
 
     @Size(max = 20)
@@ -59,7 +70,8 @@ public class UserDTO {
     }
 
     public UserDTO(Long id, String login, String nickname, String password, String firstName,
-                   String lastName, String email, boolean activated, String langKey,
+                   String lastName, String email, DateTime birthdate, String guild, String description, Rank rank,
+                   boolean activated, String langKey,
                    String communityId, String steamId, List<String> roles) {
         this.id = id;
         this.login = login;
@@ -68,6 +80,10 @@ public class UserDTO {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.birthdate = birthdate;
+        this.guild = guild;
+        this.description = description;
+        this.rank = rank;
         this.activated = activated;
         this.langKey = langKey;
         this.communityId = communityId;

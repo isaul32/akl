@@ -44,7 +44,8 @@
             },
             "language": "Kieli",
             "team": "Joukkueet",
-            "team.detail": "Joukkue"
+            "team.detail": "Joukkue",
+            "user": "Pelaaja"
         },
         "ckeditor": {
             "edit": "Muokkaa"

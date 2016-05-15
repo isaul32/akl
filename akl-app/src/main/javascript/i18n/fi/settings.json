@@ -6,6 +6,7 @@
             "lastname": "Sukunimi",
             "nickname": "Nimimerkki",
             "language": "Kieli",
+            "birthdate": "Syntymäpäivä",
             "guild": "Ainejärjestö / kilta",
             "description": "Vapaa kuvaus",
             "rank": "Taso",
@@ -33,6 +34,9 @@
                     "required": "Nimimerkki on pakollinen",
                     "minlength": "Nimimerkkisi pitää olla vähintään yhden merkin pituinen",
                     "maxlength": "Nimimerkkisi pituus ei saa ylittää 50 merkkiä, lyhennä nimimerkkiäsi"
+                },
+                "birthdate": {
+                    "required": "Syntymäpäivä on pakollinen"
                 }
             }
         }

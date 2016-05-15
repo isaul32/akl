@@ -10,7 +10,7 @@ public class UserPublicDTO {
     private String nickname;
     private String firstName;
     private String lastName;
-    private DateTime birthdate;
+    private Long age;
     private String guild;
     private Rank rank;
     private String description;

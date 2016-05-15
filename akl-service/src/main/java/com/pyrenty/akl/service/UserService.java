@@ -2,6 +2,7 @@ package com.pyrenty.akl.service;
 
 import com.pyrenty.akl.domain.Authority;
 import com.pyrenty.akl.domain.User;
+import com.pyrenty.akl.domain.enumeration.Rank;
 import com.pyrenty.akl.repository.AuthorityRepository;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.UserRepository;
@@ -143,12 +144,17 @@ public class UserService {
         return newUser;
     }
 
-    public void updateUserInformation(String firstName, String lastName, String nickname, String email, String langKey) {
+    public void updateUserInformation(String nickname, String firstName, String lastName, String email, DateTime birthdate,
+                                      String guild, String description, Rank rank, String langKey) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
+            u.setNickname(nickname);
             u.setFirstName(firstName);
             u.setLastName(lastName);
-            u.setNickname(nickname);
             u.setEmail(email);
+            u.setBirthdate(birthdate);
+            u.setGuild(guild);
+            u.setDescription(description);
+            u.setRank(rank);
             u.setLangKey(langKey);
             userRepository.save(u);
             log.debug("Changed Information for User: {}", u);

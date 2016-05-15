@@ -101,9 +101,22 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="birthdate" translate="settings.form.birthdate">Birthdate</label>
+                    <input type="date" class="form-control" id="birthdate" name="birthdate"
+                           ng-model="settingsAccount.birthdate"
+                           ng-minlength=1 ng-maxlength=50 maxlength="50">
+                    <div ng-show="form.birthdate.$dirty && form.birthdate.$invalid">
+                        <p class="help-block"
+                           ng-show="form.birthdate.$error.required" translate="settings.messages.validate.birthdate.required">
+                            Your guild is required.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="guild" translate="settings.form.guild">Guild</label>
                     <input type="text" class="form-control" id="guild" name="guild"
-                           ng-model="settingsAccount.guild" ng-minlength=1 ng-maxlength=50 required maxlength="50">
+                           ng-model="settingsAccount.guild" ng-minlength=1 ng-maxlength=50 maxlength="50">
                     <div ng-show="form.guild.$dirty && form.guild.$invalid">
                         <p class="help-block"
                            ng-show="form.guild.$error.required" translate="settings.messages.validate.guild.required">
@@ -122,14 +135,14 @@
 
                 <div class="form-group">
                     <label for="description" translate="settings.form.description">Description</label>
-                    <textarea id="description" name="description" class="form-control"
-                              ng-model="settingsAccount.description" ng-minlength=1 ng-maxlength=255 required maxlength="255">
+                    <textarea id="description" name="description" class="form-control" style="min-height: 100px"
+                              ng-model="settingsAccount.description" ng-minlength=1 ng-maxlength=255 maxlength="255">
                     </textarea>
                 </div>
 
                 <div class="form-group">
                     <label translate="settings.form.rank" for="rank">Rank</label>
-                    <select class="form-control" id="rank" name="rank" ng-model="settingsAccount.rank">
+                    <select class="form-control" id="rank" name="rank" ng-model="settingsAccount.rank" required>
                         <option value="ge" translate="aklApp.Rank.ge">ge</option>
                         <option value="smfc" translate="aklApp.Rank.smfc">smfc</option>
                         <option value="lem" translate="aklApp.Rank.lem">lem</option>
