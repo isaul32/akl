@@ -45,7 +45,9 @@
                 "apidocs": "API",
                 "database": "Database"
             },
-            "language": "Language"
+            "language": "Language",
+            "team": "Teams",
+            "team.detail": "Team"
         },
         "ckeditor": {
             "edit": "Edit"

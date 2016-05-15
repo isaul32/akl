@@ -1,6 +1,15 @@
 {
     "user": {
         "title": "Käyttäjähallinta",
-        "authorities": "Oikeudet"
+        "authorities": "Oikeudet",
+        "nickname": "Lempinimi",
+        "firstName": "Etunimi",
+        "lastName": "Sukunimi",
+        "age": "Ikä",
+        "guild": "Ainejärjestö / kilta",
+        "rank": "Taitotaso",
+        "description": "Kuvaus",
+        "steamProfile": "Steam profiili",
+        "player": "Pelaaja"
     }
 }

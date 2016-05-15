@@ -42,7 +42,9 @@
                 "apidocs": "API",
                 "database": "Database"
             },
-            "language": "Kieli"
+            "language": "Kieli",
+            "team": "Joukkueet",
+            "team.detail": "Joukkue"
         },
         "ckeditor": {
             "edit": "Muokkaa"

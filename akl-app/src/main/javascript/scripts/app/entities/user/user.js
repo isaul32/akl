@@ -3,7 +3,7 @@
 angular.module('aklApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('user', {
+            .state('users', {
                 parent: 'admin',
                 url: '/user',
                 data: {
@@ -12,7 +12,7 @@ angular.module('aklApp')
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/admin/user/users.html',
+                        templateUrl: 'scripts/app/entities/user/users.html',
                         controller: 'UserController'
                     }
                 },
@@ -21,9 +21,6 @@ angular.module('aklApp')
                         $translatePartialLoader.addPart('user');
                         return $translate.refresh();
                     }],
-                    /*count: ['Api', function (Api) {
-                        return Api.all('users').one('count').get();
-                    }],*/
                     users: ['Api', '$stateParams', function (Api) {
                         return Api.all('users').getList();
                     }],
@@ -32,8 +29,8 @@ angular.module('aklApp')
                     }]
                 }
             })
-            .state('user.detail', {
-                parent: 'admin',
+            .state('user', {
+                parent: 'entity',
                 url: '/user/{id}',
                 data: {
                     roles: [],
@@ -41,7 +38,7 @@ angular.module('aklApp')
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/admin/user/user-detail.html',
+                        templateUrl: 'scripts/app/entities/user/user-detail.html',
                         controller: 'UserDetailController'
                     }
                 },

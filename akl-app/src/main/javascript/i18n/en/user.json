@@ -1,6 +1,15 @@
 {
     "user": {
         "title": "User management",
-        "authorities": "Authorities"
+        "authorities": "Authorities",
+        "nickname": "Nickname",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "age": "Age",
+        "guild": "Subject association / guild",
+        "rank": "Rank",
+        "description": "Description",
+        "steamProfile": "Steam profile",
+        "player": "Player"
     }
 }
