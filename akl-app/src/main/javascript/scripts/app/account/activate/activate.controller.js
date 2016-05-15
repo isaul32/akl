@@ -5,7 +5,11 @@ angular.module('aklApp')
         Auth.activateAccount({key: $stateParams.key}).then(function () {
             $scope.error = null;
             $scope.success = 'OK';
-            Principal.identity(true);
+
+            // Update account details if user is currently authenticated
+            if (Principal.isAuthenticated()) {
+                Principal.identity(true);
+            }
         }).catch(function () {
             $scope.success = null;
             $scope.error = 'ERROR';
