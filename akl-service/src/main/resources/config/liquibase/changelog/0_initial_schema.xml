@@ -61,13 +61,13 @@
         </createTable>
 
         <createIndex indexName="idx_user_login"
-            tableName="USER"
+            tableName="user"
             unique="true">
             <column name="login" type="varchar(50)"/>
         </createIndex>
 
         <createIndex indexName="idx_user_email"
-            tableName="USER"
+            tableName="user"
             unique="true">
             <column name="email" type="varchar(100)"/>
         </createIndex>
