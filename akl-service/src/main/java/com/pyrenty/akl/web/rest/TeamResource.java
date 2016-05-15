@@ -168,7 +168,6 @@ public class TeamResource {
             return ResponseEntity.badRequest().header("Failure", "You can't join multiple teams").body(null);
         }
 
-
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
                     Set<User> requests = team.getRequests();
@@ -226,12 +225,23 @@ public class TeamResource {
         }
 
         User newMember = userRepository.findOne(userId);
-
         if (newMember == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return Optional.ofNullable(teamRepository.findOne(id))
+                .map(team -> {
+                    // Check maximum members and standins count
+                    if (teamRequest.getRole().equals(MembershipRoles.ROLE_MEMBER.toString()) && team.getMembers().size() >= 5) {
+                        throw new CustomParameterizedException("Team have maximum amount of members");
+                    }
+
+                    if (teamRequest.getRole().equals(MembershipRoles.ROLE_STANDIN.toString()) && team.getStandins().size() >= 2) {
+                        throw new CustomParameterizedException("Team have maximum amount of standins");
+                    }
+
+                    return team;
+                })
                 .map(team -> {
                     Set<User> requests = team.getRequests();
                     requests.remove(newMember);
