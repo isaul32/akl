@@ -116,14 +116,26 @@ public class TeamResource {
     }
 
     @RequestMapping(value = "/teams/{id}", method = RequestMethod.PUT)
+    @PreAuthorize("hasRole('ADMIN')")
+    @Transactional
     @Timed
     public ResponseEntity<TeamDTO> put(@PathVariable Long id,
-                                       @Valid @RequestBody TeamDTO bodyDTO) {
+                                       @Valid @RequestBody TeamDTO teamDTO) {
         log.debug("REST request to put Team : {}", id);
 
-        return Optional.ofNullable(teamService.update(teamMapper.teamDTOToTeam(bodyDTO)))
+        return Optional.ofNullable(teamRepository.getOne(teamDTO.getId()))
+                .map(team -> {
+                    team.setName(teamDTO.getName());
+                    team.setTag(teamDTO.getTag());
+                    team.setRepresenting(teamDTO.getRepresenting());
+                    team.setRank(teamDTO.getRank());
+                    team.setDescription(teamDTO.getDescription());
+                    teamRepository.save(team);
+
+                    return team;
+                })
                 .map(teamMapper::teamToTeamDTO)
-                .map(teamDTO -> new ResponseEntity<>(teamDTO, HttpStatus.OK))
+                .map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -153,6 +165,7 @@ public class TeamResource {
         if (currentTeam.isPresent()) {
             return ResponseEntity.badRequest().header("Failure", "You can't join multiple teams").body(null);
         }
+
 
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {

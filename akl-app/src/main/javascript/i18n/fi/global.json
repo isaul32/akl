@@ -125,6 +125,7 @@
     },
     "error" : {
         "serverNotReachable" : "Palvelin ei ole saatavilla",
-        "NotNull" : "Kenttä {{fieldName}} ei voi olla tyhjä!"
+        "NotNull" : "Kenttä {{fieldName}} ei voi olla tyhjä!",
+        "accessDenied": "Pääsy evätty."
     }
 }

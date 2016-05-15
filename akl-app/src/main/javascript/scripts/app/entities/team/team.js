@@ -52,7 +52,7 @@ angular.module('aklApp')
                 }]
             })
             .state('team.detail', {
-                parent: 'entity',
+                parent: 'team',
                 url: '/team/{id:int}',
                 data: {
                     roles: [],

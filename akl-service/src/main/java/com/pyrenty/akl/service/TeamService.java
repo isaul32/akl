@@ -53,17 +53,6 @@ public class TeamService {
         return page;
     }
 
-    @PreAuthorize("isAuthenticated()")
-    public Team update(Team team) {
-
-        String login = SecurityUtils.getCurrentLogin();
-        if (!SecurityUtils.isUserInRole("ADMIN") && !team.getCaptain().getLogin().equals(login)) {
-            throw new AccessDeniedException("You are not allowed to edit this team");
-        }
-
-        return teamRepository.save(team);
-    }
-
     @PreAuthorize("hasRole('ADMIN')")
     public Optional<Team> activate(Long id) {
         return Optional.ofNullable(teamRepository.findOne(id))

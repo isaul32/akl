@@ -4,7 +4,7 @@
             "home": {
                 "title": "Joukkueet",
                 "createLabel": "Luo uusi joukkue",
-                "createOrEditLabel": "Create or edit a Team",
+                "createOrEditLabel": "Luo tai muokkaa joukkue",
                 "creation.info": "Et voi luoda tiimiä ennen kuin olet täyttänyt omat henkilökohtaiset tietosi. Mene <a ui-sref='settings'>asetukset</a>-sivulle ja päivitä tietosi."
             },
             "toListing": "Takaisin joukkuelistaukseen",
