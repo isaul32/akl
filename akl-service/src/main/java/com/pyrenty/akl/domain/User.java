@@ -18,11 +18,8 @@ import java.util.Set;
 
 import org.joda.time.DateTime;
 
-/**
- * A user.
- */
 @Entity
-@Table(name = "USER")
+@Table(name = "user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
 

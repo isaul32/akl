@@ -1,7 +1,6 @@
 package com.pyrenty.akl.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.persistence.CascadeType;
@@ -14,11 +13,7 @@ import java.util.Set;
 import java.util.Objects;
 
 import com.pyrenty.akl.domain.enumeration.Rank;
-import org.hibernate.annotations.Cascade;
 
-/**
- * A Team.
- */
 @Entity
 @Table(name = "team")
 public class Team implements Serializable {

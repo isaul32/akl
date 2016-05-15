@@ -9,6 +9,5 @@
     <include file="classpath:config/liquibase/changelog/2_added_entity_text.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/3_added_entity_team.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/4_added_entity_match_proposition.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/5_added_unique_constraints_to_steam_ids.xml" relativeToChangelogFile="false" />
-    <include file="classpath:config/liquibase/changelog/6_added_team_request.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/5_added_team_request.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

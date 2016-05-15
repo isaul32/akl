@@ -16,7 +16,7 @@
     <!--
         Added the entity GameServer.
     -->
-    <changeSet id="1" author="jhipster">
+    <changeSet id="1" author="isaul">
         <createTable tableName="game_server">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>

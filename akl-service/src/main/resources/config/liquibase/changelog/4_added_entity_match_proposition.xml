@@ -14,7 +14,7 @@
     <property name="floatType" value="real" dbms="postgresql, h2"/>
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
-    <changeSet id="5" author="isaul">
+    <changeSet id="4" author="isaul">
         <createTable tableName="match_proposition">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
                 <constraints primaryKey="true" nullable="false"/>

@@ -17,7 +17,7 @@
     <!--
         Add Team Request entity
     -->
-    <changeSet id="7" author="pinqvin">
+    <changeSet id="5" author="pinqvin">
         <createTable tableName="team_request">
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>

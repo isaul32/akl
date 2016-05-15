@@ -11,11 +11,11 @@
     <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql"/>
     <property name="autoIncrement" value="false" dbms="oracle"/>
 
-    <changeSet id="00000000000000" author="jhipster" dbms="postgresql,oracle">
+    <changeSet id="00000000000000" author="isaul" dbms="postgresql,oracle">
         <createSequence sequenceName="hibernate_sequence" startValue="1000" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="0" author="jhipster">
+    <changeSet id="0" author="isaul">
         <createTable tableName="user">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
                 <constraints primaryKey="true" nullable="false"/>
@@ -38,8 +38,12 @@
             <column name="lang_key" type="varchar(5)"/>
             <column name="activation_key" type="varchar(20)"/>
             <column name="reset_key" type="varchar(20)"/>
-            <column name="community_id" type="varchar(20)"/>
-            <column name="steam_id" type="varchar(20)"/>
+            <column name="community_id" type="varchar(20)">
+                <constraints unique="true"/>
+            </column>
+            <column name="steam_id" type="varchar(20)">
+                <constraints unique="true"/>
+            </column>
             <column name="captain_id" type="bigint"/>
             <column name="member_id" type="bigint"/>
             <column name="standin_id" type="bigint"/>
