@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -64,6 +66,34 @@ public class TeamService {
 
     @PreAuthorize("hasRole('ADMIN')")
     public void delete(Long id) {
-        teamRepository.delete(id);
+        Team team = teamRepository.findOne(id);
+        if (team != null) {
+            // Captain
+            User captain = team.getCaptain();
+            captain.setCaptain(null);
+            userRepository.save(captain);
+
+            // Members
+            Set<User> members = team.getMembers().stream()
+                    .map(m -> {
+                        m.setMember(null);
+                        return m;
+                    }).collect(Collectors.toSet());
+            userRepository.save(members);
+
+            // Standins
+            Set<User> standins = team.getStandins().stream()
+                    .map(s -> {
+                        s.setStandin(null);
+                        return s;
+                    }).collect(Collectors.toSet());
+            userRepository.save(standins);
+
+            // Team
+            team.setCaptain(null);
+            team.setMembers(null);
+            team.setStandins(null);
+            teamRepository.delete(team);
+        }
     }
 }

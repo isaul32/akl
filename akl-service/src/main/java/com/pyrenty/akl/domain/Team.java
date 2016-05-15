@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.Objects;
 
 import com.pyrenty.akl.domain.enumeration.Rank;
+import org.hibernate.annotations.Cascade;
 
 /**
  * A Team.
