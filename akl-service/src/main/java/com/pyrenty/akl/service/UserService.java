@@ -273,6 +273,6 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public Optional<User> getUser(Long id) {
-        return Optional.ofNullable(userRepository.getOne(id));
+        return Optional.ofNullable(userRepository.findOne(id));
     }
 }
