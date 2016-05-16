@@ -38,7 +38,7 @@ var bopts = {
     entries: [config.app + 'main.js'],
     cache: {},
     packageCache: {},
-    debug: true
+    debug: process.env.NODE_ENV === 'development'
     //plugin: [watchify] // Watch
 };
 
