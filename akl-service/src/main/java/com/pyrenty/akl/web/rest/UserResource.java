@@ -43,8 +43,8 @@ public class UserResource {
 
     @RequestMapping(value = "/users/public", method = RequestMethod.GET)
     @Timed
-    public ResponseEntity<List<UserPublicDTO>> getAllUsers(@RequestParam(required = false) Integer offset,
-                                                      @RequestParam(required = false) Integer limit) throws URISyntaxException {
+    public ResponseEntity<List<UserPublicDTO>> getAllUsers(@RequestParam(value = "page", required = false) Integer offset,
+                                                           @RequestParam(value = "per_page", required = false) Integer limit) throws URISyntaxException {
 
         Page<User> page = userService.getAllUsers(PaginationUtil.generatePageRequest(offset, limit));
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users", offset, limit);
@@ -57,8 +57,8 @@ public class UserResource {
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ADMIN')")
     @Timed
-    public ResponseEntity<List<UserExtendedDTO>> getAllExtendedUsers(@RequestParam(required = false) Integer offset,
-                                                      @RequestParam(required = false) Integer limit) throws URISyntaxException {
+    public ResponseEntity<List<UserExtendedDTO>> getAllExtendedUsers(@RequestParam(value = "page", required = false) Integer offset,
+                                                                     @RequestParam(value = "per_page", required = false) Integer limit) throws URISyntaxException {
 
         Page<User> page = userService.getAllUsers(PaginationUtil.generatePageRequest(offset, limit));
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users", offset, limit);

@@ -53,7 +53,7 @@ angular.module('aklApp')
             })
             .state('team.detail', {
                 parent: 'team',
-                url: '/team/{id:int}',
+                url: '/{id:int}',
                 data: {
                     roles: [],
                     pageTitle: 'aklApp.team.detail.title'

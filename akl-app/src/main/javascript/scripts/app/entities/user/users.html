@@ -123,6 +123,15 @@
                     </tr>
                 </tbody>
             </table>
+
+            <nav>
+                <ul class="pager">
+                    <li ng-show="links['first']" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                    <li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a>&lt;</a></li>
+                    <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                    <li ng-show="links['last']" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 

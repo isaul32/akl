@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('UserController', function ($scope, users, $state, Api, authorities) {
+    .controller('UserController', function ($scope, users, $state, Api, authorities, ParseLinks) {
         $scope.users = users.data;
         $scope.authorities = authorities.data;
 
@@ -46,6 +46,21 @@ angular.module('aklApp')
                     $scope.clear();
                 });
         };
+
+        $scope.loadAll = function() {
+            Api.all('users').getList({
+                page: $scope.page,
+                per_page: 20
+            }).then(function (page) {
+                $scope.links = ParseLinks.parse(page.headers('link'));
+                $scope.users = page.data;
+            });
+        };
+        $scope.loadPage = function(page) {
+            $scope.page = page;
+            $scope.loadAll();
+        };
+        $scope.loadAll();
 
         $scope.clear = function () {
             $scope.user = {};
