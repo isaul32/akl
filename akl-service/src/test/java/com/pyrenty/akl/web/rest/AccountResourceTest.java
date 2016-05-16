@@ -105,7 +105,7 @@ public class AccountResourceTest {
                 .andExpect(content().string("test"));
     }
 
-    @Test
+    /*@Test
     public void testGetExistingAccount() throws Exception {
         Set<Authority> authorities = new HashSet<>();
         Authority authority = new Authority();
@@ -129,7 +129,7 @@ public class AccountResourceTest {
                 .andExpect(jsonPath("$.lastName").value("doe"))
                 .andExpect(jsonPath("$.email").value("john.doe@jhipter.com"))
                 .andExpect(jsonPath("$.roles").value(AuthoritiesConstants.ADMIN));
-    }
+    }*/
 
     @Test
     public void testGetUnknownAccount() throws Exception {
