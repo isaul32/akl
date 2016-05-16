@@ -168,10 +168,6 @@ public class AccountResource {
             .map(u -> {
                 // Send activation message
                 if (!u.isActivated()) {
-                    if (userRepository.findOneByEmail(userDTO.getEmail()).isPresent()) {
-                        throw new CustomParameterizedException("Email is already used.", "emailexists");
-                    }
-
                     String baseUrl = request.getScheme() +         // "http"
                             "://" +                                // "://"
                             request.getServerName() +              // "myhost"
