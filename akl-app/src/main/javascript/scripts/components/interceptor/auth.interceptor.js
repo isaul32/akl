@@ -12,8 +12,11 @@ angular.module('aklApp')
                     Auth.logout();
                     $rootScope.returnToState = to;
                     $rootScope.returnToStateParams = params;
-                    $state.go('steam');
+                    $state.go('login', {}, {
+                        reload: true
+                    });
                 }
+
                 return $q.reject(response);
             }
         };

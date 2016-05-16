@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-xs-4">
                 <div class="logo">
-                    <h1 class="logo-short" translate="">AKL</h1>
+                    <h1 class="logo-short">AKL</h1>
                     <h4 class="logo-full-top">Akateeminen</h4>
                     <h4 class="logo-full-bottom">Kynäriliiga</h4>
                 </div>
@@ -59,13 +59,13 @@
                         <span translate="global.menu.schedule">Schedule</span>
                     </a>
                 </li>
-                <li ui-sref-active="active" ng-if="!isValidMember()">
+                <li ui-sref-active="active" ng-if="!account.teamId">
                     <a ui-sref="team">
                         <span class="fa fa-users"></span>&nbsp;
                         <span translate="global.menu.teams.main">Teams</span>
                     </a>
                 </li>
-                <li ui-sref-active="active" ng-if="isValidMember()" class="dropdown pointer">
+                <li ui-sref-active="active" ng-if="account.teamId" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span class="fa fa-users"></span>&nbsp;
                         <span class="hidden-tablet" translate="global.menu.teams.main">Teams</span>
@@ -73,7 +73,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a ui-sref="team.detail({id: team.id})">
+                            <a ui-sref="team.detail({id: account.teamId})">
                                 <span class="fa fa-user"></span>&nbsp;
                                 <span translate="global.menu.teams.own">Your team</span>
                             </a>
@@ -179,7 +179,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
                             <span class="glyphicon glyphicon-user"></span>&nbsp;
-                            <span class="account-title hidden-tablet" ng-bind="account.nickname || account.login">
+                            <span class="account-title hidden-tablet" ng-bind="account.nickname">
                             </span>
                             <b class="caret"></b>
                         </span>

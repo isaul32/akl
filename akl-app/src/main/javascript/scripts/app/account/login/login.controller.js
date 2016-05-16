@@ -5,8 +5,10 @@ angular.module('aklApp')
         $scope.user = {};
         $scope.errors = {};
 
-        $scope.rememberMe = true;
-        $timeout(function (){angular.element('[ng-model="username"]').focus();});
+        $scope.rememberMe = false;
+        $timeout(function () {
+            angular.element('[ng-model="username"]').focus();
+        });
         $scope.login = function (event) {
             event.preventDefault();
             Auth.login({
@@ -15,12 +17,9 @@ angular.module('aklApp')
                 rememberMe: $scope.rememberMe
             }).then(function () {
                 $scope.authenticationError = false;
-                if ($rootScope.previousStateName === 'register'
-                   || $rootScope.previousStateName === 'steam') {
-                    $state.go('home');
-                } else {
-                    $rootScope.back();
-                }
+                $state.go('home', {}, {
+                    reload: true
+                });
             }).catch(function () {
                 $scope.authenticationError = true;
             });

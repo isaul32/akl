@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <div class="row" ng-if="isAuthenticated() && canCreateTeam() && !currentTeam">
+    <div class="row" ng-if="isAuthenticated() && canCreateTeam() && !account.teamId && !account.requested">
         <div class="col-md-4">
             <button class="btn btn-primary" ui-sref="team.new">
                 <span class="glyphicon glyphicon-flash"></span> <span translate="aklApp.team.home.createLabel">Create a new Team</span>
@@ -55,7 +55,7 @@
                         <th translate="aklApp.team.name">Name</th>
                         <th translate="aklApp.team.rank">Rank</th>
                         <th translate="aklApp.team.description">Description</th>
-                        <th translate="aklApp.team.captain">Captain</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,9 +66,8 @@
                                 {{team.name}}
                             </a>
                         </td>
-                        <td translate="{{'aklApp.Rank.' + team.rank}}"></td>
+                        <td style="text-transform: uppercase;">{{team.rank}}</td>
                         <td>{{team.description}}</td>
-                        <td>{{team.captain.nickname || team.captain.login}}</td>
                         <td>
                             <div class="pull-right">
                                 <button type="submit" ng-if="isInactive(team)"

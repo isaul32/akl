@@ -5,7 +5,6 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     autoprefixer = require('gulp-autoprefixer'),
     templatecache = require('gulp-angular-templatecache'),
-    uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     sass = require('gulp-sass'),
     rename = require('gulp-rename'),
@@ -38,7 +37,7 @@ var bopts = {
     entries: [config.app + 'main.js'],
     cache: {},
     packageCache: {},
-    debug: true
+    debug: false
     //plugin: [watchify] // Watch
 };
 

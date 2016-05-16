@@ -1,11 +1,14 @@
 'use strict';
 
-angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
+angular.module('aklApp', [
+    'LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ui.bootstrap', 'ngResource', 'ui.router', 'ngCookies', 'angularFileUpload',
-    'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache', 'restangular', 'ngSanitize'])
+    'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache', 'restangular', 'ngSanitize'
+])
     .run(function ($rootScope, $location, $window, $http, $state, $translate,
-                   Language, Auth, Principal, amMoment, VERSION) {
-        $rootScope.VERSION = VERSION;
+                   Language, Auth, Principal, amMoment) {
+        amMoment.changeLocale('fi');
+
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             $rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;
@@ -21,24 +24,20 @@ angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprec
 
         });
 
-        amMoment.changeLocale('fi');
-
+        // Change page title
         $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
             var titleKey = 'global.title' ;
 
             $rootScope.previousStateName = fromState.name;
             $rootScope.previousStateParams = fromParams;
 
-            // Set the page title key to the one configured in state or use default one
             if (toState.data.pageTitle) {
                 titleKey = toState.data.pageTitle;
             }
 
             $translate(titleKey).then(function (title) {
-                // Change window title with translated one
                 $window.document.title = title;
             });
-
         });
 
         $rootScope.back = function() {
@@ -78,10 +77,7 @@ angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprec
                 ],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('global');
-                }]/*,
-                live: ['Api', function (Api) {
-                    return Api.all('live').get();
-                }]*/
+                }]
             }
         });
 
@@ -97,7 +93,6 @@ angular.module('aklApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprec
         $translateProvider.preferredLanguage('fi');
         $translateProvider.useCookieStorage();
         $translateProvider.useSanitizeValueStrategy('escaped');
-        //$translateProvider.addInterpolation('$translateMessageFormatInterpolation');
 
         tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale_{{locale}}.js');
         tmhDynamicLocaleProvider.useCookieStorage();

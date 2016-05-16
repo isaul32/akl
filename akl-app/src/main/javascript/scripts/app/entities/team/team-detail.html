@@ -41,7 +41,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
                             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
                         </button>
-                        <button type="submit" ng-disabled="requestForm.$invalid" class="btn btn-danger" ng-click="sendRequest()">
+                        <button type="submit" ng-disabled="requestForm.$invalid" class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove"></span>&nbsp;<span translate="aklApp.team.request.decline.action">Send request</span>
                         </button>
                     </div>
@@ -54,7 +54,7 @@
         <div class="col-md-12">
             <h1>{{team.name}} (<b>{{team.tag}}</b>)</h1>
 
-            <div class="alert alert-warning" ng-if="isAuthenticated() && !currentUser.email && !currentUserTeam">
+            <div class="alert alert-warning" ng-if="isAuthenticated() && !account.email && !account.teamId">
                 <p translate="aklApp.team.membershipRequiredInfo" translate-compile>You can't request a team membership until you've added your personal details in the settings menu. Go to <a ui-sref="settings">settings</a> and fill your details to request membership.</p>
             </div>
 
@@ -91,7 +91,7 @@
                         <td>
                             <span class="form-control-static">
                                 <a ui-sref="user({ id: team.captain.id })">
-                                    {{team.captain.nickname || team.captain.login}}
+                                    {{team.captain.nickname}}
                                 </a>
                             </span>
                         </td>
@@ -104,7 +104,7 @@
                             <p ng-repeat="member in team.members">
                                 <span class="form-control-static">
                                     <a ui-sref="user({ id: member.id })">
-                                        {{member.nickname || member.login}}
+                                        {{member.nickname}}
                                     </a>
                                 </span>
                             </p>
@@ -118,7 +118,7 @@
                             <p ng-repeat="standin in team.standins">
                                 <span class="form-control-static">
                                     <a ui-sref="user({ id: standin.id })">
-                                        {{standin.nickname || standin.login}}
+                                        {{standin.nickname}}
                                     </a>
                                 </span>
                             </p>
@@ -127,25 +127,27 @@
                 </table>
             </div>
 
-            <div ng-if="currentUser.id === team.captain.id && requests.length > 0">
+            <div ng-if="requests && requests.length > 0">
                 <h3 translate="aklApp.team.requests">Membership requests</h3>
 
-                <table class="table">
-                  <tr ng-repeat="request in requests">
-                    <td>{{request.nickname || request.login }}</td>
-                    <td>
-                      <div class="pull-right">
-                        <a ui-sref="team.detail.accept({id: team.id, userId: request.id})" class="btn btn-success btn-sm">
-                          <span class="glyphicon glyphicon-ok"></span>&nbsp;
-                          <span translate="aklApp.team.request.accept">Accept request</span>
-                        </a>
-                        <button class="btn btn-danger btn-sm" ng-click="declineRequest(request.id)">
-                          <span class="glyphicon glyphicon-remove"></span>&nbsp;
-                          <span translate="aklApp.team.request.decline.action">Decline request</span>
-                        </button>
-                      </div>
-                  </tr>
-                </table>
+                <div class="table-responsive">
+                    <table class="table">
+                      <tr ng-repeat="request in requests">
+                        <td>{{request.nickname}}</td>
+                        <td>
+                          <div class="pull-right">
+                            <a ui-sref="team.detail.accept({id: team.id, userId: request.id})" class="btn btn-success btn-sm">
+                              <span class="glyphicon glyphicon-ok"></span>&nbsp;
+                              <span translate="aklApp.team.request.accept">Accept request</span>
+                            </a>
+                            <button class="btn btn-danger btn-sm" ng-click="declineRequest(request.id)">
+                              <span class="glyphicon glyphicon-remove"></span>&nbsp;
+                              <span translate="aklApp.team.request.decline.action">Decline request</span>
+                            </button>
+                          </div>
+                      </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -158,7 +160,7 @@
                 <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
                 <span translate="aklApp.team.toListing">Back to team listing</span>
             </button>
-            <button type="submit" ng-if="isAuthenticated() && currentUser.activated && !currentUserTeam"
+            <button type="submit" ng-if="isAuthenticated() && account.activated && !account.teamId && !account.requested"
                     class="btn btn-primary" ng-click="requestInvite()">
                 <span class="glyphicon glyphicon-envelope"></span>&nbsp;
                 <span translate="aklApp.team.requestMembership">Request membershipp</span>

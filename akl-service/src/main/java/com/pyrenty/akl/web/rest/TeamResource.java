@@ -157,15 +157,15 @@ public class TeamResource {
     @Timed
     public ResponseEntity<Void> requestInvite(@PathVariable Long id) {
         User currentUser = userService.getUserWithAuthorities();
-
         if (!currentUser.isActivated()) {
-            throw new CustomParameterizedException("Can't join a team without an email set and activated");
+            HttpHeaders headers = HeaderUtil.createFailureAlert("request", "", "Can't join a team without an email set and activated");
+            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
         }
 
         Optional<Team> currentTeam = Optional.ofNullable(teamRepository.findOneForUser(currentUser.getId()));
-
         if (currentTeam.isPresent()) {
-            return ResponseEntity.badRequest().header("Failure", "You can't join multiple teams").body(null);
+            HttpHeaders headers = HeaderUtil.createFailureAlert("request", "", "You can't join multiple teams");
+            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
         }
 
         return Optional.ofNullable(teamRepository.findOne(id))
@@ -174,34 +174,32 @@ public class TeamResource {
                     requests.add(currentUser);
                     team.setRequests(requests);
                     teamRepository.save(team);
+
                     return team;
                 })
                 .map(team -> new ResponseEntity<Void>(HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/teams/{id}/requests",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/teams/{id}/requests", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<List<UserPublicDTO>> getRequests(@PathVariable Long id,
                                                            HttpServletRequest request) {
         User user = userService.getUserWithAuthorities();
 
-        if (!request.isUserInRole("ROLE_ADMIN") && !user.getCaptain().getId().equals(id)) {
+        // Must be team captain
+        if (user == null || user.getCaptain() == null || !user.getCaptain().getId().equals(id)) {
             throw new AccessDeniedException("You are not allowed to see membership requests");
         }
 
-        Optional<Team> team = Optional.ofNullable(teamRepository.findOne(id));
-
-        if (!team.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(team.get().getRequests().stream()
-                .map(userMapper::userToUserPublicDTO)
-                .collect(Collectors.toList()), HttpStatus.OK);
+        return Optional.ofNullable(teamRepository.findOne(id))
+                .map(Team::getRequests)
+                .map(requests -> requests.stream()
+                        .map(userMapper::userToUserPublicDTO)
+                        .collect(Collectors.toList()))
+                .map(ResponseEntity::ok)
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(value = "/teams/{id}/requests/{userId}",

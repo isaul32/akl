@@ -20,11 +20,7 @@ angular.module('aklApp')
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('team');
                         $translatePartialLoader.addPart('rank');
-                        $translatePartialLoader.addPart('global');
                         return $translate.refresh();
-                    }],
-                    currentTeam: ['AccountTeam', function(AccountTeam) {
-                        return AccountTeam.team();
                     }]
                 }
             })
@@ -72,9 +68,6 @@ angular.module('aklApp')
                     }],
                     team: ['$stateParams', 'Api', function($stateParams, Api) {
                         return Api.one('teams', $stateParams.id).get();
-                    }],
-                    requests: ['$stateParams', 'Principal', 'Team', function($stateParams, Principal, Team) {
-                        return Team.requests({id: $stateParams.id});
                     }]
                 }
             })

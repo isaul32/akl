@@ -2,7 +2,7 @@
     "activate": {
         "title": "Aktivointi",
         "messages": {
-            "success": "<strong>Käyttäjäsi on aktivoitu.</strong> Kirjaudu <a href=\"#/login\">täältä</a>.",
+            "success": "<strong>Käyttäjäsi on aktivoitu.</strong>",
             "error": "<strong>Käyttäjääsi ei voitu aktivoida.</strong> Koita aktivoida uudestaa tai tee uusi tunnus."
         }
     }

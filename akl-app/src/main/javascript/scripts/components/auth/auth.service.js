@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('aklApp')
-    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish, Tracker, AccountTeam) {
+    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish, Tracker) {
         return {
+            // When use login form
             login: function (credentials, callback) {
                 var cb = callback || angular.noop;
                 var deferred = $q.defer();
@@ -17,8 +18,6 @@ angular.module('aklApp')
                         $translate.refresh();
                         Tracker.sendActivity();
                         deferred.resolve(data);
-
-                        return AccountTeam.team(true);
                     });
 
                     return cb();
@@ -34,12 +33,11 @@ angular.module('aklApp')
             logout: function () {
                 AuthServerProvider.logout();
                 Principal.authenticate(null);
-                AccountTeam.setTeam(null);
             },
-
+            // When check if already logged in
             authorize: function(force) {
                 return Principal.identity(force)
-                    .then(function() {
+                    .then(function(account) {
                         var isAuthenticated = Principal.isAuthenticated();
 
                         if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0 && !Principal.isInAnyRole($rootScope.toState.data.roles)) {
@@ -54,11 +52,9 @@ angular.module('aklApp')
                                 $rootScope.returnToStateParams = $rootScope.toStateParams;
 
                                 // now, send them to the signin state so they can log in
-                                $state.go('steam');
+                                $state.go('login');
                             }
                         }
-
-                        return AccountTeam.team(force);
                     });
             },
             createAccount: function (account, callback) {

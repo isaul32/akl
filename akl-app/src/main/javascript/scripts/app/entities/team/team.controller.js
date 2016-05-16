@@ -1,12 +1,11 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('TeamController', function ($scope, Team, ParseLinks, Principal, currentTeam) {
+    .controller('TeamController', function ($scope, Team, ParseLinks, Principal) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.teams = [];
         $scope.page = 1;
-        $scope.currentTeam = currentTeam;
-        
+
         $scope.loadAll = function() {
             Team.query({page: $scope.page, per_page: 20}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
@@ -19,19 +18,18 @@ angular.module('aklApp')
         };
         $scope.loadAll();
 
-        Principal.identity().then(function(identity) {
-            $scope.identity = identity;
+        Principal.identity(true).then(function(account) {
+            $scope.account = account;
             return Principal.isInRole('ROLE_ADMIN');
         }).then(function(result) {
             $scope.isAdmin = result;
         });
 
         $scope.canCreateTeam = function() {
-            return $scope.identity && $scope.identity.email && $scope.identity.activated;
+            return $scope.account && $scope.account.email && $scope.account.activated;
         };
 
         $scope.hasPermissions = function(team) {
-            //return $scope.isAdmin || $scope.identity && ($scope.identity.id === team.captain.id);
             return $scope.isAdmin;
         };
 
@@ -68,6 +66,6 @@ angular.module('aklApp')
         };
 
         $scope.clear = function () {
-            $scope.team = {tag: null, name: null, imageUrl: null, rank: null, description: null, id: null};
+            $scope.team = {};
         };
     });

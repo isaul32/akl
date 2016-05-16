@@ -1,8 +1,9 @@
 package com.pyrenty.akl.web.rest.dto;
 
 import com.pyrenty.akl.domain.enumeration.Rank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
 
@@ -12,7 +13,8 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
-@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
 
     public static final int PASSWORD_MIN_LENGTH = 5;
@@ -65,29 +67,7 @@ public class UserDTO {
 
     private List<String> roles;
 
-    public UserDTO() {
+    private Long teamId;
 
-    }
-
-    public UserDTO(Long id, String login, String nickname, String password, String firstName,
-                   String lastName, String email, DateTime birthdate, String guild, String description, Rank rank,
-                   boolean activated, String langKey,
-                   String communityId, String steamId, List<String> roles) {
-        this.id = id;
-        this.login = login;
-        this.nickname = nickname;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.birthdate = birthdate;
-        this.guild = guild;
-        this.description = description;
-        this.rank = rank;
-        this.activated = activated;
-        this.langKey = langKey;
-        this.communityId = communityId;
-        this.steamId = steamId;
-        this.roles = roles;
-    }
+    private boolean requested;
 }

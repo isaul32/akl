@@ -4,6 +4,7 @@ angular.module('aklApp')
     .controller('SettingsController', function ($scope, Principal, Auth, Language, $translate) {
         $scope.success = null;
         $scope.error = null;
+        
         Principal.identity(true).then(function(account) {
             $scope.settingsAccount = account;
             $scope.settingsAccount.birthdate = new Date($scope.settingsAccount.birthdate);
@@ -13,7 +14,9 @@ angular.module('aklApp')
             Auth.updateAccount($scope.settingsAccount).then(function() {
                 $scope.error = null;
                 $scope.success = 'OK';
-                Principal.identity().then(function(account) {
+                
+                // Force update account
+                Principal.identity(true).then(function(account) {
                     $scope.settingsAccount = account;
                 });
                 Language.getCurrent().then(function(current) {

@@ -8,8 +8,6 @@ global.moment = require('moment');
 global.SockJS = require('sockjs-client');
 global.CKEDITOR_BASEPATH = '/akl-app/ckeditor/';
 
-require('../../../node_modules/ckeditor/ckeditor');
-
 require('stompjs');
 require('fullcalendar');
 require('json3');

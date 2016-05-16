@@ -111,27 +111,32 @@ public class AccountResource {
     @Timed
     public ResponseEntity<UserDTO> getAccount() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
-            .map(user -> new ResponseEntity<>(
-                new UserDTO(
-                    user.getId(),
-                    user.getLogin(),
-                    user.getNickname(),
-                    null,
-                    user.getFirstName(),
-                    user.getLastName(),
-                    user.getEmail(),
-                    user.getBirthdate(),
-                    user.getGuild(),
-                    user.getDescription(),
-                    user.getRank(),
-                    user.isActivated(),
-                    user.getLangKey(),
-                    user.getCommunityId(),
-                    user.getSteamId(),
-                    user.getAuthorities().stream().map(Authority::getName)
-                        .collect(Collectors.toList())),
-            HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+                .map(user -> ResponseEntity.ok(new UserDTO(
+                        user.getId(),
+                        user.getLogin(),
+                        user.getNickname(),
+                        null, // Password
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getEmail(),
+                        user.getBirthdate(),
+                        user.getGuild(),
+                        user.getDescription(),
+                        user.getRank(),
+                        user.isActivated(),
+                        user.getCommunityId(),
+                        user.getSteamId(),
+                        user.getLangKey(),
+                        user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList()),
+                        // Team ID
+                        user.getCaptain() == null ? (
+                                user.getMember() == null ? (
+                                        user.getStandin() == null ? null : user.getStandin().getId()
+                                ) : user.getMember().getId()
+                        ) : user.getCaptain().getId(),
+                        teamRepository.findOneForUser(user.getId()) != null
+                )))
+                .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
     /**
@@ -145,10 +150,7 @@ public class AccountResource {
         return Optional.ofNullable(userService.getUserWithAuthorities())
                 .map(user -> teamRepository.findOneForUser(user.getId()))
                 .map(teamMapper::teamToTeamDTO)
-                .map(teamDTO -> new ResponseEntity<>(
-                        teamDTO,
-                        HttpStatus.OK
-                ))
+                .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

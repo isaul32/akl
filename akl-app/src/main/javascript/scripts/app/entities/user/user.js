@@ -30,7 +30,7 @@ angular.module('aklApp')
                 }
             })
             .state('user', {
-                parent: 'users',
+                parent: 'entity',
                 url: '/{id:int}',
                 data: {
                     roles: [],
