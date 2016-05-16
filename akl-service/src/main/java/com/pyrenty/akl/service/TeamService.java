@@ -60,6 +60,9 @@ public class TeamService {
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
                     team.setActivated(true);
+
+                    // todo: Send team activated mail to members or captain
+
                     return teamRepository.save(team);
                 });
     }

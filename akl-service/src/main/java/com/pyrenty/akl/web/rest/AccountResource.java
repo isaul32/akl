@@ -12,7 +12,6 @@ import com.pyrenty.akl.service.UserService;
 import com.pyrenty.akl.web.rest.dto.KeyAndPasswordDTO;
 import com.pyrenty.akl.web.rest.dto.TeamDTO;
 import com.pyrenty.akl.web.rest.dto.UserDTO;
-import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
 import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
