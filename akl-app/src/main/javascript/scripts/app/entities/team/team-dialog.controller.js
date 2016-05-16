@@ -14,8 +14,7 @@ angular.module('aklApp').controller('TeamDialogController',
         var onSaveFinished = function (result) {
             $scope.$emit('aklApp:teamUpdate', result);
             $uibModalInstance.close(result);
-            // Refresh team associated with the account
-            AccountTeam.team(true);
+            // Todo: update team in view
         };
 
         $scope.save = function () {
