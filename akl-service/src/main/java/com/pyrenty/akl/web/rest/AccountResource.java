@@ -164,15 +164,12 @@ public class AccountResource {
             .findOneByLogin(userDTO.getLogin())
             .filter(u -> u.getLogin().equals(SecurityUtils.getCurrentLogin()))
             .map(u -> {
-                if (userRepository.findOneByEmail(userDTO.getEmail()).isPresent()) {
-                    throw new CustomParameterizedException("Email is already used.", "emailexists");
-                }
-
-                return u;
-            })
-            .map(u -> {
                 // Send activation message
                 if (!u.isActivated()) {
+                    if (userRepository.findOneByEmail(userDTO.getEmail()).isPresent()) {
+                        throw new CustomParameterizedException("Email is already used.", "emailexists");
+                    }
+
                     String baseUrl = request.getScheme() +         // "http"
                             "://" +                                // "://"
                             request.getServerName() +              // "myhost"
