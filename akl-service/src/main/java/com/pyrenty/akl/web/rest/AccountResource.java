@@ -170,6 +170,8 @@ public class AccountResource {
                 if (!u.isActivated()) {
                     // Generate new key
                     u.setActivationKey(RandomUtil.generateActivationKey());
+                    // todo: Restrict user mail send
+
                     String baseUrl = request.getScheme() +         // "http"
                             "://" +                                // "://"
                             request.getServerName() +              // "myhost"

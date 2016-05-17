@@ -135,11 +135,11 @@ gulp.task('dev', function () {
     // App server
     var app = express();
 
-    app.use('/akl-app', express.static(config.dist));
+    app.use('/', express.static(config.dist));
 
-    app.all('/', function(req, res) {
+    /*app.all('/', function(req, res) {
         res.redirect('/akl-app');
-    });
+    });*/
 
     app.all(/^\/akl-service/, function(req, res) {
         proxy.web(req, res);
