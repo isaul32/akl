@@ -6,7 +6,7 @@ global.$ = require('jquery');
 global._ = require('lodash');
 global.moment = require('moment');
 global.SockJS = require('sockjs-client');
-global.CKEDITOR_BASEPATH = '/akl-app/ckeditor/';
+global.CKEDITOR_BASEPATH = '/ckeditor/';
 
 require('stompjs');
 require('fullcalendar');

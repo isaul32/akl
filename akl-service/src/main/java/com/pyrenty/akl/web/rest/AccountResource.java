@@ -9,6 +9,7 @@ import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.MailService;
 import com.pyrenty.akl.service.UserService;
+import com.pyrenty.akl.service.util.RandomUtil;
 import com.pyrenty.akl.web.rest.dto.KeyAndPasswordDTO;
 import com.pyrenty.akl.web.rest.dto.TeamDTO;
 import com.pyrenty.akl.web.rest.dto.UserDTO;
@@ -167,6 +168,8 @@ public class AccountResource {
             .map(u -> {
                 // Send activation message
                 if (!u.isActivated()) {
+                    // Generate new key
+                    u.setActivationKey(RandomUtil.generateActivationKey());
                     String baseUrl = request.getScheme() +         // "http"
                             "://" +                                // "://"
                             request.getServerName() +              // "myhost"
@@ -184,7 +187,7 @@ public class AccountResource {
             .map(u -> {
                 userService.updateUserInformation(userDTO.getNickname(), userDTO.getFirstName(), userDTO.getLastName(),
                         userDTO.getEmail(), userDTO.getBirthdate(), userDTO.getGuild(),
-                        userDTO.getDescription(), userDTO.getRank(), userDTO.getLangKey());
+                        userDTO.getDescription(), userDTO.getRank(), userDTO.getLangKey(), u.getActivationKey());
                 return new ResponseEntity<String>(HttpStatus.OK);
             })
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));

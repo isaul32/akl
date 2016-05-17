@@ -146,7 +146,7 @@ public class UserService {
     }
 
     public void updateUserInformation(String nickname, String firstName, String lastName, String email, DateTime birthdate,
-                                      String guild, String description, Rank rank, String langKey) {
+                                      String guild, String description, Rank rank, String langKey, String activationKey) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
             u.setNickname(nickname);
             u.setFirstName(firstName);
@@ -157,6 +157,7 @@ public class UserService {
             u.setDescription(description);
             u.setRank(rank);
             u.setLangKey(langKey);
+            u.setActivationKey(activationKey);
             userRepository.save(u);
             log.debug("Changed Information for User: {}", u);
         });

@@ -31,7 +31,7 @@ angular.module('aklApp')
             })
             .state('user', {
                 parent: 'entity',
-                url: '/{id:int}',
+                url: '/user/{id:int}',
                 data: {
                     roles: [],
                     pageTitle: 'user.detail.title'

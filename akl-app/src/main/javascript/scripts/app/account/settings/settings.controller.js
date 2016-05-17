@@ -18,7 +18,9 @@ angular.module('aklApp')
                 // Force update account
                 Principal.identity(true).then(function(account) {
                     $scope.settingsAccount = account;
+					$scope.settingsAccount.birthdate = new Date($scope.settingsAccount.birthdate);
                 });
+				
                 Language.getCurrent().then(function(current) {
                     if ($scope.settingsAccount.langKey !== current) {
                         $translate.use($scope.settingsAccount.langKey);
