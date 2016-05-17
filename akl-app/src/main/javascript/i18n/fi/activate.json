@@ -2,8 +2,8 @@
     "activate": {
         "title": "Aktivointi",
         "messages": {
-            "success": "<strong>Käyttäjäsi on aktivoitu.</strong>",
-            "error": "<strong>Käyttäjääsi ei voitu aktivoida.</strong> Koita aktivoida uudestaa tai tee uusi tunnus."
+            "success": "<strong>Käyttäjä on aktivoitu.</strong>",
+            "error": "<strong>Käyttäjää ei voitu aktivoida.</strong> Koita asettaa sähköposti uudestaan."
         }
     }
 }

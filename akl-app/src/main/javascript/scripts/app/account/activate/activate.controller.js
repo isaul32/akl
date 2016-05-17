@@ -2,7 +2,7 @@
 
 angular.module('aklApp')
     .controller('ActivationController', function ($scope, $stateParams, Auth, Principal) {
-        Auth.activateAccount({key: $stateParams.key}).then(function () {
+        Auth.activateAccount({ key: $stateParams.key }).then(function () {
             $scope.error = null;
             $scope.success = 'OK';
 
