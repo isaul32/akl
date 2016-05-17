@@ -122,13 +122,22 @@ public class TeamResource {
     }
 
     @RequestMapping(value = "/teams/{id}", method = RequestMethod.PUT)
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<TeamDTO> update(@PathVariable Long id,
                                        @Valid @RequestBody TeamDTO teamDTO) {
         log.debug("REST request to put Team : {}", id);
 
         return Optional.ofNullable(teamRepository.findOne(teamDTO.getId()))
+                .map(team -> {
+                    User user = userService.getUserWithAuthorities();
+                    // Check if user is captain
+                    if (!team.getCaptain().getId().equals(user.getId())) {
+                        throw new CustomParameterizedException("You must be captain of the team.");
+                    }
+
+                    return team;
+                })
                 .map(team -> {
                     team.setName(teamDTO.getName());
                     team.setTag(teamDTO.getTag());
