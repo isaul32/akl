@@ -19,14 +19,14 @@ public class SteamCommunityRepository {
     @Value("${akl.steam.web-api-key}")
     private String webApiKey;
 
-    private SteamWebApiClient client = new SteamWebApiClient.SteamWebApiClientBuilder(webApiKey).build();
-
     @Cacheable(value="steamUser", key="#communityId")
     public GetPlayerSummaries findSteamUser(String communityId) throws SteamApiException {
 
         ArrayList<String> steamIds = new ArrayList<>();
         steamIds.add(communityId);
         GetPlayerSummariesRequest request = SteamWebApiRequestFactory.createGetPlayerSummariesRequest(steamIds);
+
+        SteamWebApiClient client = new SteamWebApiClient.SteamWebApiClientBuilder(webApiKey).build();
 
         return client.processRequest(request);
     }
@@ -35,6 +35,8 @@ public class SteamCommunityRepository {
     public GetUserStatsForGame findSteamUserStats(String communityId) throws SteamApiException {
 
         GetUserStatsForGameRequest request = SteamWebApiRequestFactory.createGetUserStatsForGameRequest(730, communityId);
+
+        SteamWebApiClient client = new SteamWebApiClient.SteamWebApiClientBuilder(webApiKey).build();
 
         return client.processRequest(request);
     }
