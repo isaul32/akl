@@ -161,6 +161,30 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @RequestMapping(value = "/teams/{id}/leave", method = RequestMethod.POST)
+    @PreAuthorize("isAuthenticated()")
+    @Timed
+    public ResponseEntity<Team> leaveTeam(@PathVariable Long id) {
+        return Optional.ofNullable(teamRepository.findOne(id))
+                .map(team -> {
+                    User user = userService.getUserWithAuthorities();
+
+                    if (team.getCaptain().getId().equals(user.getId())) {
+                        teamService.delete(id);
+                        return new ResponseEntity<Team>(HttpStatus.OK);
+                    }
+                    if (user.getMember() != null && user.getMember().getId().equals(team.getId())) {
+                        // todo: fix delete
+                    }
+                    if (user.getStandin() != null && user.getStandin().getId().equals(team.getId())) {
+                        // todo: fix delete
+                    }
+
+                    return new ResponseEntity<>(team, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @RequestMapping(value = "/teams/{id}/requests", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
     @Timed
@@ -298,6 +322,7 @@ public class TeamResource {
     }
 
     @RequestMapping(value = "/teams/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasRole('ADMIN')")
     @Timed
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.debug("REST request to delete Team : {}", id);

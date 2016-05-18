@@ -39,6 +39,12 @@
                     "action": "Hylkää jäsenyys"
                 }
             },
+            "leave": {
+                "title": "Vahvista tiimistä poistuminen",
+                "question": "Oletko varma, että haluat poistua tiimistä? <b>Kapteenin poistuessa tiimistä koko tiimi poistetaan.</b>",
+                "action": "Poistu tiimistä"
+            },
+            "leaveTeam": "Poistu tiimistä",
             "membershipRequiredInfo": "Et voi pyytää jäsenyyttä ennen kuin olet täyttänyt omat tietosi ja aktivoinut sähköpostisi. Mene <a ui-sref='settings'>asetukset</a>-sivulle ja täytä tietosi.",
             "tag": "Tagi",
             "name": "Nimi",

@@ -67,7 +67,6 @@ public class TeamService {
                 });
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     public void delete(Long id) {
         Team team = teamRepository.findOne(id);
         if (team != null) {
@@ -81,7 +80,8 @@ public class TeamService {
                     .map(m -> {
                         m.setMember(null);
                         return m;
-                    }).collect(Collectors.toSet());
+                    })
+                    .collect(Collectors.toSet());
             userRepository.save(members);
 
             // Standins
@@ -89,7 +89,8 @@ public class TeamService {
                     .map(s -> {
                         s.setStandin(null);
                         return s;
-                    }).collect(Collectors.toSet());
+                    })
+                    .collect(Collectors.toSet());
             userRepository.save(standins);
 
             // Team

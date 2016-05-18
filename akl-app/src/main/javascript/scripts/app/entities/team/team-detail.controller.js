@@ -48,4 +48,19 @@ angular.module('aklApp')
                 $('#membershipRequestDeclination').modal('hide');
             });
         };
+
+        $scope.leaveTeam = function () {
+            $('#leaveTeamConfirmation').modal('show');
+        };
+
+        $scope.sendLeaveTeam = function () {
+            $scope.team.post('leave').then(function (team) {
+                $scope.team = team.data;
+                $scope.account.teamId = null;
+                $('#leaveTeamConfirmation').modal('hide');
+                if ($scope.team == null) {
+                    $state.go('team');
+                }
+            });
+        };
     });

@@ -39,6 +39,12 @@
                     "action": "Decline request"
                 }
             },
+            "leave": {
+                "title": "Confirm leave",
+                "question": "Are you sure that you want leave team? <b>If captain leave team then also team will be deleted.</b>",
+                "action": "Leave team"
+            },
+            "leaveTeam": "Leave team",
             "membershipRequiredInfo": "You can't request a team membership until you've saved your settings and activated your e-mail address. Go to <a ui-sref='settings'>settings</a> page and fill your personal details to request membership.",
             "tag": "Tag",
             "name": "Name",
