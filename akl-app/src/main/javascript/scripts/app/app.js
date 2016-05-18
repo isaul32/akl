@@ -100,6 +100,9 @@ angular.module('aklApp', [
 
         // Restangular
         RestangularProvider.setBaseUrl('/akl-service/api');
+
+        // Remove URL hashtag
+        $locationProvider.html5Mode(true);
     })
     .constant('VERSION', '1.0.0')
     .constant('SERVICE_URL', window.location.origin + '/akl-service')
