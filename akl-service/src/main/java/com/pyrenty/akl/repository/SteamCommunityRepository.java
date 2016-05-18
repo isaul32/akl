@@ -26,6 +26,6 @@ public class SteamCommunityRepository {
         SteamWebApiClient client = new SteamWebApiClient.SteamWebApiClientBuilder(webApiKey).build();
         GetPlayerSummariesRequest request = SteamWebApiRequestFactory.createGetPlayerSummariesRequest(steamIds);
 
-        return client.<GetPlayerSummaries> processRequest(request);
+        return client.processRequest(request);
     }
 }
