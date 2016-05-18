@@ -69,10 +69,18 @@
                         <td>
                             <span translate="user.steamProfile">Steam profile</span>
                         </td>
-                        <td>
-                            <span class="form-control-static">
-                                <a ng-href="https://steamcommunity.com/profiles/{{ user.communityId }}">{{ user.communityId }}</a>
+                        <td ng-if="steamUser">
+                            <img ng-src="{{ steamUser.avatarfull }}" class="img-responsive">
+                            <a ng-href="https://steamcommunity.com/profiles/{{ steamUser.steamid }}">{{ steamUser.personaname }}</a>
+                            <span>
+                                <span>(</span>
+                                <span translate="user.steamLastLogoff"></span>
+                                <span>{{ steamUser.lastlogoff * 1000 | date }}</span>
+                                <span>)</span>
                             </span>
+                        </td>
+                        <td ng-if="!steamUser">
+                            <a ng-href="https://steamcommunity.com/profiles/{{ user.communityId }}">{{ user.communityId }}</a>
                         </td>
                     </tr>
                 </table>

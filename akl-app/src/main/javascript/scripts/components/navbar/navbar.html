@@ -22,10 +22,10 @@
                     </div>
                 </div>
                 <div class="account-align" ng-if="isAuthenticated()">
-                    <a ng-href="{{steamUser.response.players[0].profileurl}}">
+                    <a ng-href="{{steamUser.profileurl}}" target="_blank">
                         <div class="account-info pull-right">
-                            <span>{{steamUser.response.players[0].personaname}}</span>&nbsp;
-                            <img ng-src="{{steamUser.response.players[0].avatar}}">
+                            <span>{{steamUser.personaname}}</span>&nbsp;
+                            <img ng-src="{{steamUser.avatar}}">
                         </div>
                     </a>
                 </div>

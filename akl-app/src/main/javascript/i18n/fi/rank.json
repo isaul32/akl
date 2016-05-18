@@ -1,6 +1,7 @@
 {
     "aklApp": {
         "rank" : {
+            "null": "ei asetettu",
             "s1": "Silver I",
             "s2": "Silver II",
             "s3": "Silver III",

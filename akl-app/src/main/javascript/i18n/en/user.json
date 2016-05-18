@@ -10,6 +10,7 @@
         "rank": "Rank",
         "description": "Description",
         "steamProfile": "Steam profile",
-        "player": "Player"
+        "player": "Player",
+        "steamLastLogoff": "Last Logoff"
     }
 }

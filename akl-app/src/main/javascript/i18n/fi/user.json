@@ -10,6 +10,7 @@
         "rank": "Taso",
         "description": "Kuvaus",
         "steamProfile": "Steam profiili",
-        "player": "Pelaaja"
+        "player": "Pelaaja",
+        "steamLastLogoff": "Viimeksi paikalla"
     }
 }

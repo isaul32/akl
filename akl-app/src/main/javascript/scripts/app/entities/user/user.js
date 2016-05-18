@@ -50,6 +50,11 @@ angular.module('aklApp')
                     }],
                     user: ['$stateParams', 'Api', function($stateParams, Api) {
                         return Api.one('users', $stateParams.id).get();
+                    }],
+                    steamUser: ['Api', 'user', function (Api, user) {
+                        if (user.data.communityId !== null) {
+                            return Api.all('steam').all('user').get(user.data.communityId);
+                        }
                     }]
                 }
             });

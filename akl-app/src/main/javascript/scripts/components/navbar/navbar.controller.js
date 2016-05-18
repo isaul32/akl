@@ -11,7 +11,13 @@ angular.module('aklApp')
             if ($scope.isAuthenticated() && $scope.account.communityId !== null) {
                 Api.all('steam').all('user').get($scope.account.communityId)
                     .then(function (res) {
-                        $scope.steamUser = res.data;
+                        if (res != null
+                            && res.date !== null
+                            && res.data.response !== null
+                            && res.data.response.players !== null
+                            && res.data.response.players[0] !== null) {
+                            $scope.steamUser = res.data.response.players[0];
+                        }
                     });
             }
         });
