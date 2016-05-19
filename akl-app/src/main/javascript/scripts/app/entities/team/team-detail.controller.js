@@ -58,9 +58,6 @@ angular.module('aklApp')
                 $scope.team = team.data;
                 $scope.account.teamId = null;
                 $('#leaveTeamConfirmation').modal('hide');
-                if ($scope.team == null) {
-                    $state.go('team');
-                }
             });
         };
     });

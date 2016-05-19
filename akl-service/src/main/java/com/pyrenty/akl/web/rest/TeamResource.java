@@ -7,6 +7,7 @@ import com.pyrenty.akl.domain.enumeration.MembershipRoles;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.InvalidRoleException;
+import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.TeamService;
 import com.pyrenty.akl.service.UserService;
 import com.pyrenty.akl.web.rest.dto.TeamRequestDTO;
@@ -167,19 +168,26 @@ public class TeamResource {
     public ResponseEntity<Team> leaveTeam(@PathVariable Long id) {
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
-                    User user = userService.getUserWithAuthorities();
-
-                    if (team.getCaptain().getId().equals(user.getId())) {
-                        teamService.delete(id);
-                        return new ResponseEntity<Team>(HttpStatus.OK);
+                    Optional<User> userOptional = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
+                    if (userOptional.isPresent()) {
+                        User user = userOptional.get();
+                        if (team.getCaptain().getId().equals(user.getId())) {
+                            teamService.delete(id);
+                            return new ResponseEntity<Team>(HttpStatus.OK);
+                        }
+                        if (user.getMember() != null && user.getMember().getId().equals(team.getId())) {
+                            user.setMember(null);
+                            team.getMembers().remove(user);
+                            userRepository.save(user);
+                            teamRepository.save(team);
+                        }
+                        if (user.getStandin() != null && user.getStandin().getId().equals(team.getId())) {
+                            user.setStandin(null);
+                            team.getStandins().remove(user);
+                            userRepository.save(user);
+                            teamRepository.save(team);
+                        }
                     }
-                    if (user.getMember() != null && user.getMember().getId().equals(team.getId())) {
-                        // todo: fix delete
-                    }
-                    if (user.getStandin() != null && user.getStandin().getId().equals(team.getId())) {
-                        // todo: fix delete
-                    }
-
                     return new ResponseEntity<>(team, HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

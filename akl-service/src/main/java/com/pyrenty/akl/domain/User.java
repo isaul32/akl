@@ -108,11 +108,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private Team captain;
 
     @JsonIgnore
-    @OneToOne
+    @ManyToOne
     private Team member;
 
     @JsonIgnore
-    @OneToOne
+    @ManyToOne
     private Team standin;
 
 
@@ -311,7 +311,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return login.hashCode();
+        return login == null ? 0 : login.hashCode();
     }
 
     @Override
