@@ -9,9 +9,11 @@
         <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
-        <base href="/">
     </head>
     <body ng-app="aklApp">
+        <div class="loading" ng-if="false">
+            <div class="loader"></div>
+        </div>
         <div ui-view="navbar"></div>
         <div ui-view="content"></div>
         <div ui-view="footer"></div>

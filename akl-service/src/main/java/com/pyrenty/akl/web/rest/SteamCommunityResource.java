@@ -31,8 +31,8 @@ public class SteamCommunityResource {
     @Inject
     private UserRepository userRepository;
 
-    @Timed
     @RequestMapping(value = "/steam/user/{communityId}", method = RequestMethod.GET)
+    @Timed
     ResponseEntity<GetPlayerSummaries> getSteamUser(@PathVariable String communityId) throws SteamApiException {
         log.debug("REST request to get Steam profile : {}", communityId);
 
@@ -50,5 +50,4 @@ public class SteamCommunityResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
-
 }
