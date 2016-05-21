@@ -14,15 +14,19 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     watchify = require('watchify'),
     source = require('vinyl-source-stream'),
+    streamify = require('gulp-streamify'),
     buffer = require('vinyl-buffer'),
     flatten = require('gulp-flatten'),
     sequence = require('gulp-sequence'),
+    uglify = require('gulp-uglify'),
     del = require('del'),
     url = require('url'),
     fs = require('fs'),
     http = require('http'),
     httpProxy = require('http-proxy'),
     express = require('express');
+
+var production = process.env.NODE_ENV === 'production';
 
 var config = {
     app: 'src/main/javascript/',
@@ -37,31 +41,39 @@ var bopts = {
     entries: [config.app + 'main.js'],
     cache: {},
     packageCache: {},
-    debug: process.env.NODE_ENV === 'development'
-    //plugin: [watchify] // Watch
+    debug: !production
 };
 
 var b = browserify(bopts);
 
 var bundle = function () {
-    b.bundle()
+    var pipeline = b.bundle()
         .on('error', gutil.log.bind(gutil, 'Browserify error'))
         .pipe(source('bundle.js'))
-        .pipe(ngAnnotate())
-        .pipe(gulp.dest(config.dist + 'js'));
+        .pipe(ngAnnotate());
+
+    if (production) {
+        pipeline = pipeline
+            .pipe(streamify(uglify()));
+    }
+        
+    return pipeline.pipe(gulp.dest(config.dist + 'js'));
 };
 
 gulp.task('clean', function () {
     return del(config.dist);
 });
 
-gulp.task('views', function() {
-    gulp.src([config.app + 'index.html', config.app + '404.html'])
-        .pipe(gulp.dest(config.dist));
+gulp.task('templates', function() {
+    var pipeline = gulp.src([config.app + '**/*.html', '!' + config.dist + '**/*.html'])
+        .pipe(templatecache('templates.js', { module:'templateCache', standalone:true }));
 
-    return gulp.src([config.app + '**/*.html', '!' + config.dist + '**/*.html'])
-        .pipe(templatecache('templates.js', { module:'templateCache', standalone:true }))
-        .pipe(gulp.dest(config.dist + 'js'));
+    return pipeline.pipe(gulp.dest(config.dist + 'js'));
+});
+
+gulp.task('views', function() {
+    return gulp.src([config.app + 'index.html', config.app + '404.html'])
+        .pipe(gulp.dest(config.dist));
 });
 
 gulp.task('assets', ['fonts', 'images', 'sass', 'ckeditor', 'i18n'], function () {
@@ -150,10 +162,10 @@ gulp.task('dev', function () {
 gulp.task('watch', function() {
     gulp.watch(config.app + '**/*.js', ['browserify']);
     gulp.watch(config.scss + '**/*.scss', ['sass']);
-    gulp.watch([config.app + '**/*.html', '!' + config.dist + '**/*.html'], ['views']);
+    gulp.watch([config.app + '**/*.html', '!' + config.dist + '**/*.html'], ['templates']);
 });
 
-gulp.task('build', sequence('clean', ['views', 'assets', 'browserify']));
+gulp.task('build', sequence('clean', ['browserify', 'templates', 'assets', 'views']));
 gulp.task('dist', ['build']);
 gulp.task('serve', sequence('build', ['dev', 'watch']));
 gulp.task('default', ['build']);
