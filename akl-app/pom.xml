@@ -63,12 +63,12 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>gulp build</id>
+                        <id>gulp dist</id>
                         <goals>
                             <goal>gulp</goal>
                         </goals>
                         <configuration>
-                            <arguments>build</arguments>
+                            <arguments>dist</arguments>
                         </configuration>
                     </execution>
                 </executions>

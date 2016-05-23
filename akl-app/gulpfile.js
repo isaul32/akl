@@ -26,7 +26,7 @@ var gulp = require('gulp'),
     httpProxy = require('http-proxy'),
     express = require('express');
 
-var production = process.env.NODE_ENV === 'production';
+var production = false;
 
 var config = {
     app: 'src/main/javascript/',
@@ -165,8 +165,12 @@ gulp.task('watch', function() {
     gulp.watch([config.app + '**/*.html', '!' + config.dist + '**/*.html'], ['templates']);
 });
 
+gulp.task('prod', function () {
+    production = true;
+});
+
 gulp.task('build', sequence('clean', ['browserify', 'templates', 'assets', 'views']));
-gulp.task('dist', ['build']);
+gulp.task('dist', sequence('prod', 'build'));
 gulp.task('serve', sequence('build', ['dev', 'watch']));
 gulp.task('default', ['build']);
 
