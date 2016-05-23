@@ -1,7 +1,7 @@
 {
   "name": "akl",
   "version": "1.0.0",
-  "description": "Akateemisen Kynäriliiga",
+  "description": "Akateemisen Kynäriliigan Frontend",
   "private": true,
   "dependencies": {
     "angular": "1.5.0",
@@ -24,6 +24,7 @@
     "ckeditor": "4.5.9",
     "font-awesome": "4.5.0",
     "fullcalendar": "2.6.1",
+    "gulp-rev-replace": "^0.4.3",
     "jquery": "2.2.0",
     "json3": "3.3.2",
     "lodash": "4.5.0",
@@ -51,8 +52,8 @@
     "gulp-rename": "1.2.2",
     "gulp-sass": "2.2.0",
     "gulp-sequence": "0.4.5",
-    "gulp-streamify": "1.0.2",
-    "gulp-uglify": "1.5.1",
+    "gulp-streamify": "^1.0.2",
+    "gulp-uglify": "^1.5.3",
     "gulp-util": "3.0.7",
     "http-proxy": "1.13.2",
     "jshint": "2.9.1",
