@@ -17,7 +17,7 @@
                         <h4 class="modal-title">Authorities</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Change <b>{{ user.login }}</b> authorities.</p>
+                        <p>Change <b>{{ user.nickname }}</b> ({{ user.login }}) authorities.</p>
 
                         <div class="table-responsive">
                             <table class="table table-striped">
@@ -61,7 +61,7 @@
                         <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete <b>{{ user.nickname }}</b>?</p>
+                        <p>Are you sure you want to delete <b>{{ user.nickname }}</b> ({{ user.login }})?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -91,7 +91,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="(index, user) in users | orderBy:'id'">
+                    <tr ng-repeat="(index, user) in users">
                         <td>{{ user.id }}</td>
                         <td>
                             <a ui-sref="user({ id: user.id })">

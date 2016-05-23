@@ -25,6 +25,7 @@
             },
             "account": {
                 "main": "Account",
+                "profile": "Public profile",
                 "settings": "Settings",
                 "password": "Password",
                 "steam": "Steam",

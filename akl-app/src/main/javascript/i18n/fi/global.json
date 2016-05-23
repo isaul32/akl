@@ -22,6 +22,7 @@
             },
             "account": {
                 "main": "Käyttäjä",
+                "profile": "Julkinen profiili",
                 "settings": "Asetukset",
                 "password": "Salasana",
                 "steam": "Steam",
