@@ -25,6 +25,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findOneByLogin(String login);
 
+    Optional<User> findOneBySteamId(String steamId);
+
     Optional<User> findOneByCommunityId(String communityId);
 
     @Override

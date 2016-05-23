@@ -3,6 +3,7 @@ package com.pyrenty.akl.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Authority;
 import com.pyrenty.akl.domain.User;
+import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.service.UserService;
 import com.pyrenty.akl.web.rest.dto.UserExtendedDTO;
 import com.pyrenty.akl.web.rest.dto.UserPublicDTO;
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
  * REST controller for managing users.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserResource {
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
 
@@ -39,9 +40,12 @@ public class UserResource {
     private UserService userService;
 
     @Inject
+    private UserRepository userRepository;
+
+    @Inject
     private UserMapper userMapper;
 
-    @RequestMapping(value = "/users/public", method = RequestMethod.GET)
+    @RequestMapping(value = "/public", method = RequestMethod.GET)
     @Timed
     public ResponseEntity<List<UserPublicDTO>> getAllUsers(@RequestParam(value = "page", required = false) Integer offset,
                                                            @RequestParam(value = "per_page", required = false) Integer limit) throws URISyntaxException {
@@ -54,7 +58,7 @@ public class UserResource {
                 .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("hasRole('ADMIN')")
     @Timed
     public ResponseEntity<List<UserExtendedDTO>> getAllExtendedUsers(@RequestParam(value = "page", required = false) Integer offset,
@@ -68,7 +72,7 @@ public class UserResource {
                 .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('ADMIN')")
     @Timed
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
@@ -77,7 +81,7 @@ public class UserResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("user", id.toString())).build();
     }
 
-    @RequestMapping(value = "/users/authorities", method = RequestMethod.GET)
+    @RequestMapping(value = "/authorities", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ADMIN')")
     @Timed
     public List<Authority> getAuthorities() {
@@ -85,7 +89,7 @@ public class UserResource {
         return userService.getAllAuthorities();
     }
 
-    @RequestMapping(value = "/users/{id}/authorities", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/authorities", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ADMIN')")
     @Timed
     public ResponseEntity<Void> updateUserAuthorities(@PathVariable Long id, @RequestBody Set<Authority> authorities) {
@@ -94,7 +98,7 @@ public class UserResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert("authority", id.toString())).build();
     }
 
-    @RequestMapping(value = "/users/{id}/authorities", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/authorities", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ADMIN')")
     @Timed
     public ResponseEntity<Set<Authority>> getUserAuthorities(@PathVariable Long id) {
@@ -105,7 +109,7 @@ public class UserResource {
     }
 
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Timed
     public ResponseEntity<UserPublicDTO> getUser(@PathVariable Long id) {
         log.debug("REST request to get UserBaseDto : {}", id);
@@ -113,6 +117,21 @@ public class UserResource {
         return userService.getUser(id)
                 .map(userMapper::userToUserPublicDTO)
                 .map(ResponseEntity::ok)
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
+    @RequestMapping(value = "/steamid/{steamId}", method = RequestMethod.GET)
+    @Timed
+    ResponseEntity<Void> isSteamUserPlayer(@PathVariable String steamId) {
+        return userRepository.findOneBySteamId(steamId)
+                .map(user -> {
+                    if (user.getCaptain() != null || user.getMember() != null || user.getStandin() != null) {
+                        return new ResponseEntity<Void>(HttpStatus.OK);
+                    } else {
+                        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+                    }
+                })
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
