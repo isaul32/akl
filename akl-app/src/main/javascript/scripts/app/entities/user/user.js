@@ -16,13 +16,22 @@ angular.module('aklApp')
                         controller: 'UserController'
                     }
                 },
+                params: {
+                    page: {
+                        value: '1',
+                        squash: true
+                    }
+                },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('user');
                         return $translate.refresh();
                     }],
-                    users: ['Api', '$stateParams', function (Api) {
-                        return Api.all('users').getList();
+                    users: ['Api', '$stateParams', function (Api, $stateParams) {
+                        return Api.all('users').getList({
+                            page: $stateParams.page,
+                            per_page: 20
+                        });
                     }],
                     authorities: ['Api', function (Api) {
                         return Api.all('users').all('authorities').getList();

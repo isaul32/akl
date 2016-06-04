@@ -16,11 +16,23 @@ angular.module('aklApp')
                         controller: 'TeamController'
                     }
                 },
+                params: {
+                    page: {
+                        value: '1',
+                        squash: true
+                    }
+                },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('team');
                         $translatePartialLoader.addPart('rank');
                         return $translate.refresh();
+                    }],
+                    teams: ['Api', '$stateParams', function (Api, $stateParams) {
+                        return Api.all('teams').getList({
+                            page: $stateParams.page,
+                            per_page: 20
+                        });
                     }]
                 }
             })
@@ -37,7 +49,7 @@ angular.module('aklApp')
                         size: 'lg',
                         resolve: {
                             entity: function () {
-                                return {tag: null, name: null, imageUrl: null, rank: null, description: null, id: null};
+                                return { tag: null, name: null, imageUrl: null, rank: null, description: null, id: null };
                             }
                         }
                     }).result.then(function(result) {
@@ -107,11 +119,11 @@ angular.module('aklApp')
                         size: 'lg',
                         resolve: {
                             team: ['Team', function(Team) {
-                                return Team.get({id: $stateParams.id});
+                                return Team.get({ id: $stateParams.id });
                             }]
                         }
                     }).result.then(function(result) {
-                        $state.go('team.detail', {id: $stateParams.id}, {reload: true});
+                        $state.go('team.detail', { id: $stateParams.id }, { reload: true });
                     }, function() {
                         $state.go('^');
                     });

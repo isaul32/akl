@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('UserController', function ($scope, users, $state, Api, authorities, ParseLinks) {
+    .controller('UserController', function ($scope, users, $state, $stateParams, Api, authorities) {
         $scope.users = users.data;
         $scope.authorities = authorities.data;
 
@@ -47,20 +47,14 @@ angular.module('aklApp')
                 });
         };
 
-        $scope.loadAll = function() {
-            Api.all('users').getList({
-                page: $scope.page,
-                per_page: 20
-            }).then(function (page) {
-                $scope.links = ParseLinks.parse(page.headers('link'));
-                $scope.users = page.data;
+        $scope.pages = users.headers('X-Total-Count');
+        $scope.currentPage = $stateParams.page;
+
+        $scope.pageChanged = function() {
+            $state.transitionTo($state.current, {
+                page: $scope.currentPage
             });
         };
-        $scope.loadPage = function(page) {
-            $scope.page = page;
-            $scope.loadAll();
-        };
-        $scope.loadAll();
 
         $scope.clear = function () {
             $scope.user = {};

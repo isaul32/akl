@@ -1,22 +1,18 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('TeamController', function ($scope, Team, ParseLinks, Principal) {
+    .controller('TeamController', function ($scope, teams, $state, $stateParams, Principal) {
         $scope.isAuthenticated = Principal.isAuthenticated;
-        $scope.teams = [];
-        $scope.page = 1;
+        $scope.teams = teams.data;
 
-        $scope.loadAll = function() {
-            Team.query({page: $scope.page, per_page: 20}, function(result, headers) {
-                $scope.links = ParseLinks.parse(headers('link'));
-                $scope.teams = result;
+        $scope.pages = teams.headers('X-Total-Count');
+        $scope.currentPage = $stateParams.page;
+
+        $scope.pageChanged = function() {
+            $state.transitionTo($state.current, {
+                page: $scope.currentPage
             });
         };
-        $scope.loadPage = function(page) {
-            $scope.page = page;
-            $scope.loadAll();
-        };
-        $scope.loadAll();
 
         Principal.identity(true).then(function(account) {
             $scope.account = account;

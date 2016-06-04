@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -97,7 +98,9 @@ public class TeamResource {
         log.debug("REST request to get all Teams");
 
         Page<Team> page;
-        Pageable paging = PaginationUtil.generatePageRequest(offset, limit);
+        Pageable paging = PaginationUtil.generatePageRequest(offset, limit, new Sort(
+                new Sort.Order(Sort.Direction.ASC, "id")
+        ));
 
         if (request.isUserInRole("ROLE_ADMIN")) {
             page = teamRepository.findAll(paging);

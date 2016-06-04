@@ -22,7 +22,6 @@ public class Team implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     @NotNull
     @Size(min = 1, max = 16)
     @Column(name = "tag", length = 16, nullable = false)
@@ -38,7 +37,7 @@ public class Team implements Serializable {
     private String representing;
 
     @Size(max = 255)
-    @Column(name = "image_url", length = 255)
+    @Column(name = "image_url")
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)
