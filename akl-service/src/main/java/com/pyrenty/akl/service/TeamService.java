@@ -45,16 +45,6 @@ public class TeamService {
         return Optional.ofNullable(teamRepository.findOne(id));
     }
 
-    /*@Transactional(readOnly = true)
-    public Page<Team> getAll(Pageable pageable) {
-        Page<Team> page = teamRepository.findAll(pageable);
-        page.getContent().stream().forEach(team -> {
-            team.getMembers().size();
-            team.getStandins().size();
-        });
-        return page;
-    }*/
-
     @PreAuthorize("hasRole('ADMIN')")
     public Optional<Team> activate(Long id) {
         return Optional.ofNullable(teamRepository.findOne(id))
@@ -97,6 +87,8 @@ public class TeamService {
             team.setCaptain(null);
             team.setMembers(null);
             team.setStandins(null);
+
+            team.setRequests(null);
             teamRepository.delete(team);
         }
     }

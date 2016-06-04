@@ -10,4 +10,5 @@
     <include file="classpath:config/liquibase/changelog/3_added_entity_team.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/4_added_entity_match_proposition.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/5_added_team_request.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/6_change_team_request_constraint.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
