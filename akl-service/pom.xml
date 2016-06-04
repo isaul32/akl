@@ -51,6 +51,7 @@
         <springfox.version>2.0.3</springfox.version>
         <usertype-core.version>4.0.0.GA</usertype-core.version>
         <lombok.version>1.16.8</lombok.version>
+        <ical4j.version>2.0-beta1</ical4j.version>
     </properties>
 
     <dependencyManagement>
@@ -66,6 +67,11 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.mnode.ical4j</groupId>
+            <artifactId>ical4j</artifactId>
+            <version>${ical4j.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

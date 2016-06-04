@@ -10,6 +10,7 @@ global.CKEDITOR_BASEPATH = '/ckeditor/';
 
 require('stompjs');
 require('fullcalendar');
+require('../../../node_modules/fullcalendar/dist/gcal');
 require('json3');
 require('messageformat');
 require('bootstrap-sass');
