@@ -7,6 +7,7 @@ angular.module('aklApp', [
 ])
     .run(function ($rootScope, $location, $window, $http, $state, $translate,
                    Language, Auth, Principal, amMoment) {
+
         amMoment.changeLocale('fi');
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
@@ -24,8 +25,7 @@ angular.module('aklApp', [
 
         });
 
-        // Change page title
-        $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
+        $rootScope.$on('$stateChangeSuccess',  function (event, toState, toParams, fromState, fromParams) {
             var titleKey = 'global.title' ;
 
             $rootScope.previousStateName = fromState.name;
@@ -40,14 +40,9 @@ angular.module('aklApp', [
             });
         });
 
-        $rootScope.back = function() {
-            // If previous state is 'activate' or do not exist go to 'home'
-            if ($rootScope.previousStateName === 'activate' || $state.get($rootScope.previousStateName) === null) {
-                $state.go('home');
-            } else {
-                $state.go($rootScope.previousStateName, $rootScope.previousStateParams);
-            }
-        };
+        $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+            console.log("State error");
+        });
     })
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider,
                       $translateProvider, tmhDynamicLocaleProvider, RestangularProvider) {

@@ -16,15 +16,7 @@
         </div>
     </div>
     <script>
-        $.ajax({
-            url: 'https://api.twitch.tv/kraken/streams?limit=1&game=Counter-Strike:%20Global%20Offensive',
-            success: function (result) {
-                var user = result.streams[0].channel.name;
-                $('#twitch-chat').attr('src', 'http://twitch.tv/' + user + '/chat?popout=');
-                $('#embed-iframe').attr('src', 'http://player.twitch.tv/?channel=' + user + '&autoplay=true&volume=0.50');
-            }
-        });
-
+        var user = "tietoteekkarikilta";
         var resize = function () {
             if ($('#live-right').css('color') !== 'rgb(0, 0, 0)') {
                 $('#twitch-chat').css('height', $('#twitch-container').height() + 'px');
@@ -33,7 +25,15 @@
             }
         };
 
-        $('#embed-iframe').load(function () { resize(); });
-        $(window).resize(function () { resize(); });
+        $('#twitch-chat').attr('src', 'http://twitch.tv/' + user + '/chat?popout=');
+        $('#embed-iframe').attr('src', 'http://player.twitch.tv/?channel=' + user + '&autoplay=true&volume=0.50');
+
+
+        $('#embed-iframe').load(function () {
+            resize();
+        });
+        $(window).resize(function () {
+            resize();
+        });
     </script>
 </div>
