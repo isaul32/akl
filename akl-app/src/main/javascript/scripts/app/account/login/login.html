@@ -3,9 +3,12 @@
         <div class="col-md-4 col-md-offset-4">
             <h1 translate="login.title">Authentication</h1>
 
+            <akl-alert></akl-alert>
+
             <div class="alert alert-danger" ng-show="authenticationError" translate="login.messages.error.authentication">
                 <strong>Authentication failed!</strong> Please check your credentials and try again.
             </div>
+
             <form class="form" role="form" ng-submit="login($event)">
                 <div class="form-group">
                     <label for="username" translate="global.form.username">Login</label>

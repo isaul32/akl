@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('TeamController', function ($scope, teams, $state, $stateParams, Principal) {
+    .controller('TeamController', function ($scope, teams, $state, $stateParams, Principal, Team) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.teams = teams.data;
 
@@ -14,12 +14,14 @@ angular.module('aklApp')
             });
         };
 
-        Principal.identity(true).then(function(account) {
-            $scope.account = account;
-            return Principal.isInRole('ROLE_ADMIN');
-        }).then(function(result) {
-            $scope.isAdmin = result;
-        });
+        if ($scope.isAuthenticated()) {
+            Principal.identity(true).then(function(account) {
+                $scope.account = account;
+                return Principal.isInRole('ROLE_ADMIN');
+            }).then(function(result) {
+                $scope.isAdmin = result;
+            });
+        }
 
         $scope.canCreateTeam = function() {
             return $scope.account && $scope.account.email && $scope.account.activated;
@@ -35,7 +37,9 @@ angular.module('aklApp')
 
         $scope.activate = function (id) {
             Team.activate({id: id}, function(result) {
-                $scope.loadAll();
+                _.find($scope.teams, {
+                    id: id
+                }).activated = true;
                 $scope.clear();
             });
         };
@@ -50,15 +54,12 @@ angular.module('aklApp')
         $scope.confirmDelete = function (id) {
             Team.delete({id: id},
                 function () {
-                    $scope.loadAll();
+                    _.remove($scope.teams, {
+                        id: id
+                    });
                     $('#deleteTeamConfirmation').modal('hide');
                     $scope.clear();
                 });
-        };
-
-        $scope.refresh = function () {
-            $scope.loadAll();
-            $scope.clear();
         };
 
         $scope.clear = function () {

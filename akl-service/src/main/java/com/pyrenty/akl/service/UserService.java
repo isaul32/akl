@@ -8,6 +8,7 @@ import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.util.RandomUtil;
+import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -170,6 +171,18 @@ public class UserService {
             u.setPassword(encryptedPassword);
             userRepository.save(u);
             log.debug("Changed password for User: {}", u);
+        });
+    }
+
+    public void changeLogin(String login) {
+        userRepository.findOneByLogin(login).ifPresent(user -> {
+            throw new CustomParameterizedException("Login name is already used");
+        });
+
+        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u-> {
+            u.setLogin(login);
+            userRepository.save(u);
+            log.debug("Changed login for User: {}", u);
         });
     }
 

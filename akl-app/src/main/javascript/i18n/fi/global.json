@@ -24,7 +24,7 @@
                 "main": "Käyttäjä",
                 "profile": "Julkinen profiili",
                 "settings": "Asetukset",
-                "password": "Salasana",
+                "password": "Kirjautumisasetukset",
                 "steam": "Steam",
                 "sessions": "Istunnot",
                 "login": "Kirjaudu",
@@ -60,7 +60,9 @@
             "confirmpassword": "Salasanan vahvistaminen",
             "confirmpassword.placeholder": "Uuden salasanasi vahvistaminen",
             "email": "Sähköposti",
-            "email.placeholder": "Sähköpostisi"
+            "email.placeholder": "Sähköpostisi",
+            "login": "Kirjautumisnimi",
+            "login.placeholder": "Kirjautumisnimesi"
         },
         "messages": {
             "info": {

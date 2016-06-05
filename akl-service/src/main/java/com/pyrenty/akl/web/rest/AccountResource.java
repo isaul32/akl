@@ -14,6 +14,7 @@ import com.pyrenty.akl.web.rest.dto.KeyAndPasswordDTO;
 import com.pyrenty.akl.web.rest.dto.TeamDTO;
 import com.pyrenty.akl.web.rest.dto.UserDTO;
 import com.pyrenty.akl.web.rest.mapper.TeamMapper;
+import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -203,6 +204,17 @@ public class AccountResource {
         }
         userService.changePassword(password);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/account/change_login",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<?> changeLogin(@RequestBody String login) {
+        userService.changeLogin(login);
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createAlert("Login name changed", login))
+                .body(null);
     }
 
     @RequestMapping(value = "/account/sessions",

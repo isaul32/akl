@@ -27,7 +27,7 @@
                 "main": "Account",
                 "profile": "Public profile",
                 "settings": "Settings",
-                "password": "Password",
+                "password": "Login settings",
                 "steam": "Steam",
                 "sessions": "Sessions",
                 "login": "Authenticate",
@@ -63,7 +63,9 @@
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
             "email": "E-mail",
-            "email.placeholder": "Your e-mail"
+            "email.placeholder": "Your e-mail",
+            "login": "Login name",
+            "login.placeholder": "Your login name"
         },
         "messages": {
             "info": {

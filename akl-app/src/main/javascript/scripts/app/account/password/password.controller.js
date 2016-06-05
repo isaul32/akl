@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('PasswordController', function ($scope, Auth, Principal) {
+    .controller('PasswordController', function ($scope, Auth, Principal, Api, $state) {
         Principal.identity().then(function(account) {
             $scope.account = account;
         });
@@ -23,4 +23,12 @@ angular.module('aklApp')
                 });
             }
         };
+        $scope.changeLogin = function () {
+            Api.all("account").all("change_login").post($scope.login).then(function () {
+                Auth.logout();
+                $state.go('login', {
+                    reload: true
+                });
+            });
+        }
     });
