@@ -4,7 +4,14 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>utf-8</charset>
-            <pattern>%d{HH:mm:ss} [%t] %p %c{50} - %m%n</pattern>
+            <if condition='isDefined("nocolor")'>
+                <then>
+                    <pattern>%d{HH:mm:ss} [%t] %-5level %c{50} - %m%n</pattern>
+                </then>
+                <else>
+                    <pattern>%boldWhite(%d{HH:mm:ss}) [%t] %highlight(%-5level) %yellow(%c{50}) - %m%n</pattern>
+                </else>
+            </if>
         </encoder>
     </appender>
 
