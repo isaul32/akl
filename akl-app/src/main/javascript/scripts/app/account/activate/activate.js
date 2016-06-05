@@ -7,8 +7,7 @@ angular.module('aklApp')
                 parent: 'account',
                 url: '/activate?key',
                 data: {
-                    roles: [],
-                    pageTitle: 'activate.title'
+                    roles: []
                 },
                 views: {
                     'content@': {

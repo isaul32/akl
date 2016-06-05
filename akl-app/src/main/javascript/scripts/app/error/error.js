@@ -7,8 +7,7 @@ angular.module('aklApp')
                 parent: 'site',
                 url: '/error',
                 data: {
-                    roles: [],
-                    pageTitle: 'error.title'
+                    roles: []
                 },
                 views: {
                     'content@': {

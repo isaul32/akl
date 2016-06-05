@@ -7,8 +7,7 @@ angular.module('aklApp')
                 parent: 'admin',
                 url: '/logs',
                 data: {
-                    roles: ['ROLE_ADMIN'],
-                    pageTitle: 'logs.title'
+                    roles: ['ROLE_ADMIN']
                 },
                 views: {
                     'content@': {

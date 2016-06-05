@@ -7,8 +7,7 @@ angular.module('aklApp')
                 parent: 'account',
                 url: '/sessions',
                 data: {
-                    roles: ['ROLE_USER'],
-                    pageTitle: 'global.menu.account.sessions'
+                    roles: ['ROLE_USER']
                 },
                 views: {
                     'content@': {

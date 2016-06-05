@@ -7,8 +7,7 @@ angular.module('aklApp')
                 parent: 'entity',
                 url: '/team',
                 data: {
-                    roles: [],
-                    pageTitle: 'aklApp.team.home.title'
+                    roles: []
                 },
                 views: {
                     'content@': {
@@ -63,8 +62,7 @@ angular.module('aklApp')
                 parent: 'team',
                 url: '/{id:int}',
                 data: {
-                    roles: [],
-                    pageTitle: 'aklApp.team.detail.title'
+                    roles: []
                 },
                 views: {
                     'content@': {

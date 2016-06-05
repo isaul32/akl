@@ -7,8 +7,7 @@ angular.module('aklApp')
                 parent: 'account',
                 url: '/steam',
                 data: {
-                    roles: [],
-                    pageTitle: 'login.title'
+                    roles: []
                 },
                 views: {
                     'content@': {

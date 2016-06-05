@@ -7,8 +7,7 @@ angular.module('aklApp')
                 parent: 'entity',
                 url: '/gameServers',
                 data: {
-                    authorities: ['ROLE_USER'],
-                    pageTitle: 'aklApp.gameServer.home.title'
+                    authorities: ['ROLE_USER']
                 },
                 views: {
                     'content@': {
@@ -29,8 +28,7 @@ angular.module('aklApp')
                 parent: 'entity',
                 url: '/gameServer/{id}',
                 data: {
-                    authorities: ['ROLE_USER'],
-                    pageTitle: 'aklApp.gameServer.detail.title'
+                    authorities: ['ROLE_USER']
                 },
                 views: {
                     'content@': {

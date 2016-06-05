@@ -5,8 +5,7 @@ angular.module('aklApp')
                 parent: 'admin',
                 url: '/tracker',
                 data: {
-                    roles: ['ROLE_ADMIN'],
-                    pageTitle: 'tracker.title'
+                    roles: ['ROLE_ADMIN']
                 },
                 views: {
                     'content@': {

@@ -7,8 +7,7 @@ angular.module('aklApp')
                 parent: 'admin',
                 url: '/user',
                 data: {
-                    roles: ['ROLE_ADMIN'],
-                    pageTitle: 'user.title'
+                    roles: ['ROLE_ADMIN']
                 },
                 views: {
                     'content@': {
@@ -42,8 +41,7 @@ angular.module('aklApp')
                 parent: 'entity',
                 url: '/user/{id:int}',
                 data: {
-                    roles: [],
-                    pageTitle: 'user.detail.title'
+                    roles: []
                 },
                 views: {
                     'content@': {

@@ -3,8 +3,6 @@
 angular.module('aklApp')
     .controller('CkeditorCtrl', function ($scope, $rootScope, $translate, AlertService, Principal) {
         $scope.isAuthenticated = Principal.isAuthenticated;
-        
-        var lang = $translate.use() || 'en';
 
         // Toolbar configs
         var toolbarGroups = [
@@ -23,9 +21,8 @@ angular.module('aklApp')
             { name: 'others' }
         ];
 
-        // Editor options.
         $scope.options = {
-            language: lang,
+            language: $translate.use() || 'en',
             extraPlugins: 'autogrow,widgetbootstrap,base64image,inlinesave,inlinecancel,justify,youtube,tableresize',
             toolbarGroups: toolbarGroups,
             disableNativeSpellChecker: true,
@@ -48,9 +45,6 @@ angular.module('aklApp')
                         $scope.editMode = false;
                     })
                 }
-            },
-            ckwebspeech: {
-                'culture' : 'fi-FI'
             }
         };
     });

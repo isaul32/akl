@@ -7,8 +7,7 @@ angular.module('aklApp')
                 parent: 'admin',
                 url: '/docs',
                 data: {
-                    roles: ['ROLE_ADMIN'],
-                    pageTitle: 'global.menu.admin.apidocs'
+                    roles: ['ROLE_ADMIN']
                 },
                 views: {
                     'content@': {

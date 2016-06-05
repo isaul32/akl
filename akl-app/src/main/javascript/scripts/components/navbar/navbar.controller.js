@@ -8,8 +8,8 @@ angular.module('aklApp')
         Principal.identity().then(function (account) {
             $scope.account = account;
 
-            if ($scope.account.communityId !== null) {
-                Api.all('steam').all('user').get($scope.account.communityId).then(function (res) {
+            if (account !== null && account.communityId !== null) {
+                Api.all('steam').all('user').get(account.communityId).then(function (res) {
                     $scope.steamUser = _.result(res, 'data.response.players[0]');
                 });
             }
