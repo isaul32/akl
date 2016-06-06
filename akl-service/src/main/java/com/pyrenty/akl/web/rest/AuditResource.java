@@ -15,7 +15,7 @@ import java.util.List;
  * REST controller for getting the audit events.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/audits")
 public class AuditResource {
 
     @Inject
@@ -26,14 +26,14 @@ public class AuditResource {
         binder.registerCustomEditor(LocalDateTime.class, new LocaleDateTimeEditor("yyyy-MM-dd", false));
     }
 
-    @RequestMapping(value = "/audits/all",
+    @RequestMapping(value = "/all",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<AuditEvent> findAll() {
         return auditEventService.findAll();
     }
 
-    @RequestMapping(value = "/audits/byDates",
+    @RequestMapping(value = "/byDates",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<AuditEvent> findByDates(@RequestParam(value = "fromDate") LocalDateTime fromDate,

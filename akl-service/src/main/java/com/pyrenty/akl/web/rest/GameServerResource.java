@@ -36,11 +36,11 @@ public class GameServerResource {
     public ResponseEntity<GameServerDTO> createGameServer(@RequestBody GameServerDTO gameServerDTO) throws URISyntaxException {
         log.debug("REST request to save GameServer : {}", gameServerDTO);
         if (gameServerDTO.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("gameServer", "idexists", "A new gameServer cannot already have an ID")).body(null);
+            return ResponseEntity.badRequest().headers(HeaderUtil.createAlert("gameServer", "idexists", "A new gameServer cannot already have an ID")).body(null);
         }
         GameServerDTO result = gameServerService.save(gameServerDTO);
         return ResponseEntity.created(new URI("/api/gameServers/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("gameServer", result.getId().toString()))
+            .headers(HeaderUtil.createAlert("gameServer", result.getId().toString()))
             .body(result);
     }
 
@@ -55,7 +55,7 @@ public class GameServerResource {
         }
         GameServerDTO result = gameServerService.save(gameServerDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("gameServer", gameServerDTO.getId().toString()))
+            .headers(HeaderUtil.createAlert("gameServer", gameServerDTO.getId().toString()))
             .body(result);
     }
 
@@ -89,7 +89,7 @@ public class GameServerResource {
     public ResponseEntity<Void> deleteGameServer(@PathVariable Long id) {
         log.debug("REST request to delete GameServer : {}", id);
         gameServerService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("gameServer", id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("gameServer", id.toString())).build();
     }
 
 }

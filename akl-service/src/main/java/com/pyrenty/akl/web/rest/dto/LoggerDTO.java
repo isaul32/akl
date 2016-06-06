@@ -6,14 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+@Setter
+@Getter
 @ToString
 public class LoggerDTO {
-    @Setter
-    @Getter
     private String name;
-
-    @Setter
-    @Getter
     private String level;
 
     public LoggerDTO(Logger logger) {

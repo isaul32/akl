@@ -19,7 +19,7 @@ import java.util.List;
  * </p>
  */
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class AuditEventService {
 
     @Inject

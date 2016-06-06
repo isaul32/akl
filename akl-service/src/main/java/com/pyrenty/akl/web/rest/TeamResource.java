@@ -3,7 +3,7 @@ package com.pyrenty.akl.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.domain.User;
-import com.pyrenty.akl.domain.enumeration.MembershipRoles;
+import com.pyrenty.akl.domain.enumeration.MembershipRole;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.InvalidRoleException;
@@ -47,7 +47,7 @@ import java.util.stream.Collectors;
  * REST controller for managing Team.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/teams")
 public class TeamResource {
     private final Logger log = LoggerFactory.getLogger(TeamResource.class);
 
@@ -70,7 +70,7 @@ public class TeamResource {
     private TeamService teamService;
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/teams", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     @Timed
     public ResponseEntity<TeamDTO> create(@Valid @RequestBody TeamDTO teamDTO) throws URISyntaxException {
         log.debug("REST request to save Team : {}", teamDTO);
@@ -86,11 +86,11 @@ public class TeamResource {
         Team team = teamService.create(teamMapper.teamDTOToTeam(teamDTO));
 
         return ResponseEntity.created(new URI("/api/teams/" + team.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert("team", team.getId().toString()))
+                .headers(HeaderUtil.createAlert("Team created", team.getId().toString()))
                 .body(teamMapper.teamToTeamDTO(team));
     }
 
-    @RequestMapping(value = "/teams", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     @Timed
     public ResponseEntity<List<TeamDTO>> getAll(@RequestParam(value = "page", required = false) Integer offset,
                                                 @RequestParam(value = "per_page", required = false) Integer limit,
@@ -108,13 +108,13 @@ public class TeamResource {
             page = teamRepository.findByActivated(true, paging);
         }
 
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/teams", offset, limit);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);
         return new ResponseEntity<>(page.getContent().stream()
                 .map(teamMapper::teamToTeamDTOWithoutMembers)
                 .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/teams/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Timed
     public ResponseEntity<TeamDTO> get(@PathVariable Long id) {
         log.debug("REST request to get Team : {}", id);
@@ -125,7 +125,7 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/teams/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<TeamDTO> update(@PathVariable Long id,
@@ -157,7 +157,7 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/teams/{id}/activate", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/activate", method = RequestMethod.POST)
     @Timed
     public ResponseEntity<Void> activate(@PathVariable Long id) {
         return Optional.ofNullable(teamService.activate(id))
@@ -165,7 +165,7 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/teams/{id}/leave", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/leave", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<Team> leaveTeam(@PathVariable Long id) {
@@ -196,19 +196,19 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/teams/{id}/requests", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/requests", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<Void> requestInvite(@PathVariable Long id) {
         User currentUser = userService.getUserWithAuthorities();
         if (!currentUser.isActivated()) {
-            HttpHeaders headers = HeaderUtil.createFailureAlert("request", "", "Can't join a team without an email set and activated");
+            HttpHeaders headers = HeaderUtil.createAlert("request", "", "Can't join a team without an email set and activated");
             return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
         }
 
         Optional<Team> currentTeam = Optional.ofNullable(teamRepository.findOneForUser(currentUser.getId()));
         if (currentTeam.isPresent()) {
-            HttpHeaders headers = HeaderUtil.createFailureAlert("request", "", "You can't join multiple teams");
+            HttpHeaders headers = HeaderUtil.createAlert("request", "", "You can't join multiple teams");
             return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
         }
 
@@ -225,7 +225,7 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/teams/{id}/requests", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/requests", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<List<UserPublicDTO>> getRequests(@PathVariable Long id,
@@ -246,7 +246,7 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/teams/{id}/requests/{userId}",
+    @RequestMapping(value = "/{id}/requests/{userId}",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
@@ -261,8 +261,8 @@ public class TeamResource {
             throw new AccessDeniedException("You are not allowed to accept membership requests");
         }
 
-        if (!teamRequest.getRole().equals(MembershipRoles.ROLE_MEMBER.toString()) &&
-                !teamRequest.getRole().equals(MembershipRoles.ROLE_STANDIN.toString())) {
+        if (!teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER.toString()) &&
+                !teamRequest.getRole().equals(MembershipRole.ROLE_STANDIN.toString())) {
             throw new InvalidRoleException();
         }
 
@@ -274,11 +274,11 @@ public class TeamResource {
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
                     // Check maximum members and standins count
-                    if (teamRequest.getRole().equals(MembershipRoles.ROLE_MEMBER.toString()) && team.getMembers().size() >= 4) {
+                    if (teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER.toString()) && team.getMembers().size() >= 4) {
                         throw new CustomParameterizedException("Team have maximum amount of members");
                     }
 
-                    if (teamRequest.getRole().equals(MembershipRoles.ROLE_STANDIN.toString()) && team.getStandins().size() >= 2) {
+                    if (teamRequest.getRole().equals(MembershipRole.ROLE_STANDIN.toString()) && team.getStandins().size() >= 2) {
                         throw new CustomParameterizedException("Team have maximum amount of standins");
                     }
 
@@ -289,9 +289,9 @@ public class TeamResource {
                     requests.remove(newMember);
                     teamRepository.save(team);
 
-                    if (teamRequest.getRole().equals(MembershipRoles.ROLE_MEMBER.toString())) {
+                    if (teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER.toString())) {
                         newMember.setMember(team);
-                    } else if (teamRequest.getRole().equals(MembershipRoles.ROLE_STANDIN.toString())) {
+                    } else if (teamRequest.getRole().equals(MembershipRole.ROLE_STANDIN.toString())) {
                         newMember.setStandin(team);
                     }
 
@@ -302,7 +302,7 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/teams/{id}/requests/{userId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}/requests/{userId}", method = RequestMethod.DELETE)
     @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<Void> declineRequest(@PathVariable Long id,
@@ -332,7 +332,7 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/teams/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('ADMIN')")
     @Timed
     public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -340,7 +340,7 @@ public class TeamResource {
 
         teamService.delete(id);
 
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("team", id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Team deleted", id.toString())).build();
     }
 
 }

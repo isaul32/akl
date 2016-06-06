@@ -54,7 +54,7 @@ public class UserResource {
         Page<User> page = userService.getAllUsers(PaginationUtil.generatePageRequest(offset, limit, new Sort(
                 new Sort.Order(Sort.Direction.ASC, "id")
         )));
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users", offset, limit);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);
 
         return new ResponseEntity<>(page.getContent().stream()
                 .map(userMapper::userToUserPublicDTO)
@@ -70,7 +70,7 @@ public class UserResource {
         Page<User> page = userService.getAllUsers(PaginationUtil.generatePageRequest(offset, limit, new Sort(
                 new Sort.Order(Sort.Direction.ASC, "id")
         )));
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users", offset, limit);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);
 
         return new ResponseEntity<>(page.getContent().stream()
                 .map(userMapper::userToUserExtendedDTO)
@@ -83,7 +83,7 @@ public class UserResource {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
 
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("user", id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("User deleted", id.toString())).build();
     }
 
     @RequestMapping(value = "/authorities", method = RequestMethod.GET)
@@ -100,7 +100,7 @@ public class UserResource {
     public ResponseEntity<Void> updateUserAuthorities(@PathVariable Long id, @RequestBody Set<Authority> authorities) {
         userService.updateUserAuthorities(id, authorities);
 
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert("authority", id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Authorities updated", id.toString())).build();
     }
 
     @RequestMapping(value = "/{id}/authorities", method = RequestMethod.GET)
@@ -113,7 +113,6 @@ public class UserResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Timed
     public ResponseEntity<UserPublicDTO> getUser(@PathVariable Long id) {
@@ -124,7 +123,6 @@ public class UserResource {
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
 
     @RequestMapping(value = "/steamid/{steamId}", method = RequestMethod.GET)
     @Timed

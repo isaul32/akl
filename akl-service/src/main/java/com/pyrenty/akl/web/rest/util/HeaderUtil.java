@@ -22,20 +22,4 @@ public class HeaderUtil {
         headers.add("X-aklApp-error", error);
         return headers;
     }
-
-    public static HttpHeaders createEntityCreationAlert(String entityName, String param) {
-        return createAlert("aklApp." + entityName + ".created", param);
-    }
-
-    public static HttpHeaders createEntityUpdateAlert(String entityName, String param) {
-        return createAlert("aklApp." + entityName + ".updated", param);
-    }
-
-    public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {
-        return createAlert("aklApp." + entityName + ".deleted", param);
-    }
-
-    public static HttpHeaders createFailureAlert(String entityName, String param, String error) {
-        return createAlert("aklApp." + entityName + ".failed", param, error);
-    }
 }

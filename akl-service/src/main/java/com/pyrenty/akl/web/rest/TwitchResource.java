@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.inject.Inject;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/twitch")
 public class TwitchResource {
     private final Logger log = LoggerFactory.getLogger(TwitchResource.class);
 
     @Inject
     private TwitchRepository twitchRepository;
 
-    @RequestMapping(value = "/twitch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public Twitch getTwitchState() {
         log.debug("REST request to get Twitch state");

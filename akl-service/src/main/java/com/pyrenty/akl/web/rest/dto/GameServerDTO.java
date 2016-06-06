@@ -1,15 +1,10 @@
 package com.pyrenty.akl.web.rest.dto;
 
-import java.io.Serializable;
-import java.util.Objects;
-
 import com.pyrenty.akl.domain.enumeration.GameServerState;
 import lombok.Data;
-import lombok.ToString;
 
 @Data
-@ToString
-public class GameServerDTO implements Serializable {
+public class GameServerDTO {
     private Long id;
     private String name;
     private String server_ip;

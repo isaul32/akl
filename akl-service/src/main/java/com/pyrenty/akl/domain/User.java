@@ -6,17 +6,17 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import org.hibernate.annotations.Type;
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.joda.time.DateTime;
 
 @Entity
 @Table(name = "akl_user")
@@ -96,7 +96,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String description;
 
     @Size(max = 20)
-    @Column(name = "community_id", length = 20, unique = true)
+    @Column(name = "community_id", length = 20, unique = true, nullable = false)
     private String communityId;
 
     @Size(max = 20)
@@ -302,28 +302,28 @@ public class User extends AbstractAuditingEntity implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
+        if (communityId == null) {
+            return false;
+        }
         User user = (User) o;
+        if (user.communityId == null) {
+            return false;
+        }
 
-        return login.equals(user.login);
-
+        return communityId.equals(user.communityId);
     }
 
     @Override
     public int hashCode() {
-        return login == null ? 0 : login.hashCode();
+        return communityId == null ? 0 : communityId.hashCode();
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "login='" + login + '\'' +
+        return "User{" + "login='" + login + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", activated='" + activated + '\'' +
-                ", langKey='" + langKey + '\'' +
-                ", activationKey='" + activationKey + '\'' +
                 "}";
     }
 }

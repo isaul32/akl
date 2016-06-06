@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
  * Spring Data JPA repository for the Team entity.
  */
 @SuppressWarnings("JpaQlInspection")
-public interface TeamRepository extends JpaRepository<Team,Long> {
+public interface TeamRepository extends JpaRepository<Team, Long> {
 
     @Query("SELECT t FROM Team t " +
         "LEFT JOIN FETCH t.members " +

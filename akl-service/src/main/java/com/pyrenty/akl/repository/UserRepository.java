@@ -29,6 +29,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findOneByCommunityId(String communityId);
 
+    // Use object rather than id
     @Override
     void delete(User t);
 

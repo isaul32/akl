@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.inject.Inject;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/steam")
 public class SteamCommunityResource {
     private final Logger log = LoggerFactory.getLogger(SteamCommunityResource.class);
 
@@ -31,7 +31,7 @@ public class SteamCommunityResource {
     @Inject
     private UserRepository userRepository;
 
-    @RequestMapping(value = "/steam/user/{communityId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/{communityId}", method = RequestMethod.GET)
     @Timed
     ResponseEntity<GetPlayerSummaries> getSteamUser(@PathVariable String communityId) throws SteamApiException {
         log.debug("REST request to get Steam profile : {}", communityId);

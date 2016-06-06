@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.*;
 /**
  * Spring Data JPA repository for the GameServer entity.
  */
-public interface GameServerRepository extends JpaRepository<GameServer,Long> {
+public interface GameServerRepository extends JpaRepository<GameServer, Long> {
 
 }
