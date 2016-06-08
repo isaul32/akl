@@ -6,7 +6,9 @@ import com.pyrenty.akl.repository.GroupRepository;
 import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.web.rest.dto.GroupDTO;
 import com.pyrenty.akl.web.rest.mapper.GroupMapper;
+import com.pyrenty.akl.web.rest.util.PaginationUtil;
 import org.joda.time.DateTime;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,7 +32,9 @@ public class GroupResource {
     @Timed
     @RequestMapping(method = RequestMethod.GET)
     public List<GroupDTO> listAll() {
-        return groupRepository.findAll().stream()
+        return groupRepository.findAll(PaginationUtil.generatePageRequest(null, null, new Sort(
+                new Sort.Order(Sort.Direction.ASC, "id")
+        ))).getContent().stream()
                 .map(o -> groupMapper.groupToGroupDTO(o))
                 .collect(Collectors.toList());
     }
