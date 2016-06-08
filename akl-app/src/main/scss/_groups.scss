@@ -27,6 +27,7 @@
   min-height: 100px;
   & > div {
     display: block;
+    white-space: nowrap;
     float: left;
     clear: left;
     cursor: move;
