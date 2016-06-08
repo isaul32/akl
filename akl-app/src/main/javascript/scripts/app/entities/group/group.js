@@ -91,10 +91,9 @@ angular.module('aklApp')
                 }
             },
             resolve: {
-                teams: ['Api', '$stateParams', function (Api, $stateParams) {
+                teams: ['Api', function (Api) {
                     return Api.all('teams').getList({
-                        page: $stateParams.page,
-                        per_page: 20
+                        per_page: 100
                     });
                 }]
             }

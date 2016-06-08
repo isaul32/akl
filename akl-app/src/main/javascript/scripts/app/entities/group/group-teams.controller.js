@@ -17,20 +17,21 @@ angular.module('aklApp')
     var saveChange = function (e, ui) {
         var senderId = Number(ui.sender[0].id);
         var targetId = Number(e.target.id);
-        console.log(senderId + " -> " + targetId);
+        var sender;
+        var target;
 
         // Save sender and target groups
         if (senderId !== 0 && targetId != 0) {
-            var sender = _.find($scope.groups, { id: senderId });
+            sender = _.find($scope.groups, { id: senderId });
             sender.put().then(function () {
-                var target = _.find($scope.groups, { id: targetId });
+                target = _.find($scope.groups, { id: targetId });
                 target.put();
             });
         } else if (senderId !== 0) {
-            var sender = _.find($scope.groups, { id: senderId });
+            sender = _.find($scope.groups, { id: senderId });
             sender.put();
         } else if (targetId != 0) {
-            var target = _.find($scope.groups, { id: targetId });
+            target = _.find($scope.groups, { id: targetId });
             target.put();
         }
     };

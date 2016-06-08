@@ -13,7 +13,7 @@
         <div class="col-md-12">
             <div ui-sortable="sortableOptions" ng-model="teams" class="group-container clearfix" id="0">
                 <div ng-repeat="team in teams">
-                    {{team.tag}}&nbsp;{{team.name}}&nbsp;{{ team.rank | uppercase }}
+                    <span>{{team.tag}} {{team.name}} {{ team.rank | uppercase }}</span>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
                     <div class="panel-body">
                         <div ui-sortable="sortableOptions" ng-model="group.teams" class="group-container clearfix" id="{{ group.id }}">
                             <div ng-repeat="team in group.teams">
-                                {{team.tag}}&nbsp;{{team.name}}&nbsp;{{ team.rank | uppercase }}
+                                <span>{{team.tag}} {{team.name}} {{ team.rank | uppercase }}</span>
                             </div>
                         </div>
                     </div>
