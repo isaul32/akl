@@ -18,6 +18,7 @@ angular.module('aklApp')
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('group');
+                    $translatePartialLoader.addPart('team');
                     return $translate.refresh();
                 }],
                 groups: ['Api', function (Api) {

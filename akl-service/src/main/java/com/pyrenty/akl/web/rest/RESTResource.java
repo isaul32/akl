@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public abstract class RESTResource<T, ID extends Serializable> {
+public abstract class RESTResource<T, D, ID extends Serializable> {
     private CrudRepository<T, ID> repo;
 
     public RESTResource(CrudRepository<T, ID> repo) {
@@ -21,14 +21,14 @@ public abstract class RESTResource<T, ID extends Serializable> {
 
     @Timed
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<T> listAll() {
+    public List<T> listAll() {
         Iterable<T> all = this.repo.findAll();
         return Lists.newArrayList(all);
     }
 
     @Timed
     @RequestMapping(method= RequestMethod.POST)
-    public @ResponseBody Map<String, Object> create(@RequestBody T json) {
+    public Map<String, Object> create(@RequestBody T json) {
         T created = this.repo.save(json);
 
         Map<String, Object> m = Maps.newHashMap();
@@ -39,16 +39,16 @@ public abstract class RESTResource<T, ID extends Serializable> {
 
     @Timed
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public @ResponseBody T get(@PathVariable ID id) {
+    public T get(@PathVariable ID id) {
         return this.repo.findOne(id);
     }
 
     @Timed
     @RequestMapping(value="/{id}", method=RequestMethod.PUT)
-    public @ResponseBody Map<String, Object> update(@PathVariable ID id, @RequestBody T json) {
+    public Map<String, Object> update(@PathVariable ID id, @RequestBody T json) {
         T entity = this.repo.findOne(id);
         try {
-            BeanUtils.copyProperties(entity, json);
+            BeanUtils.copyProperties(json, entity);
         }
         catch (Exception ex) {
             throw Throwables.propagate(ex);
@@ -65,7 +65,7 @@ public abstract class RESTResource<T, ID extends Serializable> {
 
     @Timed
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-    public @ResponseBody Map<String, Object> delete(@PathVariable ID id) {
+    public Map<String, Object> delete(@PathVariable ID id) {
         this.repo.delete(id);
         Map<String, Object> m = Maps.newHashMap();
         m.put("success", true);

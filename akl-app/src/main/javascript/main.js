@@ -33,6 +33,8 @@ require('angular-ui-router');
 require('angular-ui-sortable');
 require('angular-moment');
 require('restangular');
+require('angulartics');
+require('angulartics-google-analytics');
 
 // App files
 require('./scripts/app/app');
@@ -147,4 +149,3 @@ require('./scripts/app/entities/group/group-teams.controller.js');
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-78802312-1', 'auto');
-ga('send', 'pageview');

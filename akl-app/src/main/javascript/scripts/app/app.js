@@ -4,7 +4,7 @@ angular.module('aklApp', [
     'LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ui.bootstrap', 'ngResource', 'ui.router', 'ngCookies', 'angularFileUpload',
     'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache', 'restangular', 'ngSanitize',
-    'ui.sortable'
+    'ui.sortable', 'angulartics', 'angulartics.google.analytics'
 ])
 .run(function ($rootScope, $location, $window, $http, $state, $translate,
                Language, Auth, Principal, amMoment) {

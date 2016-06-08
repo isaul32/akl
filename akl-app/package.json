@@ -21,6 +21,8 @@
     "angular-ui-calendar": "1.0.2",
     "angular-ui-router": "0.2.18",
     "angular-ui-sortable": "0.14.2",
+    "angulartics": "1.0.3",
+    "angulartics-google-analytics": "0.1.4",
     "bootstrap-sass": "3.3.6",
     "ckeditor": "4.5.9",
     "font-awesome": "4.5.0",
