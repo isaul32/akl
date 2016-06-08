@@ -11,7 +11,8 @@
                 "own": "Your team"
             },
             "league": "League",
-            "groups": "Groups",
+            "group": "Groups",
+            "group.teams": "Teams to groups",
             "playoffs": "Playoffs",
             "final": "Final",
             "afterparty": "Afterparty",

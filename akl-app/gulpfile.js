@@ -161,6 +161,7 @@ gulp.task('dev', function () {
 
 gulp.task('watch', function() {
     gulp.watch(config.app + '**/*.js', ['browserify']);
+    gulp.watch(config.app + 'i18n/**/*', ['i18n']);
     gulp.watch(config.scss + '**/*.scss', ['sass']);
     gulp.watch([config.app + '**/*.html', '!' + config.dist + '**/*.html'], ['templates']);
 });

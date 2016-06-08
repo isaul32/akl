@@ -70,14 +70,14 @@
                         <td>{{team.description}}</td>
                         <td>
                             <div class="pull-right">
-                                <button type="submit" ng-if="isInactive(team)"
+                                <button type="button" ng-if="isInactive(team)"
                                         ng-click="activate(team.id)"
                                         class="btn btn-primary btn-sm">
                                     <span class="glyphicon glyphicon-ok"></span>
 
                                     <span translate="aklApp.team.activate">Activate</span>
                                 </button>
-                                <button type="submit" ng-if="team.captain.id === account.id"
+                                <button type="button" ng-if="team.captain.id === account.id"
                                         ui-sref="team.edit({id:team.id})"
                                         class="btn btn-primary btn-sm">
                                     <span class="glyphicon glyphicon-pencil"></span>&nbsp;

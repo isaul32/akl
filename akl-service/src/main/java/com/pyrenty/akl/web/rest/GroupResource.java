@@ -28,13 +28,13 @@ public class GroupResource extends RESTResource<Group, Long> {
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
-    public Map<String, Object> update(@PathVariable Long aLong, @RequestBody Group json) {
-        return super.update(aLong, json);
+    public Map<String, Object> update(@PathVariable Long id, @RequestBody Group json) {
+        return super.update(id, json);
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
-    public Map<String, Object> delete(@PathVariable Long aLong) {
-        return super.delete(aLong);
+    public Map<String, Object> delete(@PathVariable Long id) {
+        return super.delete(id);
     }
 }

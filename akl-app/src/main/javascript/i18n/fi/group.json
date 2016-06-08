@@ -1,0 +1,19 @@
+{
+  "aklApp": {
+    "group": {
+      "home": {
+        "title": "Lohkopelit",
+        "createLabel": "Luo lohko",
+        "createOrEditLabel": "Luo tai muokkaa lohkoa",
+        "addTeams": "Lisää tiimit lohkoihin",
+        "createTournament": "Luo turnaus lohkoista"
+      },
+      "name": "Nimi",
+      "toListing": "Takaisin lohkoihin",
+      "addTeamsTitle": "Tiimien lisääminen lohkoihin",
+      "groups": "Lohkot",
+      "teams": "Tiimit",
+      "addTeamsInfo": "Vedä hiirellä tiimit lohkoiihn."
+    }
+  }
+}

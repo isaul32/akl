@@ -1,0 +1,52 @@
+<div class="container">
+
+    <h1 translate="aklApp.group.addTeamsTitle">Add teams to groups</h1>
+
+    <p translate="aklApp.group.addTeamsInfo">Drag teams to groups with mouse.</p>
+
+    <h2>
+        <span translate="aklApp.group.teams">Teams</span>
+        <span>[{{ teams.length }}]</span>
+    </h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div ui-sortable="sortableOptions" ng-model="teams" class="group-container clearfix" id="0">
+                <div ng-repeat="team in teams">
+                    {{team.tag}}&nbsp;{{team.name}}&nbsp;{{ team.rank | uppercase }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 translate="aklApp.group.groups">Groups</h2>
+
+    <div class="row">
+        <div ng-repeat="group in groups">
+            <div class="clearfix" ng-if="$index % 3 == 0"></div>
+            <div class="col-md-4">
+                <div class="panel panel-groups">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ group.name }} [{{ group.teams.length }}]</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div ui-sortable="sortableOptions" ng-model="group.teams" class="group-container clearfix" id="{{ group.id }}">
+                            <div ng-repeat="team in group.teams">
+                                {{team.tag}}&nbsp;{{team.name}}&nbsp;{{ team.rank | uppercase }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<pre>{{ teams | json }}</pre>
+    <pre>{{ groups | json }}</pre>-->
+
+    <button type="button" ui-sref="^" class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
+        <span translate="aklApp.group.toListing">Back to team listing</span>
+    </button>
+
+</div>

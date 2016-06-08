@@ -6,5 +6,10 @@ angular.module('aklApp')
             .state('entity', {
                 abstract: true,
                 parent: 'site'
-            });
+            })
+            .state('league', {
+                abstract: true,
+                parent: 'site'
+            })
+        ;
     });

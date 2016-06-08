@@ -14,6 +14,7 @@ require('../../../node_modules/fullcalendar/dist/gcal');
 require('json3');
 require('messageformat');
 require('bootstrap-sass');
+require('jquery-ui');
 
 require('angular');
 require('angular-cookies');
@@ -29,6 +30,7 @@ require('angular-translate-storage-cookie');
 require('angular-ui-bootstrap');
 require('angular-ui-calendar');
 require('angular-ui-router');
+require('angular-ui-sortable');
 require('angular-moment');
 require('restangular');
 
@@ -133,6 +135,10 @@ require('./scripts/app/entities/team/team.controller');
 require('./scripts/app/entities/team/team-detail.controller');
 require('./scripts/app/entities/team/team-dialog.controller');
 require('./scripts/app/entities/team/team-member-dialog.controller');
+require('./scripts/app/entities/group/group');
+require('./scripts/app/entities/group/group.controller');
+require('./scripts/app/entities/group/group-dialog.controller');
+require('./scripts/app/entities/group/group-teams.controller.js');
 
 
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -11,7 +11,8 @@
                 "own": "Oma joukkue"
             },
             "league": "Liiga",
-            "groups": "Lohkopelit",
+            "group": "Lohkopelit",
+            "group.teams": "Tiimit lohkoihin",
             "playoffs": "Pudotuspelit",
             "final": "Finaali",
             "afterparty": "Jatkobileet",

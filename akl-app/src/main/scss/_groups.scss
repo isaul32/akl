@@ -1,0 +1,35 @@
+.panel-groups {
+  // border, text, heading, inner border
+  @include panel-variant($primary-bg-color, white, $primary-bg-color, $secondary-green-color);
+  border-radius: 0;
+  border-width: 2px;
+  .panel-heading {
+    border-radius: 0;
+    border-width: 4px;
+  }
+}
+
+.table-groups {
+  > thead,
+  > tbody,
+  > tfoot {
+    > tr {
+      > th,
+      > td {
+        border-top: 1px solid $green-color;
+      }
+    }
+  }
+}
+
+.group-container {
+  border: dashed 2px lightgray;
+  min-height: 100px;
+  & > div {
+    display: block;
+    float: left;
+    clear: left;
+    cursor: move;
+    margin: 5px;
+  }
+}

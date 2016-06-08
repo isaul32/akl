@@ -5,7 +5,7 @@ html {
 
 body {
     margin-bottom: $footer-height + $line-height-computed;
-    background-color: #fafafa;
+    background-color: $bg-color;
     font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
 }
@@ -118,4 +118,13 @@ ul#strength {
     color: inherit;
     padding: 0;
     margin: 0;
+}
+
+.panel-heading h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: normal;
+    width: 75%;
+    padding-top: 8px;
 }

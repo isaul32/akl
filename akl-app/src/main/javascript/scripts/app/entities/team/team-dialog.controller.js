@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('aklApp').controller('TeamDialogController',
-       ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Team', 'AccountTeam',
-        function($scope, $stateParams, $uibModalInstance, entity, Team, AccountTeam) {
+       ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Team',
+        function($scope, $stateParams, $uibModalInstance, entity, Team) {
 
         $scope.team = entity;
         $scope.load = function(id) {

@@ -1,0 +1,19 @@
+{
+  "aklApp": {
+    "group": {
+      "home": {
+        "title": "Group games",
+        "createLabel": "Create a group",
+        "createOrEditLabel": "Create or edit group",
+        "addTeams": "Add tems to groups",
+        "createTournament": "create a tournament"
+      },
+      "name": "Name",
+      "toListing": "Back to group listing",
+      "addTeamsTitle": "Add teams to groups",
+      "groups": "Groups",
+      "teams": "Teams",
+      "addTeamsInfo": "Drag teams to groups with mouse."
+    }
+  }
+}
