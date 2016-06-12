@@ -10,24 +10,26 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-condensed table-striped table-bordered">
-                <thead>
-                <tr>
-                    <th ng-click="predicate = 'prefix'; reverse=!reverse" class="col-sm-4"><span translate="configuration.table.prefix">Prefix</span></th>
-                    <th translate="configuration.table.properties" class="col-sm-8">Properties</th>
-                </tr>
-                </thead>
+            <div class="table-responsive">
+                <table class="table table-condensed table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th ng-click="predicate = 'prefix'; reverse=!reverse" class="col-sm-4"><span translate="configuration.table.prefix">Prefix</span></th>
+                        <th translate="configuration.table.properties" class="col-sm-8">Properties</th>
+                    </tr>
+                    </thead>
 
-                <tr ng-repeat="entry in configuration | filter:filter | orderBy:predicate:reverse">
-                    <td><span>{{entry.prefix}}</span></td>
-                    <td>
-                        <div class="row" ng-repeat="(key, value) in entry.properties">
-                            <div class="col-md-4">{{key}}</div>
-                            <div class="col-md-8"><span class="pull-right label label-info" style="white-space: normal;word-break:break-all">{{value}}</span></div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                    <tr ng-repeat="entry in configuration | filter:filter | orderBy:predicate:reverse">
+                        <td><span>{{entry.prefix}}</span></td>
+                        <td>
+                            <div class="row" ng-repeat="(key, value) in entry.properties">
+                                <div class="col-md-4">{{key}}</div>
+                                <div class="col-md-8"><span class="pull-right label label-info" style="white-space: normal;word-break:break-all">{{value}}</span></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>

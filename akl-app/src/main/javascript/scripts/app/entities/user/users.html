@@ -78,51 +78,53 @@
 
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-stiped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nickname</th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>Email</th>
-                        <th>Community ID</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="(index, user) in users">
-                        <td>{{ user.id }}</td>
-                        <td>
-                            <a ui-sref="user({ id: user.id })">
-                                {{ user.nickname }}
-                            </a>
-                        </td>
-                        <td>{{ user.firstName }}</td>
-                        <td>{{ user.lastName }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>
-                            <a ng-href="https://steamcommunity.com/profiles/{{ user.communityId }}">{{ user.communityId }}</a>
-                        </td>
-                        <td>
-                            <div class="pull-right">
-                                <button type="submit"
-                                        ng-click="openAuthorities(index)"
-                                        class="btn btn-primary btn-sm">
-                                    <span class="glyphicon glyphicon-ok"></span>&nbsp;
-                                    <span translate="user.authorities">Authorities</span>
-                                </button>
-                                <button type="submit"
-                                        ng-click="delete(index)"
-                                        class="btn btn-danger btn-sm">
-                                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;
-                                    <span translate="entity.action.delete">Delete</span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-stiped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nickname</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Email</th>
+                            <th>Community ID</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="(index, user) in users">
+                            <td>{{ user.id }}</td>
+                            <td>
+                                <a ui-sref="user({ id: user.id })">
+                                    {{ user.nickname }}
+                                </a>
+                            </td>
+                            <td>{{ user.firstName }}</td>
+                            <td>{{ user.lastName }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                <a ng-href="https://steamcommunity.com/profiles/{{ user.communityId }}">{{ user.communityId }}</a>
+                            </td>
+                            <td>
+                                <div class="btn-group pull-right">
+                                    <button type="submit"
+                                            ng-click="openAuthorities(index)"
+                                            class="btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-ok"></span>&nbsp;
+                                        <span translate="user.authorities">Authorities</span>
+                                    </button>
+                                    <button type="submit"
+                                            ng-click="delete(index)"
+                                            class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;
+                                        <span translate="entity.action.delete">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <div class="text-center">
                 <uib-pagination direction-links="false"
