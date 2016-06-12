@@ -77,4 +77,11 @@ public class GroupResource {
     public void delete(@PathVariable Long id) {
         groupRepository.delete(id);
     }
+
+    /*@Timed
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(method=RequestMethod.POST)
+    public void createTournament() {
+
+    }*/
 }

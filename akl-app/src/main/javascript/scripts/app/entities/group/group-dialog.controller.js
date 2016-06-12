@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('aklApp')
-.controller('GroupDialogController', ['$scope', '$uibModalInstance', 'entity', 'Api', function ($scope, $uibModalInstance, entity, Api) {
-    $scope.group = entity.data;
-
+.controller('GroupDialogController', function ($scope, $uibModalInstance, group, Api) {
+    $scope.group = group.data;
+    
     $scope.save = function () {
         if ($scope.group.id != null) {
             $scope.group.put().then(function () {
@@ -25,4 +25,4 @@ angular.module('aklApp')
     $scope.clear = function () {
         $uibModalInstance.dismiss('cancel');
     };
-}]);
+});

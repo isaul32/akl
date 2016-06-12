@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div id="leaveTeamConfirmation" class="modal fade">
+    <!--<div id="leaveTeamConfirmation" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form name="requestForm" ng-submit="sendLeaveTeam()">
@@ -72,7 +72,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <div class="row" ng-hide="team == null">
         <div class="col-md-12">
@@ -178,21 +178,27 @@
 
     <div class="row">
         <div class="col-md-12">
-            <button type="submit"
+            <button type="button"
                     ui-sref="team"
                     class="btn btn-info">
                 <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
                 <span translate="aklApp.team.toListing">Back to team listing</span>
             </button>
-            <button type="submit" ng-if="isAuthenticated() && account.activated && !account.teamId && !account.requested"
+            <button type="button" ng-if="isAuthenticated() && account.activated && !account.teamId && !account.requested"
                     class="btn btn-primary" ng-click="requestInvite()">
                 <span class="glyphicon glyphicon-envelope"></span>&nbsp;
                 <span translate="aklApp.team.requestMembership">Request membership</span>
             </button>
-            <button type="submit" ng-if="isAuthenticated() && account.teamId === team.id"
+            <!--<button type="button" ng-if="isAuthenticated() && account.teamId === team.id"
                     class="btn btn-danger" ng-click="leaveTeam()">
                 <span class="glyphicon glyphicon-remove"></span>&nbsp;
                 <span translate="aklApp.team.leaveTeam">Leave team</span>
+            </button>-->
+            <button type="button" ng-if="isAuthenticated() && account.teamId === team.id"
+                    has-role="ROLE_ADMIN"
+                    class="btn btn-primary" ui-sref="team.detail.schedule">
+                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
+                <span translate="aklApp.team.addSchedule">Add calendarEvent</span>
             </button>
         </div>
     </div>

@@ -56,7 +56,8 @@
             "standins": "Varajäsenet",
             "requestMembership": "Pyydä jäsenyyttä",
             "captainNotice": "HUOM: Kun luot uuden tiimin, sinusta tulee tiimin kapteeni. Vain tiimin kapteeni (ja ylläpitäjät) voivat muokata tiimin tietoja ja hyväksyä/hylätä tiimin jäsenpyyntöjä",
-            "authorizationNotice": "Tiimit hyväksytään manuaalisesti ylläpidon toimesta. Tiimit eivät näy julkisesti ennen hyväksyntää"
+            "authorizationNotice": "Tiimit hyväksytään manuaalisesti ylläpidon toimesta. Tiimit eivät näy julkisesti ennen hyväksyntää",
+            "addSchedule": "Lisää oma aikataulu"
         }
     }
 }

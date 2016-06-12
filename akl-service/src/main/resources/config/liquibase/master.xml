@@ -12,4 +12,7 @@
     <include file="classpath:config/liquibase/changelog/5_added_team_request.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/6_change_team_request_constraint.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/7_added_entity_group.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/8_change_group_constraint.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/9_reset_team_activation.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/10_added_entity_calendar_event.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

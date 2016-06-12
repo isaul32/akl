@@ -128,3 +128,21 @@ ul#strength {
     width: 75%;
     padding-top: 8px;
 }
+
+.fc-agendaWeek-view {
+    tr {
+        height: 40px;
+    }
+}
+
+.calendar-event {
+    background-color: red;
+    border: none;
+    border-radius: 0;
+    margin: 2px;
+    padding: 2px;
+}
+
+.calendar-event-green {
+    background-color: green;
+}

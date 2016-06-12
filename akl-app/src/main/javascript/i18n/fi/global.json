@@ -13,6 +13,8 @@
             "league": "Liiga",
             "group": "Lohkopelit",
             "group.teams": "Tiimit lohkoihin",
+            "group.new": "Uusi lohko",
+            "group.edit": "Muokkaa lohkoa",
             "playoffs": "Pudotuspelit",
             "final": "Finaali",
             "afterparty": "Jatkobileet",
@@ -44,6 +46,9 @@
                 "apidocs": "API",
                 "database": "Database"
             },
+            "steam": "Kirjautuminen",
+            "login": "Kirjautuminen",
+            "requestReset": "Salasanan palauttaminen",
             "language": "Kieli",
             "team": "Joukkueet",
             "team.detail": "Joukkue",

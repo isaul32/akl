@@ -1,23 +1,24 @@
 package com.pyrenty.akl.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.pyrenty.akl.domain.CalendarEvent;
 import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.domain.enumeration.MembershipRole;
+import com.pyrenty.akl.repository.CalendarEventRepository;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.InvalidRoleException;
-import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.TeamService;
 import com.pyrenty.akl.service.UserService;
+import com.pyrenty.akl.web.rest.dto.TeamDTO;
 import com.pyrenty.akl.web.rest.dto.TeamRequestDTO;
 import com.pyrenty.akl.web.rest.dto.UserPublicDTO;
 import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
+import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 import com.pyrenty.akl.web.rest.mapper.UserMapper;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
-import com.pyrenty.akl.web.rest.dto.TeamDTO;
-import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -34,7 +35,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
@@ -69,7 +69,10 @@ public class TeamResource {
     @Inject
     private TeamService teamService;
 
-    @PreAuthorize("isAuthenticated()")
+    @Inject
+    private CalendarEventRepository eventRepository;
+
+    /*@PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
     @Timed
     public ResponseEntity<TeamDTO> create(@Valid @RequestBody TeamDTO teamDTO) throws URISyntaxException {
@@ -88,7 +91,7 @@ public class TeamResource {
         return ResponseEntity.created(new URI("/api/teams/" + team.getId()))
                 .headers(HeaderUtil.createAlert("Team created", team.getId().toString()))
                 .body(teamMapper.teamToTeamDTO(team));
-    }
+    }*/
 
     @RequestMapping(method = RequestMethod.GET)
     @Timed
@@ -97,16 +100,10 @@ public class TeamResource {
                                                 HttpServletRequest request) throws URISyntaxException {
         log.debug("REST request to get all Teams");
 
-        Page<Team> page;
         Pageable paging = PaginationUtil.generatePageRequest(offset, limit, new Sort(
                 new Sort.Order(Sort.Direction.ASC, "id")
         ));
-
-        if (request.isUserInRole("ROLE_ADMIN")) {
-            page = teamRepository.findAll(paging);
-        } else {
-            page = teamRepository.findByActivated(true, paging);
-        }
+        Page<Team> page = teamRepository.findAll(paging);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);
         return new ResponseEntity<>(page.getContent().stream()
@@ -165,7 +162,7 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/{id}/leave", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/{id}/leave", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
     @Timed
     public ResponseEntity<Team> leaveTeam(@PathVariable Long id) {
@@ -194,7 +191,7 @@ public class TeamResource {
                     return new ResponseEntity<>(team, HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
+    }*/
 
     @RequestMapping(value = "/{id}/requests", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
@@ -261,7 +258,7 @@ public class TeamResource {
             throw new AccessDeniedException("You are not allowed to accept membership requests");
         }
 
-        if (!teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER.toString()) &&
+        if (/*!teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER.toString()) &&*/
                 !teamRequest.getRole().equals(MembershipRole.ROLE_STANDIN.toString())) {
             throw new InvalidRoleException();
         }
@@ -332,9 +329,9 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasRole('ADMIN')")
     @Timed
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.debug("REST request to delete Team : {}", id);
 
@@ -343,4 +340,18 @@ public class TeamResource {
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("Team deleted", id.toString())).build();
     }
 
+    @Timed
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/{id}/schedule", method = RequestMethod.GET)
+    public ResponseEntity<List<CalendarEvent>> getSchedule(@PathVariable Long id) {
+        return ResponseEntity.ok(eventRepository.findAll());
+    }
+
+    @Timed
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/{id}/schedule", method = RequestMethod.POST)
+    public ResponseEntity<List<CalendarEvent>> updateSchedule(@PathVariable Long id, @RequestBody Set<CalendarEvent> events) {
+
+        return ResponseEntity.ok(eventRepository.save(events));
+    }
 }

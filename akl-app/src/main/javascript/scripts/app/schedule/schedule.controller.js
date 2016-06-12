@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aklApp')
-    .controller('ScheduleController', function ($scope, SERVICE_URL, $compile) {
+    .controller('ScheduleController', function ($scope, SERVICE_URL, $compile, $translate) {
 
         $scope.gcalEvents = {
             googleCalendarApiKey: 'AIzaSyBrwxD8d4zhA7kDMXt-KH-prQvyrSRnZXk',
@@ -32,10 +32,10 @@ angular.module('aklApp')
 
         $scope.uiConfig = {
             calendar: {
+                lang: $translate.use(),
                 editable: false,
-                firstDay: 1,
                 displayEventEnd: true,
-                timeFormat: 'H(:mm)',
+                firstDay: 1,
                 header: {
                     left: 'title',
                     center: '',

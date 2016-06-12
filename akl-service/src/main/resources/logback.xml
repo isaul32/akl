@@ -46,6 +46,7 @@
     <logger name="sun.net.www.protocol.http.HttpURLConnection" level="OFF"/>
     <logger name="com.pyrenty.akl.async.TwitchScheduledJob" level="OFF"/>
     <logger name="io.undertow.request" level="OFF"/>
+    <logger name="org.openid4java.server.RealmVerifier" level="OFF"/>
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>

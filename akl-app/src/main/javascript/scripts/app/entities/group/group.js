@@ -38,7 +38,7 @@ angular.module('aklApp')
                     controller: 'GroupDialogController',
                     size: 'lg',
                     resolve: {
-                        entity: function () {
+                        group: function () {
                             return {
                                 data: {}
                             };
@@ -65,7 +65,7 @@ angular.module('aklApp')
                     controller: 'GroupDialogController',
                     size: 'lg',
                     resolve: {
-                        entity: function () {
+                        group: function () {
                             return Api.one('groups', $stateParams.id).get();
                         }
                     }

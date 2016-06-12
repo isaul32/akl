@@ -33,9 +33,9 @@ public class Group extends AbstractAuditingEntity implements Serializable {
     @Setter
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "akl_group_team", inverseJoinColumns = {
-            @JoinColumn(name = "group_id")
-    }, joinColumns = {
             @JoinColumn(name = "team_id")
+    }, joinColumns = {
+            @JoinColumn(name = "group_id")
     })
     private Set<Team> teams = new HashSet<>();
 }

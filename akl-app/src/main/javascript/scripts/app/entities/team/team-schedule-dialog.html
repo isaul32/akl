@@ -1,0 +1,29 @@
+<form name="editForm" role="form" ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myTeamLabel" translate="aklApp.team.addSchedule">Add own calendarEvent</h4>
+    </div>
+
+    <div class="modal-body">
+
+        <akl-alert-error></akl-alert-error>
+
+        <p>Valitkaa tiimillenne sopivat peliajat klikkailemalla kalenterissa olevia aikoja. Täyttäkää kalenteria säännöllisesti ainakin pari viikkoa eteenpäin.</p>
+
+        <div ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="scheduleCalendar"></div>
+
+        <pre>{{ selectedEvents | json}}</pre>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+
+</form>
