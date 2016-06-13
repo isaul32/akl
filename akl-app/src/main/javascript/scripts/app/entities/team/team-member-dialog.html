@@ -5,16 +5,19 @@
         <h4 class="modal-title" id="myTeamLabel" translate="aklApp.team.request.acceptOrEdit">Accept or edit user membership</h4>
     </div>
     <div class="modal-body">
+
         <akl-alert-error></akl-alert-error>
+
         <p translate="aklApp.team.request.info">Select membership type to add a new member</p>
         <div class="form-group">
             <label translate="aklApp.team.request.role" for="role">Role</label>
             <select class="form-control" name="rank" ng-model="role" required id="role">
-              <!--<option value="ROLE_MEMBER" translate="aklApp.team.request.roles.member">Member</option>-->
+              <option value="ROLE_MEMBER" translate="aklApp.team.request.roles.member" ng-if="!team.activated">Member</option>
               <option value="ROLE_STANDIN" translate="aklApp.team.request.roles.standin">Standin</option>
             </select>
         </div>
     </div>
+
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
@@ -23,4 +26,5 @@
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
         </button>
     </div>
+
 </form>

@@ -8,17 +8,11 @@
     </div>
     <div class="modal-body">
         <akl-alert-error></akl-alert-error>
-        <!--<div class="form-group">
-            <label for="id" translate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                    ng-model="team.id" readonly>
-        </div>-->
 
-        <div class="form-group">
+        <div class="form-group" ng-if="!team.activated">
             <label translate="aklApp.team.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
-                   ng-model="team.name" required
-                   required ng-minlength="1" ng-maxlength="255">
+                   ng-model="team.name" required ng-minlength="1" ng-maxlength="255">
 
             <div ng-show="editForm.name.$invalid">
                 <p class="help-block"
@@ -36,11 +30,10 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-if="!team.activated">
             <label translate="aklApp.team.tag" for="field_tag">Tag</label>
             <input type="text" class="form-control" name="tag" id="field_tag"
-                    ng-model="team.tag" required
-                    required ng-minlength="1" ng-maxlength="16">
+                    ng-model="team.tag" required ng-minlength="1" ng-maxlength="16">
 
             <div ng-show="editForm.tag.$invalid">
                 <p class="help-block"
@@ -58,7 +51,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-if="!team.activated">
           <label translate="aklApp.team.representing" for="representing_tag">Representing</label>
           <input type="text" class="form-control" name="representing" id="representing_tag"
                  ng-model="team.representing" ng-maxlength="100">
@@ -72,20 +65,6 @@
             </p>
           </div>
         </div>
-
-        <!--<div class="form-group">
-            <label translate="aklApp.team.imageUrl" for="field_imageUrl">ImageUrl</label>
-            <input type="text" class="form-control" name="imageUrl" id="field_imageUrl"
-                    ng-model="team.imageUrl"
-                    ng-maxlength="255">
-
-            <div ng-show="editForm.imageUrl.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.imageUrl.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="255">
-                    This field cannot be longer than 255 characters.
-                </p>
-            </div>
-        </div>-->
 
         <div class="form-group">
             <label translate="aklApp.team.rank" for="field_rank">Rank</label>

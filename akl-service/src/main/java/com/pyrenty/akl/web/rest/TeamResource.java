@@ -140,9 +140,11 @@ public class TeamResource {
                     return team;
                 })
                 .map(team -> {
-                    team.setName(teamDTO.getName());
-                    team.setTag(teamDTO.getTag());
-                    team.setRepresenting(teamDTO.getRepresenting());
+                    if (!team.isActivated()) {
+                        team.setName(teamDTO.getName());
+                        team.setTag(teamDTO.getTag());
+                        team.setRepresenting(teamDTO.getRepresenting());
+                    }
                     team.setRank(teamDTO.getRank());
                     team.setDescription(teamDTO.getDescription());
                     teamRepository.save(team);
@@ -258,7 +260,7 @@ public class TeamResource {
             throw new AccessDeniedException("You are not allowed to accept membership requests");
         }
 
-        if (/*!teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER.toString()) &&*/
+        if (!teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER.toString()) &&
                 !teamRequest.getRole().equals(MembershipRole.ROLE_STANDIN.toString())) {
             throw new InvalidRoleException();
         }
@@ -277,6 +279,10 @@ public class TeamResource {
 
                     if (teamRequest.getRole().equals(MembershipRole.ROLE_STANDIN.toString()) && team.getStandins().size() >= 2) {
                         throw new CustomParameterizedException("Team have maximum amount of standins");
+                    }
+
+                    if (teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER.toString()) && team.isActivated()) {
+                        throw new CustomParameterizedException("Cannot add member to activated team");
                     }
 
                     return team;
