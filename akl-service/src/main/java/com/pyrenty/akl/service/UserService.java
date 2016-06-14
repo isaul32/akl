@@ -290,4 +290,33 @@ public class UserService {
     public Optional<User> getUser(Long id) {
         return Optional.ofNullable(userRepository.findOne(id));
     }
+
+    @Transactional(readOnly = true)
+    public String getUserAuthorityBySteamId(String steamId) {
+        return userRepository.findOneBySteamId(steamId)
+                .map(this::getUseAuthority)
+                .orElse(null);
+    }
+
+    @Transactional(readOnly = true)
+    public String getUserAuthorityByCommunityId(String communityId) {
+        return userRepository.findOneByCommunityId(communityId)
+                .map(this::getUseAuthority)
+                .orElse(null);
+    }
+
+    private String getUseAuthority(User user) {
+        if (user.getCaptain() != null) {
+            return "ROLE_CAPTAIN";
+        } else if (user.getMember() != null || user.getStandin() != null) {
+            return "ROLE_PLAYER";
+        }
+
+        for (Authority a : user.getAuthorities()) {
+            if (a.getName().equals("ROLE_ADMIN") || a.getName().equals("ROLE_REFEREE")) {
+                return a.getName();
+            }
+        }
+        return null;
+    }
 }

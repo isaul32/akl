@@ -126,21 +126,17 @@ public class UserResource {
 
     @RequestMapping(value = "/steamid/{steamId}", method = RequestMethod.GET)
     @Timed
-    ResponseEntity<Void> isSteamUserPlayer(@PathVariable String steamId) {
-        return userRepository.findOneBySteamId(steamId)
-                .map(user -> {
-                    if (user.getCaptain() != null || user.getMember() != null || user.getStandin() != null) {
-                        return new ResponseEntity<Void>(HttpStatus.OK);
-                    }
+    ResponseEntity<String> getUserAuthorityBySteamId(@PathVariable String steamId) {
+        return Optional.ofNullable(userService.getUserAuthorityBySteamId(steamId))
+                .map(ResponseEntity::ok)
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
-                    for (Authority a : user.getAuthorities()) {
-                        if (a.getName().equals("ROLE_ADMIN") || a.getName().equals("ROLE_REFEREE")) {
-                            return new ResponseEntity<Void>(HttpStatus.OK);
-                        }
-                    }
-
-                    return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-                })
+    @RequestMapping(value = "/communityid/{communityId}", method = RequestMethod.GET)
+    @Timed
+    ResponseEntity<String> getUserAuthorityByCommunityId(@PathVariable String communityId) {
+        return Optional.ofNullable(userService.getUserAuthorityByCommunityId(communityId))
+                .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
