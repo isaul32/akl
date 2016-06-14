@@ -38,4 +38,6 @@ public class Group extends AbstractAuditingEntity implements Serializable {
             @JoinColumn(name = "group_id")
     })
     private Set<Team> teams = new HashSet<>();
+
+    private String url;
 }

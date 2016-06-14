@@ -2,12 +2,17 @@ package com.pyrenty.akl.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Group;
+import com.pyrenty.akl.domain.Team;
+import com.pyrenty.akl.repository.ChallongeRepository;
 import com.pyrenty.akl.repository.GroupRepository;
 import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.web.rest.dto.GroupDTO;
+import com.pyrenty.akl.web.rest.dto.ParticipantDto;
+import com.pyrenty.akl.web.rest.dto.TournamentDto;
 import com.pyrenty.akl.web.rest.mapper.GroupMapper;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,11 +29,17 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/groups")
 public class GroupResource {
 
+    @Value("${akl.challonge.key}")
+    private String challongeKey;
+
     @Inject
     private GroupRepository groupRepository;
 
     @Inject
     private GroupMapper groupMapper;
+
+    @Inject
+    private ChallongeRepository challongeRepository;
 
     @Timed
     @RequestMapping(method = RequestMethod.GET)
@@ -78,10 +90,30 @@ public class GroupResource {
         groupRepository.delete(id);
     }
 
-    /*@Timed
+    @Timed
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(method=RequestMethod.POST)
-    public void createTournament() {
+    @RequestMapping(value = "/tournament", method=RequestMethod.POST)
+    public void createTournament() throws IOException {
+        for (Group group : groupRepository.findAll()) {
+            TournamentDto tournamentDto = new TournamentDto();
+            String url = String.valueOf(group.hashCode());
 
-    }*/
+            tournamentDto.setName(group.getName());
+            tournamentDto.setTournament_type("round robin");
+            tournamentDto.setUrl(url);
+
+            if (challongeRepository.createTournament(tournamentDto)) {
+                for (Team team : group.getTeams()) {
+                    ParticipantDto participantDto = new ParticipantDto();
+                    participantDto.setName(team.getName());
+                    if (!challongeRepository.createParticipant(tournamentDto, participantDto)) {
+                        challongeRepository.deleteTournament(tournamentDto);
+                        break;
+                    }
+                }
+            }
+
+            challongeRepository.startTournament(tournamentDto);
+        }
+    }
 }

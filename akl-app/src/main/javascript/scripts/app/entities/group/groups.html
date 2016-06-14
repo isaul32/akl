@@ -16,7 +16,7 @@
             <button type="button" class="btn btn-primary" ui-sref="group.teams">
                 <span class="glyphicon glyphicon-sort"></span>&nbsp;<span translate="aklApp.group.home.addTeams">Add teams to groups</span>
             </button>
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" ng-click="createTournament()">
                 <span class="glyphicon glyphicon-share"></span>&nbsp;<span translate="aklApp.group.home.createTournament">Create tournament</span>
             </button>
         </div>
@@ -26,6 +26,8 @@
 
     <div class="row">
         <div class="col-md-12">
+
+            <p ng-if="groups.length === 0" translate="aklApp.group.home.noGroupsYet">Groups are not yet made.</p>
 
             <div class="panel panel-groups" ng-repeat="group in groups">
                 <div class="panel-heading">
@@ -43,11 +45,11 @@
                                     <th translate="aklApp.team.tag">Tag</th>
                                     <th translate="aklApp.team.name">Name</th>
                                     <th translate="aklApp.team.rank">Rank</th>
-                                    <th>Score</th>
+                                    <!--<th  translate="aklApp.group.score">Score</th>-->
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="team in group.teams">
+                                <tr ng-repeat="team in group.teams | orderBy : 'id'">
                                     <td>{{team.tag}}</td>
                                     <td>
                                         <a ui-sref="team.detail({id:team.id})">
@@ -55,7 +57,7 @@
                                         </a>
                                     </td>
                                     <td>{{team.rank | uppercase}}</td>
-                                    <td>-</td>
+                                    <!--<td>-</td>-->
                                 </tr>
                             </tbody>
                         </table>

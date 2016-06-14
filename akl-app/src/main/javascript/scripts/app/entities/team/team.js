@@ -82,7 +82,7 @@ angular.module('aklApp')
             }
         })
         .state('team.edit', {
-            parent: 'team',
+            parent: 'team.detail',
             url: '/{id}/edit',
             data: {
                 roles: ['ROLE_USER']
@@ -98,7 +98,7 @@ angular.module('aklApp')
                         }
                     }
                 }).result.then(function (result) {
-                    $state.go('team', null, { reload: true });
+                    $state.go('team.detail', null, { reload: true });
                 }, function () {
                     $state.go('^');
                 })

@@ -12,7 +12,7 @@ import java.util.Map;
  * @see org.springframework.boot.actuate.audit.AuditEvent
  */
 @Entity
-@Table(name = "persistent_audit_event")
+@Table(name = "akl_persistent_audit_event")
 public class PersistentAuditEvent  {
 
     @Id
@@ -33,7 +33,7 @@ public class PersistentAuditEvent  {
     @ElementCollection
     @MapKeyColumn(name="name")
     @Column(name="value")
-    @CollectionTable(name="persistent_audit_evt_data", joinColumns=@JoinColumn(name="event_id"))
+    @CollectionTable(name="akl_persistent_audit_evt_data", joinColumns=@JoinColumn(name="event_id"))
     private Map<String, String> data = new HashMap<>();
 
     public Long getId() {

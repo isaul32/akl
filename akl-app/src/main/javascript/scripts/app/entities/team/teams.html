@@ -77,12 +77,6 @@
 
                                     <span translate="aklApp.team.activate">Activate</span>
                                 </button>
-                                <button type="button" ng-if="team.captain.id === account.id"
-                                        ui-sref="team.edit({id:team.id})"
-                                        class="btn btn-primary btn-sm">
-                                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;
-                                    <span translate="entity.action.edit">Edit</span>
-                                </button>
                                 <button type="button" ng-if="hasPermissions(team)"
                                         ng-click="delete(team.id)"
                                         class="btn btn-danger btn-sm">

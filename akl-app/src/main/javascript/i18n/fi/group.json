@@ -6,14 +6,16 @@
         "createLabel": "Luo lohko",
         "createOrEditLabel": "Luo tai muokkaa lohkoa",
         "addTeams": "Lisää tiimit lohkoihin",
-        "createTournament": "Luo turnaus lohkoista"
+        "createTournament": "Luo turnaus lohkoista",
+        "noGroupsYet": "Lohkoja ei ole vielä tehty."
       },
       "name": "Nimi",
       "toListing": "Takaisin lohkoihin",
       "addTeamsTitle": "Tiimien lisääminen lohkoihin",
       "groups": "Lohkot",
       "teams": "Tiimit",
-      "addTeamsInfo": "Vedä hiirellä tiimit lohkoiihn."
+      "addTeamsInfo": "Vedä hiirellä tiimit lohkoiihn.",
+      "score": "Pisteet"
     }
   }
 }

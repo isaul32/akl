@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="11" author="isaul">
+        <renameTable oldTableName="authority"
+                     newTableName="akl_authority"
+                     schemaName="public"/>
+        <renameTable oldTableName="user_authority"
+                     newTableName="akl_user_authority"
+                     schemaName="public"/>
+        <renameTable oldTableName="persistent_token"
+                     newTableName="akl_persistent_token"
+                     schemaName="public"/>
+        <renameTable oldTableName="persistent_audit_event"
+                     newTableName="akl_persistent_audit_event"
+                     schemaName="public"/>
+        <renameTable oldTableName="persistent_audit_evt_data"
+                     newTableName="akl_persistent_audit_evt_data"
+                     schemaName="public"/>
+        <renameTable oldTableName="game_server"
+                     newTableName="akl_game_server"
+                     schemaName="public"/>
+        <renameTable oldTableName="text"
+                     newTableName="akl_text"
+                     schemaName="public"/>
+        <renameTable oldTableName="team"
+                     newTableName="akl_team"
+                     schemaName="public"/>
+        <renameTable oldTableName="match_proposition"
+                     newTableName="akl_match_proposition"
+                     schemaName="public"/>
+        <renameTable oldTableName="team_request"
+                     newTableName="akl_team_request"
+                     schemaName="public"/>
+    </changeSet>
+</databaseChangeLog>

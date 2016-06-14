@@ -17,7 +17,7 @@ import java.util.Set;
 @Setter
 @Entity
 @EqualsAndHashCode
-@Table(name = "team")
+@Table(name = "akl_team")
 public class Team implements Serializable {
 
     @Id
@@ -64,7 +64,7 @@ public class Team implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinTable(
-            name = "team_request",
+            name = "akl_team_request",
             joinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
     )

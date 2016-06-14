@@ -189,6 +189,12 @@
                 <span class="glyphicon glyphicon-envelope"></span>&nbsp;
                 <span translate="aklApp.team.requestMembership">Request membership</span>
             </button>
+            <button type="button" ng-if="team.captain.id === account.id"
+                    ui-sref="team.edit({id:team.id})"
+                    class="btn btn-primary">
+                <span class="glyphicon glyphicon-pencil"></span>&nbsp;
+                <span translate="entity.action.edit">Edit</span>
+            </button>
             <!--<button type="button" ng-if="isAuthenticated() && account.teamId === team.id"
                     class="btn btn-danger" ng-click="leaveTeam()">
                 <span class="glyphicon glyphicon-remove"></span>&nbsp;

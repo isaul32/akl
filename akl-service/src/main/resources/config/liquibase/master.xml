@@ -15,4 +15,5 @@
     <include file="classpath:config/liquibase/changelog/8_change_group_constraint.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/9_reset_team_activation.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/10_added_entity_calendar_event.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/11_added_missing_table_prefixs.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
