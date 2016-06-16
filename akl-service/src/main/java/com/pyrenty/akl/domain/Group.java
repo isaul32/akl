@@ -39,5 +39,11 @@ public class Group extends AbstractAuditingEntity implements Serializable {
     })
     private Set<Team> teams = new HashSet<>();
 
+    @Getter
+    @Setter
     private String url;
+
+    @Getter
+    @Setter
+    private String subdomain;
 }

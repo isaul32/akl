@@ -53,6 +53,10 @@ public class ChallongeRepository {
                 + ".json", "DELETE", "");
     }
 
+    public boolean deleteAllTournaments(String subdomain, String tournamentUrl) {
+        return false;
+    }
+
     private boolean openConnection(String spec, String method, String data) throws IOException {
         URL url = new URL(spec);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
