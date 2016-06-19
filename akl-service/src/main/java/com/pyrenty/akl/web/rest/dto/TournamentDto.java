@@ -10,7 +10,7 @@ public class TournamentDto {
     @Length(max = 60)
     private String name;
     private String tournament_type;
-    private String subdomain = "akl";
+    private String subdomain;
     private String url;
     private String open_signup = "false";
     private String ranked_by = "match wins";

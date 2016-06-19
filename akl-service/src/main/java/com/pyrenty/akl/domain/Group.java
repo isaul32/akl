@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -41,6 +43,8 @@ public class Group extends AbstractAuditingEntity implements Serializable {
 
     @Getter
     @Setter
+    @Pattern(regexp = "^[a-z0-9]*$")
+    @NotNull
     private String url;
 
     @Getter

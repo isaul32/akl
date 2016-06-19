@@ -6,7 +6,6 @@ import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import org.joda.time.DateTime;
-import com.pyrenty.akl.service.util.RandomUtil;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;

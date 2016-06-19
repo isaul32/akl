@@ -10,6 +10,7 @@
         "noGroupsYet": "Groups are not yet made."
       },
       "name": "Name",
+      "url": "URL",
       "toListing": "Back to group listing",
       "addTeamsTitle": "Add teams to groups",
       "groups": "Groups",

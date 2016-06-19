@@ -61,6 +61,7 @@ public class GroupResource {
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(method= RequestMethod.POST)
     public GroupDTO create(@RequestBody GroupDTO dto) {
+        dto.setSubdomain("akl");
         Group group = groupRepository.save(groupMapper.groupDTOToGroup(dto));
         return groupMapper.groupToGroupDTO(group);
     }
@@ -96,11 +97,11 @@ public class GroupResource {
     public void createTournament() throws IOException {
         for (Group group : groupRepository.findAll()) {
             TournamentDto tournamentDto = new TournamentDto();
-            String url = String.valueOf(group.hashCode());
 
             tournamentDto.setName(group.getName());
             tournamentDto.setTournament_type("round robin");
-            tournamentDto.setUrl(url);
+            tournamentDto.setUrl(group.getUrl());
+            tournamentDto.setSubdomain(group.getSubdomain());
 
             if (challongeRepository.createTournament(tournamentDto)) {
                 for (Team team : group.getTeams()) {

@@ -31,6 +31,10 @@ public class ChallongeRepository {
         mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
     }
 
+    public void getTournament(TournamentDto dto) throws IOException {
+
+    }
+
     public boolean createTournament(TournamentDto dto) throws IOException {
         return openConnection("https://api.challonge.com/v1/tournaments.json", "POST", mapper.writeValueAsString(dto));
     }

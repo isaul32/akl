@@ -11,4 +11,6 @@ public class GroupDTO {
     private Long id;
     private String name;
     private Set<Team> teams = new HashSet<>();
+    private String url;
+    private String subdomain;
 }

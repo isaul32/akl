@@ -10,6 +10,7 @@
         "noGroupsYet": "Lohkoja ei ole vielä tehty."
       },
       "name": "Nimi",
+      "url": "URL",
       "toListing": "Takaisin lohkoihin",
       "addTeamsTitle": "Tiimien lisääminen lohkoihin",
       "groups": "Lohkot",
