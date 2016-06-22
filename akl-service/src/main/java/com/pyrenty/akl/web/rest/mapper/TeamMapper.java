@@ -1,7 +1,7 @@
 package com.pyrenty.akl.web.rest.mapper;
 
 import com.pyrenty.akl.domain.*;
-import com.pyrenty.akl.web.rest.dto.TeamDTO;
+import com.pyrenty.akl.dto.TeamDTO;
 
 import org.mapstruct.*;
 

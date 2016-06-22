@@ -1,14 +1,10 @@
 package com.pyrenty.akl.web.rest;
 
 import com.pyrenty.akl.Application;
-import com.pyrenty.akl.domain.Authority;
-import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.AuthorityRepository;
 import com.pyrenty.akl.repository.UserRepository;
-import com.pyrenty.akl.security.AuthoritiesConstants;
 import com.pyrenty.akl.service.MailService;
 import com.pyrenty.akl.service.UserService;
-import com.pyrenty.akl.web.rest.dto.UserDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,8 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
-import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyObject;

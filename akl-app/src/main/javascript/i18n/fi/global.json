@@ -11,7 +11,8 @@
                 "own": "Oma joukkue"
             },
             "league": "Liiga",
-            "group": "Lohkopelit",
+            "group": "Lohkot",
+            "group.state": "Lohkopelit",
             "group.teams": "Tiimit lohkoihin",
             "group.new": "Uusi lohko",
             "group.edit": "Muokkaa lohkoa",

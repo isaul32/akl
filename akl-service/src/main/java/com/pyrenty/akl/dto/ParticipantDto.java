@@ -1,4 +1,4 @@
-package com.pyrenty.akl.web.rest.dto;
+package com.pyrenty.akl.dto;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;

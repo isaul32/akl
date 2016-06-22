@@ -1,4 +1,4 @@
-package com.pyrenty.akl.domain.twitch;
+package com.pyrenty.akl.pojo.twitch;
 
 import lombok.Getter;
 import lombok.Setter;

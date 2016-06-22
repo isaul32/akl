@@ -6,9 +6,9 @@ import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.repository.ChallongeRepository;
 import com.pyrenty.akl.repository.GroupRepository;
 import com.pyrenty.akl.security.SecurityUtils;
-import com.pyrenty.akl.web.rest.dto.GroupDTO;
-import com.pyrenty.akl.web.rest.dto.ParticipantDto;
-import com.pyrenty.akl.web.rest.dto.TournamentDto;
+import com.pyrenty.akl.dto.GroupDTO;
+import com.pyrenty.akl.dto.ParticipantDto;
+import com.pyrenty.akl.pojo.challonge.Tournament;
 import com.pyrenty.akl.web.rest.mapper.GroupMapper;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
 import org.joda.time.DateTime;
@@ -73,6 +73,7 @@ public class GroupResource {
         return Optional.ofNullable(groupRepository.findOne(id))
                 .map(group -> {
                     group.setName(dto.getName());
+                    group.setUrl(dto.getUrl());
                     group.setTeams(dto.getTeams());
                     group.setLastModifiedDate(new DateTime());
                     group.setLastModifiedBy(SecurityUtils.getCurrentLogin());
@@ -96,25 +97,25 @@ public class GroupResource {
     @RequestMapping(value = "/tournament", method=RequestMethod.POST)
     public void createTournament() throws IOException {
         for (Group group : groupRepository.findAll()) {
-            TournamentDto tournamentDto = new TournamentDto();
+            Tournament tournament = new Tournament();
 
-            tournamentDto.setName(group.getName());
-            tournamentDto.setTournament_type("round robin");
-            tournamentDto.setUrl(group.getUrl());
-            tournamentDto.setSubdomain(group.getSubdomain());
+            tournament.setName(group.getName());
+            tournament.setTournament_type("round robin");
+            tournament.setUrl(group.getUrl());
+            tournament.setSubdomain(group.getSubdomain());
 
-            if (challongeRepository.createTournament(tournamentDto)) {
+            if (challongeRepository.createTournament(tournament)) {
                 for (Team team : group.getTeams()) {
                     ParticipantDto participantDto = new ParticipantDto();
                     participantDto.setName(team.getName());
-                    if (!challongeRepository.createParticipant(tournamentDto, participantDto)) {
-                        challongeRepository.deleteTournament(tournamentDto);
+                    if (!challongeRepository.createParticipant(tournament, participantDto)) {
+                        challongeRepository.deleteTournament(tournament);
                         break;
                     }
                 }
-            }
 
-            challongeRepository.startTournament(tournamentDto);
+                challongeRepository.startTournament(tournament);
+            }
         }
     }
 }

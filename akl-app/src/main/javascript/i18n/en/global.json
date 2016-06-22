@@ -12,6 +12,7 @@
             },
             "league": "League",
             "group": "Groups",
+            "group.state": "Groups state",
             "group.teams": "Teams to groups",
             "group.new": "New group",
             "group.edit": "Edit group",

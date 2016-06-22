@@ -292,31 +292,26 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public String getUserAuthorityBySteamId(String steamId) {
+    public Set<Authority> getUserAuthorityBySteamId(String steamId) {
         return userRepository.findOneBySteamId(steamId)
                 .map(this::getUseAuthority)
                 .orElse(null);
     }
 
     @Transactional(readOnly = true)
-    public String getUserAuthorityByCommunityId(String communityId) {
+    public Set<Authority> getUserAuthorityByCommunityId(String communityId) {
         return userRepository.findOneByCommunityId(communityId)
                 .map(this::getUseAuthority)
                 .orElse(null);
     }
 
-    private String getUseAuthority(User user) {
-        if (user.getCaptain() != null) {
-            return "ROLE_CAPTAIN";
-        } else if (user.getMember() != null || user.getStandin() != null) {
-            return "ROLE_PLAYER";
+    private Set<Authority> getUseAuthority(User user) {
+        Set<Authority> authorities = user.getAuthorities();
+
+        if (authorities.size() > 0) {
+            return authorities;
         }
 
-        for (Authority a : user.getAuthorities()) {
-            if (a.getName().equals("ROLE_ADMIN") || a.getName().equals("ROLE_REFEREE")) {
-                return a.getName();
-            }
-        }
         return null;
     }
 }

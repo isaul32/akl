@@ -2,7 +2,7 @@ package com.pyrenty.akl.service;
 
 import com.pyrenty.akl.domain.GameServer;
 import com.pyrenty.akl.repository.GameServerRepository;
-import com.pyrenty.akl.web.rest.dto.GameServerDTO;
+import com.pyrenty.akl.dto.GameServerDTO;
 import com.pyrenty.akl.web.rest.mapper.GameServerMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

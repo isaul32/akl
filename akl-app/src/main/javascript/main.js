@@ -77,6 +77,7 @@ require('./scripts/components/language/language.service');
 require('./scripts/components/language/language.controller');
 require('./scripts/components/tracker/tracker.service');
 require('./scripts/components/entities/team/team.service');
+require('./scripts/components/challonge/challonge.directive');
 
 require('./scripts/app/account/account');
 require('./scripts/app/account/activate/activate');

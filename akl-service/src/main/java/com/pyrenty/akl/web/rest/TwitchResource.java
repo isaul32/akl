@@ -1,7 +1,7 @@
 package com.pyrenty.akl.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.pyrenty.akl.domain.twitch.Twitch;
+import com.pyrenty.akl.pojo.twitch.Twitch;
 import com.pyrenty.akl.repository.TwitchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

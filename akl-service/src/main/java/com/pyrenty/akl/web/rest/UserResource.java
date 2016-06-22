@@ -5,8 +5,8 @@ import com.pyrenty.akl.domain.Authority;
 import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.service.UserService;
-import com.pyrenty.akl.web.rest.dto.UserExtendedDTO;
-import com.pyrenty.akl.web.rest.dto.UserPublicDTO;
+import com.pyrenty.akl.dto.UserExtendedDTO;
+import com.pyrenty.akl.dto.UserPublicDTO;
 import com.pyrenty.akl.web.rest.mapper.UserMapper;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
@@ -126,7 +126,7 @@ public class UserResource {
 
     @RequestMapping(value = "/steamid/{steamId}", method = RequestMethod.GET)
     @Timed
-    ResponseEntity<String> getUserAuthorityBySteamId(@PathVariable String steamId) {
+    ResponseEntity<Set<Authority>> getUserAuthorityBySteamId(@PathVariable String steamId) {
         return Optional.ofNullable(userService.getUserAuthorityBySteamId(steamId))
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -134,7 +134,7 @@ public class UserResource {
 
     @RequestMapping(value = "/communityid/{communityId}", method = RequestMethod.GET)
     @Timed
-    ResponseEntity<String> getUserAuthorityByCommunityId(@PathVariable String communityId) {
+    ResponseEntity<Set<Authority>> getUserAuthorityByCommunityId(@PathVariable String communityId) {
         return Optional.ofNullable(userService.getUserAuthorityByCommunityId(communityId))
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

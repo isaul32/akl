@@ -2,7 +2,7 @@ package com.pyrenty.akl.web.rest.mapper;
 
 import com.pyrenty.akl.domain.*;
 
-import com.pyrenty.akl.web.rest.dto.GroupDTO;
+import com.pyrenty.akl.dto.GroupDTO;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", uses = {})

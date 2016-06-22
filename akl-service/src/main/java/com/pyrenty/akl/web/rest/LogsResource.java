@@ -3,7 +3,7 @@ package com.pyrenty.akl.web.rest;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import com.codahale.metrics.annotation.Timed;
-import com.pyrenty.akl.web.rest.dto.LoggerDTO;
+import com.pyrenty.akl.dto.LoggerDTO;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

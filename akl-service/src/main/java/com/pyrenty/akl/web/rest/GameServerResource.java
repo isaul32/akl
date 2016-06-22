@@ -3,7 +3,7 @@ package com.pyrenty.akl.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.service.GameServerService;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
-import com.pyrenty.akl.web.rest.dto.GameServerDTO;
+import com.pyrenty.akl.dto.GameServerDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

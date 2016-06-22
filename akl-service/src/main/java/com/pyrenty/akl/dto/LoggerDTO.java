@@ -1,4 +1,4 @@
-package com.pyrenty.akl.web.rest.dto;
+package com.pyrenty.akl.dto;
 
 import ch.qos.logback.classic.Logger;
 import com.fasterxml.jackson.annotation.JsonCreator;

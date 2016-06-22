@@ -1,4 +1,4 @@
-package com.pyrenty.akl.web.rest.dto;
+package com.pyrenty.akl.dto;
 
 import com.pyrenty.akl.domain.enumeration.Rank;
 import lombok.Data;

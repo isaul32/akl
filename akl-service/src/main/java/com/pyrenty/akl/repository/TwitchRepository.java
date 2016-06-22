@@ -1,6 +1,6 @@
 package com.pyrenty.akl.repository;
 
-import com.pyrenty.akl.domain.twitch.Twitch;
+import com.pyrenty.akl.pojo.twitch.Twitch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

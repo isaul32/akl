@@ -6,5 +6,5 @@ angular.module('aklApp')
     
     $scope.createTournament = function () {
         $scope.groups.all('tournament').post();
-    }
+    };
 });

@@ -98,4 +98,28 @@ angular.module('aklApp')
                 }]
             }
         })
+        .state('group.state', {
+            parent: 'league',
+            url: '/groups/state',
+            data: {
+                roles: []
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'scripts/app/entities/group/group-state.html',
+                    controller: function ($scope) {
+                        $scope.options = {
+                            src: 'http://akl.challonge.com/2016/module?tab=groups&theme=4465'
+                        }
+                    }
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('group');
+                    $translatePartialLoader.addPart('team');
+                    return $translate.refresh();
+                }]
+            }
+        })
 });
