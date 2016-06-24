@@ -1,0 +1,8 @@
+{
+  "globalDependencies": {
+    "angular": "registry:dt/angular#1.5.0+20160619025852",
+    "jquery": "registry:dt/jquery#1.10.0+20160620094458",
+    "lodash": "registry:global/lodash#4.0.0+20160412191414",
+    "moment-node": "registry:dt/moment-node#2.11.1+20160511043338"
+  }
+}

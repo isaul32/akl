@@ -1,0 +1,69 @@
+<div class="container">
+
+    <akl-alert></akl-alert>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1 translate="aklApp.group.groups">Groups</h1>
+        </div>
+    </div>
+
+    <div class="row" has-role="ROLE_ADMIN">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary" ui-sref="groups.new">
+                <span class="glyphicon glyphicon-flash"></span>&nbsp;<span translate="aklApp.group.home.createLabel">Create a group</span>
+            </button>
+            <button type="button" class="btn btn-primary" ui-sref="groups.teams">
+                <span class="glyphicon glyphicon-sort"></span>&nbsp;<span translate="aklApp.group.home.addTeams">Add teams to groups</span>
+            </button>
+            <!--<button type="button" class="btn btn-primary" ng-click="createTournament()">
+                <span class="glyphicon glyphicon-share"></span>&nbsp;<span translate="aklApp.group.home.createTournament">Create tournament</span>
+            </button>-->
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <p ng-if="groups.length === 0" translate="aklApp.group.home.noGroupsYet">Groups are not yet made.</p>
+
+            <div class="panel panel-groups" ng-repeat="group in groups">
+                <div class="panel-heading">
+                    <h3 class="panel-title pull-left">{{ group.name }}</h3>
+                    <button type="button" class="btn btn-primary pull-right" ui-sref="groups.edit({ id:group.id })" has-role="ROLE_ADMIN">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span>Edit</span>
+                    </button>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-groups">
+                            <thead>
+                                <tr>
+                                    <th translate="aklApp.team.tag" class="col-md-4">Tag</th>
+                                    <th translate="aklApp.team.name" class="col-md-6">Name</th>
+                                    <th translate="aklApp.team.rank" class="col-md-2">Rank</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="team in group.teams | orderBy : 'id'">
+                                    <td>{{team.tag}}</td>
+                                    <td>
+                                        <a ui-sref="teams.detail({id:team.id})">
+                                            {{team.name}}
+                                        </a>
+                                    </td>
+                                    <td>{{team.rank | uppercase}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

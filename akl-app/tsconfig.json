@@ -1,0 +1,152 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "removeComments": true,
+    "noEmitOnError": false,
+    "sourceMap": true
+  },
+  "files": [
+    "typings/index.d.ts",
+
+    "src/main/app/globals.ts",
+
+    "src/main/app/app.ts",
+
+    "src/main/app/components/admin/audits.service.ts",
+    "src/main/app/components/admin/logs.service.ts",
+    "src/main/app/components/admin/configuration.service.ts",
+    "src/main/app/components/admin/monitoring.service.ts",
+
+    "src/main/app/components/alert/alert.service.ts",
+    "src/main/app/components/alert/alert.directive.ts",
+
+    "src/main/app/components/auth/auth.service.ts",
+    "src/main/app/components/auth/principal.service.ts",
+    "src/main/app/components/auth/authority.directive.ts",
+    "src/main/app/components/auth/services/account.service.ts",
+    "src/main/app/components/auth/services/activate.service.ts",
+    "src/main/app/components/auth/services/password.service.ts",
+    "src/main/app/components/auth/services/register.service.ts",
+    "src/main/app/components/auth/services/sessions.service.ts",
+    "src/main/app/components/auth/provider/auth.session.service.ts",
+
+    "src/main/app/components/challonge/challonge.directive.ts",
+
+    "src/main/app/components/ckeditor/ckeditor.directive.ts",
+    "src/main/app/components/ckeditor/ckeditor.controller.ts",
+
+    "src/main/app/components/entities/team/team.service.ts",
+
+    "src/main/app/components/footer/footer.controller.ts",
+
+    "src/main/app/components/form/form.directive.ts",
+    "src/main/app/components/form/maxbytes.directive.ts",
+    "src/main/app/components/form/minbytes.directive.ts",
+
+    "src/main/app/components/interceptor/auth.interceptor.ts",
+    "src/main/app/components/interceptor/errorhandler.interceptor.ts",
+    "src/main/app/components/interceptor/notification.interceptor.ts",
+
+    "src/main/app/components/language/language.service.ts",
+    "src/main/app/components/language/language.controller.ts",
+
+    "src/main/app/components/navbar/navbar.controller.ts",
+    "src/main/app/components/navbar/navbar.directive.ts",
+
+    "src/main/app/components/tracker/tracker.service.ts",
+
+    "src/main/app/components/util/api.service.ts",
+    "src/main/app/components/util/base64.service.ts",
+    "src/main/app/components/util/dateutil.service.ts",
+    "src/main/app/components/util/parse-links.service.ts",
+    "src/main/app/components/util/truncate.filter.ts",
+
+    "src/main/app/states/root.ts",
+
+    "src/main/app/states/account/account.ts",
+
+    "src/main/app/states/account/activate/activate.ts",
+
+    "src/main/app/states/account/activate/activate.controller.ts",
+
+    "src/main/app/states/account/login/login.ts",
+    "src/main/app/states/account/login/login.controller.ts",
+
+    "src/main/app/states/account/logout/logout.ts",
+    "src/main/app/states/account/logout/logout.controller.ts",
+
+    "src/main/app/states/account/password/password.ts",
+    "src/main/app/states/account/password/password.controller.ts",
+    "src/main/app/states/account/password/password.directive.ts",
+
+    "src/main/app/states/account/register/register.ts",
+    "src/main/app/states/account/register/register.controller.ts",
+
+    "src/main/app/states/account/reset/finish/reset.finish.ts",
+    "src/main/app/states/account/reset/finish/reset.finish.controller.ts",
+
+    "src/main/app/states/account/reset/request/reset.request.ts",
+    "src/main/app/states/account/reset/request/reset.request.controller.ts",
+
+    "src/main/app/states/account/sessions/sessions.ts",
+    "src/main/app/states/account/sessions/sessions.controller.ts",
+
+    "src/main/app/states/account/settings/settings.ts",
+    "src/main/app/states/account/settings/settings.controller.ts",
+
+    "src/main/app/states/account/steam/steam.ts",
+    "src/main/app/states/account/steam/steam.controller.ts",
+
+    "src/main/app/states/admin/admin.ts",
+
+    "src/main/app/states/admin/audits/audits.ts",
+    "src/main/app/states/admin/audits/audits.controller.ts",
+
+    "src/main/app/states/admin/configuration/configuration.ts",
+    "src/main/app/states/admin/configuration/configuration.controller.ts",
+
+    "src/main/app/states/admin/docs/docs.ts",
+
+    "src/main/app/states/admin/health/health.ts",
+    "src/main/app/states/admin/health/health.controller.ts",
+    "src/main/app/states/admin/health/health.modal.controller.ts",
+
+    "src/main/app/states/admin/logs/logs.ts",
+    "src/main/app/states/admin/logs/logs.controller.ts",
+
+    "src/main/app/states/admin/metrics/metrics.ts",
+    "src/main/app/states/admin/metrics/metrics.controller.ts",
+    "src/main/app/states/admin/metrics/metrics.modal.controller.ts",
+    "src/main/app/states/admin/tracker/tracker.ts",
+    "src/main/app/states/admin/tracker/tracker.controller.ts",
+
+    "src/main/app/states/error/error.ts",
+
+    "src/main/app/states/home/home.ts",
+    "src/main/app/states/home/home.controller.ts",
+
+    "src/main/app/states/league/league.ts",
+    "src/main/app/states/league/groups/groups.ts",
+    "src/main/app/states/league/groups/groups.dialog.controller.ts",
+    "src/main/app/states/league/groups/groups.teams.controller.ts",
+
+    "src/main/app/states/live/live.ts",
+
+    "src/main/app/states/rules/rules.ts",
+    "src/main/app/states/rules/rules.controller.ts",
+
+    "src/main/app/states/schedule/schedule.ts",
+    "src/main/app/states/schedule/schedule.controller.ts",
+
+    "src/main/app/states/teams/teams.ts",
+    "src/main/app/states/teams/teams.controller.ts",
+    "src/main/app/states/teams/teams.detail.controller.ts",
+    "src/main/app/states/teams/teams.dialog.controller.ts",
+    "src/main/app/states/teams/teams.member.dialog.controller.ts",
+    "src/main/app/states/teams/teams.detail.schedule.ts",
+
+    "src/main/app/states/users/users.ts",
+    "src/main/app/states/users/users.controller.ts"
+  ]
+}
