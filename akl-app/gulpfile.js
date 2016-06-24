@@ -14,6 +14,7 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     streamify = require('gulp-streamify'),
     ts = require('gulp-typescript'),
+    typings = require("gulp-typings"),
     source = require('vinyl-source-stream'),
     browserify = require('browserify'),
     del = require('del'),
@@ -44,6 +45,11 @@ var b = browserify({
 });
 
 // Tasks
+gulp.task("typings", function (){
+    return gulp.src("./typings.json")
+        .pipe(typings());
+});
+
 gulp.task('clean', function () {
     return del(config.dist);
 });
@@ -162,13 +168,13 @@ gulp.task('watch', function() {
     gulp.watch([config.app + '**/*.html', '!' + config.dist + '**/*.html'], ['templates']);
 });
 
-gulp.task('build', sequence('clean', ['dependencies', 'compile', 'templates', 'assets', 'views']));
-
 gulp.task('prod', function () {
     production = true;
 });
 
-gulp.task('dist', sequence('prod', 'build'));
+gulp.task('build', sequence('clean', ['dependencies', 'compile', 'templates', 'assets', 'views']));
+
+gulp.task('dist', sequence('prod', 'typings', 'build'));
 
 gulp.task('serve', sequence('build', ['dev', 'watch']));
 
