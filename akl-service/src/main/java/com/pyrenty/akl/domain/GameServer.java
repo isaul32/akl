@@ -22,19 +22,19 @@ public class GameServer implements Serializable {
     private String name;
 
     @Column(name = "server_ip")
-    private String server_ip;
+    private String serverIp;
 
     @Column(name = "rcon_ip")
-    private String rcon_ip;
+    private String rconIp;
 
     @Column(name = "rcon_password")
-    private String rcon_password;
+    private String rconPassword;
 
     @Column(name = "server_port")
-    private Integer server_port = 27015;
+    private Integer serverPort = 27015;
 
     @Column(name = "rcon_port")
-    private Integer rcon_port = 27015;
+    private Integer rconPort = 27015;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "state")

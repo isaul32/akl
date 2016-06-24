@@ -5,7 +5,7 @@ import lombok.Data;
 import org.joda.time.DateTime;
 
 @Data
-public class UserExtendedDTO {
+public class UserExtendedDto {
     private Long id;
     private String login;
     private String nickname;

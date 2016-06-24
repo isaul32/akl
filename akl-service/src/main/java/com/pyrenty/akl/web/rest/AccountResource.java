@@ -3,6 +3,7 @@ package com.pyrenty.akl.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Authority;
 import com.pyrenty.akl.domain.PersistentToken;
+import com.pyrenty.akl.dto.UserDto;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
@@ -10,9 +11,8 @@ import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.MailService;
 import com.pyrenty.akl.service.UserService;
 import com.pyrenty.akl.service.util.RandomUtil;
-import com.pyrenty.akl.dto.KeyAndPasswordDTO;
-import com.pyrenty.akl.dto.TeamDTO;
-import com.pyrenty.akl.dto.UserDTO;
+import com.pyrenty.akl.dto.KeyAndPasswordDto;
+import com.pyrenty.akl.dto.TeamDto;
 import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import org.apache.commons.lang.StringUtils;
@@ -60,15 +60,15 @@ public class AccountResource {
     // Normal register is not used
     /*@RequestMapping(value = "/register", method = RequestMethod.POST)
     @Timed
-    public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO, HttpServletRequest request) {
-        return userRepository.findOneByLogin(userDTO.getLogin())
+    public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDto userDto, HttpServletRequest request) {
+        return userRepository.findOneByLogin(userDto.getLogin())
             .map(user -> new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST))
-            .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
+            .orElseGet(() -> userRepository.findOneByEmail(userDto.getEmail())
                 .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
                 .orElseGet(() -> {
-                    User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
-                    userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
-                    userDTO.getLangKey());
+                    User user = userService.createUserInformation(userDto.getLogin(), userDto.getPassword(),
+                    userDto.getFirstName(), userDto.getLastName(), userDto.getEmail().toLowerCase(),
+                    userDto.getLangKey());
                     String baseUrl = request.getScheme() + // "http"
                     "://" +                                // "://"
                     request.getServerName() +              // "myhost"
@@ -108,9 +108,9 @@ public class AccountResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<UserDTO> getAccount() {
+    public ResponseEntity<UserDto> getAccount() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
-                .map(user -> ResponseEntity.ok(new UserDTO(
+                .map(user -> ResponseEntity.ok(new UserDto(
                         user.getId(),
                         user.getLogin(),
                         user.getNickname(),
@@ -145,10 +145,10 @@ public class AccountResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<TeamDTO> getTeam() {
+    public ResponseEntity<TeamDto> getTeam() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
                 .map(user -> teamRepository.findOneForUser(user.getId()))
-                .map(teamMapper::teamToTeamDTO)
+                .map(teamMapper::teamToTeamDto)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -160,9 +160,9 @@ public class AccountResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<String> saveAccount(@RequestBody UserDTO userDTO, HttpServletRequest request) {
+    public ResponseEntity<String> saveAccount(@RequestBody UserDto userDto, HttpServletRequest request) {
         return userRepository
-            .findOneByLogin(userDTO.getLogin())
+            .findOneByLogin(userDto.getLogin())
             .filter(u -> u.getLogin().equals(SecurityUtils.getCurrentLogin()))
             .map(u -> {
                 // Send activation message
@@ -176,19 +176,19 @@ public class AccountResource {
                             request.getServerName() +              // "myhost"
                             ":" +                                  // ":"
                             request.getServerPort();               // "80"
-                    u.setEmail(userDTO.getEmail());
+                    u.setEmail(userDto.getEmail());
                     mailService.sendActivationEmail(u, baseUrl);
                 } else {
                     // Lock email
-                    userDTO.setEmail(u.getEmail());
+                    userDto.setEmail(u.getEmail());
                 }
 
                 return u;
             })
             .map(u -> {
-                userService.updateUserInformation(userDTO.getNickname(), userDTO.getFirstName(), userDTO.getLastName(),
-                        userDTO.getEmail(), userDTO.getBirthdate(), userDTO.getGuild(),
-                        userDTO.getDescription(), userDTO.getRank(), userDTO.getLangKey(), u.getActivationKey());
+                userService.updateUserInformation(userDto.getNickname(), userDto.getFirstName(), userDto.getLastName(),
+                        userDto.getEmail(), userDto.getBirthdate(), userDto.getGuild(),
+                        userDto.getDescription(), userDto.getRank(), userDto.getLangKey(), u.getActivationKey());
                 return new ResponseEntity<String>(HttpStatus.OK);
             })
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -276,7 +276,7 @@ public class AccountResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<String> finishPasswordReset(@RequestBody KeyAndPasswordDTO keyAndPassword) {
+    public ResponseEntity<String> finishPasswordReset(@RequestBody KeyAndPasswordDto keyAndPassword) {
         if (!checkPasswordLength(keyAndPassword.getNewPassword())) {
             return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
         }
@@ -285,7 +285,7 @@ public class AccountResource {
     }
 
     private boolean checkPasswordLength(String password) {
-      return (!StringUtils.isEmpty(password) && password.length() >= UserDTO.PASSWORD_MIN_LENGTH && password.length() <= UserDTO.PASSWORD_MAX_LENGTH);
+      return (!StringUtils.isEmpty(password) && password.length() >= UserDto.PASSWORD_MIN_LENGTH && password.length() <= UserDto.PASSWORD_MAX_LENGTH);
     }
 
 }

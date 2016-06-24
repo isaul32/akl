@@ -3,10 +3,10 @@ package com.pyrenty.akl.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Authority;
 import com.pyrenty.akl.domain.User;
+import com.pyrenty.akl.dto.UserExtendedDto;
+import com.pyrenty.akl.dto.UserPublicDto;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.service.UserService;
-import com.pyrenty.akl.dto.UserExtendedDTO;
-import com.pyrenty.akl.dto.UserPublicDTO;
 import com.pyrenty.akl.web.rest.mapper.UserMapper;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
@@ -48,7 +48,7 @@ public class UserResource {
 
     @RequestMapping(value = "/public", method = RequestMethod.GET)
     @Timed
-    public ResponseEntity<List<UserPublicDTO>> getAllUsers(@RequestParam(value = "page", required = false) Integer offset,
+    public ResponseEntity<List<UserPublicDto>> getAllUsers(@RequestParam(value = "page", required = false) Integer offset,
                                                            @RequestParam(value = "per_page", required = false) Integer limit) throws URISyntaxException {
 
         Page<User> page = userService.getAllUsers(PaginationUtil.generatePageRequest(offset, limit, new Sort(
@@ -57,14 +57,14 @@ public class UserResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);
 
         return new ResponseEntity<>(page.getContent().stream()
-                .map(userMapper::userToUserPublicDTO)
+                .map(userMapper::userToUserPublicDto)
                 .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("hasRole('ADMIN')")
     @Timed
-    public ResponseEntity<List<UserExtendedDTO>> getAllExtendedUsers(@RequestParam(value = "page", required = false) Integer offset,
+    public ResponseEntity<List<UserExtendedDto>> getAllExtendedUsers(@RequestParam(value = "page", required = false) Integer offset,
                                                                      @RequestParam(value = "per_page", required = false) Integer limit) throws URISyntaxException {
 
         Page<User> page = userService.getAllUsers(PaginationUtil.generatePageRequest(offset, limit, new Sort(
@@ -73,7 +73,7 @@ public class UserResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);
 
         return new ResponseEntity<>(page.getContent().stream()
-                .map(userMapper::userToUserExtendedDTO)
+                .map(userMapper::userToUserExtendedDto)
                 .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
 
@@ -115,11 +115,11 @@ public class UserResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Timed
-    public ResponseEntity<UserPublicDTO> getUser(@PathVariable Long id) {
+    public ResponseEntity<UserPublicDto> getUser(@PathVariable Long id) {
         log.debug("REST request to get UserBaseDto : {}", id);
 
         return userService.getUser(id)
-                .map(userMapper::userToUserPublicDTO)
+                .map(userMapper::userToUserPublicDto)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

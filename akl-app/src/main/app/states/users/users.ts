@@ -36,7 +36,7 @@ angular.module('app')
     })
     .state('users.detail', {
         parent: 'root',
-        url: '/{id:int}',
+        url: '/users/{id}',
         data: {
             roles: []
         },

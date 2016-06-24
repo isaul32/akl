@@ -4,7 +4,7 @@ import com.pyrenty.akl.domain.enumeration.Rank;
 import lombok.Data;
 
 @Data
-public class UserPublicDTO {
+public class UserPublicDto {
     private Long id;
     private String nickname;
     private String firstName;

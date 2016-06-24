@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-public class TeamDTO {
+public class TeamDto {
     private Long id;
     private String tag;
     private String name;
@@ -16,7 +16,7 @@ public class TeamDTO {
     private Rank rank;
     private String description;
     private Boolean activated;
-    private UserPublicDTO captain;
-    private Set<UserPublicDTO> members = new HashSet<>();
-    private Set<UserPublicDTO> standins = new HashSet<>();
+    private UserPublicDto captain;
+    private Set<UserPublicDto> members = new HashSet<>();
+    private Set<UserPublicDto> standins = new HashSet<>();
 }

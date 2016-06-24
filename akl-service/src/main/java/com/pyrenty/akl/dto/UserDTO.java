@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserDto {
     public static final int PASSWORD_MIN_LENGTH = 5;
     public static final int PASSWORD_MAX_LENGTH = 100;
 

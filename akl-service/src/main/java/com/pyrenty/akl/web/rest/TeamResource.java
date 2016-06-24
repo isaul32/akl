@@ -5,15 +5,15 @@ import com.pyrenty.akl.domain.CalendarEvent;
 import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.domain.enumeration.MembershipRole;
+import com.pyrenty.akl.dto.TeamDto;
 import com.pyrenty.akl.repository.CalendarEventRepository;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.InvalidRoleException;
 import com.pyrenty.akl.service.TeamService;
 import com.pyrenty.akl.service.UserService;
-import com.pyrenty.akl.dto.TeamDTO;
-import com.pyrenty.akl.dto.TeamRequestDTO;
-import com.pyrenty.akl.dto.UserPublicDTO;
+import com.pyrenty.akl.dto.TeamRequestDto;
+import com.pyrenty.akl.dto.UserPublicDto;
 import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
 import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 import com.pyrenty.akl.web.rest.mapper.UserMapper;
@@ -75,18 +75,18 @@ public class TeamResource {
     /*@PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
     @Timed
-    public ResponseEntity<TeamDTO> create(@Valid @RequestBody TeamDTO teamDTO) throws URISyntaxException {
-        log.debug("REST request to save Team : {}", teamDTO);
+    public ResponseEntity<TeamDto> create(@Valid @RequestBody TeamDto teamDto) throws URISyntaxException {
+        log.debug("REST request to save Team : {}", teamDto);
 
         User user = userService.getUserWithAuthorities();
 
         if (!user.isActivated()) {
             throw new CustomParameterizedException("Can't create a team without an email set and activated");
-        } else if (teamDTO.getId() != null) {
+        } else if (teamDto.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new team cannot already have an ID").body(null);
         }
 
-        Team team = teamService.create(teamMapper.teamDTOToTeam(teamDTO));
+        Team team = teamService.create(teamMapper.teamDTOToTeam(teamDto));
 
         return ResponseEntity.created(new URI("/api/teams/" + team.getId()))
                 .headers(HeaderUtil.createAlert("Team created", team.getId().toString()))
@@ -95,7 +95,7 @@ public class TeamResource {
 
     @RequestMapping(method = RequestMethod.GET)
     @Timed
-    public ResponseEntity<List<TeamDTO>> getAll(@RequestParam(value = "page", required = false) Integer offset,
+    public ResponseEntity<List<TeamDto>> getAll(@RequestParam(value = "page", required = false) Integer offset,
                                                 @RequestParam(value = "per_page", required = false) Integer limit,
                                                 HttpServletRequest request) throws URISyntaxException {
         log.debug("REST request to get all Teams");
@@ -107,17 +107,17 @@ public class TeamResource {
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);
         return new ResponseEntity<>(page.getContent().stream()
-                .map(teamMapper::teamToTeamDTOWithoutMembers)
+                .map(teamMapper::teamToTeamDtoWithoutMembers)
                 .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Timed
-    public ResponseEntity<TeamDTO> get(@PathVariable Long id) {
+    public ResponseEntity<TeamDto> get(@PathVariable Long id) {
         log.debug("REST request to get Team : {}", id);
 
         return teamService.get(id)
-                .map(teamMapper::teamToTeamDTO)
+                .map(teamMapper::teamToTeamDto)
                 .map(teamDTO -> new ResponseEntity<>(teamDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -125,11 +125,11 @@ public class TeamResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @PreAuthorize("isAuthenticated()")
     @Timed
-    public ResponseEntity<TeamDTO> update(@PathVariable Long id,
-                                       @Valid @RequestBody TeamDTO teamDTO) {
+    public ResponseEntity<TeamDto> update(@PathVariable Long id,
+                                          @Valid @RequestBody TeamDto teamDto) {
         log.debug("REST request to put Team : {}", id);
 
-        return Optional.ofNullable(teamRepository.findOne(teamDTO.getId()))
+        return Optional.ofNullable(teamRepository.findOne(teamDto.getId()))
                 .map(team -> {
                     User user = userService.getUserWithAuthorities();
                     // Check if user is captain
@@ -141,17 +141,17 @@ public class TeamResource {
                 })
                 .map(team -> {
                     if (!team.isActivated()) {
-                        team.setName(teamDTO.getName());
-                        team.setTag(teamDTO.getTag());
-                        team.setRepresenting(teamDTO.getRepresenting());
+                        team.setName(teamDto.getName());
+                        team.setTag(teamDto.getTag());
+                        team.setRepresenting(teamDto.getRepresenting());
                     }
-                    team.setRank(teamDTO.getRank());
-                    team.setDescription(teamDTO.getDescription());
+                    team.setRank(teamDto.getRank());
+                    team.setDescription(teamDto.getDescription());
                     teamRepository.save(team);
 
                     return team;
                 })
-                .map(teamMapper::teamToTeamDTO)
+                .map(teamMapper::teamToTeamDto)
                 .map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -227,7 +227,7 @@ public class TeamResource {
     @RequestMapping(value = "/{id}/requests", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     @Timed
-    public ResponseEntity<List<UserPublicDTO>> getRequests(@PathVariable Long id,
+    public ResponseEntity<List<UserPublicDto>> getRequests(@PathVariable Long id,
                                                            HttpServletRequest request) {
         User user = userService.getUserWithAuthorities();
 
@@ -239,7 +239,7 @@ public class TeamResource {
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(Team::getRequests)
                 .map(requests -> requests.stream()
-                        .map(userMapper::userToUserPublicDTO)
+                        .map(userMapper::userToUserPublicDto)
                         .collect(Collectors.toList()))
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -252,7 +252,7 @@ public class TeamResource {
     @Timed
     public ResponseEntity<Void> approveRequest(@PathVariable Long id,
                                                @PathVariable Long userId,
-                                               @Valid @RequestBody TeamRequestDTO teamRequest,
+                                               @Valid @RequestBody TeamRequestDto teamRequest,
                                                HttpServletRequest request) {
         User user = userService.getUserWithAuthorities();
 

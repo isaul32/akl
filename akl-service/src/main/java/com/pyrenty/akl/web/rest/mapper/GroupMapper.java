@@ -2,7 +2,7 @@ package com.pyrenty.akl.web.rest.mapper;
 
 import com.pyrenty.akl.domain.*;
 
-import com.pyrenty.akl.dto.GroupDTO;
+import com.pyrenty.akl.dto.GroupDto;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", uses = {})
@@ -11,7 +11,7 @@ public interface GroupMapper {
     @Mapping(target = "createdDate", ignore = true)
     @Mapping(target = "lastModifiedBy", ignore = true)
     @Mapping(target = "lastModifiedDate", ignore = true)
-    Group groupDTOToGroup(GroupDTO groupDTO);
+    Group groupDtoToGroup(GroupDto groupDto);
 
-    GroupDTO groupToGroupDTO(Group group);
+    GroupDto groupToGroupDto(Group group);
 }

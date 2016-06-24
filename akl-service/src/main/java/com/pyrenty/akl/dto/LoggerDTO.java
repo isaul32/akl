@@ -9,16 +9,16 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class LoggerDTO {
+public class LoggerDto {
     private String name;
     private String level;
 
-    public LoggerDTO(Logger logger) {
+    public LoggerDto(Logger logger) {
         this.name = logger.getName();
         this.level = logger.getEffectiveLevel().toString();
     }
 
     @JsonCreator
-    public LoggerDTO() {
+    public LoggerDto() {
     }
 }

@@ -1,13 +1,13 @@
 package com.pyrenty.akl.web.rest.mapper;
 
 import com.pyrenty.akl.domain.*;
-import com.pyrenty.akl.dto.GameServerDTO;
+import com.pyrenty.akl.dto.GameServerDto;
 
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", uses = {})
 public interface GameServerMapper {
-    GameServerDTO gameServerToGameServerDTO(GameServer gameServer);
+    GameServerDto gameServerToGameServerDto(GameServer gameServer);
 
-    GameServer gameServerDTOToGameServer(GameServerDTO gameServerDTO);
+    GameServer gameServerDtoToGameServer(GameServerDto gameServerDto);
 }

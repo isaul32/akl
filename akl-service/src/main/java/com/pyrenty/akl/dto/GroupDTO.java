@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-public class GroupDTO {
+public class GroupDto {
     private Long id;
     private String name;
     private Set<Team> teams = new HashSet<>();

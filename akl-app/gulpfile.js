@@ -172,9 +172,9 @@ gulp.task('prod', function () {
     production = true;
 });
 
-gulp.task('build', sequence('clean', ['dependencies', 'compile', 'templates', 'assets', 'views']));
+gulp.task('build', sequence('typings', 'clean', ['dependencies', 'compile', 'templates', 'assets', 'views']));
 
-gulp.task('dist', sequence('prod', 'typings', 'build'));
+gulp.task('dist', sequence('prod', 'build'));
 
 gulp.task('serve', sequence('build', ['dev', 'watch']));
 

@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TeamRequestDTO {
+public class TeamRequestDto {
     private Long member;
     private String role;
     private Long swapMember;

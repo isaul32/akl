@@ -6,7 +6,7 @@ import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.repository.ChallongeRepository;
 import com.pyrenty.akl.repository.GroupRepository;
 import com.pyrenty.akl.security.SecurityUtils;
-import com.pyrenty.akl.dto.GroupDTO;
+import com.pyrenty.akl.dto.GroupDto;
 import com.pyrenty.akl.dto.ParticipantDto;
 import com.pyrenty.akl.pojo.challonge.Tournament;
 import com.pyrenty.akl.web.rest.mapper.GroupMapper;
@@ -43,33 +43,33 @@ public class GroupResource {
 
     @Timed
     @RequestMapping(method = RequestMethod.GET)
-    public List<GroupDTO> listAll() {
+    public List<GroupDto> listAll() {
         return groupRepository.findAll(PaginationUtil.generatePageRequest(null, null, new Sort(
                 new Sort.Order(Sort.Direction.ASC, "id")
         ))).getContent().stream()
-                .map(o -> groupMapper.groupToGroupDTO(o))
+                .map(o -> groupMapper.groupToGroupDto(o))
                 .collect(Collectors.toList());
     }
 
     @Timed
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public GroupDTO get(@PathVariable Long id) {
-        return groupMapper.groupToGroupDTO(groupRepository.findOne(id));
+    public GroupDto get(@PathVariable Long id) {
+        return groupMapper.groupToGroupDto(groupRepository.findOne(id));
     }
 
     @Timed
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(method= RequestMethod.POST)
-    public GroupDTO create(@RequestBody GroupDTO dto) {
+    public GroupDto create(@RequestBody GroupDto dto) {
         dto.setSubdomain("akl");
-        Group group = groupRepository.save(groupMapper.groupDTOToGroup(dto));
-        return groupMapper.groupToGroupDTO(group);
+        Group group = groupRepository.save(groupMapper.groupDtoToGroup(dto));
+        return groupMapper.groupToGroupDto(group);
     }
 
     @Timed
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/{id}", method=RequestMethod.PUT)
-    public ResponseEntity<GroupDTO> update(@PathVariable Long id, @RequestBody GroupDTO dto) {
+    public ResponseEntity<GroupDto> update(@PathVariable Long id, @RequestBody GroupDto dto) {
         return Optional.ofNullable(groupRepository.findOne(id))
                 .map(group -> {
                     group.setName(dto.getName());
@@ -80,7 +80,7 @@ public class GroupResource {
 
                     return groupRepository.save(group);
                 })
-                .map(group -> groupMapper.groupToGroupDTO(group))
+                .map(group -> groupMapper.groupToGroupDto(group))
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

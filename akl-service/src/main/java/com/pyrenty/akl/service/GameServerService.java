@@ -1,8 +1,8 @@
 package com.pyrenty.akl.service;
 
 import com.pyrenty.akl.domain.GameServer;
+import com.pyrenty.akl.dto.GameServerDto;
 import com.pyrenty.akl.repository.GameServerRepository;
-import com.pyrenty.akl.dto.GameServerDTO;
 import com.pyrenty.akl.web.rest.mapper.GameServerMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +33,11 @@ public class GameServerService {
      * Save a gameServer.
      * @return the persisted entity
      */
-    public GameServerDTO save(GameServerDTO gameServerDTO) {
-        log.debug("Request to save GameServer : {}", gameServerDTO);
-        GameServer gameServer = gameServerMapper.gameServerDTOToGameServer(gameServerDTO);
+    public GameServerDto save(GameServerDto gameServerDto) {
+        log.debug("Request to save GameServer : {}", gameServerDto);
+        GameServer gameServer = gameServerMapper.gameServerDtoToGameServer(gameServerDto);
         gameServer = gameServerRepository.save(gameServer);
-        return gameServerMapper.gameServerToGameServerDTO(gameServer);
+        return gameServerMapper.gameServerToGameServerDto(gameServer);
     }
 
     /**
@@ -45,10 +45,10 @@ public class GameServerService {
      *  @return the list of entities
      */
     @Transactional(readOnly = true)
-    public List<GameServerDTO> findAll() {
+    public List<GameServerDto> findAll() {
         log.debug("Request to get all GameServers");
         return gameServerRepository.findAll().stream()
-            .map(gameServerMapper::gameServerToGameServerDTO)
+            .map(gameServerMapper::gameServerToGameServerDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -57,10 +57,10 @@ public class GameServerService {
      *  @return the entity
      */
     @Transactional(readOnly = true)
-    public GameServerDTO findOne(Long id) {
+    public GameServerDto findOne(Long id) {
         log.debug("Request to get GameServer : {}", id);
         GameServer gameServer = gameServerRepository.findOne(id);
-        return gameServerMapper.gameServerToGameServerDTO(gameServer);
+        return gameServerMapper.gameServerToGameServerDto(gameServer);
     }
 
     /**
