@@ -16,7 +16,8 @@
       "groups": "Groups",
       "teams": "Teams",
       "addTeamsInfo": "Drag teams to groups with mouse.",
-      "score": "Score"
+      "score": "Score",
+      "state": "State"
     }
   }
 }

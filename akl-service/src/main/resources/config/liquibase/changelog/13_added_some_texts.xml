@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="13" author="isaul">
+
+        <insert tableName="akl_text">
+            <column name="id" value="3"/>
+            <column name="fi" value="Finaali"/>
+            <column name="en" value="Final"/>
+        </insert>
+        <insert tableName="akl_text">
+            <column name="id" value="4"/>
+            <column name="fi" value="Jatkobileet"/>
+            <column name="en" value="Afterparty"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

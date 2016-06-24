@@ -17,4 +17,5 @@
     <include file="classpath:config/liquibase/changelog/10_added_entity_calendar_event.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/11_added_missing_table_prefixs.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/12_added_url_field_to_groups.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/13_added_some_texts.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

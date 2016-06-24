@@ -98,15 +98,15 @@ angular.module('aklApp')
                 }]
             }
         })
-        .state('group.state', {
+        .state('state', {
             parent: 'league',
-            url: '/groups/state',
+            url: '/state',
             data: {
                 roles: []
             },
             views: {
                 'content@': {
-                    templateUrl: 'scripts/app/entities/group/group-state.html',
+                    templateUrl: 'scripts/app/entities/group/state.html',
                     controller: function ($scope) {
                         $scope.options = {
                             src: 'http://akl.challonge.com/2016/module?tab=groups&theme=4465'
@@ -117,9 +117,76 @@ angular.module('aklApp')
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('group');
-                    $translatePartialLoader.addPart('team');
                     return $translate.refresh();
                 }]
+            }
+        })
+        .state('final', {
+            parent: 'league',
+            url: '/final',
+            data: {
+                roles: []
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'scripts/app/entities/group/final.html',
+                    controller: function ($scope, $rootScope, Principal, $translate, text) {
+                        Principal.identity().then(function (account) {
+                            $scope.account = account;
+                            $scope.isAuthenticated = Principal.isAuthenticated;
+                        });
+
+                        $scope.lang = $translate.use();
+                        $rootScope.$on('$translateChangeSuccess', function () {
+                            $scope.lang = $translate.use();
+                        });
+
+                        $scope.text = text.data;
+                    }
+                }
+            },
+            resolve: {
+                translatePartialLoader: function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('group');
+                    return $translate.refresh();
+                },
+                text: function (Api) {
+                    return Api.one('texts', 3).get();
+                }
+            }
+        })
+        .state('afterparty', {
+            parent: 'league',
+            url: '/afterparty',
+            data: {
+                roles: []
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'scripts/app/entities/group/afterparty.html',
+                    controller: function ($scope, $rootScope, Principal, $translate, text) {
+                        Principal.identity().then(function (account) {
+                            $scope.account = account;
+                            $scope.isAuthenticated = Principal.isAuthenticated;
+                        });
+
+                        $scope.lang = $translate.use();
+                        $rootScope.$on('$translateChangeSuccess', function () {
+                            $scope.lang = $translate.use();
+                        });
+
+                        $scope.text = text.data;
+                    }
+                }
+            },
+            resolve: {
+                translatePartialLoader: function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('group');
+                    return $translate.refresh();
+                },
+                text: function (Api) {
+                    return Api.one('texts', 4).get();
+                }
             }
         })
 });

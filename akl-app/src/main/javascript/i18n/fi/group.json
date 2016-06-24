@@ -16,7 +16,8 @@
       "groups": "Lohkot",
       "teams": "Tiimit",
       "addTeamsInfo": "Vedä hiirellä tiimit lohkoiihn.",
-      "score": "Pisteet"
+      "score": "Pisteet",
+      "state": "Tilanne"
     }
   }
 }
