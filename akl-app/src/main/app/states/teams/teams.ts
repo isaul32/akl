@@ -117,7 +117,7 @@ angular.module('app')
                 return $translate.refresh();
             },
             user: ($stateParams, Api) => {
-                return Api.one('users', $stateParams.id).get();
+                return Api.one('users', $stateParams.userId).get();
             },
             steamUser: (Api, user) => {
                 if (user.data.communityId !== null) {
