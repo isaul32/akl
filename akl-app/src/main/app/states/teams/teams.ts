@@ -98,6 +98,34 @@ angular.module('app')
             })
         }
     })
+    .state('teams.detail.user', {
+        parent: 'teams.detail',
+        url: '/users/{userId}',
+        views: {
+            'content@': {
+                templateUrl: 'states/teams/teams.detail.user.html',
+                controller: ($scope, $rootScope, user, steamUser) => {
+                    $scope.user = user.data;
+                    $scope.steamUser = _.result(steamUser, 'data.response.players[0]');
+                }
+            }
+        },
+        resolve: {
+            translatePartialLoader: ($translate, $translatePartialLoader) => {
+                $translatePartialLoader.addPart('user');
+                $translatePartialLoader.addPart('rank');
+                return $translate.refresh();
+            },
+            user: ($stateParams, Api) => {
+                return Api.one('users', $stateParams.id).get();
+            },
+            steamUser: (Api, user) => {
+                if (user.data.communityId !== null) {
+                    return Api.all('steam').all('user').get(user.data.communityId);
+                }
+            }
+        }
+    })
     .state('teams.detail.accept', {
         parent: 'teams.detail',
         url: '/member/{userId}/accept',
@@ -113,7 +141,7 @@ angular.module('app')
                     team: Team => Team.get({ id: $stateParams.id })
                 }
             }).result.then(result => {
-                $state.go('team.detail', { id: $stateParams.id }, { reload: true });
+                $state.go('teams.detail', { id: $stateParams.id }, { reload: true });
             }, () => {
                 $state.go('^');
             });

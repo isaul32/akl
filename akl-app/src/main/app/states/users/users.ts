@@ -35,11 +35,8 @@ angular.module('app')
         }
     })
     .state('users.detail', {
-        parent: 'root',
-        url: '/users/{id}',
-        data: {
-            roles: []
-        },
+        parent: 'users',
+        url: '/{id}',
         views: {
             'content@': {
                 templateUrl: 'states/users/users.detail.html',

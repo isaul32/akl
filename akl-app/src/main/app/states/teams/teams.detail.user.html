@@ -71,23 +71,23 @@
                         </td>
                         <td ng-if="steamUser">
                             <img ng-src="{{ steamUser.avatarfull }}" class="img-responsive">
-                            <a ng-href="https://steamcommunity.com/profiles/{{ steamUser.steamid }}">{{steamUser.personaname}}</a>
+                            <a ng-href="https://steamcommunity.com/profiles/{{ steamUser.steamid }}">{{ steamUser.personaname }}</a>
                             <span>
                                 <span>(</span>
                                 <span translate="user.steamLastLogoff"></span>
-                                <span>{{steamUser.lastlogoff * 1000 | date}}</span>
+                                <span>{{ steamUser.lastlogoff * 1000 | date }}</span>
                                 <span>)</span>
                             </span>
                         </td>
                         <td ng-if="!steamUser">
-                            <a ng-href="https://steamcommunity.com/profiles/{{ user.communityId }}">{{user.communityId}}</a>
+                            <a ng-href="https://steamcommunity.com/profiles/{{ user.communityId }}">{{ user.communityId }}</a>
                         </td>
                     </tr>
                 </table>
             </div>
 
             <button type="button"
-                    ui-sref="users"
+                    ui-sref="teams.detail"
                     class="btn btn-info">
                 <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
                 <span translate="entity.action.back">Back</span>

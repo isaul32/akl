@@ -114,7 +114,7 @@
                         </td>
                         <td>
                             <span class="form-control-static">
-                                <a ui-sref="users.detail({ id: team.captain.id })">
+                                <a ui-sref="teams.detail.user({ userId: team.captain.id })">
                                     {{team.captain.nickname}}
                                 </a>
                             </span>
@@ -127,7 +127,7 @@
                         <td>
                             <p ng-repeat="member in team.members">
                                 <span class="form-control-static">
-                                    <a ui-sref="users.detail({ id: member.id })">
+                                    <a ui-sref="teams.detail.user({ userId: member.id })">
                                         {{member.nickname}}
                                     </a>
                                 </span>
@@ -141,7 +141,7 @@
                         <td>
                             <p ng-repeat="standin in team.standins">
                                 <span class="form-control-static">
-                                    <a ui-sref="users.detail({ id: standin.id })">
+                                    <a ui-sref="teams.detail.user({ userId: standin.id })">
                                         {{standin.nickname}}
                                     </a>
                                 </span>
@@ -200,12 +200,12 @@
                 <span class="glyphicon glyphicon-remove"></span>&nbsp;
                 <span translate="aklApp.team.leaveTeam">Leave team</span>
             </button>-->
-            <button type="button" ng-if="isAuthenticated() && account.teamId === team.id"
+            <!--<button type="button" ng-if="isAuthenticated() && account.teamId === team.id"
                     has-role="ROLE_ADMIN"
                     class="btn btn-primary" ui-sref="teams.detail.schedule">
                 <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
                 <span translate="aklApp.team.addSchedule">Add calendarEvent</span>
-            </button>
+            </button>-->
         </div>
     </div>
 </div>

@@ -6,7 +6,12 @@ angular.module('app')
     };
 
     $scope.eventSources = [
-        $scope.gcalEvents
+        $scope.gcalEvents,
+        {
+            url: 'http://titeen.it/akl/2016/reserver/ok.json',
+            color: '#31302B',
+            textColor: 'white'
+        }
     ];
 
     $scope.eventRender = (event, element) => {
@@ -28,9 +33,13 @@ angular.module('app')
             editable: false,
             displayEventEnd: true,
             firstDay: 1,
+            defaultView: 'agendaWeek',
+            allDaySlot: false,
+            slotDuration: '00:30:00',
+            scrollTime: '18:00:00',
             header: {
                 left: 'title',
-                center: '',
+                center: 'agendaWeek,month',
                 right: 'today prev,next'
             },
             eventClick: $scope.eventClick,

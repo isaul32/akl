@@ -1,15 +1,18 @@
 package com.pyrenty.akl.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "akl_match_proposition")
-public class MatchProposition {
+@Table(name = "akl_match_request")
+public class MatchRequest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -25,9 +28,9 @@ public class MatchProposition {
     @NotNull
     private Date datetime;
 
-    @NotNull
+    /*@NotNull
     @Column(name = "match_type")
-    private Integer matchType;
+    private Integer matchType;*/
 
     @NotNull
     @Column(name = "team1_accepted")

@@ -129,6 +129,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/calendar").permitAll()
             .antMatchers("/api/steam/**").permitAll()
             .antMatchers("/api/groups").permitAll()
+            .antMatchers("/api/matches/**").permitAll()
             .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/audits/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/**").authenticated()
