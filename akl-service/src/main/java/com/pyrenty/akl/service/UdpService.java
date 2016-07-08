@@ -92,7 +92,7 @@ public class UdpService {
         boolean unknownEvent = true;
 
         for (EventType eventType : EVENT_TYPES) {
-            String lineCmd = line.replaceAll("\\\".*?\\\"", ""); // Skip player names
+            String lineCmd = line.replaceAll("\".*?\"", ""); // Skip player names
             if (lineCmd.contains(eventType.toString())) {
                 switch (eventType) {
                     case KILL:
@@ -135,9 +135,9 @@ public class UdpService {
 
         Position killerPos = new Position();
         String[] killerArray = StringUtils.substringBetween(parts[2], "[", "]").split(" ");
-        killerPos.setX(Integer.parseInt(killerArray[0]));
-        killerPos.setY(Integer.parseInt(killerArray[1]));
-        killerPos.setZ(Integer.parseInt(killerArray[2]));
+        killerPos.setX(Long.parseLong(killerArray[0]));
+        killerPos.setY(Long.parseLong(killerArray[1]));
+        killerPos.setZ(Long.parseLong(killerArray[2]));
         kill.setKillerPos(killerPos);
 
         String[] fallenParts = StringUtils.substringsBetween(parts[3], "<", ">");
@@ -145,9 +145,9 @@ public class UdpService {
 
         Position fallenPos = new Position();
         String[] fallenArray = StringUtils.substringBetween(parts[4], "[", "]").split(" ");
-        fallenPos.setX(Integer.parseInt(fallenArray[0]));
-        fallenPos.setY(Integer.parseInt(fallenArray[1]));
-        fallenPos.setZ(Integer.parseInt(fallenArray[2]));
+        fallenPos.setX(Long.parseLong(fallenArray[0]));
+        fallenPos.setY(Long.parseLong(fallenArray[1]));
+        fallenPos.setZ(Long.parseLong(fallenArray[2]));
         kill.setFallenPos(fallenPos);
 
         kill.setWeapon(parts[5]);
@@ -206,9 +206,9 @@ public class UdpService {
 
         Position throwerPos = new Position();
         String[] throwerArray = StringUtils.substringBetween(parts[2], "[", "]").split(" ");
-        throwerPos.setX(Integer.parseInt(throwerArray[0]));
-        throwerPos.setY(Integer.parseInt(throwerArray[1]));
-        throwerPos.setZ(Integer.parseInt(throwerArray[2]));
+        throwerPos.setX(Long.parseLong(throwerArray[0]));
+        throwerPos.setY(Long.parseLong(throwerArray[1]));
+        throwerPos.setZ(Long.parseLong(throwerArray[2]));
         projectile.setThrowerPos(throwerPos);
 
         event.setProjectile(projectile);

@@ -13,9 +13,9 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Integer x;
+    private Long x;
 
-    private Integer y;
+    private Long y;
 
-    private Integer z;
+    private Long z;
 }
