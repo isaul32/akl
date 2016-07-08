@@ -1,5 +1,6 @@
 package com.pyrenty.akl;
 
+import com.google.common.base.Joiner;
 import com.pyrenty.akl.config.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
-import com.google.common.base.Joiner;
+import org.springframework.integration.config.EnableIntegration;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -23,6 +24,7 @@ import java.util.Collection;
 
 @ComponentScan
 @EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class})
+@EnableIntegration
 public class Application {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);

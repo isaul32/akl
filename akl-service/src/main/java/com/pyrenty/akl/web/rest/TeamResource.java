@@ -227,8 +227,7 @@ public class TeamResource {
     @RequestMapping(value = "/{id}/requests", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     @Timed
-    public ResponseEntity<List<UserPublicDto>> getRequests(@PathVariable Long id,
-                                                           HttpServletRequest request) {
+    public ResponseEntity<List<UserPublicDto>> getRequests(@PathVariable Long id) {
         User user = userService.getUserWithAuthorities();
 
         // Must be team captain

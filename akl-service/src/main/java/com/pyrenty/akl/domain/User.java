@@ -18,6 +18,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "akl_user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -38,8 +40,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(length = 50, nullable = false)
     private String nickname;
 
-    @JsonIgnore
     @NotNull
+    @JsonIgnore
     @Size(min = 60, max = 60)
     @Column(length = 60)
     private String password;
@@ -73,25 +75,17 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_key", length = 20)
     private String resetKey;
 
-    @Setter
-    @Getter
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime birthdate;
 
-    @Setter
-    @Getter
     @Size(min = 1, max = 50)
     @Column
     private String guild;
 
-    @Setter
-    @Getter
     @Enumerated(EnumType.STRING)
     @Column(name = "rank")
     private Rank rank;
 
-    @Setter
-    @Getter
     @Column(name = "description")
     private String description;
 
@@ -103,18 +97,17 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "steam_id", length = 20, unique = true)
     private String steamId;
 
-    @JsonIgnore
     @OneToOne
+    @JsonIgnore
     private Team captain;
 
-    @JsonIgnore
     @ManyToOne
+    @JsonIgnore
     private Team member;
 
-    @JsonIgnore
     @ManyToOne
+    @JsonIgnore
     private Team standin;
-
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "reset_date", nullable = true)
@@ -134,164 +127,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PersistentToken> persistentTokens = new HashSet<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public boolean isActivated() {
-        return activated;
-    }
-
-    public void setActivated(boolean activated) {
-        this.activated = activated;
-    }
-
-    public String getActivationKey() {
-        return activationKey;
-    }
-
-    public void setActivationKey(String activationKey) {
-        this.activationKey = activationKey;
-    }
-
-    public String getResetKey() {
-        return resetKey;
-    }
-
-    public void setResetKey(String resetKey) {
-        this.resetKey = resetKey;
-    }
-
-    public String getCommunityId() {
-        return communityId;
-    }
-
-    public void setCommunityId(String communityId) {
-        this.communityId = communityId;
-    }
-
-    public String getSteamId() {
-        return steamId;
-    }
-
-    public void setSteamId(String steamId) {
-        this.steamId = steamId;
-    }
-
-    public Team getCaptain() {
-        return captain;
-    }
-
-    public void setCaptain(Team captain) {
-        this.captain = captain;
-    }
-
     private boolean captainSameAsFormer(Team team) {
         if (this.captain == null) {
             return team == null;
         }
 
         return this.captain.equals(team);
-    }
-
-    public Team getMember() {
-        return member;
-    }
-
-    public void setMember(Team member) {
-        this.member = member;
-    }
-
-    public Team getStandin() {
-        return standin;
-    }
-
-    public void setStandin(Team standin) {
-        this.standin = standin;
-    }
-
-    public DateTime getResetDate() {
-       return resetDate;
-    }
-
-    public void setResetDate(DateTime resetDate) {
-       this.resetDate = resetDate;
-    }
-
-    public String getLangKey() {
-        return langKey;
-    }
-
-    public void setLangKey(String langKey) {
-        this.langKey = langKey;
-    }
-
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
-    public Set<PersistentToken> getPersistentTokens() {
-        return persistentTokens;
-    }
-
-    public void setPersistentTokens(Set<PersistentToken> persistentTokens) {
-        this.persistentTokens = persistentTokens;
     }
 
     @Override
@@ -306,11 +147,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
             return false;
         }
         User user = (User) o;
-        if (user.communityId == null) {
-            return false;
-        }
+        return user.communityId != null && communityId.equals(user.communityId);
 
-        return communityId.equals(user.communityId);
     }
 
     @Override

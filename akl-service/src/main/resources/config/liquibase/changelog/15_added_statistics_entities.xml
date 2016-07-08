@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql"/>
+    <property name="autoIncrement" value="false" dbms="oracle"/>
+
+    <changeSet id="15" author="isaul">
+        <createTable tableName="akl_statistics_event">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ip" type="varchar(15)">
+            </column>
+            <column name="logged" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="received" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kill_id" type="bigint"/>
+            <column name="assist_id" type="bigint"/>
+            <column name="purchase_id" type="bigint"/>
+            <column name="projectile_id" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="akl_statistics_position">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="x" type="bigint"/>
+            <column name="y" type="bigint"/>
+            <column name="z" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="akl_statistics_kill">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="killer" type="varchar(20)"/>
+            <column name="fallen" type="varchar(20)"/>
+            <column name="killer_position_id" type="bigint"/>
+            <column name="fallen_position_id" type="bigint"/>
+            <column name="weapon" type="varchar(40)"/>
+            <column name="headshot" type="boolean" valueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+            <column name="teammate" type="boolean" valueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="akl_statistics_assist">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="assistant" type="varchar(20)"/>
+            <column name="fallen" type="varchar(20)"/>
+            <column name="teammate" type="boolean" valueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="akl_statistics_purchase">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="purchaser" type="varchar(20)"/>
+            <column name="product" type="varchar(40)"/>
+        </createTable>
+
+        <createTable tableName="akl_statistics_projectile">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="thrower" type="varchar(20)"/>
+            <column name="type" type="varchar(40)"/>
+            <column name="thrower_position_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
