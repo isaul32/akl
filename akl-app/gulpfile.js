@@ -14,7 +14,7 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     streamify = require('gulp-streamify'),
     ts = require('gulp-typescript'),
-    typings = require("gulp-typings"),
+    typings = require('gulp-typings'),
     source = require('vinyl-source-stream'),
     browserify = require('browserify'),
     del = require('del'),
@@ -25,14 +25,15 @@ var gulp = require('gulp'),
     express = require('express');
 
 var config = {
-    "app": "src/main/app/",
-    "dist": "target/dist/",
-    "assets": "src/main/assets/",
-    "i18n": "src/main/i18n/",
-    "scss": "src/main/scss/",
-    "ckeditor": "src/main/ckeditor/",
-    "port": 9000,
-    "apiPort": 8080
+    app: 'src/main/app/',
+    dist: 'target/dist/',
+    assets: 'src/main/assets/',
+    i18n: 'src/main/i18n/',
+    scss: 'src/main/scss/',
+    ckeditor: 'src/main/ckeditor/',
+    port: 9000,
+    apihost: 'localhost',
+    apiPort: 8080
 };
 
 var project = ts.createProject('tsconfig.json');
@@ -45,8 +46,8 @@ var b = browserify({
 });
 
 // Tasks
-gulp.task("typings", function (){
-    return gulp.src("./typings.json")
+gulp.task('typings', function () {
+    return gulp.src('./typings.json')
         .pipe(typings());
 });
 
@@ -54,13 +55,13 @@ gulp.task('clean', function () {
     return del(config.dist);
 });
 
-gulp.task('templates', function() {
+gulp.task('templates', function () {
     return gulp.src([config.app + '**/*.html', '!' + config.app + 'index.html'])
         .pipe(templatecache('templates.js', { module: 'templateCache', standalone: true }))
         .pipe(gulp.dest(config.dist + 'js'));
 });
 
-gulp.task('views', function() {
+gulp.task('views', function () {
     return gulp.src([config.app + 'index.html'])
         .pipe(gulp.dest(config.dist));
 });
@@ -122,7 +123,7 @@ gulp.task('compile', function () {
 gulp.task('dev', function () {
     var proxy = httpProxy.createProxyServer({
         target: {
-            host: 'localhost',
+            host: config.apiHost,
             port: config.apiPort,
             ws: true
         }
@@ -151,7 +152,7 @@ gulp.task('dev', function () {
 
     app.use('/', express.static(config.dist));
 
-    app.all(/^\/akl-service/, function(req, res) {
+    app.all(/^\/akl-service/, function (req, res) {
         proxy.web(req, res);
     });
 
@@ -160,7 +161,7 @@ gulp.task('dev', function () {
     });
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch('dependencies.js', ['dependencies']);
     gulp.watch(config.app + '**/*.ts', ['compile']);
     gulp.watch(config.i18n + '**/*.json', ['i18n']);

@@ -82,12 +82,11 @@
 
     "src/main/app/states/account/register/register.ts",
     "src/main/app/states/account/register/register.controller.ts",
-
-    "src/main/app/states/account/reset/finish/reset.finish.ts",
-    "src/main/app/states/account/reset/finish/reset.finish.controller.ts",
-
-    "src/main/app/states/account/reset/request/reset.request.ts",
-    "src/main/app/states/account/reset/request/reset.request.controller.ts",
+    "src/main/app/states/account/reset/finish/finish.ts",
+    "src/main/app/states/account/reset/finish/finish.controller.ts",
+    "src/main/app/states/account/reset/request/request.controller.ts",
+    "src/main/app/states/account/reset/request/request.ts",
+    "src/main/app/states/account/reset/reset.ts",
 
     "src/main/app/states/account/sessions/sessions.ts",
     "src/main/app/states/account/sessions/sessions.controller.ts",
@@ -147,6 +146,6 @@
     "src/main/app/states/teams/teams.detail.schedule.ts",
 
     "src/main/app/states/users/users.ts",
-    "src/main/app/states/users/users.controller.ts"
+    "src/main/app/states/users/users.list.controller.ts"
   ]
 }

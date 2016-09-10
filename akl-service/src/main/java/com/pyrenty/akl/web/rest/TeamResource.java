@@ -6,14 +6,15 @@ import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.domain.enumeration.MembershipRole;
 import com.pyrenty.akl.dto.TeamDto;
+import com.pyrenty.akl.dto.TeamRequestDto;
+import com.pyrenty.akl.dto.UserPublicDto;
 import com.pyrenty.akl.repository.CalendarEventRepository;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.InvalidRoleException;
+import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.TeamService;
 import com.pyrenty.akl.service.UserService;
-import com.pyrenty.akl.dto.TeamRequestDto;
-import com.pyrenty.akl.dto.UserPublicDto;
 import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
 import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 import com.pyrenty.akl.web.rest.mapper.UserMapper;
@@ -164,12 +165,17 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /*@RequestMapping(value = "/{id}/leave", method = RequestMethod.POST)
-    @PreAuthorize("isAuthenticated()")
     @Timed
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/{id}/leave", method = RequestMethod.POST)
     public ResponseEntity<Team> leaveTeam(@PathVariable Long id) {
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
+
+                    if (team.isActivated()) {
+                        throw new CustomParameterizedException("Leaving from activated team is not allowed");
+                    }
+
                     Optional<User> userOptional = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
                     if (userOptional.isPresent()) {
                         User user = userOptional.get();
@@ -193,7 +199,7 @@ public class TeamResource {
                     return new ResponseEntity<>(team, HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }*/
+    }
 
     @RequestMapping(value = "/{id}/requests", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")

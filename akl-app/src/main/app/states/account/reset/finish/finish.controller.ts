@@ -15,7 +15,7 @@ angular.module('app')
         } else {
             Auth.resetPasswordFinish({key: $stateParams.key, newPassword: $scope.resetAccount.password}).then(() => {
                 $scope.success = 'OK';
-            }).catch(response => {
+            }).catch(() => {
                 $scope.success = null;
                 $scope.error = 'ERROR';
             });

@@ -45,7 +45,7 @@ angular.module('app')
                         return { tag: null, name: null, imageUrl: null, rank: null, description: null, id: null };
                     }
                 }
-            }).result.then(result => {
+            }).result.then(() => {
                 $state.go('team', null, { reload: true });
             }, () => {
                 $state.go('team');
@@ -91,39 +91,11 @@ angular.module('app')
                         return Team.get({ id : $stateParams.id });
                     }
                 }
-            }).result.then(result => {
+            }).result.then(() => {
                 $state.go('teams.detail', null, { reload: true });
             }, function () {
                 $state.go('^');
             })
-        }
-    })
-    .state('teams.detail.user', {
-        parent: 'teams.detail',
-        url: '/users/{userId}',
-        views: {
-            'content@': {
-                templateUrl: 'states/teams/teams.detail.user.html',
-                controller: ($scope, $rootScope, user, steamUser) => {
-                    $scope.user = user.data;
-                    $scope.steamUser = _.result(steamUser, 'data.response.players[0]');
-                }
-            }
-        },
-        resolve: {
-            translatePartialLoader: ($translate, $translatePartialLoader) => {
-                $translatePartialLoader.addPart('user');
-                $translatePartialLoader.addPart('rank');
-                return $translate.refresh();
-            },
-            user: ($stateParams, Api) => {
-                return Api.one('users', $stateParams.userId).get();
-            },
-            steamUser: (Api, user) => {
-                if (user.data.communityId !== null) {
-                    return Api.all('steam').all('user').get(user.data.communityId);
-                }
-            }
         }
     })
     .state('teams.detail.accept', {
@@ -140,7 +112,7 @@ angular.module('app')
                 resolve: {
                     team: Team => Team.get({ id: $stateParams.id })
                 }
-            }).result.then(result => {
+            }).result.then(() => {
                 $state.go('teams.detail', { id: $stateParams.id }, { reload: true });
             }, () => {
                 $state.go('^');

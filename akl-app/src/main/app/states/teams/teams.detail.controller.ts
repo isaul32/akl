@@ -39,7 +39,7 @@ angular.module('app')
 
     $scope.sendDecline = () => {
         Team.declineRequest({id: $scope.team.id, userId: $scope.declineRequestId}).$promise.then(() => {
-            _.remove($scope.requests, request => {
+            _.remove($scope.requests, (request: any) => {
                 return request.id === $scope.declineRequestId;
             });
             $('#membershipRequestDeclination').modal('hide');

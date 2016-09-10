@@ -28,4 +28,7 @@ public class CalendarEvent {
     @Setter
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime end;
+
+    /*@OneToOne
+    private Team team;*/
 }

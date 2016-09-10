@@ -13,11 +13,11 @@ angular.module('app')
             }
         },
         resolve: {
-            translatePartialLoader: ['$translate', '$translatePartialLoader', ($translate, $translatePartialLoader) => {
+            translatePartialLoader: ($translate, $translatePartialLoader) => {
                 $translatePartialLoader.addPart('settings');
                 $translatePartialLoader.addPart('rank');
                 return $translate.refresh();
-            }]
+            }
         }
     })
 );

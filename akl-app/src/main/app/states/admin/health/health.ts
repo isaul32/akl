@@ -13,10 +13,10 @@ angular.module('app')
             }
         },
         resolve: {
-            translatePartialLoader: ['$translate', '$translatePartialLoader', ($translate, $translatePartialLoader) => {
+            translatePartialLoader: ($translate, $translatePartialLoader) => {
                 $translatePartialLoader.addPart('health');
                 return $translate.refresh();
-            }]
+            }
         }
     })
 );

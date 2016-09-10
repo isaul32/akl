@@ -15,7 +15,6 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     private String ip;
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")

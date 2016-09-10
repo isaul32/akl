@@ -1,36 +1,44 @@
+interface Event {
+    start: number;
+    end: number;
+}
+
 angular.module('app')
-.controller('TeamsDetailScheduleController', ($scope, $uibModalInstance, schedule, $translate) => {
+.controller('TeamsDetailScheduleController', ($scope, $uibModalInstance, schedule, $translate, uiCalendarConfig) => {
     $scope.eventSources = [];
     $scope.events = [];
-
-    let addHours = (d, h) => {
-        return d.setHours(d.getHours() + h);
-    };
-
-    $scope.currentDate = new Date();
+    $scope.selectedEvents = _.map(schedule.data, (event: Event) => {
+        event.start = moment(event.start);
+        event.end = moment(event.end);
+        return event;
+    });
 
     // 1 month = 336 * 2h
-    for (let i = 0; i < 336; i++) {
-        let startDate = new Date();
-        startDate.setHours(Math.ceil(startDate.getHours()), 0, 0, 0);
-        if (startDate.getHours() % 2 !== 0) {
-            startDate.setHours(startDate.getHours() + 1);
+    /*for (let i = 0; i < 336; i++) {
+        const ROUNDING = 60 * 60 * 1000;
+
+        let start = moment();
+        start = moment(Math.ceil((+start) / ROUNDING) * ROUNDING);
+        if (start.get('hour') % 2 !== 0) {
+            start.add(1, 'hours');
         }
-        addHours(startDate, i * 2);
+        start.add(2 * i, 'hours');
+        let end = moment(start).add(2, 'hours');
 
-        let endDate = new Date(startDate.toDateString());
-        addHours(endDate, 2);
-
-        $scope.events.push({
-            start: startDate,
-            end: endDate,
+        const event = {
+            start: start,
+            end: end,
             className: 'calendar-event'
-        });
+        };
+
+        $scope.events.push(event);
     }
+    $scope.eventSources.push($scope.events);*/
 
-    $scope.eventSources.push($scope.events);
-
-    $scope.selectedEvents = [];
+    $scope.select = (start, end, jsEvent, view) => {
+        
+        //uiCalendarConfig.calendars.teamScheduleCalendar.fullCalendar('updateEvent', event);
+    };
 
     $scope.eventClick = (event, jsEvent) => {
         console.log(event);
@@ -53,17 +61,20 @@ angular.module('app')
     $scope.uiConfig = {
         calendar: {
             lang: $translate.use(),
-            editable: false,
+            editable: true,
+            selectable: true,
+            selectHelper: false,
+            select: $scope.select,
             firstDay: 1,
             header: {
                 left: 'title',
                 center: '',
                 right: 'today prev,next'
             },
-            slotDuration: '02:00:00',
+            slotDuration: '00:30:00',
+            scrollTime: '18:00:00',
             defaultView: 'agendaWeek',
             allDaySlot: false,
-            height: 'auto',
             eventClick: $scope.eventClick
         }
     };

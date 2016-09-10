@@ -3,9 +3,6 @@ angular.module('app')
     .state('logout', {
         parent: 'account',
         url: '/logout',
-        data: {
-            roles: []
-        },
         views: {
             'content@': {
                 templateUrl: 'states/home/home.html',

@@ -1,15 +1,18 @@
 angular.module('app')
 .config($stateProvider => $stateProvider
     .state('users', {
-        parent: 'root',
+        abstract: true,
+        parent: 'root'
+    })
+    .state('users.list', {
         url: '/users',
         data: {
             roles: ['ROLE_ADMIN']
         },
         views: {
             'content@': {
-                templateUrl: 'states/users/users.html',
-                controller: 'UsersController'
+                templateUrl: 'states/users/users.list.html',
+                controller: 'UsersListController'
             }
         },
         params: {
@@ -35,8 +38,7 @@ angular.module('app')
         }
     })
     .state('users.detail', {
-        parent: 'users',
-        url: '/{id}',
+        url: '/users/{userId}',
         views: {
             'content@': {
                 templateUrl: 'states/users/users.detail.html',
@@ -53,7 +55,7 @@ angular.module('app')
                 return $translate.refresh();
             },
             user: ($stateParams, Api) => {
-                return Api.one('users', $stateParams.id).get();
+                return Api.one('users', $stateParams.userId).get();
             },
             steamUser: (Api, user) => {
                 if (user.data.communityId !== null) {

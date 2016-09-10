@@ -9,8 +9,8 @@ angular.module('app')
 
     // remove duplicates
     _.forEach($scope.groups, group => {
-        _.forEach(group.teams, t1 => {
-            _.remove($scope.teams, t2 => {
+        _.forEach(group.teams, (t1: Team) => {
+            _.remove($scope.teams, (t2: Team) => {
                 return t2.id === t1.id;
             });
         });

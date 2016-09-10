@@ -87,8 +87,9 @@
             </div>
 
             <button type="button"
-                    ui-sref="users"
-                    class="btn btn-info">
+                    ui-sref="teams.detail({{previousStateParams}})"
+                    class="btn btn-info"
+                    ng-if="previousStateName === 'teams.detail'">
                 <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
                 <span translate="entity.action.back">Back</span>
             </button>

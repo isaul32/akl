@@ -4,6 +4,7 @@ import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
+import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +46,10 @@ public class TeamService {
     public Optional<Team> activate(Long id) {
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
+                    if (team.getMembers().size() < 4) {
+                        throw new CustomParameterizedException("Team doesn't have enough member");
+                    }
+
                     team.setActivated(true);
 
                     // todo: Send team activated mail to members or captain

@@ -178,16 +178,36 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ui-sref-active="active"><a ui-sref="teams.detail.user({ userId: account.id })"><span class="glyphicon glyphicon-user fa-fw"></span>
-                            &nbsp;<span translate="global.menu.account.profile">Public profile</span></a></li>
-                        <li ui-sref-active="active"><a ui-sref="settings"><span class="glyphicon glyphicon-wrench fa-fw"></span>
-                            &nbsp;<span translate="global.menu.account.settings">Settings</span></a></li>
-                        <li ui-sref-active="active"><a ui-sref="password"><span class="glyphicon glyphicon-lock fa-fw"></span>
-                            &nbsp;<span translate="global.menu.account.password">Password</span></a></li>
-                        <li ui-sref-active="active"><a ui-sref="sessions"><span class="glyphicon glyphicon-cloud fa-fw"></span>
-                            &nbsp;<span translate="global.menu.account.sessions">Sessions</span></a></li>
-                        <li ui-sref-active="active"><a href="" ng-click="logout()"><span class="glyphicon glyphicon-log-out fa-fw"></span>
-                            &nbsp;<span translate="global.menu.account.logout">Log out</span></a></li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="users.detail({ userId: account.id })">
+                                <span class="glyphicon glyphicon-user fa-fw"></span>&nbsp;
+                                <span translate="global.menu.account.profile">Public profile</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="settings">
+                                <span class="glyphicon glyphicon-wrench fa-fw"></span>&nbsp;
+                                <span translate="global.menu.account.settings">Settings</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="password">
+                                <span class="glyphicon glyphicon-lock fa-fw"></span>&nbsp;
+                                <span translate="global.menu.account.password">Password</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="sessions">
+                                <span class="glyphicon glyphicon-cloud fa-fw"></span>&nbsp;
+                                <span translate="global.menu.account.sessions">Sessions</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a href="" ng-click="logout()">
+                                <span class="glyphicon glyphicon-log-out fa-fw"></span>&nbsp;
+                                <span translate="global.menu.account.logout">Log out</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('UsersController', ($scope, users, $state, $stateParams, Api, authorities) => {
+.controller('UsersListController', ($rootScope, $scope, users, $state, $stateParams, Api, authorities) => {
     $scope.users = users.data;
     $scope.authorities = authorities.data;
 
@@ -35,7 +35,7 @@ angular.module('app')
 
     $scope.changeAuthorities = () => {
         $('#changeUserAuthorities').modal('hide');
-        _.remove($scope.userAuthorities, authority => {
+        _.remove($scope.userAuthorities, (authority: any) => {
             return authority.value === false;
         });
         $scope.user.post('authorities', $scope.userAuthorities)

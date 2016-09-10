@@ -17,7 +17,7 @@ angular.module('app')
             Tracker.disconnect();
 
             // logout from the server
-            $http.post(API_URL + '/logout').success(function (response) {
+            $http.post(API_URL + '/logout').success(response => {
                 localStorageService.clearAll();
                 // to get a new csrf token call the api
                 $http.get(API_URL + '/account');

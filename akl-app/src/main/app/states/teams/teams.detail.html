@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <!--<div id="leaveTeamConfirmation" class="modal fade">
+    <div id="leaveTeamConfirmation" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form name="requestForm" ng-submit="sendLeaveTeam()">
@@ -72,7 +72,7 @@
                 </form>
             </div>
         </div>
-    </div>-->
+    </div>
 
     <div class="row" ng-hide="team == null">
         <div class="col-md-12">
@@ -114,7 +114,7 @@
                         </td>
                         <td>
                             <span class="form-control-static">
-                                <a ui-sref="teams.detail.user({ userId: team.captain.id })">
+                                <a ui-sref="users.detail({ userId: team.captain.id })">
                                     {{team.captain.nickname}}
                                 </a>
                             </span>
@@ -127,7 +127,7 @@
                         <td>
                             <p ng-repeat="member in team.members">
                                 <span class="form-control-static">
-                                    <a ui-sref="teams.detail.user({ userId: member.id })">
+                                    <a ui-sref="users.detail({ userId: member.id })">
                                         {{member.nickname}}
                                     </a>
                                 </span>
@@ -141,7 +141,7 @@
                         <td>
                             <p ng-repeat="standin in team.standins">
                                 <span class="form-control-static">
-                                    <a ui-sref="teams.detail.user({ userId: standin.id })">
+                                    <a ui-sref="users.detail({ userId: standin.id })">
                                         {{standin.nickname}}
                                     </a>
                                 </span>
@@ -195,17 +195,17 @@
                 <span class="glyphicon glyphicon-pencil"></span>&nbsp;
                 <span translate="entity.action.edit">Edit</span>
             </button>
-            <!--<button type="button" ng-if="isAuthenticated() && account.teamId === team.id"
+            <button type="button" ng-if="isAuthenticated() && account.teamId === team.id && !team.activated"
                     class="btn btn-danger" ng-click="leaveTeam()">
                 <span class="glyphicon glyphicon-remove"></span>&nbsp;
                 <span translate="aklApp.team.leaveTeam">Leave team</span>
-            </button>-->
-            <!--<button type="button" ng-if="isAuthenticated() && account.teamId === team.id"
+            </button>
+            <button type="button" ng-if="isAuthenticated() && account.teamId === team.id && team.activated"
                     has-role="ROLE_ADMIN"
                     class="btn btn-primary" ui-sref="teams.detail.schedule">
                 <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
                 <span translate="aklApp.team.addSchedule">Add calendarEvent</span>
-            </button>-->
+            </button>
         </div>
     </div>
 </div>

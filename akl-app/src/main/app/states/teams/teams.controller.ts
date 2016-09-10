@@ -34,10 +34,9 @@ angular.module('app')
     };
 
     $scope.activate = id => {
-        Team.activate({id: id}, result => {
-            _.find($scope.teams, {
-                id: id
-            }).activated = true;
+        Team.activate({id: id}, () => {
+            const team: any = _.find($scope.teams, { id: id});
+            team.activated = true;
             $scope.clear();
         });
     };

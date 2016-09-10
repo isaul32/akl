@@ -13,10 +13,10 @@ angular.module('app')
             }
         },
         resolve: {
-            mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', ($translate, $translatePartialLoader) => {
+            mainTranslatePartialLoader: ($translate, $translatePartialLoader) => {
                 $translatePartialLoader.addPart('tracker');
                 return $translate.refresh();
-            }]
+            }
         },
         onEnter: Tracker => {
             Tracker.subscribe();

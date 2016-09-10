@@ -1,12 +1,7 @@
 angular.module('app')
-.controller('LoginController', ($rootScope, $scope, $state, $timeout, Auth) => {
-    $scope.user = {};
-    $scope.errors = {};
-
+.controller('LoginController', ($scope, $state, Auth) => {
     $scope.rememberMe = false;
-    $timeout(() => {
-        angular.element('[ng-model="username"]').focus();
-    });
+    angular.element('[ng-model="username"]').focus();
     
     $scope.login = event => {
         event.preventDefault();
@@ -21,6 +16,7 @@ angular.module('app')
             });
         }).catch(() => {
             $scope.authenticationError = true;
+            console.log($scope.authenticationError);
         });
     };
 });

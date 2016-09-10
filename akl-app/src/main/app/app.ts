@@ -28,9 +28,9 @@ angular.module('app', [
     });
 
     // Todo: error page
-    /*$rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
+    $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
         console.log("State error");
-    });*/
+    });
 })
 .config(($urlRouterProvider, $httpProvider, $locationProvider,
                   $translateProvider, tmhDynamicLocaleProvider, RestangularProvider, API_PATH) => {

@@ -3,13 +3,12 @@ angular.module('app')
     return {
         // When use login form
         login: function (credentials, callback) {
-            var cb = callback || angular.noop;
-            var deferred = $q.defer();
+            let cb = callback || angular.noop;
+            let deferred = $q.defer();
 
-            AuthServerProvider.login(credentials).then(function (data) {
+            AuthServerProvider.login(credentials).then((data) => {
                 // retrieve the logged account information
-                Principal.identity(true).then(function(account) {
-
+                Principal.identity(true).then(account => {
                     // After the login the language will be changed to
                     // the language selected by the user during his registration
                     $translate.use(account.langKey);
@@ -27,99 +26,80 @@ angular.module('app')
 
             return deferred.promise;
         },
-
         logout: function () {
             AuthServerProvider.logout();
             Principal.authenticate(null);
         },
         // When check if already logged in
-        authorize: function(force) {
-            return Principal.identity(force)
-                .then(function(account) {
-                    var isAuthenticated = Principal.isAuthenticated();
+        authorize: function (force) {
+            return Principal.identity(force).then(() => {
+                var isAuthenticated = Principal.isAuthenticated();
 
-                    if ($rootScope.toState.hasOwnProperty('roles') && $rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0 && !Principal.isInAnyRole($rootScope.toState.data.roles)) {
-                        if (isAuthenticated) {
-                            // user is signed in but not authorized for desired state
-                            $state.go('accessdenied');
-                        }
-                        else {
-                            // user is not authenticated. stow the state they wanted before you
-                            // send them to the signin state, so you can return them when you're done
-                            $rootScope.returnToState = $rootScope.toState;
-                            $rootScope.returnToStateParams = $rootScope.toStateParams;
-
-                            // now, send them to the signin state so they can log in
-                            $state.go('login');
-                        }
+                if ($rootScope.toState.hasOwnProperty('roles') && $rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0 && !Principal.isInAnyRole($rootScope.toState.data.roles)) {
+                    if (isAuthenticated) {
+                        // user is signed in but not authorized for desired state
+                        $state.go('accessdenied');
                     }
-                });
+                    else {
+                        // user is not authenticated. stow the state they wanted before you
+                        // send them to the signin state, so you can return them when you're done
+                        $rootScope.returnToState = $rootScope.toState;
+                        $rootScope.returnToStateParams = $rootScope.toStateParams;
+
+                        // now, send them to the signin state so they can log in
+                        $state.go('login');
+                    }
+                }
+            });
         },
         createAccount: function (account, callback) {
-            var cb = callback || angular.noop;
+            let cb = callback || angular.noop;
 
             return Register.save(account,
-                function () {
-                    return cb(account);
-                },
+                () => cb(account),
                 function (err) {
                     this.logout();
                     return cb(err);
                 }.bind(this)).$promise;
         },
-
         updateAccount: function (account, callback) {
-            var cb = callback || angular.noop;
+            let cb = callback || angular.noop;
 
             return Account.save(account,
-                function () {
-                    return cb(account);
-                },
+                () => cb(account),
                 function (err) {
                     return cb(err);
                 }.bind(this)).$promise;
         },
-
         activateAccount: function (key, callback) {
-            var cb = callback || angular.noop;
+            let cb = callback || angular.noop;
 
             return Activate.get(key,
-                function (response) {
-                    return cb(response);
-                },
+                response => cb(response),
                 function (err) {
                     return cb(err);
                 }.bind(this)).$promise;
         },
-
         changePassword: function (newPassword, callback) {
-            var cb = callback || angular.noop;
+            let cb = callback || angular.noop;
 
-            return Password.save(newPassword, function () {
-                return cb();
-            }, function (err) {
-                return cb(err);
-            }).$promise;
+            return Password.save(newPassword,
+                () => cb(),
+                err => cb(err)).$promise;
         },
-
         resetPasswordInit: function (mail, callback) {
-            var cb = callback || angular.noop;
+            let cb = callback || angular.noop;
 
-            return PasswordResetInit.save(mail, function() {
-                return cb();
-            }, function (err) {
-                return cb(err);
-            }).$promise;
+            return PasswordResetInit.save(mail,
+                () => cb(),
+                err => cb(err)).$promise;
         },
+        resetPasswordFinish: function (keyAndPassword, callback) {
+            let cb = callback || angular.noop;
 
-        resetPasswordFinish: function(keyAndPassword, callback) {
-            var cb = callback || angular.noop;
-
-            return PasswordResetFinish.save(keyAndPassword, function () {
-                return cb();
-            }, function (err) {
-                return cb(err);
-            }).$promise;
+            return PasswordResetFinish.save(keyAndPassword,
+                () => cb(),
+                err => cb(err)).$promise;
         }
     };
 });
