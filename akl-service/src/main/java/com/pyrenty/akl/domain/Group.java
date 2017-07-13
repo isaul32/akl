@@ -1,6 +1,5 @@
 package com.pyrenty.akl.domain;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,10 +11,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Sauli on 5.6.2016.
- * First teams play in group against each other and two best team of group goes to the next bracket
- */
 @Getter
 @Setter
 @Entity

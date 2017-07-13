@@ -15,14 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.*;
 import java.net.URL;
 
-/**
- * Created by Sauli on 23.5.2016.
- */
 @RestController
 @RequestMapping("/api")
 public class CalendarResource {
     // Not used yet
-    /*@Value("${akl.calendar.id}")
+    /*
+    @Value("${akl.calendar.id:''}")
     private String calendarId;
 
 
@@ -44,5 +42,6 @@ public class CalendarResource {
         }
 
         return events;
-    }*/
+    }
+    */
 }

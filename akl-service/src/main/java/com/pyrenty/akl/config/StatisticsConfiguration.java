@@ -11,7 +11,7 @@ import org.springframework.integration.ip.udp.UnicastReceivingChannelAdapter;
 @Configuration
 public class StatisticsConfiguration {
 
-    @Value("${akl.statistics.port}")
+    @Value("${akl.statistics.port:8000}")
     private Integer port;
 
     @Bean

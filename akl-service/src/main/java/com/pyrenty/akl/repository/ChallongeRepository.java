@@ -21,10 +21,10 @@ public class ChallongeRepository {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    @Value("${akl.challonge.username}")
+    @Value("${akl.challonge.username:''}")
     private String username;
 
-    @Value("${akl.challonge.key}")
+    @Value("${akl.challonge.key:''}")
     private String challongeKey;
 
     public ChallongeRepository() {
