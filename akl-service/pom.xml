@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <artifactId>akl</artifactId>
         <groupId>com.pyrenty.akl</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>akl-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>akl-service</name>
-
     <properties>
         <spring-boot.version>1.3.5.RELEASE</spring-boot.version>
         <spring-integration-java-dsl.version>1.1.2.RELEASE</spring-integration-java-dsl.version>
@@ -34,7 +31,6 @@
         <liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
         <liquibase.version>3.4.1</liquibase.version>
         <mapstruct.version>1.0.0.CR1</mapstruct.version>
-        <maven-enforcer-plugin.version>1.3.1</maven-enforcer-plugin.version>
         <maven-sortpom-plugin.version>2.3.0</maven-sortpom-plugin.version>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <metrics-spark-reporter.version>1.2</metrics-spark-reporter.version>
@@ -55,7 +51,6 @@
         <janino.version>2.7.8</janino.version>
         <steam-web-api.version>1.2</steam-web-api.version>
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -67,7 +62,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.codehaus.janino</groupId>
@@ -428,7 +422,7 @@
             <plugin>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok-maven-plugin</artifactId>
-                <version>1.16.8.0</version>
+                <version>1.16.18.0</version>
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>
@@ -447,7 +441,7 @@
             <plugin>
                 <groupId>org.bsc.maven</groupId>
                 <artifactId>maven-processor-plugin</artifactId>
-                <version>2.2.4</version>
+                <version>3.3.1</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.mapstruct</groupId>
@@ -484,7 +478,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.6.1</version>
                 <configuration>
                     <annotationProcessors>
                         <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
@@ -542,11 +536,11 @@
                 <configuration>
                     <rules>
                         <requireMavenVersion>
-                            <message>You are running an older version of Maven. Service requires at least Maven 3.0</message>
+                            <message>You are running an older version of Maven. AKL service requires at least Maven 3.0</message>
                             <version>[3.0.0,)</version>
                         </requireMavenVersion>
                         <requireJavaVersion>
-                            <message>You are running an older version of Java. Service requires at least JDK ${java.version}</message>
+                            <message>You are running an older version of Java. AKL service requires at least JDK ${java.version}</message>
                             <version>[${java.version}.0,)</version>
                         </requireJavaVersion>
                     </rules>
@@ -555,7 +549,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.1.0</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
@@ -660,7 +654,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-clean-plugin</artifactId>
-                        <version>2.6</version>
+                        <version>3.0.0</version>
                         <configuration>
                             <filesets>
                                 <fileset>
