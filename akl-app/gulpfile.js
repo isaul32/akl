@@ -1,6 +1,4 @@
-'use strict';
-
-var gulp = require('gulp'),
+const gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     templatecache = require('gulp-angular-templatecache'),
     concat = require('gulp-concat'),
@@ -24,7 +22,7 @@ var gulp = require('gulp'),
     httpProxy = require('http-proxy'),
     express = require('express');
 
-var config = {
+const config = {
     app: 'src/main/app/',
     dist: 'target/dist/',
     assets: 'src/main/assets/',
@@ -36,17 +34,17 @@ var config = {
     apiPort: 8080
 };
 
-var project = ts.createProject('tsconfig.json');
+const project = ts.createProject('tsconfig.json');
 
-var production = false;
+let production = false;
 
-var b = browserify({
+const b = browserify({
     entries: 'dependencies.js',
     debug: !production
 });
 
 // Tasks
-gulp.task('typings', function () {
+gulp.task('typings', () => {
     return gulp.src('./typings.json')
         .pipe(typings());
 });
@@ -55,18 +53,18 @@ gulp.task('clean', function () {
     return del(config.dist);
 });
 
-gulp.task('templates', function () {
+gulp.task('templates', () => {
     return gulp.src([config.app + '**/*.html', '!' + config.app + 'index.html'])
         .pipe(templatecache('templates.js', { module: 'templateCache', standalone: true }))
         .pipe(gulp.dest(config.dist + 'js'));
 });
 
-gulp.task('views', function () {
+gulp.task('views', () => {
     return gulp.src([config.app + 'index.html'])
         .pipe(gulp.dest(config.dist));
 });
 
-gulp.task('assets', ['fonts', 'images', 'sass', 'ckeditor', 'i18n'], function () {
+gulp.task('assets', ['fonts', 'images', 'sass', 'ckeditor', 'i18n'], () => {
     return gulp.src([
         config.app + 'favicon.ico',
         config.app + 'robots.txt',
@@ -75,53 +73,53 @@ gulp.task('assets', ['fonts', 'images', 'sass', 'ckeditor', 'i18n'], function ()
         .pipe(gulp.dest(config.dist));
 });
 
-gulp.task('fonts', function () {
+gulp.task('fonts', () => {
     return gulp.src(['node_modules/bootstrap-sass/assets/fonts/**/*',
         'node_modules/font-awesome/fonts/**/*', config.assets + 'fonts/**/*'])
         .pipe(gulp.dest(config.dist + 'fonts'));
 });
 
-gulp.task('images', function () {
+gulp.task('images', () => {
     return gulp.src([config.assets + 'images/**/*'])
         .pipe(gulp.dest(config.dist + 'images'));
 });
 
-gulp.task('sass', function () {
+gulp.task('sass', () => {
     return gulp.src(config.scss + 'main.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest(config.dist + 'css'))
 });
 
-gulp.task('ckeditor', function () {
+gulp.task('ckeditor', () => {
     return gulp.src(['node_modules/ckeditor/**/*', config.ckeditor + '**/*'])
         .pipe(gulp.dest(config.dist + 'ckeditor'));
 });
 
-gulp.task('i18n', function () {
+gulp.task('i18n', () => {
     return gulp.src([config.i18n + '**/*.json',
             'node_modules/angular-i18n/angular-locale_fi.js',
             'node_modules/angular-i18n/angular-locale_en.js'])
         .pipe(gulp.dest(config.dist + 'i18n'))
 });
 
-gulp.task('dependencies', function () {
+gulp.task('dependencies', () => {
     return b.bundle()
         .pipe(source('dependencies.js'))
         .pipe(gulpif(production, streamify(uglify())))
         .pipe(gulp.dest(config.dist + 'js'));
 });
 
-gulp.task('compile', function () {
+gulp.task('compile', () => {
     return project.src()
-        .pipe(ts(project))
+        .pipe(project())
         .pipe(annotate())
         .pipe(gulpif(production, streamify(uglify())))
         .pipe(concat('bundle.js'))
         .pipe(gulp.dest(config.dist + 'js'));
 });
 
-gulp.task('dev', function () {
-    var proxy = httpProxy.createProxyServer({
+gulp.task('dev', () => {
+    const proxy = httpProxy.createProxyServer({
         target: {
             host: config.apiHost,
             port: config.apiPort,
@@ -130,38 +128,38 @@ gulp.task('dev', function () {
     });
 
     // Try reconnect
-    proxy.on('error', function () {
+    proxy.on('error', () => {
         console.log('Proxy cannot connect to API. Please start API service.');
         proxy.close();
     });
 
     // Websocket events
-    proxy.on('open', function (proxySocket) {
+    proxy.on('open', (proxySocket) => {
         console.log('WS Client connected');
 
         proxySocket.on('data', function (msg) {
             //console.log(msg);
         });
     });
-    proxy.on('close', function () {
+    proxy.on('close', () => {
         console.log('WS Client disconnected');
     });
 
     // App server
-    var app = express();
+    const app = express();
 
     app.use('/', express.static(config.dist));
 
-    app.all(/^\/akl-service/, function (req, res) {
+    app.all(/^\/akl-service/, (req, res) => {
         proxy.web(req, res);
     });
 
-    http.createServer(app).listen(config.port).on('upgrade', function (req, socket, head) {
+    http.createServer(app).listen(config.port).on('upgrade', (req, socket, head) => {
         proxy.ws(req, socket, head);
     });
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', () => {
     gulp.watch('dependencies.js', ['dependencies']);
     gulp.watch(config.app + '**/*.ts', ['compile']);
     gulp.watch(config.i18n + '**/*.json', ['i18n']);
@@ -169,7 +167,7 @@ gulp.task('watch', function () {
     gulp.watch([config.app + '**/*.html', '!' + config.dist + '**/*.html'], ['templates']);
 });
 
-gulp.task('prod', function () {
+gulp.task('prod', () => {
     production = true;
 });
 

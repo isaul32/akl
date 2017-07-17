@@ -1,6 +1,3 @@
-'use strict';
-
-// Vendor libs
 global.jQuery = require('jquery');
 global.$ = require('jquery');
 global._ = require('lodash');
@@ -10,7 +7,7 @@ global.SockJS = require('sockjs-client');
 require('stompjs');
 require('fullcalendar');
 require('./node_modules/fullcalendar/dist/gcal');
-require('./node_modules/fullcalendar/dist/lang-all');
+require('./node_modules/fullcalendar/dist/locale-all');
 require('json3');
 require('messageformat');
 require('bootstrap-sass');
@@ -29,7 +26,7 @@ require('angular-translate-loader-partial');
 require('angular-translate-storage-cookie');
 require('angular-ui-bootstrap');
 require('angular-ui-calendar');
-require('angular-ui-router');
+require('./node_modules/@uirouter/angularjs/lib/index');
 require('angular-ui-sortable');
 require('angular-moment');
 require('restangular');
