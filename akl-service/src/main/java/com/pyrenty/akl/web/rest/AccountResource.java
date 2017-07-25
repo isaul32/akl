@@ -57,30 +57,6 @@ public class AccountResource {
     @Inject
     private MailService mailService;
 
-    // Normal register is not used
-    /*@RequestMapping(value = "/register", method = RequestMethod.POST)
-    @Timed
-    public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDto userDto, HttpServletRequest request) {
-        return userRepository.findOneByLogin(userDto.getLogin())
-            .map(user -> new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST))
-            .orElseGet(() -> userRepository.findOneByEmail(userDto.getEmail())
-                .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
-                .orElseGet(() -> {
-                    User user = userService.createUserInformation(userDto.getLogin(), userDto.getPassword(),
-                    userDto.getFirstName(), userDto.getLastName(), userDto.getEmail().toLowerCase(),
-                    userDto.getLangKey());
-                    String baseUrl = request.getScheme() + // "http"
-                    "://" +                                // "://"
-                    request.getServerName() +              // "myhost"
-                    ":" +                                  // ":"
-                    request.getServerPort();               // "80"
-
-                    mailService.sendActivationEmail(user, baseUrl);
-                    return new ResponseEntity<>(HttpStatus.CREATED);
-                })
-        );
-    }*/
-
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
     @Timed
     public ResponseEntity<String> activateAccount(@RequestParam(value = "key") String key) {
@@ -114,7 +90,7 @@ public class AccountResource {
                         user.getId(),
                         user.getLogin(),
                         user.getNickname(),
-                        null, // Password
+                        null,
                         user.getFirstName(),
                         user.getLastName(),
                         user.getEmail(),
@@ -127,11 +103,10 @@ public class AccountResource {
                         user.getSteamId(),
                         user.getLangKey(),
                         user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList()),
-                        // Team ID
                         user.getCaptain() == null ? (
-                                user.getMember() == null ? (
-                                        user.getStandin() == null ? null : user.getStandin().getId()
-                                ) : user.getMember().getId()
+                                user.getMember() == null
+                                        ? (user.getStandin() == null ? null : user.getStandin().getId())
+                                        : user.getMember().getId()
                         ) : user.getCaptain().getId(),
                         teamRepository.findOneForUser(user.getId()) != null
                 )))
@@ -171,11 +146,11 @@ public class AccountResource {
                     u.setActivationKey(RandomUtil.generateActivationKey());
                     // todo: Restrict user mail send
 
-                    String baseUrl = request.getScheme() +         // "http"
-                            "://" +                                // "://"
-                            request.getServerName() +              // "myhost"
-                            ":" +                                  // ":"
-                            request.getServerPort();               // "80"
+                    String baseUrl = request.getScheme()
+                            + "://"
+                            + request.getServerName()
+                            + ":"
+                            + request.getServerPort();
                     u.setEmail(userDto.getEmail());
                     mailService.sendActivationEmail(u, baseUrl);
                 } else {
@@ -287,5 +262,4 @@ public class AccountResource {
     private boolean checkPasswordLength(String password) {
       return (!StringUtils.isEmpty(password) && password.length() >= UserDto.PASSWORD_MIN_LENGTH && password.length() <= UserDto.PASSWORD_MAX_LENGTH);
     }
-
 }

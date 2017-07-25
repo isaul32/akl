@@ -1,8 +1,12 @@
 package com.pyrenty.akl.web.rest;
 
 import com.pyrenty.akl.Application;
+import com.pyrenty.akl.domain.Authority;
+import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.AuthorityRepository;
+import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
+import com.pyrenty.akl.security.AuthoritiesConstants;
 import com.pyrenty.akl.service.MailService;
 import com.pyrenty.akl.service.UserService;
 import org.junit.Before;
@@ -21,13 +25,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -56,6 +61,9 @@ public class AccountResourceTest {
     @Mock
     private MailService mockMailService;
 
+    @Mock
+    private TeamRepository teamRepository;
+
     private MockMvc restUserMockMvc;
 
     private MockMvc restMvc;
@@ -69,11 +77,13 @@ public class AccountResourceTest {
         ReflectionTestUtils.setField(accountResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(accountResource, "userService", userService);
         ReflectionTestUtils.setField(accountResource, "mailService", mockMailService);
+        ReflectionTestUtils.setField(accountResource, "teamRepository", teamRepository);
 
         AccountResource accountUserMockResource = new AccountResource();
         ReflectionTestUtils.setField(accountUserMockResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(accountUserMockResource, "userService", mockUserService);
         ReflectionTestUtils.setField(accountUserMockResource, "mailService", mockMailService);
+        ReflectionTestUtils.setField(accountUserMockResource, "teamRepository", teamRepository);
 
         this.restMvc = MockMvcBuilders.standaloneSetup(accountResource).build();
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(accountUserMockResource).build();
@@ -99,7 +109,7 @@ public class AccountResourceTest {
                 .andExpect(content().string("test"));
     }
 
-    /*@Test
+    @Test
     public void testGetExistingAccount() throws Exception {
         Set<Authority> authorities = new HashSet<>();
         Authority authority = new Authority();
@@ -107,10 +117,11 @@ public class AccountResourceTest {
         authorities.add(authority);
 
         User user = new User();
+        user.setId(1L);
         user.setLogin("test");
-        user.setFirstName("john");
-        user.setLastName("doe");
-        user.setEmail("john.doe@jhipter.com");
+        user.setFirstName("first");
+        user.setLastName("last");
+        user.setEmail("first.last@test.com");
         user.setAuthorities(authorities);
         when(mockUserService.getUserWithAuthorities()).thenReturn(user);
 
@@ -119,11 +130,11 @@ public class AccountResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.login").value("test"))
-                .andExpect(jsonPath("$.firstName").value("john"))
-                .andExpect(jsonPath("$.lastName").value("doe"))
-                .andExpect(jsonPath("$.email").value("john.doe@jhipter.com"))
+                .andExpect(jsonPath("$.firstName").value("first"))
+                .andExpect(jsonPath("$.lastName").value("last"))
+                .andExpect(jsonPath("$.email").value("first.last@test.com"))
                 .andExpect(jsonPath("$.roles").value(AuthoritiesConstants.ADMIN));
-    }*/
+    }
 
     @Test
     public void testGetUnknownAccount() throws Exception {
@@ -133,190 +144,4 @@ public class AccountResourceTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError());
     }
-
-    /*@Test
-    @Transactional
-    public void testRegisterValid() throws Exception {
-        UserDto u = new UserDto(
-            "joe",                  // login
-            "password",             // password
-            "Joe",                  // firstName
-            "Shmoe",                // lastName
-            "joe@example.com",      // e-mail
-            true,                   // activated
-            "76561198233249860",    // communityId
-            "STEAM_0:0:136492066",  // steamId
-            "en",                   // langKey
-            Collections.singletonList(AuthoritiesConstants.USER)
-        );
-
-        restMvc.perform(
-            post("/api/register")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(u)))
-            .andExpect(status().isCreated());
-
-        Optional<User> user = userRepository.findOneByLogin("joe");
-        assertThat(user.isPresent()).isTrue();
-    }
-
-    @Test
-    @Transactional
-    public void testRegisterInvalidLogin() throws Exception {
-        UserDto u = new UserDto(
-            "funky-log!n",          // login <-- invalid
-            "password",             // password
-            "Funky",                // firstName
-            "One",                  // lastName
-            "funky@example.com",    // e-mail
-            true,                   // activated
-            "76561198233249860",    // communityId
-            "STEAM_0:0:136492066",  // steamId
-            "en",                   // langKey
-            Collections.singletonList(AuthoritiesConstants.USER)
-        );
-
-        restUserMockMvc.perform(
-            post("/api/register")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(u)))
-            .andExpect(status().isBadRequest());
-
-        Optional<User> user = userRepository.findOneByEmail("funky@example.com");
-        assertThat(user.isPresent()).isFalse();
-    }*/
-
-    /*@Test
-    @Transactional
-    public void testRegisterInvalidEmail() throws Exception {
-        UserDto u = new UserDto(
-            1L,
-            "bob",              // login
-            "BobTheGreat",      // nickname
-            "password",         // password
-            "Bob",              // firstName
-            "Green",            // lastName
-            "invalid",          // e-mail <-- invalid
-            true,                   // activated
-            "76561198233249860",    // communityId
-            "STEAM_0:0:136492066",  // steamId
-            "en",               // langKey
-            Collections.singletonList(AuthoritiesConstants.USER)
-        );
-
-        restUserMockMvc.perform(
-            post("/api/register")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(u)))
-            .andExpect(status().isBadRequest());
-
-        Optional<User> user = userRepository.findOneByLogin("bob");
-        assertThat(user.isPresent()).isFalse();
-    }*/
-
-    /*@Test
-    @Transactional
-    public void testRegisterDuplicateLogin() throws Exception {
-        // Good
-        UserDto u = new UserDto(
-            "alice",                // login
-            "password",             // password
-            "Alice",                // firstName
-            "Something",            // lastName
-            "alice@example.com",    // e-mail
-            true,                   // activated
-            "76561198233249860",    // communityId
-            "STEAM_0:0:136492066",  // steamId
-            "en",                   // langKey
-            Collections.singletonList(AuthoritiesConstants.USER)
-        );
-
-        // Duplicate login, different e-mail
-        UserDto dup = new UserDto(u.getLogin(), u.getPassword(), u.getLogin(), u.getLastName(),
-            "alicejr@example.com", u.isActivated(), u.getCommunityId(), u.getSteamId(), u.getLangKey(), u.getRoles());
-
-        // Good user
-        restMvc.perform(
-            post("/api/register")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(u)))
-            .andExpect(status().isCreated());
-
-        // Duplicate login
-        restMvc.perform(
-            post("/api/register")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(dup)))
-            .andExpect(status().is4xxClientError());
-
-        Optional<User> userDup = userRepository.findOneByEmail("alicejr@example.com");
-        assertThat(userDup.isPresent()).isFalse();
-    }*/
-
-    /*@Test
-    @Transactional
-    public void testRegisterDuplicateEmail() throws Exception {
-        // Good
-        UserDto u = new UserDto(
-            "john",                 // login
-            "password",             // password
-            "John",                 // firstName
-            "Doe",                  // lastName
-            "john@example.com",     // e-mail
-            true,                   // activated
-            "76561198233249860",    // communityId
-            "STEAM_0:0:136492066",  // steamId
-            "en",                   // langKey
-            Collections.singletonList(AuthoritiesConstants.USER)
-        );
-
-        // Duplicate e-mail, different login
-        UserDto dup = new UserDto("johnjr", u.getPassword(), u.getLogin(), u.getLastName(),
-            u.getEmail(), u.isActivated(), u.getCommunityId(), u.getSteamId(), u.getLangKey(), u.getRoles());
-
-        // Good user
-        restMvc.perform(
-            post("/api/register")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(u)))
-            .andExpect(status().isCreated());
-
-        // Duplicate e-mail
-        restMvc.perform(
-            post("/api/register")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(dup)))
-            .andExpect(status().is4xxClientError());
-
-        Optional<User> userDup = userRepository.findOneByLogin("johnjr");
-        assertThat(userDup.isPresent()).isFalse();
-    }*/
-
-    /*@Test
-    @Transactional
-    public void testRegisterAdminIsIgnored() throws Exception {
-        UserDto u = new UserDto(
-            "badguy",               // login
-            "password",             // password
-            "Bad",                  // firstName
-            "Guy",                  // lastName
-            "badguy@example.com",   // e-mail
-            true,                   // activated
-            "76561198233249860",    // communityId
-            "STEAM_0:0:136492066",  // steamId
-            "en",                   // langKey
-            Collections.singletonList(AuthoritiesConstants.ADMIN) // <-- only admin should be able to do that
-        );
-
-        restMvc.perform(
-            post("/api/register")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(u)))
-            .andExpect(status().isCreated());
-
-        Optional<User> userDup = userRepository.findOneByLogin("badguy");
-        assertThat(userDup.isPresent()).isTrue();
-        assertThat(userDup.get().getAuthorities()).hasSize(1)
-            .containsExactly(authorityRepository.findOne(AuthoritiesConstants.USER));
-    }*/
 }
