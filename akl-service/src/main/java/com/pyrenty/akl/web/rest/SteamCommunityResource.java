@@ -22,7 +22,7 @@ import javax.inject.Inject;
 public class SteamCommunityResource {
     private final Logger log = LoggerFactory.getLogger(SteamCommunityResource.class);
 
-    @Value("${akl.steam.web-api-key:''}")
+    @Value("${akl.steam.web-api-key:}")
     private String webApiKey;
 
     @Inject

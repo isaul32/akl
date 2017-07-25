@@ -22,7 +22,7 @@ public class TwitchScheduledJob {
         Twitch twitch = twitchRepository.getTwitchState();
 
         // Channel is online if stream is not null
-        if (twitch.getStream() != null) {
+        if (twitch != null && twitch.getStream() != null) {
             // todo: Send websocket brodcast to clients
             log.debug(twitch.toString());
         }

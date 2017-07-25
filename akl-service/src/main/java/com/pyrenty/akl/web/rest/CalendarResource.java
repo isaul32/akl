@@ -20,7 +20,7 @@ import java.net.URL;
 public class CalendarResource {
     // Not used yet
     /*
-    @Value("${akl.calendar.id:''}")
+    @Value("${akl.calendar.id:}")
     private String calendarId;
 
 

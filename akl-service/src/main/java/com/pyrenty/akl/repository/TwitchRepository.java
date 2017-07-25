@@ -16,14 +16,18 @@ public class TwitchRepository {
     private final Logger log = LoggerFactory.getLogger(TwitchRepository.class);
     private RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${akl.twitch.name:''}")
+    @Value("${akl.twitch.name:}")
     private String twitchName;
 
-    @Value("${akl.twitch.client-id:''}")
+    @Value("${akl.twitch.client-id:}")
     private String clientId;
 
     @Cacheable(value="twitch")
     public Twitch getTwitchState() {
+        if (twitchName.isEmpty() || clientId.isEmpty()) {
+            return null;
+        }
+
         return restTemplate.getForObject("https://api.twitch.tv/kraken/streams/" + twitchName + "?client_id=" + clientId, Twitch.class);
     }
 }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 @Repository
 public class SteamCommunityRepository {
 
-    @Value("${akl.steam.web-api-key:''}")
+    @Value("${akl.steam.web-api-key:}")
     private String webApiKey;
 
     @Cacheable(value="steamUser", key="#communityId")

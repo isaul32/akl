@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/groups")
 public class GroupResource {
 
-    @Value("${akl.challonge.key:''}")
+    @Value("${akl.challonge.key:}")
     private String challongeKey;
 
     @Inject
