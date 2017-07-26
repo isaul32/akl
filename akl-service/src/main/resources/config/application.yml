@@ -1,0 +1,30 @@
+# Disable the spring security default configuration from spring-boot-actuator
+management.security.enabled: true
+security.basic.enabled: false
+
+# Disable Jolokia - An http/json bridge for remote JMX access
+endpoints.jolokia.enabled: false
+
+async:
+    corePoolSize: 2
+    maxPoolSize: 50
+    queueCapacity: 10000
+
+mail:
+    host: localhost
+    port: 25
+    username:
+    password:
+    protocol: smtp
+    tls: false
+    auth: false
+    from: akl@tietoteekkarikilta.fi
+
+swagger:
+    title: AKL API
+    description: There is AKL API documentation
+    version: 1.0.0
+    contact: akl@tietoteekkarikilta.fi
+    termsOfServiceUrl: 
+    license: Apache 2.0
+    licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.html

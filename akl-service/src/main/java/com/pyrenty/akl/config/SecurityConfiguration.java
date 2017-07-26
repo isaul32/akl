@@ -86,7 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .rememberMe()
             .rememberMeServices(rememberMeServices)
             .rememberMeParameter("remember-me")
-            .key(env.getProperty("akl.security.rememberme.key"))
+            .key(env.getProperty("akl.security.rememberme.key", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"))
         .and()
             .formLogin()
             .loginProcessingUrl("/api/authentication")
