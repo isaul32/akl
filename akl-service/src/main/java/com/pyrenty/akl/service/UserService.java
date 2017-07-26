@@ -152,15 +152,20 @@ public class UserService {
         return newUser;
     }
 
+    public boolean isBirthdateOkay(DateTime birthdate) {
+        return birthdate != null && birthdate.getYear() > 1970;
+    }
+
     public void updateUserInformation(String nickname, String firstName, String lastName, String email,
                                       DateTime birthdate, String guild, String description, Rank rank, String langKey,
                                       String activationKey) {
+
         userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
             u.setNickname(nickname);
             u.setFirstName(firstName);
             u.setLastName(lastName);
             u.setEmail(email);
-            u.setBirthdate(birthdate);
+            u.setBirthdate(isBirthdateOkay(birthdate) ? birthdate : null);
             u.setGuild(guild);
             u.setDescription(description);
             u.setRank(rank);
