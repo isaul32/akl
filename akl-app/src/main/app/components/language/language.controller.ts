@@ -1,8 +1,7 @@
 angular.module('app')
-.controller('LanguageController', ($scope, $translate, Language, tmhDynamicLocale) => {
+.controller('LanguageController', ($scope, $translate, Language) => {
     $scope.changeLanguage = languageKey => {
         $translate.use(languageKey);
-        tmhDynamicLocale.set(languageKey);
     };
 
     Language.getAll().then(languages => {

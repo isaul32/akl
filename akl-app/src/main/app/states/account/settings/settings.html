@@ -15,10 +15,10 @@
                 <strong>An error has occurred!</strong> Settings could not be saved.
             </div>
 
-            <form name="form" role="form" novalidate ng-submit="save()" show-validation>
+            <form name="form" novalidate ng-submit="save()" show-validation>
                 <div class="form-group">
                     <label for="nickname" translate="settings.form.nickname">Nickname</label>
-                    <input type="text" class="form-control" id="nickname" name="nickname"
+                    <input class="form-control" id="nickname" name="nickname"
                            ng-model="settingsAccount.nickname" ng-minlength=1 ng-maxlength=50 required maxlength="50">
                     <div ng-show="form.nickname.$dirty && form.nickname.$invalid">
                         <p class="help-block"
@@ -38,7 +38,7 @@
 
                 <div class="form-group">
                     <label for="firstName" translate="settings.form.firstname">First Name</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName"
+                    <input class="form-control" id="firstName" name="firstName"
                            ng-model="settingsAccount.firstName" ng-minlength=1 ng-maxlength=50 required maxlength="50">
                     <div ng-show="form.firstName.$dirty && form.firstName.$invalid">
                         <p class="help-block"
@@ -58,7 +58,7 @@
 
                 <div class="form-group">
                     <label for="lastName" translate="settings.form.lastname">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName"
+                    <input class="form-control" id="lastName" name="lastName"
                            ng-model="settingsAccount.lastName" ng-minlength=1 ng-maxlength=50 required maxlength="50">
                     <div ng-show="form.lastName.$dirty && form.lastName.$invalid">
                         <p class="help-block"
@@ -98,8 +98,8 @@
                             Your e-mail cannot be longer than 100 characters.
                         </p>
                     </div>
+                    <span class="help-block" translate="settings.messages.email">Käytä oppilaitoksen sähköpostiosoitetta ensisijaisesti.</span>
                 </div>
-                <p translate="settings.messages.email">Käytä oppilaitoksen sähköpostiosoitetta ensisijaisesti.</p>
 
                 <div class="form-group">
                     <label for="birthdate" translate="settings.form.birthdate">Birthdate</label>
@@ -112,11 +112,12 @@
                             Your guild is required.
                         </p>
                     </div>
+                    <span class="help-block" translate="settings.messages.birth">Syntymäpäivää käytetään vain iän laskemiseen. Täytä edes syntymävuosi.</span>
                 </div>
 
                 <div class="form-group">
                     <label for="guild" translate="settings.form.guild">Guild</label>
-                    <input type="text" class="form-control" id="guild" name="guild"
+                    <input class="form-control" id="guild" name="guild"
                            ng-model="settingsAccount.guild" ng-minlength=1 ng-maxlength=50 maxlength="50">
                     <div ng-show="form.guild.$dirty && form.guild.$invalid">
                         <p class="help-block"
@@ -166,12 +167,12 @@
                     </select>
                 </div>
 
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label for="langKey" translate="settings.form.language">Language</label>
                     <select id="langKey" name="langKey" class="form-control" ng-model="settingsAccount.langKey" ng-controller="LanguageController" ng-options="code as (code | findLanguageFromKey) for code in languages"></select>
-                </div>
+                </div>-->
 
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="settings.form.button">Save</button>
+                <button ng-disabled="form.$invalid" class="btn btn-primary" translate="settings.form.button">Save</button>
             </form>
         </div>
     </div>

@@ -26,10 +26,9 @@ angular.module('app')
             return false;
         }
     };
-
     $scope.uiConfig = {
         calendar: {
-            lang: $translate.use(),
+            locale: $translate.use(),
             editable: false,
             displayEventEnd: true,
             firstDay: 1,

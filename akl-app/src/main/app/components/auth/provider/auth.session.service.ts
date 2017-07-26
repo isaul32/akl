@@ -1,35 +1,42 @@
 angular.module('app')
-.factory('AuthServerProvider', function loginService($http, localStorageService, $window, Tracker, API_URL) {
+.factory('AuthServerProvider', function loginService($http, localStorageService, $window, Tracker, API_URL, $q) {
     return {
         login: function (credentials) {
-            var data = 'username=' + encodeURIComponent(credentials.username) +
+            const data = 'username=' + encodeURIComponent(credentials.username) +
                 '&password=' + encodeURIComponent(credentials.password) +
-                '&remember-me=' + credentials.rememberMe + '&submit=Login';
-            return $http.post(API_URL + '/authentication', data, {
+                '&submit=Login';
+            let deferred = $q.defer();
+
+            $http.post(API_URL + '/authentication', data, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
-            }).success(function (response) {
-                return response;
+            }).then(res => {
+                deferred.resolve(res);
+            }).catch(err => {
+                deferred.reject(err);
             });
+
+            return deferred.promise;
         },
         logout: function () {
             Tracker.disconnect();
 
-            // logout from the server
-            $http.post(API_URL + '/logout').success(response => {
+            // Logout from the server
+            $http.post(API_URL + '/logout').then(response => {
                 localStorageService.clearAll();
-                // to get a new csrf token call the api
+                // To get a new csrf token call the api
                 $http.get(API_URL + '/account');
                 return response;
+            }).catch(err => {
+                console.error(err);
             });
         },
         getToken: function () {
-            var token = localStorageService.get('token');
-            return token;
+            return localStorageService.get('token');
         },
         hasValidToken: function () {
-            var token = this.getToken();
+            const token = this.getToken();
             return !!token;
         }
     };

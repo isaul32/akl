@@ -6,8 +6,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-@PropertySource("file:${user.home}/.akl.properties")
-public class SteamConfiguration {
+@PropertySource(value = "file:${user.home}/.akl.properties", ignoreResourceNotFound = true)
+public class AppConfiguration {
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {

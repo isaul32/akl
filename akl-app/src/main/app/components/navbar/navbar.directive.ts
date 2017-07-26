@@ -1,5 +1,5 @@
 angular.module('app')
-.directive('activeMenu', ($translate, $locale, tmhDynamicLocale) => {
+.directive('activeMenu', ($translate, $locale) => {
     return {
         restrict: 'A',
         link: (scope, element, attrs: any) => {
@@ -9,7 +9,6 @@ angular.module('app')
                 return $translate.use();
             }, selectedLanguage => {
                 if (language === selectedLanguage) {
-                    tmhDynamicLocale.set(language);
                     element.addClass('active');
                 } else {
                     element.removeClass('active');

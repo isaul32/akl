@@ -3,6 +3,7 @@
         "title": "Application Metrics",
         "refresh.button": "Refresh",
         "updating": "Updating...",
+        "adblock": "You have to disable adblock to fetch metrics data.",
         "jvm": {
             "title": "JVM Metrics",
             "memory": {

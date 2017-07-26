@@ -78,7 +78,6 @@
 
     "src/main/app/states/account/password/password.ts",
     "src/main/app/states/account/password/password.controller.ts",
-    "src/main/app/states/account/password/password.directive.ts",
 
     "src/main/app/states/account/register/register.ts",
     "src/main/app/states/account/register/register.controller.ts",

@@ -25,7 +25,6 @@ angular.module('app')
         }
     })
     .state('groups.new', {
-        parent: 'groups',
         url: '/new',
         data: {
             roles: ['ROLE_ADMIN']
@@ -52,7 +51,6 @@ angular.module('app')
         }
     })
     .state('groups.edit', {
-        parent: 'groups',
         url: '/{id}/edit',
         data: {
             roles: ['ROLE_ADMIN']
@@ -75,7 +73,6 @@ angular.module('app')
         }
     })
     .state('groups.teams', {
-        parent: 'groups',
         url: '/teams',
         data: {
             roles: ['ROLE_ADMIN']

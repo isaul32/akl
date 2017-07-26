@@ -2,12 +2,11 @@ angular.module('app')
 .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish, Tracker) {
     return {
         // When use login form
-        login: function (credentials, callback) {
-            let cb = callback || angular.noop;
+        login: function (credentials) {
             let deferred = $q.defer();
 
-            AuthServerProvider.login(credentials).then((data) => {
-                // retrieve the logged account information
+            AuthServerProvider.login(credentials).then(data => {
+                // Retrieve the logged account information
                 Principal.identity(true).then(account => {
                     // After the login the language will be changed to
                     // the language selected by the user during his registration
@@ -16,13 +15,10 @@ angular.module('app')
                     Tracker.sendActivity();
                     deferred.resolve(data);
                 });
-
-                return cb();
-            }).catch(function (err) {
-                this.logout();
+                deferred.resolve({});
+            }).catch(err => {
                 deferred.reject(err);
-                return cb(err);
-            }.bind(this));
+            });
 
             return deferred.promise;
         },
@@ -33,20 +29,24 @@ angular.module('app')
         // When check if already logged in
         authorize: function (force) {
             return Principal.identity(force).then(() => {
-                var isAuthenticated = Principal.isAuthenticated();
+                const isAuthenticated = Principal.isAuthenticated();
 
-                if ($rootScope.toState.hasOwnProperty('roles') && $rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0 && !Principal.isInAnyRole($rootScope.toState.data.roles)) {
+                if ($rootScope.toState
+                    && $rootScope.toState.hasOwnProperty('roles')
+                    && $rootScope.toState.data.roles
+                    && $rootScope.toState.data.roles.length > 0
+                    && !Principal.isInAnyRole($rootScope.toState.data.roles)) {
                     if (isAuthenticated) {
-                        // user is signed in but not authorized for desired state
+                        // User is signed in but not authorized for desired state
                         $state.go('accessdenied');
                     }
                     else {
-                        // user is not authenticated. stow the state they wanted before you
-                        // send them to the signin state, so you can return them when you're done
+                        // User is not authenticated. stow the state they wanted before you
+                        // Send them to the signin state, so you can return them when you're done
                         $rootScope.returnToState = $rootScope.toState;
                         $rootScope.returnToStateParams = $rootScope.toStateParams;
 
-                        // now, send them to the signin state so they can log in
+                        // Now, send them to the signin state so they can log in
                         $state.go('login');
                     }
                 }

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app', [
-    'LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
+    'LocalStorageModule', 'pascalprecht.translate',
     'ui.bootstrap', 'ngResource', 'ui.router', 'ngCookies', 'angularFileUpload',
     'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache', 'restangular', 'ngSanitize',
     'ui.sortable', 'angulartics', 'angulartics.google.analytics'
@@ -29,12 +29,13 @@ angular.module('app', [
 
     // Todo: error page
     $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
-        console.log("State error");
+        console.error("State error", event, toState, toParams, fromState, fromParams);
     });
 })
-.config(($urlRouterProvider, $httpProvider, $locationProvider,
-                  $translateProvider, tmhDynamicLocaleProvider, RestangularProvider, API_PATH) => {
-    //enable CSRF
+.config(($urlRouterProvider, $httpProvider, $locationProvider, $translateProvider,
+         RestangularProvider, API_PATH) => {
+
+    // Enable CSRF
     $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
 
@@ -44,16 +45,14 @@ angular.module('app', [
     $httpProvider.interceptors.push('authExpiredInterceptor');
     $httpProvider.interceptors.push('notificationInterceptor');
 
+    $locationProvider.hashPrefix('');
+
     $translateProvider.useLoader('$translatePartialLoader', {
         urlTemplate: 'i18n/{lang}/{part}.json'
     });
     $translateProvider.preferredLanguage('fi');
     $translateProvider.useCookieStorage();
     $translateProvider.useSanitizeValueStrategy('escaped');
-
-    tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale_{{locale}}.js');
-    tmhDynamicLocaleProvider.useCookieStorage();
-    tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
 
     RestangularProvider.setBaseUrl(API_PATH);
 })

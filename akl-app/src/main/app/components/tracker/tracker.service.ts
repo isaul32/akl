@@ -6,9 +6,8 @@ angular.module('app')
     let connected = $q.defer();
     let alreadyConnectedOnce = false;
     let sendActivity = () => {
-        if (stompClient != null && stompClient.connected) {
-            stompClient
-                .send('/topic/activity',
+        if (stompClient != null && stompClient.connected && $rootScope.toState != null) {
+            stompClient.send('/topic/activity',
                 {},
                 JSON.stringify({'page': $rootScope.toState.name}));
         }

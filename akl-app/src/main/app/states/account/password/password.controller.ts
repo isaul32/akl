@@ -29,6 +29,8 @@ angular.module('app')
             $state.go('login', {
                 reload: true
             });
+        }).catch(err => {
+            console.error(err);
         });
     }
 });

@@ -14,7 +14,7 @@ angular.module('app')
     });
 
     Api.one('twitch').get().then(res => {
-        if (res.data.stream) {
+        if (res.data && res.data.stream) {
             $scope.live = true;
         }
     });

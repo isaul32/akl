@@ -30,7 +30,6 @@ angular.module('app')
         }
     })
     .state('teams.new', {
-        parent: 'teams',
         url: '/new',
         data: {
             roles: ['ROLE_USER']
@@ -53,7 +52,6 @@ angular.module('app')
         }
     })
     .state('teams.detail', {
-        parent: 'teams',
         url: '/{id}',
         data: {
             roles: []
@@ -75,8 +73,7 @@ angular.module('app')
             }
         }
     })
-    .state('teams.edit', {
-        parent: 'teams.detail',
+    .state('teams.detail.edit', {
         url: '/{id}/edit',
         data: {
             roles: ['ROLE_USER']
@@ -99,7 +96,6 @@ angular.module('app')
         }
     })
     .state('teams.detail.accept', {
-        parent: 'teams.detail',
         url: '/member/{userId}/accept',
         data: {
             roles: ['ROLE_USER']
@@ -120,7 +116,6 @@ angular.module('app')
         }
     })
     .state('teams.detail.schedule', {
-        parent: 'teams.detail',
         url: '/schedule',
         data: {
             roles: ['ROLE_USER']

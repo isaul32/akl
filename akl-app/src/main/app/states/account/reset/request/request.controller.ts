@@ -16,9 +16,9 @@ angular.module('app')
 
         Auth.resetPasswordInit($scope.resetAccount.email).then(() => {
             $scope.success = 'OK';
-        }).catch((response) => {
+        }).catch(err => {
             $scope.success = null;
-            if (response.status === 400 && response.data === 'e-mail address not registered') {
+            if (err.status === 400 && err.data === 'e-mail address not registered') {
                 $scope.errorEmailNotExists = 'ERROR';
             } else {
                 $scope.error = 'ERROR';

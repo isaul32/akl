@@ -17,24 +17,26 @@ angular.module('app')
     $scope.$watch('metrics', newValue => {
         $scope.servicesStats = {};
         $scope.cachesStats = {};
-        angular.forEach(newValue.timers, (value, key) => {
-            if (key.indexOf('web.rest') !== -1 || key.indexOf('service') !== -1) {
-                $scope.servicesStats[key] = value;
-            }
+        if (newValue) {
+            angular.forEach(newValue.timers, (value, key) => {
+                if (key.indexOf('web.rest') !== -1 || key.indexOf('service') !== -1) {
+                    $scope.servicesStats[key] = value;
+                }
 
-            if (key.indexOf('net.sf.ehcache.Cache') !== -1) {
-                // remove gets or puts
-                let index = key.lastIndexOf('.');
-                let newKey = key.substr(0, index);
+                if (key.indexOf('net.sf.ehcache.Cache') !== -1) {
+                    // remove gets or puts
+                    let index = key.lastIndexOf('.');
+                    let newKey = key.substr(0, index);
 
-                // Keep the name of the domain
-                index = newKey.lastIndexOf('.');
-                $scope.cachesStats[newKey] = {
-                    'name': newKey.substr(index + 1),
-                    'value': value
-                };
-            }
-        });
+                    // Keep the name of the domain
+                    index = newKey.lastIndexOf('.');
+                    $scope.cachesStats[newKey] = {
+                        'name': newKey.substr(index + 1),
+                        'value': value
+                    };
+                }
+            });
+        }
     });
 
     $scope.refresh();

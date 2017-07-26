@@ -1,6 +1,6 @@
 angular.module('app')
 .factory('Principal', function Principal($q, Account, Tracker) {
-    var _identity,
+    let _identity,
         _deferred,
         _authenticated = false;
 
@@ -27,7 +27,7 @@ angular.module('app')
                 return false;
             }
 
-            for (var i = 0; i < roles.length; i++) {
+            for (let i = 0; i < roles.length; i++) {
                 if (this.isInRole(roles[i])) {
                     return true;
                 }
@@ -44,7 +44,7 @@ angular.module('app')
                 return _deferred.promise;
             }
 
-            var deferred = $q.defer();
+            const deferred = $q.defer();
 
             if (force === true) {
                 _identity = undefined;

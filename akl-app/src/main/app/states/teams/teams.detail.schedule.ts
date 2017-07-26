@@ -60,7 +60,7 @@ angular.module('app')
 
     $scope.uiConfig = {
         calendar: {
-            lang: $translate.use(),
+            locale: $translate.use(),
             editable: true,
             selectable: true,
             selectHelper: false,

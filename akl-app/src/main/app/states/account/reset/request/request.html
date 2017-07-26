@@ -15,7 +15,7 @@
                 <p translate="reset.request.messages.success">Check your e-mails for details on how to reset your password.</p>
             </div>
 
-            <form ng-show="!success" name="form" role="form" novalidate ng-submit="requestReset()" show-validation>
+            <form ng-show="!success" name="form" novalidate ng-submit="requestReset()" show-validation>
                 <div class="form-group">
                     <label for="email" translate="global.form.email">E-mail</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
@@ -39,7 +39,7 @@
                         </p>
                     </div>
                 </div>
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="reset.request.form.button">Register</button>
+                <button ng-disabled="form.$invalid" class="btn btn-primary" translate="reset.request.form.button">Register</button>
             </form>
 
         </div>

@@ -7,8 +7,8 @@
             "nickname": "Nimimerkki",
             "language": "Kieli",
             "birthdate": "Syntymäpäivä",
-            "guild": "Ainejärjestö / kilta",
-            "description": "Vapaa kuvaus",
+            "guild": "Ainejärjestö / edustettava taho / kilta",
+            "description": "Vapaa kuvaus it",
             "rank": "Taso",
             "steamId": "Steam ID",
             "button": "Tallenna"
@@ -39,7 +39,8 @@
                     "required": "Syntymäpäivä on pakollinen"
                 }
             },
-            "email": "Käytä oppilaitoksen sähköpostiosoitetta ensisijaisesti. Sähköpostiin lähetetään varmennusviesti."
+            "email": "Käytä oppilaitoksen sähköpostiosoitetta ensisijaisesti. Sähköpostiin lähetetään varmennusviesti.",
+            "birth": "Syntymäpäivää käytetään vain iän laskemiseen. Täytä edes syntymävuosi."
         }
     }
 }

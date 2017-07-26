@@ -9,18 +9,16 @@
                 </div>
             </div>
             <div class="col-xs-8">
-                <div class="pull-right" ng-controller="LanguageController">
+                <!--<div class="pull-right" ng-controller="LanguageController">
                     <div class="btn-group" role="group">
-                        <a href=""
-                           role="button"
-                           class="btn btn-primary btn-sm language-btn"
+                        <a class="btn btn-primary btn-sm language-btn"
                            active-menu="{{language}}"
                            ng-click="changeLanguage(language)"
                            ng-repeat="language in languages">
                             {{language | findLanguageFromKey}}
                         </a>
                     </div>
-                </div>
+                </div>-->
                 <div class="account-align" ng-if="isAuthenticated()">
                     <a ng-href="{{steamUser.profileurl}}" target="_blank">
                         <div class="account-info pull-right">
@@ -104,7 +102,7 @@
                         <li ui-sref-active="active">
                             <a ui-sref="groups">
                                 <span class="fa fa-list-ul fa-fw"></span>&nbsp;
-                                <span translate="global.menu.group">Groups</span>
+                                <span translate="global.menu.groups">Groups</span>
                             </a>
                         </li>
                         <li ui-sref-active="active">
@@ -142,7 +140,7 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ui-sref-active="active"><a ui-sref="users"><span class="fa fa-user fa-fw"></span>
+                        <li ui-sref-active="active"><a ui-sref="users.list"><span class="fa fa-user fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.user">User management</span></a></li>
                         <li ui-sref-active="active"><a ui-sref="tracker"><span class="glyphicon glyphicon-eye-open fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.tracker">User tracker</span></a></li>

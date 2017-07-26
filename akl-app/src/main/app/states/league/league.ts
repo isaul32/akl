@@ -6,7 +6,6 @@ angular.module('app')
         abstract: true
     })
     .state('league.state', {
-        parent: 'league',
         url: '/state',
         views: {
             'content@': {
@@ -26,7 +25,6 @@ angular.module('app')
         }
     })
     .state('league.final', {
-        parent: 'league',
         url: '/final',
         views: {
             'content@': {
@@ -55,7 +53,6 @@ angular.module('app')
         }
     })
     .state('league.afterparty', {
-        parent: 'league',
         url: '/afterparty',
         views: {
             'content@': {

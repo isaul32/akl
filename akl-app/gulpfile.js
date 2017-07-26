@@ -97,8 +97,8 @@ gulp.task('ckeditor', () => {
 
 gulp.task('i18n', () => {
     return gulp.src([config.i18n + '**/*.json',
-            'node_modules/angular-i18n/angular-locale_fi.js',
-            'node_modules/angular-i18n/angular-locale_en.js'])
+        'node_modules/angular-i18n/angular-locale_fi.js',
+        'node_modules/angular-i18n/angular-locale_en.js'])
         .pipe(gulp.dest(config.dist + 'i18n'))
 });
 
