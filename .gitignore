@@ -5,6 +5,7 @@ akl-app/node/
 akl-app/node_modules/
 akl-app/typings/
 akl-app/src/**/*.js
+!akl-app/src/ckeditor/*.js
 akl-app/src/**/*.js.map
 
 ######################

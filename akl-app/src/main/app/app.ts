@@ -4,10 +4,12 @@ angular.module('app', [
     'LocalStorageModule', 'pascalprecht.translate',
     'ui.bootstrap', 'ngResource', 'ui.router', 'ngCookies', 'angularFileUpload',
     'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache', 'restangular', 'ngSanitize',
-    'ui.sortable', 'angulartics', 'angulartics.google.analytics'
+    'ui.sortable', 'angulartics', 'angulartics.google.analytics', 'tmh.dynamicLocale'
 ])
-.run(($rootScope, $location, $window, $http, $state, $translate, Language, Auth, Principal, amMoment) => {
+.run(($rootScope, $location, $window, $http, $state, $translate, Language, Auth, Principal, amMoment,
+      tmhDynamicLocale) => {
     amMoment.changeLocale('fi');
+    tmhDynamicLocale.set('fi');
 
     $rootScope.$on('$stateChangeStart', (event, toState, toStateParams) => {
         $rootScope.toState = toState;
@@ -32,7 +34,7 @@ angular.module('app', [
         console.error("State error", event, toState, toParams, fromState, fromParams);
     });
 })
-.config(($urlRouterProvider, $httpProvider, $locationProvider, $translateProvider,
+.config(($urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider,
          RestangularProvider, API_PATH) => {
 
     // Enable CSRF
@@ -46,6 +48,8 @@ angular.module('app', [
     $httpProvider.interceptors.push('notificationInterceptor');
 
     $locationProvider.hashPrefix('');
+
+    tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale_{{locale}}.js');
 
     $translateProvider.useLoader('$translatePartialLoader', {
         urlTemplate: 'i18n/{lang}/{part}.json'

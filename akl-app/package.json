@@ -7,6 +7,7 @@
     "@uirouter/angularjs": "1.0.5",
     "angular": "1.6.5",
     "angular-cookies": "1.6.5",
+    "angular-dynamic-locale": "0.1.32",
     "angular-file-upload": "2.5.0",
     "angular-i18n": "1.6.5",
     "angular-local-storage": "0.6.0",

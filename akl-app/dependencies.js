@@ -24,6 +24,7 @@ require('angular-translate');
 require('angular-translate-interpolation-messageformat');
 require('angular-translate-loader-partial');
 require('angular-translate-storage-cookie');
+require('./node_modules/angular-dynamic-locale');
 require('angular-ui-bootstrap');
 require('angular-ui-calendar');
 require('./node_modules/@uirouter/angularjs/lib/index');

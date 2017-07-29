@@ -60,6 +60,7 @@
     "src/main/app/components/util/base64.service.ts",
     "src/main/app/components/util/dateutil.service.ts",
     "src/main/app/components/util/parse-links.service.ts",
+    "src/main/app/components/util/rank.filter.ts",
     "src/main/app/components/util/truncate.filter.ts",
 
     "src/main/app/states/root.ts",
@@ -120,6 +121,9 @@
     "src/main/app/states/admin/tracker/tracker.controller.ts",
 
     "src/main/app/states/error/error.ts",
+
+    "src/main/app/states/faq/faq.ts",
+    "src/main/app/states/faq/faq.controller.ts",
 
     "src/main/app/states/home/home.ts",
     "src/main/app/states/home/home.controller.ts",
