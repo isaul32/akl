@@ -62,7 +62,6 @@ public class UdpService {
     private StatisticsEventRepository statisticsEventRepository;
 
     public void receive(Message message) {
-        //log.debug(message.toString());
 
         String data = new String((byte[]) message.getPayload(), Charset.forName("UTF-8"))
                 .substring(5) // Some unknown chars
@@ -70,7 +69,7 @@ public class UdpService {
                 .replace("\r", "")
                 .replaceFirst(".$",""); // Last space
 
-        //log.debug(data);
+        log.debug(data);
 
         Event event = new Event();
         event.setIp((String) message.getHeaders().get("ip_address"));
