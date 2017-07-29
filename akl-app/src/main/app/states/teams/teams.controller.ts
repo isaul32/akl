@@ -1,10 +1,21 @@
 angular.module('app')
-.controller('TeamsController', ($scope, teams, $state, $stateParams, Principal, Team) => {
+.controller('TeamsController', ($scope, teams, $state, $stateParams, Principal, Team, seasons) => {
     $scope.isAuthenticated = Principal.isAuthenticated;
-    $scope.teams = <any> teams.data;
+    $scope.teams = teams.data;
+    $scope.seasons = seasons.data;
 
     $scope.pages = teams.headers('X-Total-Count');
     $scope.currentPage = $stateParams.page;
+
+    $scope.initSeason = () => {
+        const currentSeason: any = _.find($scope.seasons, {archived: false});
+        $scope.selectedSeason = $stateParams.season || currentSeason.id;
+    };
+    $scope.changeSeason = () => {
+        $state.transitionTo($state.current, {
+            season: $scope.selectedSeason
+        });
+    };
 
     $scope.pageChanged = () => {
         $state.transitionTo($state.current, {
@@ -41,7 +52,7 @@ angular.module('app')
         });
     };
 
-    $scope.delete = id => {
+    $scope.remove = id => {
         Team.get({id: id}, result => {
             $scope.team = result;
             $('#deleteTeamConfirmation').modal('show');

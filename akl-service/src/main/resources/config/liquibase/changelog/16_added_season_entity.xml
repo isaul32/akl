@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql"/>
+    <property name="autoIncrement" value="false" dbms="oracle"/>
+
+    <changeSet id="16" author="isaul">
+
+        <createTable tableName="akl_season">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="short_name" type="varchar(16)">
+                <constraints nullable="false" />
+            </column>
+            <column name="full_name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="start_datetime" type="timestamp"/>
+            <column name="end_datetime" type="timestamp"/>
+            <column name="archived" type="boolean"/>
+        </createTable>
+
+        <addColumn tableName="akl_team" schemaName="public">
+            <column name="season_id" type="bigint"/>
+        </addColumn>
+
+        <update tableName="akl_team">
+            <column name="season_id" value="2"/>
+        </update>
+
+        <loadData file="config/liquibase/data/seasons.csv"
+                  separator=";"
+                  tableName="akl_season">
+        </loadData>
+
+        <insert tableName="akl_text">
+            <column name="id" value="5"/>
+            <column name="fi" value="UKK"/>
+            <column name="en" value="FAQ"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

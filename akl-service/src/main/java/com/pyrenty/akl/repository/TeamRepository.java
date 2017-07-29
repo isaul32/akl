@@ -6,12 +6,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 
 /**
  * Spring Data JPA repository for the Team entity.
  */
 @SuppressWarnings("JpaQlInspection")
 public interface TeamRepository extends JpaRepository<Team, Long> {
+
+    Page<Team> findBySeasonId(Long season, Pageable pageable);
 
     @Query("SELECT t FROM Team t " +
         "LEFT JOIN FETCH t.members " +

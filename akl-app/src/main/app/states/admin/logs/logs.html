@@ -1,14 +1,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h2 translate="logs.title">Logs</h2>
+            <h1 translate="logs.title">Logs</h1>
 
             <p translate="logs.nbloggers" translate-values="{total: '{{ loggers.length }}'}">There are {{ loggers.length }} loggers.</p>
 
-            <span translate="logs.filter">Filter</span> <input type="text" ng-model="filter" class="form-control">
+            <div class="form-group">
+                <label for="filter">Filter</label>
+                <input ng-model="filter" class="form-control" id="filter">
+            </div>
 
             <div class="table-responsive">
-                <table class="table table-condensed table-striped table-bordered table-responsive">
+                <table class="table table-condensed table-striped">
                     <thead>
                     <tr title="click to order">
                         <th ng-click="predicate = 'name'; reverse=!reverse"><span translate="logs.table.name">Name</span></th>

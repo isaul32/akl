@@ -1,17 +1,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h2 translate="configuration.title">Configuration</h2>
+            <h1 translate="configuration.title">Configuration</h1>
             <div class="form-group">
                 <label for="filterByPrefix" translate="configuration.filter">Filter (by prefix)</label>
-                <input type="text" ng-model="filter" class="form-control" id="filterByPrefix">
+                <input ng-model="filter" class="form-control" id="filterByPrefix">
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-condensed table-striped table-bordered">
+                <table class="table table-condensed table-striped">
                     <thead>
                     <tr>
                         <th ng-click="predicate = 'prefix'; reverse=!reverse" class="col-sm-4"><span translate="configuration.table.prefix">Prefix</span></th>

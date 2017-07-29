@@ -127,8 +127,14 @@
                 </li>
                 <li ui-sref-active="active">
                     <a ui-sref="rules">
-                        <span class="fa fa-gavel fa-fw"></span>&nbsp;
+                        <span class="fa fa-book fa-fw"></span>&nbsp;
                         <span translate="global.menu.rules">Rules</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="faq">
+                        <span class="fa fa-life-ring fa-fw"></span>&nbsp;
+                        <span translate="global.menu.faq">FAQ</span>
                     </a>
                 </li>
                 <li ng-class="{active: $state.includes('admin')}"  ng-switch-when="true" has-role="ROLE_ADMIN" class="dropdown pointer">
@@ -154,9 +160,9 @@
                             &nbsp;<span translate="global.menu.admin.audits">Audits</span></a></li>
                         <li ui-sref-active="active"><a ui-sref="logs"><span class="glyphicon glyphicon-tasks fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.logs">Logs</span></a></li>
-                        <li ng-hide="inProduction" ui-sref-active="active"><a ui-sref="docs"><span class="glyphicon glyphicon-book fa-fw"></span>
+                        <li ui-sref-active="active"ng-show="hasDocs"><a ui-sref="docs"><span class="glyphicon glyphicon-book fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.apidocs">API</span></a></li>
-                        <li ng-hide="inProduction"><a href='/akl-service/console' target="_tab"><span class="glyphicon glyphicon-hdd fa-fw"></span>
+                        <li ui-sref-active="active" ng-show="hasDBConsole"><a  ui-sref="console"><span class="glyphicon glyphicon-hdd fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.database">Database</span></a></li>
                     </ul>
                 </li>

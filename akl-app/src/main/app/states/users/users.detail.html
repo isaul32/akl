@@ -38,7 +38,7 @@
                             <span translate="user.age">Age</span>
                         </td>
                         <td>
-                            <span class="form-control-static">{{user.age}}</span>
+                            <span class="form-control-static">{{user.age | age}}</span>
                         </td>
                     </tr>
                     <tr>
@@ -53,9 +53,7 @@
                         <td>
                             <span translate="user.rank">Rank</span>
                         </td>
-                        <td>
-                            <span class="form-control-static" translate="{{'aklApp.rank.' + user.rank}}"></span>
-                        </td>
+                        <td ng-bind-html="user.rank | rank">
                     </tr>
                     <tr>
                         <td>

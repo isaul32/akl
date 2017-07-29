@@ -25,7 +25,7 @@ angular.module('app')
     };
 
     $scope.transformHealthData = function (data) {
-        var response = [];
+        const response = [];
         $scope.flattenHealthData(response, null, data);
         return response;
     };
@@ -45,7 +45,7 @@ angular.module('app')
     };
 
     $scope.getModuleName = function (path, name) {
-        var result;
+        let result;
         if (path && name) {
             result = path + $scope.separator + name;
         }  else if (path) {
@@ -59,9 +59,9 @@ angular.module('app')
     };
 
 
-    $scope.showHealth = function(health) {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'scripts/app/admin/health/health.modal.html',
+    $scope.showHealth = health => {
+        const modalInstance = $uibModal.open({
+            templateUrl: 'states/admin/health/health.modal.html',
             controller: 'HealthModalController',
             size: 'lg',
             resolve: {
@@ -77,15 +77,16 @@ angular.module('app')
 
             }
         });
+        modalInstance.result.catch(() => {});
     };
 
     $scope.addHealthObject = function (result, isLeaf, healthObject, name) {
 
-        var healthData: any = {
+        const healthData: any = {
             'name': name
         };
-        var details = {};
-        var hasDetails = false;
+        const details = {};
+        let hasDetails = false;
 
         angular.forEach(healthObject, function (value, key) {
             if (key === 'status' || key === 'error') {
@@ -111,7 +112,7 @@ angular.module('app')
     };
 
     $scope.hasSubSystem = function (healthObject) {
-        var result = false;
+        let result = false;
         angular.forEach(healthObject, function (value) {
             if (value && value.status) {
                 result = true;
@@ -121,7 +122,7 @@ angular.module('app')
     };
 
     $scope.isHealthObject = function (healthObject) {
-        var result = false;
+        let result = false;
         angular.forEach(healthObject, function (value, key) {
             if (key === 'status') {
                 result = true;
@@ -132,16 +133,16 @@ angular.module('app')
 
     $scope.baseName = function (name) {
         if (name) {
-          var split = name.split('.');
+          const split = name.split('.');
           return split[0];
         }
     };
 
     $scope.subSystemName = function (name) {
         if (name) {
-          var split = name.split('.');
+          const split = name.split('.');
           split.splice(0, 1);
-          var remainder = split.join('.');
+          const remainder = split.join('.');
           return remainder ? ' - ' + remainder : '';
         }
     };

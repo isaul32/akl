@@ -70,6 +70,9 @@ public class Team implements Serializable {
     )
     private Set<User> requests = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Season season;
+
     @Override
     public String toString() {
         return "Team{" +

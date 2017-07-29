@@ -44,8 +44,8 @@ angular.module('app')
     $scope.refreshThreadDumpData = () => {
         MonitoringService.threadDump().then(data => {
 
-            $uibModal.open({
-                templateUrl: 'scripts/app/admin/metrics/metrics.modal.html',
+            const modalInstance = $uibModal.open({
+                templateUrl: 'states/admin/metrics/metrics.modal.html',
                 controller: 'MetricsModalController',
                 size: 'lg',
                 resolve: {
@@ -55,6 +55,7 @@ angular.module('app')
 
                 }
             });
+            modalInstance.result.catch(() => {});
         });
     };
     

@@ -8,7 +8,7 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.ip.udp.UnicastReceivingChannelAdapter;
 
-@Configuration
+//@Configuration
 public class StatisticsConfiguration {
 
     @Value("${akl.statistics.port:8000}")

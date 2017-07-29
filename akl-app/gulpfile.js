@@ -129,7 +129,7 @@ gulp.task('dev', () => {
 
     // Try reconnect
     proxy.on('error', () => {
-        console.log('Proxy cannot connect to API. Please start API service.');
+        console.error('Proxy cannot connect to API. Please start API service.');
         proxy.close();
     });
 

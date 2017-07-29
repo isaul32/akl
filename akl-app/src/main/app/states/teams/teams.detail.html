@@ -85,12 +85,10 @@
             <div class="table-responsive">
                 <table class="table">
                     <tr>
-                        <td style="width: 200px">
+                        <td style="width: 100px">
                             <span translate="aklApp.team.rank">Rank</span>
                         </td>
-                        <td>
-                            <span translate="{{'aklApp.rank.' + team.rank}}"></span>
-                        </td>
+                        <td ng-bind-html="team.rank | rank"></td>
                     </tr>
                     <tr>
                         <td>
@@ -190,7 +188,7 @@
                 <span translate="aklApp.team.requestMembership">Request membership</span>
             </button>
             <button type="button" ng-if="team.captain.id === account.id"
-                    ui-sref="teams.edit({id:team.id})"
+                    ui-sref="teams.detail.edit({id:team.id})"
                     class="btn btn-primary">
                 <span class="glyphicon glyphicon-pencil"></span>&nbsp;
                 <span translate="entity.action.edit">Edit</span>

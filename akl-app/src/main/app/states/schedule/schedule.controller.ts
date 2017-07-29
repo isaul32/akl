@@ -1,17 +1,17 @@
 angular.module('app')
-.controller('ScheduleController', ($scope, SERVICE_URL, $compile, $translate) => {
-    $scope.gcalEvents = {
-        googleCalendarApiKey: 'AIzaSyBrwxD8d4zhA7kDMXt-KH-prQvyrSRnZXk',
-        googleCalendarId: 'jk1adevi3b3jcm2oobcea3ldf8@group.calendar.google.com'
-    };
-
+.controller('ScheduleController', ($scope, SERVICE_URL, $compile, $translate, $locale) => {
     $scope.eventSources = [
-        $scope.gcalEvents,
         {
+            googleCalendarId: 'jk1adevi3b3jcm2oobcea3ldf8@group.calendar.google.com',
+            googleCalendarApiKey: 'AIzaSyBrwxD8d4zhA7kDMXt-KH-prQvyrSRnZXk',
+            color: '#006052',
+            textColor: 'white'
+        }
+        /*{
             url: 'http://titeen.it/akl/2016/reserver/ok.json',
             color: '#31302B',
             textColor: 'white'
-        }
+        }*/
     ];
 
     $scope.eventRender = (event, element) => {
@@ -26,6 +26,7 @@ angular.module('app')
             return false;
         }
     };
+
     $scope.uiConfig = {
         calendar: {
             locale: $translate.use(),
@@ -42,7 +43,7 @@ angular.module('app')
                 right: 'today prev,next'
             },
             eventClick: $scope.eventClick,
-            eventRender: $scope.eventRender
+            eventRender: $scope.eventRender,
         }
     };
 });

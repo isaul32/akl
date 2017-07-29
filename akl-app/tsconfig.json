@@ -56,6 +56,7 @@
 
     "src/main/app/components/tracker/tracker.service.ts",
 
+    "src/main/app/components/util/age.filter.ts",
     "src/main/app/components/util/api.service.ts",
     "src/main/app/components/util/base64.service.ts",
     "src/main/app/components/util/dateutil.service.ts",
@@ -104,6 +105,8 @@
 
     "src/main/app/states/admin/configuration/configuration.ts",
     "src/main/app/states/admin/configuration/configuration.controller.ts",
+
+    "src/main/app/states/admin/console/console.ts",
 
     "src/main/app/states/admin/docs/docs.ts",
 

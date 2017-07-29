@@ -1,5 +1,5 @@
 angular.module('app')
-.directive('activeMenu', ($translate, $locale) => {
+.directive('activeMenu', ($translate) => {
     return {
         restrict: 'A',
         link: (scope, element, attrs: any) => {
