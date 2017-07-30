@@ -7,7 +7,7 @@
                 "createOrEditLabel": "Luo tai muokkaa joukkue",
                 "creation.info": "Et voi luoda tiimiä ennen kuin olet täyttänyt omat henkilökohtaiset tietosi ja aktivoinut sähköpostisi. Mene <a ui-sref='settings'>asetukset</a>-sivulle ja päivitä tietosi.",
                 "season": "Kausi",
-                "search": "Haku"
+                "search": "Haku (nimi)"
             },
             "toListing": "Takaisin joukkuelistaukseen",
             "activate": "Aktivoi",
@@ -21,7 +21,7 @@
                 "title": "Tiimi"
             },
             "representing": "Edustettava taho",
-            "representingHelp": "Edustettava kerho/taho/koulu. Esimerkiksi Tampereen TietoTeekkarikilta tai Tampereen teknillinen yliopisto",
+            "representingHelp": "Ainejärjestö / edustettava taho / kilta. Esimerkiksi Tampereen TietoTeekkarikilta tai Tampereen teknillinen yliopisto",
             "requests": "Jäsenhakemukset",
             "request": {
                 "title": "Varmista jäsenyyspyynnön lähettäminen",
@@ -52,12 +52,14 @@
             "name": "Nimi",
             "imageUrl": "Kuvan osoite",
             "rank": "Taso",
-            "description": "Kuvaus",
+            "application": "Hakemus turnaukseen",
+            "description": "Julkinen kuvaus",
             "captain": "Kapteeni",
             "members": "Jäsenet",
             "standins": "Varajäsenet",
             "requestMembership": "Pyydä jäsenyyttä",
-            "captainNotice": "HUOM: Kun luot uuden tiimin, sinusta tulee tiimin kapteeni. Vain tiimin kapteeni (ja ylläpitäjät) voivat muokata tiimin tietoja ja hyväksyä/hylätä tiimin jäsenpyyntöjä",
+            "applicationNotice": "Tiimin tulee tehdä pienimuotoinen hakemus, jossa kerrotaan takempi kuvaus joukkueesta ja miksi kyseisen joukkueen pitäisi päästä pelaamaan turnaukseen. Uusilta joukkuelta olisi varsinkin hyvä saada hieman tietoa.",
+            "captainNotice": "<b>Huom</b>: Kun luot uuden tiimin, sinusta tulee tiimin kapteeni. Vain tiimin kapteeni (ja ylläpitäjät) voivat muokata tiimin tietoja ja hyväksyä/hylätä tiimin jäsenpyyntöjä",
             "authorizationNotice": "Tiimit hyväksytään manuaalisesti ylläpidon toimesta. Tiimit eivät näy julkisesti ennen hyväksyntää",
             "addSchedule": "Lisää oma aikataulu"
         }

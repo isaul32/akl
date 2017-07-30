@@ -52,16 +52,16 @@ angular.module('app')
                 templateUrl: 'states/teams/teams.dialog.html',
                 controller: 'TeamsDialogController',
                 size: 'lg',
+                backdrop: 'static',
                 resolve: {
                     entity: () => {
                         return { tag: null, name: null, imageUrl: null, rank: null, description: null, id: null };
                     }
-                }
-            }).result.then(() => {
-                $state.go('team', null, { reload: true });
-            }, () => {
-                $state.go('team');
-            })
+                },
+
+            }).result.then(() => $state.go('^', null, { reload: true }),
+                () => $state.go('^', null, { reload: true }))
+                .catch(() => $state.go('^', null, { reload: true }));
         }
     })
     .state('teams.detail', {

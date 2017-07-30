@@ -1,8 +1,7 @@
-<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+<form name="editForm" novalidate ng-submit="save()" show-validation>
 
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"
-                ng-click="clear()">&times;</button>
+        <button type="button" class="close" ng-click="clear()">&times;</button>
         <h4 class="modal-title" id="myTeamLabel" translate="aklApp.team.home.createOrEditLabel">Create or edit a Team</h4>
     </div>
     <div class="modal-body">
@@ -15,15 +14,18 @@
 
             <div ng-show="editForm.name.$invalid">
                 <p class="help-block"
-                   ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                   ng-show="editForm.name.$error.required"
+                   translate="entity.validation.required">
                     This field is required.
                 </p>
                 <p class="help-block"
-                   ng-show="editForm.name.$error.minlength" translate="entity.validation.minlength" translate-value-min="1">
+                   ng-show="editForm.name.$error.minlength"
+                   translate="entity.validation.minlength" translate-value-min="1">
                     This field is required to be at least 1 characters.
                 </p>
                 <p class="help-block"
-                   ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="255">
+                   ng-show="editForm.name.$error.maxlength"
+                   translate="entity.validation.maxlength" translate-value-max="255">
                     This field cannot be longer than 255 characters.
                 </p>
             </div>
@@ -36,15 +38,20 @@
 
             <div ng-show="editForm.tag.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.tag.$error.required" translate="entity.validation.required">
+                    ng-show="editForm.tag.$error.required"
+                   translate="entity.validation.required">
                     This field is required.
                 </p>
                 <p class="help-block"
-                    ng-show="editForm.tag.$error.minlength" translate="entity.validation.minlength" translate-value-min="1">
+                    ng-show="editForm.tag.$error.minlength"
+                   translate="entity.validation.minlength"
+                   translate-value-min="1">
                     This field is required to be at least 1 characters.
                 </p>
                 <p class="help-block"
-                    ng-show="editForm.tag.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="16">
+                    ng-show="editForm.tag.$error.maxlength"
+                   translate="entity.validation.maxlength"
+                   translate-value-max="16">
                     This field cannot be longer than 16 characters.
                 </p>
             </div>
@@ -52,7 +59,7 @@
 
         <div class="form-group" ng-if="!team.activated">
           <label translate="aklApp.team.representing" for="representing_tag">Representing</label>
-          <input type="text" class="form-control" name="representing" id="representing_tag"
+          <input class="form-control" name="representing" id="representing_tag"
                  ng-model="team.representing" ng-maxlength="100">
 
           <p class="help-block" translate="aklApp.team.representingHelp">The guild/organization/school you are representing. For example: The Guild of Information Technology of Tampere</p>
@@ -90,6 +97,20 @@
         </div>
 
         <div class="form-group">
+            <label translate="aklApp.team.application" for="field_application">Application</label>
+            <textarea class="form-control" name="application" id="field_application" ng-model="team.application" style="min-height: 400px" ng-maxlength="2056"></textarea>
+            <div ng-show="editForm.application.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.application.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="2056">
+                    This field cannot be longer than 2056 characters.
+                </p>
+            </div>
+            <p class="help-block" translate="aklApp.team.applicationNotice">
+                Tiimin tulee kirjoittaa pienimuotoinen hakemus, jossa kerrotaan tarkempi kuvaus joukkueesta ja miksi kyseisen joukkueen pitäisi päästä pelaamaan liigaan. Uusilta joukkuelta olisi varsinkin hyvä saada hieman tietoa.
+            </p>
+        </div>
+
+        <div class="form-group">
             <label translate="aklApp.team.description" for="field_description">Description</label>
             <textarea class="form-control" name="description" id="field_description" ng-model="team.description" style="min-height: 100px" ng-maxlength="255"></textarea>
             <div ng-show="editForm.description.$invalid">
@@ -102,11 +123,12 @@
         <p ng-if="!team.id" translate="aklApp.team.captainNotice">NOTICE: You become the captain of the team that you create. Only the captain (and admins) can change team details and accept/decline membership requests</p>
         <p ng-if="!team.id" translate="aklApp.team.authorizationNotice">Teams are manually accepted by admins and they won't appear in the team listing before they are accepted</p>
     </div>
+
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+        <button type="button" class="btn btn-default" ng-click="clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
         </button>
-        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+        <button ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
         </button>
     </div>

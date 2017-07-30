@@ -103,19 +103,22 @@ public class TeamResource {
     @Timed
     public ResponseEntity<List<TeamDto>> getAll(@RequestParam(value = "page", required = false) Integer offset,
                                                 @RequestParam(value = "per_page", required = false) Integer limit,
+                                                @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
                                                 @RequestParam(value = "season", required = false) Long season,
+                                                @RequestParam(value = "sort_propery", required = false, defaultValue = "name") String sortPropery,
+                                                @RequestParam(value = "sort_asc", required = false, defaultValue = "true") boolean sortAsc,
                                                 HttpServletRequest request) throws URISyntaxException {
         log.debug("REST request to get all Teams");
 
         Pageable paging = PaginationUtil.generatePageRequest(offset, limit, new Sort(
-                new Sort.Order(Sort.Direction.ASC, "tag")
+                new Sort.Order(sortAsc ? Sort.Direction.ASC : Sort.Direction.DESC, sortPropery)
         ));
 
         if (season == null) {
             season = seasonRepository.findByArchived(false).getId();
         }
 
-        Page<Team> page = teamRepository.findBySeasonId(season, paging);
+        Page<Team> page = teamRepository.findBySeasonIdAndNameContainingIgnoreCase(season, filter, paging);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);
         return new ResponseEntity<>(page.getContent().stream()

@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('TeamsDialogController', ($scope, $stateParams, $uibModalInstance, entity, Team) => {
+.controller('TeamsDialogController', ($scope, $stateParams, $uibModalInstance, entity, Team, $state) => {
     $scope.team = entity;
     $scope.load = (id) => {
         Team.get({id : id}, result => {
@@ -10,7 +10,7 @@ angular.module('app')
     let onSaveFinished = result => {
         $scope.$emit('aklApp:teamUpdate', result);
         $uibModalInstance.close(result);
-        // Todo: update team in view
+        $state.go("^", null, { reload: true });
     };
 
     $scope.save = () => {
@@ -23,5 +23,6 @@ angular.module('app')
 
     $scope.clear = () => {
         $uibModalInstance.dismiss('cancel');
+        $state.go("^")
     };
 });

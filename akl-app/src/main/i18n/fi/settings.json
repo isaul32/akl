@@ -39,7 +39,7 @@
                     "required": "Syntymäpäivä on pakollinen"
                 }
             },
-            "email": "Käytä oppilaitoksen sähköpostiosoitetta ensisijaisesti. Sähköpostiin lähetetään varmennusviesti.",
+            "email": "Käytä <b>oppilaitoksen</b> sähköpostiosoitetta ensisijaisesti. Sähköpostiin lähetetään varmennusviesti.",
             "birth": "Syntymäpäivää käytetään vain iän laskemiseen palvelimella. Täytä edes syntymävuosi jos et halua syöttää tarkkaa päivämäärää. Tämä on mielenkiintoinen tieto selostajille ja katsojille."
         }
     }

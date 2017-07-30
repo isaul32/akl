@@ -15,6 +15,7 @@ import java.util.List;
 @SuppressWarnings("JpaQlInspection")
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
+    Page<Team> findBySeasonIdAndNameContainingIgnoreCase(Long season, String name, Pageable pageable);
     Page<Team> findBySeasonId(Long season, Pageable pageable);
 
     @Query("SELECT t FROM Team t " +

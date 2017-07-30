@@ -9,6 +9,8 @@ angular.module('app')
 
     $scope.params = _.cloneDeep($stateParams);
 
+    angular.element("#filter").focus();
+
     $scope.initSeason = () => {
         const currentSeason: any = _.find($scope.seasons, {archived: false});
         $scope.params.season = $scope.params.season || currentSeason.id;
@@ -50,7 +52,7 @@ angular.module('app')
             const team: any = _.find($scope.teams, { id: id});
             team.activated = true;
             $scope.clear();
-        });
+        }).$promise.then(() => {}).catch(() => {});
     };
 
     $scope.remove = id => {
@@ -62,12 +64,12 @@ angular.module('app')
 
     $scope.confirmDelete = id => {
         Team.delete({id: id}, () => {
-                _.remove($scope.teams, {
-                    id: id
-                });
-                $('#deleteTeamConfirmation').modal('hide');
-                $scope.clear();
+            _.remove($scope.teams, {
+                id: id
             });
+            $('#deleteTeamConfirmation').modal('hide');
+            $scope.clear();
+        });
     };
 
     $scope.clear = () => {
