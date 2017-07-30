@@ -8,6 +8,19 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="filter" translate="user.search">Search</label>
+                <input id="filter"
+                       class="form-control"
+                       ng-model="params.filter"
+                       ng-model-options="{ debounce: 400 }"
+                       ng-change="updateSearch()">
+            </div>
+        </div>
+    </div>
+
     <div id="changeUserAuthorities" class="modal fade">
         <div class="modal-dialog" style="width: 800px">
             <div class="modal-content">

@@ -11,6 +11,7 @@
         "description": "Kuvaus",
         "steamProfile": "Steam profiili",
         "player": "Pelaaja",
-        "steamLastLogoff": "Viimeksi paikalla"
+        "steamLastLogoff": "Viimeksi paikalla",
+        "search": "Haku (Lempinimellä)"
     }
 }

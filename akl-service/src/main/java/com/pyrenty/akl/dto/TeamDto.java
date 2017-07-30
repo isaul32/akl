@@ -14,6 +14,7 @@ public class TeamDto {
     private String representing;
     private String imageUrl;
     private Rank rank;
+    private String application;
     private String description;
     private Boolean activated;
     private UserPublicDto captain;

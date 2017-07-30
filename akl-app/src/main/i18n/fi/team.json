@@ -7,7 +7,7 @@
                 "createOrEditLabel": "Luo tai muokkaa joukkue",
                 "creation.info": "Et voi luoda tiimiä ennen kuin olet täyttänyt omat henkilökohtaiset tietosi ja aktivoinut sähköpostisi. Mene <a ui-sref='settings'>asetukset</a>-sivulle ja päivitä tietosi.",
                 "season": "Kausi",
-                "search": "Haku (nimi)"
+                "search": "Haku (nimellä)"
             },
             "toListing": "Takaisin joukkuelistaukseen",
             "activate": "Aktivoi",
@@ -58,7 +58,7 @@
             "members": "Jäsenet",
             "standins": "Varajäsenet",
             "requestMembership": "Pyydä jäsenyyttä",
-            "applicationNotice": "Tiimin tulee tehdä pienimuotoinen hakemus, jossa kerrotaan takempi kuvaus joukkueesta ja miksi kyseisen joukkueen pitäisi päästä pelaamaan turnaukseen. Uusilta joukkuelta olisi varsinkin hyvä saada hieman tietoa.",
+            "applicationNotice": "<b>Tämä tieto näkyy vain ylläpidolle.</b> Tiimin tulee tehdä pienimuotoinen hakemus, jossa kerrotaan takempi kuvaus joukkueesta ja miksi kyseisen joukkueen pitäisi päästä pelaamaan turnaukseen. Uusilta joukkuelta olisi varsinkin hyvä saada hieman enemmän tietoa.",
             "captainNotice": "<b>Huom</b>: Kun luot uuden tiimin, sinusta tulee tiimin kapteeni. Vain tiimin kapteeni (ja ylläpitäjät) voivat muokata tiimin tietoja ja hyväksyä/hylätä tiimin jäsenpyyntöjä",
             "authorizationNotice": "Tiimit hyväksytään manuaalisesti ylläpidon toimesta. Tiimit eivät näy julkisesti ennen hyväksyntää",
             "addSchedule": "Lisää oma aikataulu"

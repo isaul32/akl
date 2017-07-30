@@ -43,5 +43,13 @@
             <column name="fi" value="UKK"/>
             <column name="en" value="FAQ"/>
         </insert>
+
+        <addColumn tableName="akl_team" schemaName="public">
+            <column name="application" type="varchar(2048)"/>
+        </addColumn>
+
+        <modifyDataType columnName="description"
+                        newDataType="varchar(2048)"
+                        tableName="akl_team"/>
     </changeSet>
 </databaseChangeLog>

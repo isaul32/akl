@@ -9,7 +9,9 @@ angular.module('app')
 
     $scope.params = _.cloneDeep($stateParams);
 
-    angular.element("#filter").focus();
+    if ($scope.params.filter) {
+        angular.element("#filter").focus();
+    }
 
     $scope.initSeason = () => {
         const currentSeason: any = _.find($scope.seasons, {archived: false});

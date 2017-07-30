@@ -39,10 +39,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -131,8 +128,21 @@ public class TeamResource {
     public ResponseEntity<TeamDto> get(@PathVariable Long id) {
         log.debug("REST request to get Team : {}", id);
 
+
         return teamService.get(id)
                 .map(teamMapper::teamToTeamDto)
+                .map(teamDto -> {
+                    User user = userService.getUserWithAuthorities();
+                    // If user is not admin or team captain, hide application.
+                    if (user == null
+                            || user.getAuthorities().stream().noneMatch(authority -> authority.getName().equals("ROLE_ADMIN"))
+                            || user.getCaptain() == null
+                            || !user.getCaptain().getId().equals(teamDto.getId())) {
+                        teamDto.setApplication(null);
+                    }
+
+                    return teamDto;
+                })
                 .map(teamDTO -> new ResponseEntity<>(teamDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

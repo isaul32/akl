@@ -85,7 +85,7 @@
             <div class="table-responsive">
                 <table class="table">
                     <tr>
-                        <td style="width: 100px">
+                        <td style="width: 180px">
                             <span translate="aklApp.team.rank">Rank</span>
                         </td>
                         <td ng-bind-html="team.rank | rank"></td>
@@ -96,6 +96,14 @@
                         </td>
                         <td>
                             {{team.representing}}
+                        </td>
+                    </tr>
+                    <tr ng-show="team.application">
+                        <td>
+                            <span translate="aklApp.team.application">Application</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static" style="white-space: pre-wrap;">{{team.application}}</span>
                         </td>
                     </tr>
                     <tr>

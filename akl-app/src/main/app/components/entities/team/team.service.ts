@@ -1,6 +1,6 @@
 angular.module('app')
 .factory('Team', ($resource, DateUtils, API_URL) => {
-    return $resource(API_URL + '/teams/:id', {id: '@id', userId: '@userId'}, {
+    return $resource(API_URL + '/teams/:id', { id: '@id', userId: '@userId' }, {
         'query': { method: 'GET', isArray: true},
         'get': { method: 'GET' },
         'update': { method:'PUT' },

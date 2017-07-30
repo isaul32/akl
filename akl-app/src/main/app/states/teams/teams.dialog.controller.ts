@@ -10,7 +10,7 @@ angular.module('app')
     let onSaveFinished = result => {
         $scope.$emit('aklApp:teamUpdate', result);
         $uibModalInstance.close(result);
-        $state.go("^", null, { reload: true });
+        $state.go("^", {}, { reload: true });
     };
 
     $scope.save = () => {

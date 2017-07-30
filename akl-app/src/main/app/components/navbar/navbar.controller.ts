@@ -15,25 +15,27 @@ angular.module('app')
             });
         }
 
-        if (Principal.isInRole('ROLE_ADMIN')) {
-            $http({
-                method: 'GET',
-                url: SERVICE_PATH
-            }).then(() => {
-                $scope.hasDocs = true;
-            }, () => {
-                $scope.hasDocs = false;
-            });
+        Principal.isInRole('ROLE_ADMIN').then(res => {
+            if (res) {
+                $http({
+                    method: 'GET',
+                    url: SERVICE_PATH
+                }).then(() => {
+                    $scope.hasDocs = true;
+                }, () => {
+                    $scope.hasDocs = false;
+                });
 
-            $http({
-                method: 'GET',
-                url: SERVICE_PATH + '/console'
-            }).then(() => {
-                $scope.hasDBConsole = true;
-            }, () => {
-                $scope.hasDBConsole = false;
-            });
-        }
+                $http({
+                    method: 'GET',
+                    url: SERVICE_PATH + '/console'
+                }).then(() => {
+                    $scope.hasDBConsole = true;
+                }, () => {
+                    $scope.hasDBConsole = false;
+                });
+            }
+        }).catch(() => {});
     });
 
     Api.one('twitch').get().then(res => {

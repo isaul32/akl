@@ -46,6 +46,11 @@ public class Team implements Serializable {
     @Column(name = "rank")
     private Rank rank;
 
+    @Size(max = 2048)
+    @Column(name = "application")
+    private String application;
+
+    @Size(max = 2048)
     @Column(name = "description")
     private String description;
 

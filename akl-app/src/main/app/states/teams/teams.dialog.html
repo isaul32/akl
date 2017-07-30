@@ -98,10 +98,10 @@
 
         <div class="form-group">
             <label translate="aklApp.team.application" for="field_application">Application</label>
-            <textarea class="form-control" name="application" id="field_application" ng-model="team.application" style="min-height: 400px" ng-maxlength="2056"></textarea>
+            <textarea class="form-control" name="application" id="field_application" ng-model="team.application" style="min-height: 350px" ng-maxlength="2048"></textarea>
             <div ng-show="editForm.application.$invalid">
                 <p class="help-block"
-                   ng-show="editForm.application.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="2056">
+                   ng-show="editForm.application.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="2048">
                     This field cannot be longer than 2056 characters.
                 </p>
             </div>
@@ -112,11 +112,11 @@
 
         <div class="form-group">
             <label translate="aklApp.team.description" for="field_description">Description</label>
-            <textarea class="form-control" name="description" id="field_description" ng-model="team.description" style="min-height: 100px" ng-maxlength="255"></textarea>
+            <textarea class="form-control" name="description" id="field_description" ng-model="team.description" style="min-height: 360px" ng-maxlength="2048"></textarea>
             <div ng-show="editForm.description.$invalid">
                 <p class="help-block"
-                   ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="255">
-                    This field cannot be longer than 255 characters.
+                   ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="2048">
+                    This field cannot be longer than 2048 characters.
                 </p>
             </div>
         </div>
