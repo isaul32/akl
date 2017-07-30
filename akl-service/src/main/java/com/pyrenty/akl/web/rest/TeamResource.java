@@ -75,6 +75,7 @@ public class TeamResource {
     @Inject
     private CalendarEventRepository eventRepository;
 
+    /*
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
     @Timed
@@ -95,6 +96,7 @@ public class TeamResource {
                 .headers(HeaderUtil.createAlert("Team created", team.getId().toString()))
                 .body(teamMapper.teamToTeamDto(team));
     }
+    */
 
     @RequestMapping(method = RequestMethod.GET)
     @Timed
