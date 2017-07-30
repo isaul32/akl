@@ -5,8 +5,6 @@ angular.module('app')
     $scope.seasons = seasons.data;
 
     $scope.pages = teams.headers('X-Total-Count');
-    $scope.currentPage = $stateParams.page;
-
     $scope.params = _.cloneDeep($stateParams);
 
     if ($scope.params.filter) {
@@ -20,12 +18,6 @@ angular.module('app')
 
     $scope.updateSearch = () => {
         $state.transitionTo($state.current, $scope.params);
-    };
-
-    $scope.pageChanged = () => {
-        $state.transitionTo($state.current, {
-            page: $scope.currentPage
-        });
     };
 
     if ($scope.isAuthenticated()) {

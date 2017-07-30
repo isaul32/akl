@@ -3,7 +3,18 @@ angular.module('app')
     $scope.users = users.data;
     $scope.authorities = authorities.data;
 
-    $scope.delete = index => {
+    $scope.pages = users.headers('X-Total-Count');
+    $scope.params = _.cloneDeep($stateParams);
+
+    if ($scope.params.filter) {
+        angular.element("#filter").focus();
+    }
+
+    $scope.updateSearch = () => {
+        $state.transitionTo($state.current, $scope.params);
+    };
+
+    $scope.remove = index => {
         $scope.user = $scope.users[index];
         $('#deleteUserConfirmation').modal('show');
     };
@@ -43,15 +54,6 @@ angular.module('app')
                 $scope.userAuthorities = [];
                 $scope.clear();
             });
-    };
-
-    $scope.pages = users.headers('X-Total-Count');
-    $scope.currentPage = $stateParams.page;
-
-    $scope.pageChanged = () => {
-        $state.transitionTo($state.current, {
-            page: $scope.currentPage
-        });
     };
 
     $scope.clear = () => {

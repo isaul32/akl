@@ -113,13 +113,14 @@
             </div>
 
             <div class="text-center">
-                <uib-pagination direction-links="false"
-                                ng-model="currentPage"
-                                total-items="pages"
-                                items-per-page="20"
-                                ng-change="pageChanged()"
-                                class="pagination-sm">
-                </uib-pagination>
+                <ul uib-pagination
+                    direction-links="false"
+                    ng-model="params.page"
+                    total-items="pages"
+                    items-per-page="20"
+                    ng-change="updateSearch()"
+                    class="pagination-sm">
+                </ul>
             </div>
 
         </div>

@@ -26,7 +26,7 @@
             <div class="modal-content">
                 <form name="deleteForm" ng-submit="changeAuthorities()">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="clear()">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal" ng-click="clear()">&times;</button>
                         <h4 class="modal-title">Authorities</h4>
                     </div>
                     <div class="modal-body">
@@ -56,7 +56,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
                             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
                         </button>
-                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-primary">
+                        <button ng-disabled="deleteForm.$invalid" class="btn btn-primary">
                             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
                         </button>
                     </div>
@@ -120,14 +120,14 @@
                             </td>
                             <td>
                                 <div class="btn-group pull-right">
-                                    <button type="submit"
+                                    <button
                                             ng-click="openAuthorities(index)"
                                             class="btn btn-primary btn-sm">
                                         <span class="glyphicon glyphicon-ok"></span>&nbsp;
                                         <span translate="user.authorities">Authorities</span>
                                     </button>
-                                    <button type="submit"
-                                            ng-click="delete(index)"
+                                    <button
+                                            ng-click="remove(index)"
                                             class="btn btn-danger btn-sm">
                                         <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;
                                         <span translate="entity.action.delete">Delete</span>
@@ -140,14 +140,14 @@
             </div>
 
             <div class="text-center">
-                <uib-pagination direction-links="false"
-                                ng-model="currentPage"
-                                total-items="pages"
-                                items-per-page="20"
-                                ng-change="pageChanged()"
-                                class="pagination-sm">
-
-                </uib-pagination>
+                <ul uib-pagination
+                    direction-links="false"
+                    ng-model="params.page"
+                    total-items="pages"
+                    items-per-page="20"
+                    ng-change="updateSearch()"
+                    class="pagination-sm">
+                </ul>
             </div>
         </div>
     </div>

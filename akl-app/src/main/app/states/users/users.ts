@@ -19,6 +19,10 @@ angular.module('app')
             page: {
                 value: '1',
                 squash: true
+            },
+            filter: {
+                value: null,
+                squash: true
             }
         },
         resolve: {
@@ -29,7 +33,8 @@ angular.module('app')
             users: (Api, $stateParams) => {
                 return Api.all('users').getList({
                     page: $stateParams.page,
-                    per_page: 20
+                    per_page: 20,
+                    filter: $stateParams.filter
                 });
             },
             authorities: Api => {
