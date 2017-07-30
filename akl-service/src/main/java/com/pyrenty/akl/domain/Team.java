@@ -70,7 +70,7 @@ public class Team implements Serializable {
     )
     private Set<User> requests = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     private Season season;
 
     @Override

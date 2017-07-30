@@ -9,6 +9,7 @@ import com.pyrenty.akl.dto.TeamDto;
 import com.pyrenty.akl.dto.TeamRequestDto;
 import com.pyrenty.akl.dto.UserPublicDto;
 import com.pyrenty.akl.repository.CalendarEventRepository;
+import com.pyrenty.akl.repository.SeasonRepository;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.InvalidRoleException;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
@@ -71,9 +73,12 @@ public class TeamResource {
     private TeamService teamService;
 
     @Inject
+    private SeasonRepository seasonRepository;
+
+    @Inject
     private CalendarEventRepository eventRepository;
 
-    /*@PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
     @Timed
     public ResponseEntity<TeamDto> create(@Valid @RequestBody TeamDto teamDto) throws URISyntaxException {
@@ -87,12 +92,12 @@ public class TeamResource {
             return ResponseEntity.badRequest().header("Failure", "A new team cannot already have an ID").body(null);
         }
 
-        Team team = teamService.create(teamMapper.teamDTOToTeam(teamDto));
+        Team team = teamService.create(teamMapper.teamDtoToTeam(teamDto));
 
         return ResponseEntity.created(new URI("/api/teams/" + team.getId()))
                 .headers(HeaderUtil.createAlert("Team created", team.getId().toString()))
-                .body(teamMapper.teamToTeamDTO(team));
-    }*/
+                .body(teamMapper.teamToTeamDto(team));
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     @Timed
@@ -105,6 +110,11 @@ public class TeamResource {
         Pageable paging = PaginationUtil.generatePageRequest(offset, limit, new Sort(
                 new Sort.Order(Sort.Direction.ASC, "tag")
         ));
+
+        if (season == null) {
+            season = seasonRepository.findByArchived(false).getId();
+        }
+
         Page<Team> page = teamRepository.findBySeasonId(season, paging);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);

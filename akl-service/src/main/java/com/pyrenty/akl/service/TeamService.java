@@ -1,7 +1,9 @@
 package com.pyrenty.akl.service;
 
+import com.pyrenty.akl.domain.Season;
 import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.domain.User;
+import com.pyrenty.akl.repository.SeasonRepository;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
@@ -26,9 +28,13 @@ public class TeamService {
     @Inject
     private UserRepository userRepository;
 
+    @Inject
+    private SeasonRepository seasonRepository;
+
     @PreAuthorize("isAuthenticated()")
     public Team create(Team team) {
         team.setActivated(false);
+        team.setSeason(seasonRepository.findByArchived(false));
         Team result = teamRepository.save(team);
         User currentUser = userService.getUserWithAuthorities();
         currentUser.setCaptain(result);
