@@ -52,7 +52,7 @@ angular.module('app', [
 
     $locationProvider.hashPrefix('');
 
-    tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale_{{locale}}.js');
+    //tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale_{{locale}}.js');
 
     $translateProvider.useLoader('$translatePartialLoader', {
         urlTemplate: 'i18n/{lang}/{part}.json'

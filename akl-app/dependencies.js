@@ -17,6 +17,7 @@ require('angular');
 require('angular-cookies');
 require('angular-sanitize');
 require('angular-dynamic-locale');
+require('./node_modules/angular-i18n/fi');
 require('angular-file-upload');
 require('angular-local-storage');
 require('angular-resource');
