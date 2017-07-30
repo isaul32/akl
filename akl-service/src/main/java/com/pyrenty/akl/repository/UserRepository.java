@@ -3,6 +3,8 @@ package com.pyrenty.akl.repository;
 import com.pyrenty.akl.domain.User;
 
 import org.joda.time.DateTime;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -28,6 +30,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOneBySteamId(String steamId);
 
     Optional<User> findOneByCommunityId(String communityId);
+
+    Page<User> findByNicknameContainingIgnoreCase(String nickname, Pageable pageable);
 
     // Use object rather than id
     @Override

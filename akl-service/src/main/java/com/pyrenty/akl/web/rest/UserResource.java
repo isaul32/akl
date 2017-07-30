@@ -13,6 +13,7 @@ import com.pyrenty.akl.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -65,11 +66,14 @@ public class UserResource {
     @PreAuthorize("hasRole('ADMIN')")
     @Timed
     public ResponseEntity<List<UserExtendedDto>> getAllExtendedUsers(@RequestParam(value = "page", required = false) Integer offset,
-                                                                     @RequestParam(value = "per_page", required = false) Integer limit) throws URISyntaxException {
+                                                                     @RequestParam(value = "per_page", required = false) Integer limit,
+                                                                     @RequestParam(value = "filter", required = false, defaultValue = "") String filter) throws URISyntaxException {
 
-        Page<User> page = userService.getAllUsers(PaginationUtil.generatePageRequest(offset, limit, new Sort(
+        Pageable pageable = PaginationUtil.generatePageRequest(offset, limit, new Sort(
                 new Sort.Order(Sort.Direction.ASC, "id")
-        )));
+        ));
+
+        Page<User> page = userRepository.findByNicknameContainingIgnoreCase(filter, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);
 
         return new ResponseEntity<>(page.getContent().stream()
