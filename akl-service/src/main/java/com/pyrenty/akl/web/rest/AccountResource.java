@@ -136,37 +136,41 @@ public class AccountResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<String> saveAccount(@RequestBody UserDto userDto, HttpServletRequest request) {
-        return userRepository
-            .findOneByLogin(userDto.getLogin())
-            .filter(u -> u.getLogin().equals(SecurityUtils.getCurrentLogin()))
-            .map(u -> {
-                // Send activation message
-                if (!u.isActivated()) {
-                    // Generate new key
-                    u.setActivationKey(RandomUtil.generateActivationKey());
-                    // todo: Restrict user mail send
+        if (!userDto.getLogin().equals("anonymousUser")) {
+            return userRepository
+                    .findOneByLogin(userDto.getLogin())
+                    .filter(u -> u.getLogin().equals(SecurityUtils.getCurrentLogin()))
+                    .map(u -> {
+                        // Send activation message
+                        if (!u.isActivated()) {
+                            // Generate new key
+                            u.setActivationKey(RandomUtil.generateActivationKey());
+                            // todo: Restrict user mail send
 
-                    String baseUrl = request.getScheme()
-                            + "://"
-                            + request.getServerName()
-                            + ":"
-                            + request.getServerPort();
-                    u.setEmail(userDto.getEmail());
-                    mailService.sendActivationEmail(u, baseUrl);
-                } else {
-                    // Lock email
-                    userDto.setEmail(u.getEmail());
-                }
+                            String baseUrl = request.getScheme()
+                                    + "://"
+                                    + request.getServerName()
+                                    + ":"
+                                    + request.getServerPort();
+                            u.setEmail(userDto.getEmail());
+                            mailService.sendActivationEmail(u, baseUrl);
+                        } else {
+                            // Lock email
+                            userDto.setEmail(u.getEmail());
+                        }
 
-                return u;
-            })
-            .map(u -> {
-                userService.updateUserInformation(userDto.getNickname(), userDto.getFirstName(), userDto.getLastName(),
-                        userDto.getEmail(), userDto.getBirthdate(), userDto.getGuild(),
-                        userDto.getDescription(), userDto.getRank(), userDto.getLangKey(), u.getActivationKey());
-                return new ResponseEntity<String>(HttpStatus.OK);
-            })
-            .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+                        return u;
+                    })
+                    .map(u -> {
+                        userService.updateUserInformation(userDto.getNickname(), userDto.getFirstName(), userDto.getLastName(),
+                                userDto.getEmail(), userDto.getBirthdate(), userDto.getGuild(),
+                                userDto.getDescription(), userDto.getRank(), userDto.getLangKey(), u.getActivationKey());
+                        return new ResponseEntity<String>(HttpStatus.OK);
+                    })
+                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/account/change_password",

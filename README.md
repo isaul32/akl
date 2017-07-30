@@ -1,10 +1,6 @@
 Akateeminen Kynäriliiga (AKL)
 =============================
-# Build status
-**akl-app**
-[![Build Status](https://akl.tite.fi/jenkins/buildStatus/icon?job=akl-app)](https://akl.tite.fi/jenkins/blue/organizations/jenkins/akl-app/activity)
-**akl-service**
-[![Build Status](https://akl.tite.fi/jenkins/buildStatus/icon?job=akl-service)](https://akl.tite.fi/jenkins/blue/organizations/jenkins/akl-service/activity)
+
 # Install
 ```
 npm install -g gulp
