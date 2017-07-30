@@ -7,14 +7,15 @@ angular.module('app')
     $scope.pages = teams.headers('X-Total-Count');
     $scope.currentPage = $stateParams.page;
 
+    $scope.params = _.cloneDeep($stateParams);
+
     $scope.initSeason = () => {
         const currentSeason: any = _.find($scope.seasons, {archived: false});
-        $scope.selectedSeason = $stateParams.season || currentSeason.id;
+        $scope.params.season = $scope.params.season || currentSeason.id;
     };
-    $scope.changeSeason = () => {
-        $state.transitionTo($state.current, {
-            season: $scope.selectedSeason
-        });
+
+    $scope.updateSearch = () => {
+        $state.transitionTo($state.current, $scope.params);
     };
 
     $scope.pageChanged = () => {

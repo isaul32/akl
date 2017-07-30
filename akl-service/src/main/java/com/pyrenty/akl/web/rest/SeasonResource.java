@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/seasons")
 public class SeasonResource {
-    private final Logger log = LoggerFactory.getLogger(TeamResource.class);
+    private final Logger log = LoggerFactory.getLogger(SeasonResource.class);
 
     @Inject
     private SeasonRepository seasonRepository;

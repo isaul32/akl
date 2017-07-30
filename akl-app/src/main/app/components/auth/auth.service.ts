@@ -1,5 +1,6 @@
 angular.module('app')
-.factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish, Tracker) {
+.factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register,
+                               Activate, Password, PasswordResetInit, PasswordResetFinish, Tracker) {
     return {
         // When use login form
         login: function (credentials) {
@@ -32,23 +33,27 @@ angular.module('app')
                 const isAuthenticated = Principal.isAuthenticated();
 
                 if ($rootScope.toState
-                    && $rootScope.toState.hasOwnProperty('roles')
+                    && $rootScope.toState.data
+                    && $rootScope.toState.data.hasOwnProperty('roles')
                     && $rootScope.toState.data.roles
-                    && $rootScope.toState.data.roles.length > 0
-                    && !Principal.isInAnyRole($rootScope.toState.data.roles)) {
-                    if (isAuthenticated) {
-                        // User is signed in but not authorized for desired state
-                        $state.go('accessdenied');
-                    }
-                    else {
-                        // User is not authenticated. stow the state they wanted before you
-                        // Send them to the signin state, so you can return them when you're done
-                        $rootScope.returnToState = $rootScope.toState;
-                        $rootScope.returnToStateParams = $rootScope.toStateParams;
+                    && $rootScope.toState.data.roles.length > 0) {
+                    Principal.isInAnyRole($rootScope.toState.data.roles).then(res => {
+                        if (!res) {
+                            if (isAuthenticated) {
+                                // User is signed in but not authorized for desired state
+                                $state.go('accessdenied');
+                            }
+                            else {
+                                // User is not authenticated. stow the state they wanted before you
+                                // Send them to the signin state, so you can return them when you're done
+                                $rootScope.returnToState = $rootScope.toState;
+                                $rootScope.returnToStateParams = $rootScope.toStateParams;
 
-                        // Now, send them to the signin state so they can log in
-                        $state.go('login');
-                    }
+                                // Now, send them to the signin state so they can log in
+                                $state.go('login');
+                            }
+                        }
+                    }).catch(err => console.error(err));
                 }
             });
         },

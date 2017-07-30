@@ -26,7 +26,7 @@ angular.module('app')
             $http.post(API_URL + '/logout').then(response => {
                 localStorageService.clearAll();
                 // To get a new csrf token call the api
-                $http.get(API_URL + '/account');
+                $http.get(API_URL + '/account').then(() => {}).catch(() => {});
                 return response;
             }).catch(err => {
                 console.error(err);

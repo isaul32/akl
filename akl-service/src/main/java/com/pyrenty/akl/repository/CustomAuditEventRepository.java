@@ -3,6 +3,8 @@ package com.pyrenty.akl.repository;
 import com.pyrenty.akl.config.audit.AuditEventConverter;
 import com.pyrenty.akl.domain.PersistentAuditEvent;
 import org.joda.time.LocalDateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +21,7 @@ import java.util.List;
  */
 @Repository
 public class CustomAuditEventRepository {
+    private final Logger log = LoggerFactory.getLogger(CustomAuditEventRepository.class);
 
     @Inject
     private PersistenceAuditEventRepository persistenceAuditEventRepository;

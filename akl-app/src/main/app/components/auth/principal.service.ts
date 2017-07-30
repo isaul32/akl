@@ -12,28 +12,40 @@ angular.module('app')
             return _authenticated;
         },
         isInRole: function (role) {
-           if (!_authenticated) {
-               return $q.when(false);
-           }
+            const deferred = $q.defer();
 
-           return this.identity().then(function(_id) {
-               return _id.roles && _id.roles.indexOf(role) !== -1;
-           }, function(err){
-               return false;
-           });
+            if (!_authenticated) {
+                deferred.resolve(false);
+            }
+
+            this.identity().then(_id => {
+                if (_id) {
+                    const val = _id.roles && _id.roles.indexOf(role) !== -1;
+                    deferred.resolve(val);
+                } else {
+                    deferred.resolve(false);
+                }
+            }, function () {
+                deferred.resolve(false);
+            });
+
+            return deferred.promise;
         },
         isInAnyRole: function (roles) {
+            const deferred = $q.defer();
+
             if (!_authenticated || !_identity || !_identity.roles) {
-                return false;
+                deferred.resolve(false);
             }
+            roles.forEach(role => {
+                this.isInRole(role).then(res => {
+                    deferred.resolve(res);
+                }).catch(() => {
+                    deferred.resolve(false);
+                });
+            });
 
-            for (let i = 0; i < roles.length; i++) {
-                if (this.isInRole(roles[i])) {
-                    return true;
-                }
-            }
-
-            return false;
+            return deferred.promise;
         },
         authenticate: function (identity) {
             _identity = identity;
@@ -62,19 +74,27 @@ angular.module('app')
 
             // retrieve the identity data from the server, update the identity object, and then resolve.
             Account.get().$promise
-                .then(function (account) {
-                    _identity = account.data;
-                    _authenticated = true;
-                    _deferred.resolve(_identity);
-                    _deferred = null;
-                    Tracker.connect();
+                .then(account => {
+                    if (account.data.nickname !== 'Anonymous') {
+                        _identity = account.data;
+                        _authenticated = true;
+                        _deferred.resolve(_identity);
+                        _deferred = null;
+                        Tracker.connect();
+                    } else {
+                        _identity = null;
+                        _authenticated = false;
+                        _deferred.resolve(_identity);
+                        _deferred = null;
+                    }
                 })
-                .catch(function() {
+                .catch(() => {
                     _identity = null;
                     _authenticated = false;
                     _deferred.resolve(_identity);
                     _deferred = null;
                 });
+
             return _deferred.promise;
         }
     };

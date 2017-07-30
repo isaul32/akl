@@ -11,8 +11,12 @@
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
-                <label for="search" translate="aklApp.team.home.search">Search</label>
-                <input class="form-control" id="search" ng-model="search">
+                <label for="filter" translate="aklApp.team.home.search">Search</label>
+                <input id="filter"
+                       class="form-control"
+                       ng-model="params.filter"
+                       ng-model-options="{ debounce: 400 }"
+                       ng-change="updateSearch()">
             </div>
         </div>
         <div class="col-md-4">
@@ -20,10 +24,10 @@
                 <label for="season" translate="aklApp.team.home.season">Season</label>
                 <select class="form-control"
                         id="season"
-                        ng-model="selectedSeason"
+                        ng-model="params.season"
                         ng-options="season.id as season.shortName for season in seasons"
                         ng-init="initSeason()"
-                        ng-change="changeSeason()">
+                        ng-change="updateSearch()">
                 </select>
             </div>
         </div>
@@ -56,7 +60,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
                             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
                         </button>
-                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                        <button ng-disabled="deleteForm.$invalid" class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
                         </button>
                     </div>
@@ -71,10 +75,10 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th translate="aklApp.team.tag">Tag</th>
-                        <th translate="aklApp.team.name">Name</th>
+                        <th translate="aklApp.team.tag" class="col-md-2">Tag</th>
+                        <th translate="aklApp.team.name" class="col-md-8">Name</th>
                         <th translate="aklApp.team.rank" style="width: 100px">Rank</th>
-                        <th></th>
+                        <th ng-show="isAdmin"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -86,7 +90,7 @@
                             </a>
                         </td>
                         <td ng-bind-html="team.rank | rank"></td>
-                        <td>
+                        <td ng-show="isAdmin">
                             <div class="btn-group pull-right">
                                 <button type="button" ng-if="isInactive(team)"
                                         ng-click="activate(team.id)"

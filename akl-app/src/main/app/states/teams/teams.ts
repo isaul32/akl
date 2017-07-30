@@ -17,6 +17,10 @@ angular.module('app')
             season: {
                 value: null,
                 squash: true
+            },
+            filter: {
+                value: null,
+                squash: true
             }
         },
         resolve: {
@@ -28,6 +32,7 @@ angular.module('app')
             teams: (Api, $stateParams) => {
                 return Api.all('teams').getList({
                     season: $stateParams.season,
+                    filter: $stateParams.filter,
                     page: $stateParams.page,
                     per_page: 20
                 });

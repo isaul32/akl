@@ -2,7 +2,7 @@
 
 angular.module('app', [
     'LocalStorageModule', 'pascalprecht.translate',
-    'ui.bootstrap', 'ngResource', 'ui.router', 'ngCookies', 'angularFileUpload',
+    'ui.bootstrap', 'ngResource', 'ui.router', 'ui.router.state.events', 'ngCookies', 'angularFileUpload',
     'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache', 'restangular', 'ngSanitize',
     'ui.sortable', 'angulartics', 'angulartics.google.analytics', 'tmh.dynamicLocale'
 ])
@@ -11,6 +11,7 @@ angular.module('app', [
     amMoment.changeLocale('fi');
     tmhDynamicLocale.set('fi');
 
+    // Todo: https://ui-router.github.io/guide/ng1/migrate-to-1_0#state-change-events
     $rootScope.$on('$stateChangeStart', (event, toState, toStateParams) => {
         $rootScope.toState = toState;
         $rootScope.toStateParams = toStateParams;
@@ -24,12 +25,13 @@ angular.module('app', [
         });
     });
 
+    // Todo: https://ui-router.github.io/guide/ng1/migrate-to-1_0#state-change-events
     $rootScope.$on('$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) => {
         $rootScope.previousStateName = fromState.name;
         $rootScope.previousStateParams = fromParams;
     });
 
-    // Todo: error page
+    // Todo: https://ui-router.github.io/guide/ng1/migrate-to-1_0#state-change-events
     $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
         console.error("State error", event, toState, toParams, fromState, fromParams);
     });

@@ -30,6 +30,7 @@ angular.module('app')
                     connected.resolve("success");
                     sendActivity();
                     if (!alreadyConnectedOnce) {
+                        // Todo: https://ui-router.github.io/guide/ng1/migrate-to-1_0#state-change-events
                         $rootScope.$on('$stateChangeStart', event => {
                             sendActivity();
                         });
