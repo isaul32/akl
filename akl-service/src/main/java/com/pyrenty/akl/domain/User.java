@@ -86,6 +86,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "rank")
     private Rank rank;
 
+    @Size(max = 255)
     @Column(name = "description")
     private String description;
 

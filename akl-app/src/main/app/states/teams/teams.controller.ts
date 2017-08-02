@@ -7,9 +7,7 @@ angular.module('app')
     $scope.pages = teams.headers('X-Total-Count');
     $scope.params = _.cloneDeep($stateParams);
 
-    if ($scope.params.filter) {
-        angular.element("#filter").focus();
-    }
+    angular.element("#filter").focus();
 
     $scope.initSeason = () => {
         const currentSeason: any = _.find($scope.seasons, {archived: false});

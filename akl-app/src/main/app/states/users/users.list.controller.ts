@@ -6,9 +6,7 @@ angular.module('app')
     $scope.pages = users.headers('X-Total-Count');
     $scope.params = _.cloneDeep($stateParams);
 
-    if ($scope.params.filter) {
-        angular.element("#filter").focus();
-    }
+    angular.element("#filter").focus();
 
     $scope.updateSearch = () => {
         $state.transitionTo($state.current, $scope.params);

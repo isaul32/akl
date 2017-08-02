@@ -4,12 +4,10 @@ angular.module('app', [
     'LocalStorageModule', 'pascalprecht.translate',
     'ui.bootstrap', 'ngResource', 'ui.router', 'ui.router.state.events', 'ngCookies', 'angularFileUpload',
     'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache', 'restangular', 'ngSanitize',
-    'ui.sortable', 'angulartics', 'angulartics.google.analytics', 'tmh.dynamicLocale'
+    'ui.sortable', 'angulartics', 'angulartics.google.analytics'
 ])
-.run(($rootScope, $location, $window, $http, $state, $translate, Language, Auth, Principal, amMoment,
-      tmhDynamicLocale) => {
+.run(($rootScope, $location, $window, $http, $state, $translate, Language, Auth, Principal, amMoment) => {
     amMoment.changeLocale('fi');
-    tmhDynamicLocale.set('fi');
 
     // Todo: https://ui-router.github.io/guide/ng1/migrate-to-1_0#state-change-events
     $rootScope.$on('$stateChangeStart', (event, toState, toStateParams) => {
@@ -37,7 +35,7 @@ angular.module('app', [
         $state.go('error', {}, { reload:true });
     });
 })
-.config(($urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider,
+.config(($urlRouterProvider, $httpProvider, $locationProvider, $translateProvider,
          RestangularProvider, API_PATH) => {
 
     // Enable CSRF
@@ -51,8 +49,6 @@ angular.module('app', [
     $httpProvider.interceptors.push('notificationInterceptor');
 
     $locationProvider.hashPrefix('');
-
-    //tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale_{{locale}}.js');
 
     $translateProvider.useLoader('$translatePartialLoader', {
         urlTemplate: 'i18n/{lang}/{part}.json'
