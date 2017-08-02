@@ -16,11 +16,8 @@
         <commons-io.version>2.4</commons-io.version>
         <commons-lang.version>2.6</commons-lang.version>
         <dropwizard-metrics.version>3.1.2</dropwizard-metrics.version>
-        <gatling-maven-plugin.version>2.1.6</gatling-maven-plugin.version>
-        <gatling.version>2.1.6</gatling.version>
         <hibernate.version>4.3.10.Final</hibernate.version>
         <hikaricp.version>2.4.0</hikaricp.version>
-        <ical4j.version>2.0-beta1</ical4j.version>
         <jackson.version>2.6.5</jackson.version>
         <janino.version>2.7.8</janino.version>
         <java.version>1.8</java.version>
@@ -200,12 +197,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>io.gatling.highcharts</groupId>
-            <artifactId>gatling-charts-highcharts</artifactId>
-            <version>${gatling.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>${springfox.version}</version>
@@ -295,11 +286,6 @@
             <artifactId>mapstruct-processor</artifactId>
             <version>${mapstruct.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mnode.ical4j</groupId>
-            <artifactId>ical4j</artifactId>
-            <version>${ical4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -442,19 +428,6 @@
                     <sortPlugins>groupId,artifactId</sortPlugins>
                     <keepBlankLines>true</keepBlankLines>
                     <expandEmptyElements>false</expandEmptyElements>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>io.gatling</groupId>
-                <artifactId>gatling-maven-plugin</artifactId>
-                <version>${gatling-maven-plugin.version}</version>
-                <configuration>
-                    <configFolder>src/test/gatling/conf</configFolder>
-                    <dataFolder>src/test/gatling/data</dataFolder>
-                    <resultsFolder>target/gatling/results</resultsFolder>
-                    <bodiesFolder>src/test/gatling/bodies</bodiesFolder>
-                    <simulationsFolder>src/test/gatling/simulations</simulationsFolder>
-                    <simulationClass>*</simulationClass>
                 </configuration>
             </plugin>
             <plugin>

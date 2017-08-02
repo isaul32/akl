@@ -13,7 +13,7 @@
     <packaging>war</packaging>
     <name>akl-app</name>
     <properties>
-        <frontend-maven-plugin.version>1.4</frontend-maven-plugin.version>
+        <frontend-maven-plugin.version>1.5</frontend-maven-plugin.version>
         <node.version>v6.11.1</node.version>
         <npm.version>3.10.10</npm.version>
     </properties>
@@ -84,6 +84,9 @@
                             <directory>target/dist</directory>
                         </fileset>
                         <fileset>
+                            <directory>node</directory>
+                        </fileset>
+                        <fileset>
                             <directory>node_modules</directory>
                         </fileset>
                     </filesets>
@@ -121,7 +124,7 @@
                             <dependency>
                                 <groupId>org.slf4j</groupId>
                                 <artifactId>slf4j-simple</artifactId>
-                                <version>1.7.9</version>
+                                <version>1.7.25</version>
                             </dependency>
                         </dependencies>
                         <configuration>

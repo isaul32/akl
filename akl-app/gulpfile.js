@@ -1,12 +1,9 @@
-const gulp = require('gulp'),
-    autoprefixer = require('gulp-autoprefixer'),
+const
+    gulp = require('gulp'),
     templatecache = require('gulp-angular-templatecache'),
     concat = require('gulp-concat'),
     sass = require('gulp-sass'),
-    rename = require('gulp-rename'),
-    cssnano = require('gulp-cssnano'),
     annotate = require('gulp-ng-annotate'),
-    flatten = require('gulp-flatten'),
     sequence = require('gulp-sequence'),
     uglify = require('gulp-uglify'),
     gulpif = require('gulp-if'),
@@ -16,8 +13,6 @@ const gulp = require('gulp'),
     source = require('vinyl-source-stream'),
     browserify = require('browserify'),
     del = require('del'),
-    url = require('url'),
-    fs = require('fs'),
     http = require('http'),
     httpProxy = require('http-proxy'),
     express = require('express');
@@ -43,13 +38,12 @@ const b = browserify({
     debug: !production
 });
 
-// Tasks
 gulp.task('typings', () => {
     return gulp.src('./typings.json')
         .pipe(typings());
 });
 
-gulp.task('clean', function () {
+gulp.task('clean', () => {
     return del(config.dist);
 });
 
@@ -96,9 +90,7 @@ gulp.task('ckeditor', () => {
 });
 
 gulp.task('i18n', () => {
-    return gulp.src([config.i18n + '**/*.json',
-        './node_modules/angular-i18n/angular-locale_fi.js',
-        './node_modules/angular-i18n/angular-locale_en.js'])
+    return gulp.src([config.i18n + '**/*.json'])
         .pipe(gulp.dest(config.dist + 'i18n'))
 });
 
@@ -137,7 +129,7 @@ gulp.task('dev', () => {
     proxy.on('open', (proxySocket) => {
         console.log('WS Client connected');
 
-        proxySocket.on('data', function (msg) {
+        proxySocket.on('data', (msg) => {
             //console.log(msg);
         });
     });

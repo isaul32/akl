@@ -136,7 +136,7 @@ public class AccountResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<String> saveAccount(@RequestBody UserDto userDto, HttpServletRequest request) {
-        if (!userDto.getLogin().equals("anonymousUser")) {
+        if (SecurityUtils.isAuthenticated()) {
             return userRepository
                     .findOneByLogin(userDto.getLogin())
                     .filter(u -> u.getLogin().equals(SecurityUtils.getCurrentLogin()))
