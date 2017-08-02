@@ -3,10 +3,7 @@ Akateeminen Kynäriliiga (AKL)
 
 # Install
 ```
-npm install -g gulp
-npm install -g typings
 npm install
-typings install
 mvn install
 cp .akl.properties ~/
 ```
