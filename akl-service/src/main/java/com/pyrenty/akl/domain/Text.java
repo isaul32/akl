@@ -1,6 +1,7 @@
 package com.pyrenty.akl.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,7 +9,8 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "akl_text")
-public class Text implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class Text extends AbstractAuditingEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

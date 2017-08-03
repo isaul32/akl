@@ -21,4 +21,5 @@
     <include file="classpath:config/liquibase/changelog/14_changed_match_entities.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/15_added_statistics_entities.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/16_added_season_entity.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/17_added_audit_data_for_entities.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
