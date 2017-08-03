@@ -1,10 +1,9 @@
 package com.pyrenty.akl.domain.statistics;
 
 import lombok.Data;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -17,11 +16,9 @@ public class Event {
 
     private String ip;
 
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime logged;
+    private LocalDateTime logged;
 
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime received;
+    private LocalDateTime received;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Kill kill;

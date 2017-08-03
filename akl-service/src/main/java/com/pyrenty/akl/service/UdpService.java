@@ -3,9 +3,6 @@ package com.pyrenty.akl.service;
 import com.pyrenty.akl.domain.statistics.*;
 import com.pyrenty.akl.repository.StatisticsEventRepository;
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.Message;
@@ -74,13 +71,13 @@ public class UdpService {
         Event event = new Event();
         event.setIp((String) message.getHeaders().get("ip_address"));
 
-        DateTimeFormatter formatter = DateTimeFormat
+        /*DateTimeFormatter formatter = DateTimeFormat
                 .forPattern("MM/dd/yyyy - HH:mm:ss");
         DateTime logged = formatter.parseDateTime(data.substring(2, 23));
         event.setLogged(logged);
 
         DateTime received = new DateTime(message.getHeaders().getTimestamp());
-        event.setReceived(received);
+        event.setReceived(received);*/
 
         String line = data.substring(25);
         parse(line, event);

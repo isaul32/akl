@@ -1,14 +1,13 @@
 package com.pyrenty.akl.web.rest;
 
 import com.pyrenty.akl.service.AuditEventService;
-import com.pyrenty.akl.web.propertyeditors.LocaleDateTimeEditor;
-import org.joda.time.LocalDateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -23,7 +22,7 @@ public class AuditResource {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(LocalDateTime.class, new LocaleDateTimeEditor("yyyy-MM-dd", false));
+        
     }
 
     @RequestMapping(value = "/all",

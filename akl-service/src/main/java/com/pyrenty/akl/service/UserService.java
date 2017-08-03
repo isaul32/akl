@@ -9,8 +9,6 @@ import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.util.RandomUtil;
 import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -21,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -66,8 +66,8 @@ public class UserService {
 
        return userRepository.findOneByResetKey(key)
            .filter(user -> {
-               DateTime oneDayAgo = DateTime.now().minusHours(24);
-               return user.getResetDate().isAfter(oneDayAgo.toInstant().getMillis());
+               LocalDateTime oneDayAgo = LocalDateTime.now().minusDays(1);
+               return user.getResetDate().isAfter(oneDayAgo);
            })
            .map(user -> {
                user.setPassword(passwordEncoder.encode(newPassword));
@@ -83,7 +83,7 @@ public class UserService {
            .filter(User::isActivated)
            .map(user -> {
                user.setResetKey(RandomUtil.generateResetKey());
-               user.setResetDate(DateTime.now());
+               user.setResetDate(LocalDateTime.now());
                userRepository.save(user);
                return user;
            });
@@ -152,12 +152,12 @@ public class UserService {
         return newUser;
     }
 
-    public boolean isBirthdateOkay(DateTime birthdate) {
+    public boolean isBirthdateOkay(LocalDate birthdate) {
         return birthdate != null && birthdate.getYear() > 1970;
     }
 
     public void updateUserInformation(String nickname, String firstName, String lastName, String email,
-                                      DateTime birthdate, String guild, String description, Rank rank, String langKey,
+                                      LocalDate birthdate, String guild, String description, Rank rank, String langKey,
                                       String activationKey) {
 
         userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
@@ -246,7 +246,7 @@ public class UserService {
      */
     @Scheduled(cron = "0 0 0 * * ?")
     public void removeOldPersistentTokens() {
-        LocalDate now = new LocalDate();
+        LocalDateTime now = LocalDateTime.now();
         persistentTokenRepository.findByTokenDateBefore(now.minusMonths(1)).forEach(token -> {
             log.debug("Deleting token {}", token.getSeries());
             User user = token.getUser();
@@ -264,7 +264,7 @@ public class UserService {
      */
     /*@Scheduled(cron = "0 0 1 * * ?")*/
     public void removeNotActivatedUsers() {
-        DateTime now = new DateTime();
+        LocalDateTime now = LocalDateTime.now();
         List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());

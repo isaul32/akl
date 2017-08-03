@@ -1,9 +1,6 @@
 package com.pyrenty.akl.web.websocket;
 
-import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.web.websocket.dto.ActivityDTO;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
@@ -17,7 +14,8 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import javax.inject.Inject;
 import java.security.Principal;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static com.pyrenty.akl.config.WebsocketConfiguration.IP_ADDRESS;
 
@@ -26,7 +24,7 @@ public class ActivityService implements ApplicationListener<SessionDisconnectEve
 
     private static final Logger log = LoggerFactory.getLogger(ActivityService.class);
 
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Inject
     SimpMessageSendingOperations messagingTemplate;
@@ -37,7 +35,7 @@ public class ActivityService implements ApplicationListener<SessionDisconnectEve
         activityDTO.setUserLogin(principal.getName());
         activityDTO.setSessionId(stompHeaderAccessor.getSessionId());
         activityDTO.setIpAddress(stompHeaderAccessor.getSessionAttributes().get(IP_ADDRESS).toString());
-        activityDTO.setTime(dateTimeFormatter.print(Calendar.getInstance().getTimeInMillis()));
+        activityDTO.setTime(LocalDateTime.now().format(dateTimeFormatter));
         log.debug("Sending user tracking data {}", activityDTO);
         return activityDTO;
     }

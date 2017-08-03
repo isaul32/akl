@@ -2,9 +2,9 @@ package com.pyrenty.akl.repository;
 
 import com.pyrenty.akl.domain.PersistentToken;
 import com.pyrenty.akl.domain.User;
-import org.joda.time.LocalDate;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -14,6 +14,6 @@ public interface PersistentTokenRepository extends JpaRepository<PersistentToken
 
     List<PersistentToken> findByUser(User user);
 
-    List<PersistentToken> findByTokenDateBefore(LocalDate localDate);
+    List<PersistentToken> findByTokenDateBefore(LocalDateTime LocalDateTime);
 
 }

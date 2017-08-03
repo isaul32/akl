@@ -2,11 +2,10 @@ package com.pyrenty.akl.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -29,13 +28,11 @@ public class Season {
     @Column(name = "description")
     private String description;
 
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "start_datetime")
-    private DateTime startDate;
+    private LocalDate startDate;
 
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "end_datetime")
-    private DateTime endTime;
+    private LocalDate endTime;
 
     @Column(nullable = false)
     private boolean archived = false;

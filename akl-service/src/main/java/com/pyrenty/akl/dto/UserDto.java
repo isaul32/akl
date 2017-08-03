@@ -5,11 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
-import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -44,7 +44,7 @@ public class UserDto {
     @Size(min = 5, max = 100)
     private String email;
 
-    private DateTime birthdate;
+    private LocalDate birthdate;
 
     @Size(min = 1, max = 50)
     private String guild;

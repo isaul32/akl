@@ -3,12 +3,12 @@ package com.pyrenty.akl.service;
 import com.pyrenty.akl.config.audit.AuditEventConverter;
 import com.pyrenty.akl.domain.PersistentAuditEvent;
 import com.pyrenty.akl.repository.PersistenceAuditEventRepository;
-import org.joda.time.LocalDateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**

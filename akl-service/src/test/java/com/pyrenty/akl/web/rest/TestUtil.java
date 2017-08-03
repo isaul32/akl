@@ -3,15 +3,10 @@ package com.pyrenty.akl.web.rest;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.springframework.http.MediaType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.pyrenty.akl.domain.util.CustomDateTimeSerializer;
-import com.pyrenty.akl.domain.util.CustomLocalDateSerializer;
 
 /**
  * Utility class for testing REST controllers.
@@ -34,10 +29,6 @@ public class TestUtil {
     public static byte[] convertObjectToJsonBytes(Object object) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        JodaModule module = new JodaModule();
-        module.addSerializer(DateTime.class, new CustomDateTimeSerializer());
-        module.addSerializer(LocalDate.class, new CustomLocalDateSerializer());
-        mapper.registerModule(module);
         return mapper.writeValueAsBytes(object);
     }
 

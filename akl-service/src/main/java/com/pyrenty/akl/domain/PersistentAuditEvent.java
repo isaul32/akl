@@ -1,9 +1,8 @@
 package com.pyrenty.akl.domain;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,8 +24,8 @@ public class PersistentAuditEvent  {
     private String principal;
 
     @Column(name = "event_date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime auditEventDate;
+
     @Column(name = "event_type")
     private String auditEventType;
 

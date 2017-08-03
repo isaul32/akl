@@ -3,7 +3,6 @@ package com.pyrenty.akl.security;
 import com.pyrenty.akl.domain.PersistentToken;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.UserRepository;
-import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -23,6 +22,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.SecureRandom;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 /**
@@ -81,13 +82,12 @@ public class CustomPersistentRememberMeServices extends
     @Override
     @Transactional
     protected UserDetails processAutoLoginCookie(String[] cookieTokens, HttpServletRequest request, HttpServletResponse response) {
-
         PersistentToken token = getPersistentToken(cookieTokens);
         String login = token.getUser().getLogin();
 
         // Token also matches, so login is valid. Update the token value, keeping the *same* series number.
         log.debug("Refreshing persistent login token for user '{}', series '{}'", login, token.getSeries());
-        token.setTokenDate(new LocalDate());
+        token.setTokenDate(LocalDateTime.now());
         token.setTokenValue(generateTokenData());
         token.setIpAddress(request.getRemoteAddr());
         token.setUserAgent(request.getHeader("User-Agent"));
@@ -98,6 +98,7 @@ public class CustomPersistentRememberMeServices extends
             log.error("Failed to update token: ", e);
             throw new RememberMeAuthenticationException("Autologin failed due to data access problem", e);
         }
+
         return getUserDetailsService().loadUserByUsername(login);
     }
 
@@ -111,7 +112,7 @@ public class CustomPersistentRememberMeServices extends
             t.setSeries(generateSeriesData());
             t.setUser(u);
             t.setTokenValue(generateTokenData());
-            t.setTokenDate(new LocalDate());
+            t.setTokenDate(LocalDateTime.now());
             t.setIpAddress(request.getRemoteAddr());
             t.setUserAgent(request.getHeader("User-Agent"));
             return t;
@@ -173,10 +174,11 @@ public class CustomPersistentRememberMeServices extends
             throw new CookieTheftException("Invalid remember-me token (Series/token) mismatch. Implies previous cookie theft attack.");
         }
 
-        if (token.getTokenDate().plusDays(TOKEN_VALIDITY_DAYS).isBefore(LocalDate.now())) {
+        if (token.getTokenDate().plusDays(TOKEN_VALIDITY_DAYS).isBefore(LocalDateTime.now())) {
             persistentTokenRepository.delete(token);
             throw new RememberMeAuthenticationException("Remember-me login has expired");
         }
+
         return token;
     }
 
@@ -189,12 +191,13 @@ public class CustomPersistentRememberMeServices extends
     private String generateTokenData() {
         byte[] newToken = new byte[DEFAULT_TOKEN_LENGTH];
         random.nextBytes(newToken);
+
         return new String(Base64.encode(newToken));
     }
 
     private void addCookie(PersistentToken token, HttpServletRequest request, HttpServletResponse response) {
-        setCookie(
-                new String[]{token.getSeries(), token.getTokenValue()},
+        setCookie(new String[]{token.getSeries(),
+                token.getTokenValue()},
                 TOKEN_VALIDITY_SECONDS, request, response);
     }
 }

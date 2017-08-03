@@ -2,7 +2,8 @@ package com.pyrenty.akl.dto;
 
 import com.pyrenty.akl.domain.enumeration.Rank;
 import lombok.Data;
-import org.joda.time.DateTime;
+
+import java.time.LocalDate;
 
 @Data
 public class UserExtendedDto {
@@ -12,7 +13,7 @@ public class UserExtendedDto {
     private String email;
     private String firstName;
     private String lastName;
-    private DateTime birthdate;
+    private LocalDate birthdate;
     private String guild;
     private Rank rank;
     private String description;

@@ -11,7 +11,6 @@ import com.pyrenty.akl.dto.ParticipantDto;
 import com.pyrenty.akl.pojo.challonge.Tournament;
 import com.pyrenty.akl.web.rest.mapper.GroupMapper;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -21,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -75,7 +76,7 @@ public class GroupResource {
                     group.setName(dto.getName());
                     group.setUrl(dto.getUrl());
                     group.setTeams(dto.getTeams());
-                    group.setLastModifiedDate(new DateTime());
+                    group.setLastModifiedDate(LocalDateTime.now());
                     group.setLastModifiedBy(SecurityUtils.getCurrentLogin());
 
                     return groupRepository.save(group);

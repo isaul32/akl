@@ -2,8 +2,6 @@ package com.pyrenty.akl.domain;
 
 import com.pyrenty.akl.domain.enumeration.GameServerState;
 import lombok.Data;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +9,6 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "akl_game_server")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class GameServer implements Serializable {
 
     @Id

@@ -2,7 +2,6 @@ package com.pyrenty.akl.repository;
 
 import com.pyrenty.akl.config.audit.AuditEventConverter;
 import com.pyrenty.akl.domain.PersistentAuditEvent;
-import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.audit.AuditEvent;
@@ -13,6 +12,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -41,10 +42,15 @@ public class CustomAuditEventRepository {
                 } else if (after == null) {
                     persistentAuditEvents = persistenceAuditEventRepository.findByPrincipal(principal);
                 } else {
-                    persistentAuditEvents =
-                            persistenceAuditEventRepository.findByPrincipalAndAuditEventDateAfter(principal, new LocalDateTime(after));
+                    persistentAuditEvents = persistenceAuditEventRepository
+                            .findByPrincipalAndAuditEventDateAfter(principal, LocalDateTime.ofInstant(after.toInstant(), ZoneId.systemDefault()));
                 }
                 return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
+            }
+
+            @Override
+            public List<AuditEvent> find(String principal, Date after, String type) {
+                return null;
             }
 
             @Override
@@ -53,10 +59,19 @@ public class CustomAuditEventRepository {
                 PersistentAuditEvent persistentAuditEvent = new PersistentAuditEvent();
                 persistentAuditEvent.setPrincipal(event.getPrincipal());
                 persistentAuditEvent.setAuditEventType(event.getType());
-                persistentAuditEvent.setAuditEventDate(new LocalDateTime(event.getTimestamp()));
+                Date timestamp = event.getTimestamp();
+                persistentAuditEvent.setAuditEventDate(LocalDateTime.ofInstant(timestamp.toInstant(), ZoneId.systemDefault()));
                 persistentAuditEvent.setData(auditEventConverter.convertDataToStrings(event.getData()));
 
                 persistenceAuditEventRepository.save(persistentAuditEvent);
+            }
+
+            @Override
+            public List<AuditEvent> find(Date after) {
+                Iterable<PersistentAuditEvent> persistentAuditEvents;
+                persistentAuditEvents = persistenceAuditEventRepository.findAll();
+
+                return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
             }
         };
     }

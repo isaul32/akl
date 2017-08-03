@@ -2,10 +2,9 @@ package com.pyrenty.akl.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * Created by Sauli on 12.6.2016.
@@ -21,14 +20,9 @@ public class CalendarEvent {
 
     @Getter
     @Setter
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime start;
+    private LocalDateTime start;
 
     @Getter
     @Setter
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime end;
-
-    /*@OneToOne
-    private Team team;*/
+    private LocalDateTime end;
 }
