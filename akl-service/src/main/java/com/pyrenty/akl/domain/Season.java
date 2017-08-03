@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -29,10 +29,10 @@ public class Season {
     private String description;
 
     @Column(name = "start_datetime")
-    private LocalDate startDate;
+    private Date startDate;
 
     @Column(name = "end_datetime")
-    private LocalDate endTime;
+    private Date endTime;
 
     @Column(nullable = false)
     private boolean archived = false;

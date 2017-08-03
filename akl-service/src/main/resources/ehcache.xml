@@ -7,7 +7,7 @@
 
     <diskStore path="java.io.tmpdir"/>
 
-    <defaultCache eternal="false" overflowToDisk="false"/>
+    <defaultCache overflowToDisk="false"/>
 
     <cache name="twitch" timeToLiveSeconds="60"/>
 

@@ -1,5 +1,6 @@
 package com.pyrenty.akl.service;
 
+import com.pyrenty.akl.Application;
 import com.pyrenty.akl.domain.PersistentToken;
 import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
@@ -7,11 +8,12 @@ import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.service.util.RandomUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.List;
@@ -23,8 +25,8 @@ import static org.assertj.core.api.Assertions.*;
  *
  * @see UserService
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class)
 @Transactional
 public class UserServiceTest {
 
@@ -43,8 +45,8 @@ public class UserServiceTest {
         if (userRepository.findOneByLogin("admin").isPresent()) {
             User admin = userRepository.findOneByLogin("admin").get();
             int existingCount = persistentTokenRepository.findByUser(admin).size();
-            generateUserToken(admin, "1111-1111", LocalDateTime.now());
-            LocalDateTime now = LocalDateTime.now();
+            generateUserToken(admin, "1111-1111", LocalDate.now());
+            LocalDate now = LocalDate.now();
             generateUserToken(admin, "2222-2222", now.minusDays(32));
             assertThat(persistentTokenRepository.findByUser(admin)).hasSize(existingCount + 2);
             userService.removeOldPersistentTokens();
@@ -155,7 +157,7 @@ public class UserServiceTest {
         assertThat(users).isEmpty();
     }
 
-    private void generateUserToken(User user, String tokenSeries, LocalDateTime localDate) {
+    private void generateUserToken(User user, String tokenSeries, LocalDate localDate) {
         PersistentToken token = new PersistentToken();
         token.setSeries(tokenSeries);
         token.setUser(user);

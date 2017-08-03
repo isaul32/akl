@@ -37,7 +37,7 @@ public class PersistentToken implements Serializable {
 
     @JsonIgnore
     @Column(name = "token_date")
-    private LocalDateTime tokenDate;
+    private LocalDate tokenDate;
 
     // an IPV6 address max length is 39 characters
     @Size(max = 39)
@@ -67,11 +67,11 @@ public class PersistentToken implements Serializable {
         this.tokenValue = tokenValue;
     }
 
-    public LocalDateTime getTokenDate() {
+    public LocalDate getTokenDate() {
         return tokenDate;
     }
 
-    public void setTokenDate(LocalDateTime tokenDate) {
+    public void setTokenDate(LocalDate tokenDate) {
         this.tokenDate = tokenDate;
     }
 

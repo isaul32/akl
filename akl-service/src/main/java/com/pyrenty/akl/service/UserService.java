@@ -21,10 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Service class for managing users.
@@ -152,12 +149,12 @@ public class UserService {
         return newUser;
     }
 
-    public boolean isBirthdateOkay(LocalDate birthdate) {
+    public boolean isBirthdateOkay(Date birthdate) {
         return birthdate != null && birthdate.getYear() > 1970;
     }
 
     public void updateUserInformation(String nickname, String firstName, String lastName, String email,
-                                      LocalDate birthdate, String guild, String description, Rank rank, String langKey,
+                                      Date birthdate, String guild, String description, Rank rank, String langKey,
                                       String activationKey) {
 
         userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
@@ -246,7 +243,7 @@ public class UserService {
      */
     @Scheduled(cron = "0 0 0 * * ?")
     public void removeOldPersistentTokens() {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDate now = LocalDate.now();
         persistentTokenRepository.findByTokenDateBefore(now.minusMonths(1)).forEach(token -> {
             log.debug("Deleting token {}", token.getSeries());
             User user = token.getUser();

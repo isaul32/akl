@@ -14,15 +14,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
 
+import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,8 +39,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @see UserService
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class)
 public class AccountResourceTest {
 
     @Inject
@@ -121,10 +122,12 @@ public class AccountResourceTest {
         user.setAuthorities(authorities);
         when(mockUserService.getUserWithAuthorities()).thenReturn(user);
 
+        MediaType contentType = new MediaType("application", "json", Charset.forName("UTF-8"));
+
         restUserMockMvc.perform(get("/api/account")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.login").value("test"))
                 .andExpect(jsonPath("$.firstName").value("first"))
                 .andExpect(jsonPath("$.lastName").value("last"))

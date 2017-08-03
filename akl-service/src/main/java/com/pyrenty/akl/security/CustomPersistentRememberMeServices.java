@@ -87,7 +87,7 @@ public class CustomPersistentRememberMeServices extends
 
         // Token also matches, so login is valid. Update the token value, keeping the *same* series number.
         log.debug("Refreshing persistent login token for user '{}', series '{}'", login, token.getSeries());
-        token.setTokenDate(LocalDateTime.now());
+        token.setTokenDate(LocalDate.now());
         token.setTokenValue(generateTokenData());
         token.setIpAddress(request.getRemoteAddr());
         token.setUserAgent(request.getHeader("User-Agent"));
@@ -112,7 +112,7 @@ public class CustomPersistentRememberMeServices extends
             t.setSeries(generateSeriesData());
             t.setUser(u);
             t.setTokenValue(generateTokenData());
-            t.setTokenDate(LocalDateTime.now());
+            t.setTokenDate(LocalDate.now());
             t.setIpAddress(request.getRemoteAddr());
             t.setUserAgent(request.getHeader("User-Agent"));
             return t;
@@ -174,7 +174,7 @@ public class CustomPersistentRememberMeServices extends
             throw new CookieTheftException("Invalid remember-me token (Series/token) mismatch. Implies previous cookie theft attack.");
         }
 
-        if (token.getTokenDate().plusDays(TOKEN_VALIDITY_DAYS).isBefore(LocalDateTime.now())) {
+        if (token.getTokenDate().plusDays(TOKEN_VALIDITY_DAYS).isBefore(LocalDate.now())) {
             persistentTokenRepository.delete(token);
             throw new RememberMeAuthenticationException("Remember-me login has expired");
         }

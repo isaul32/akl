@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -75,7 +75,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_key", length = 20)
     private String resetKey;
 
-    private LocalDate birthdate;
+    private Date birthdate;
 
     @Size(min = 1, max = 50)
     @Column
