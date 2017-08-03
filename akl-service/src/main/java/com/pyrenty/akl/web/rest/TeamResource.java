@@ -152,8 +152,7 @@ public class TeamResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @PreAuthorize("isAuthenticated()")
     @Timed
-    public ResponseEntity<TeamDto> update(@PathVariable Long id,
-                                          @Valid @RequestBody TeamDto teamDto) {
+    public ResponseEntity<TeamDto> update(@PathVariable Long id, @Valid @RequestBody TeamDto teamDto) {
         log.debug("REST request to put Team : {}", id);
 
         return Optional.ofNullable(teamRepository.findOne(teamDto.getId()))
@@ -171,6 +170,7 @@ public class TeamResource {
                         team.setName(teamDto.getName());
                         team.setTag(teamDto.getTag());
                         team.setRepresenting(teamDto.getRepresenting());
+                        team.setApplication(teamDto.getApplication());
                     }
                     team.setRank(teamDto.getRank());
                     team.setDescription(teamDto.getDescription());
