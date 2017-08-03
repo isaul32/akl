@@ -62,7 +62,9 @@ gulp.task('assets', ['fonts', 'images', 'sass', 'ckeditor', 'i18n'], () => {
     return gulp.src([
         config.app + 'favicon.ico',
         config.app + 'robots.txt',
-        config.app + 'sitemap.xml'
+        config.app + 'sitemap.xml',
+        config.app + 'manifest.json',
+        config.app + 'sw.js'
     ])
         .pipe(gulp.dest(config.dist));
 });

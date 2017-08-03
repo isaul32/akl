@@ -5,9 +5,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Akateeminen Kynäriliiga</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#006052">
+        <meta name="apple-mobile-web-app-status-bar-style" content="#006052">
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="icon" type="image/x-icon" href="favicon.ico" />
+        <link rel="icon" sizes="192x192" href="images/icon192.png">
+        <link rel="apple-touch-icon" href="images/icon192.png">
+        <link rel="manifest" href="manifest.json">
     </head>
     <body ng-app="app">
         <div class="loading" ng-if="false">
@@ -30,5 +35,18 @@
         <script src="js/bundle.js"></script>
         <script src="js/templates.js"></script>
         <script src="ckeditor/ckeditor.js"></script>
+        <script>
+            if ('serviceWorker' in navigator) {
+                console.debug('Service Worker is supported');
+
+                navigator.serviceWorker.register('sw.js').then(function (registration) {
+                    console.debug('Service Worker registration successful with scope: ', registration.scope);
+                }).catch(function (error) {
+                    console.debug('Service Worker Error', error);
+                });
+            } else {
+                console.debug('Push messaging is not supported');
+            }
+        </script>
     </body>
 </html>
