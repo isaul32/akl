@@ -1,11 +1,11 @@
-package com.pyrenty.akl.service;
+package fi.tite.akl.service;
 
-import com.pyrenty.akl.Application;
-import com.pyrenty.akl.domain.PersistentToken;
-import com.pyrenty.akl.domain.User;
-import com.pyrenty.akl.repository.PersistentTokenRepository;
-import com.pyrenty.akl.repository.UserRepository;
-import com.pyrenty.akl.service.util.RandomUtil;
+import fi.tite.akl.Application;
+import fi.tite.akl.domain.PersistentToken;
+import fi.tite.akl.domain.User;
+import fi.tite.akl.repository.PersistentTokenRepository;
+import fi.tite.akl.repository.UserRepository;
+import fi.tite.akl.service.util.RandomUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

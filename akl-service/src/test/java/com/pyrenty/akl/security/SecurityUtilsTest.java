@@ -1,4 +1,4 @@
-package com.pyrenty.akl.security;
+package fi.tite.akl.security;
 
 import org.junit.Test;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

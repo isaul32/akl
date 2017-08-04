@@ -15,7 +15,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.pyrenty.akl" level="${logback.loglevel}"/>
+    <logger name="fi.tite.akl" level="${logback.loglevel}"/>
 
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.mail" level="WARN"/>
@@ -44,7 +44,7 @@
     <logger name="liquibase" level="WARN"/>
     <logger name="sun.rmi.transport" level="WARN"/>
     <logger name="sun.net.www.protocol.http.HttpURLConnection" level="OFF"/>
-    <logger name="com.pyrenty.akl.async.TwitchScheduledJob" level="OFF"/>
+    <logger name="fi.tite.akl.async.TwitchScheduledJob" level="OFF"/>
     <logger name="io.undertow.request" level="OFF"/>
     <logger name="org.openid4java.server.RealmVerifier" level="OFF"/>
 

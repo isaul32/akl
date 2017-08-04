@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>akl</artifactId>
-        <groupId>com.pyrenty.akl</groupId>
+        <groupId>fi.tite.akl</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>akl-service</artifactId>
@@ -367,7 +367,7 @@
                     <defaultSchemaName/>
                     <username/>
                     <password/>
-                    <referenceUrl>hibernate:spring:com.pyrenty.akl.domain?dialect=</referenceUrl>
+                    <referenceUrl>hibernate:spring:fi.tite.akl.domain?dialect=</referenceUrl>
                     <verbose>true</verbose>
                     <logging>debug</logging>
                 </configuration>

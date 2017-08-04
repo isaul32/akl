@@ -7,7 +7,7 @@
             <Pattern>[%p] %c - %m%n</Pattern>
         </encoder>
     </appender>
-    <logger name="com.pyrenty.akl" level="DEBUG"/>
+    <logger name="fi.tite.akl" level="DEBUG"/>
     <logger name="org.hibernate.ejb.HibernatePersistenceProvider" level="OFF"/>
     <logger name="org.apache.catalina.startup.DigesterFactory" level="OFF"/>
 

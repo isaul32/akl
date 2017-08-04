@@ -20,7 +20,7 @@ spring:
         password:
 
     jpa:
-        database-platform: com.pyrenty.akl.domain.util.FixedH2Dialect
+        database-platform: fi.tite.akl.domain.util.FixedH2Dialect
         database: H2
         openInView: false
         show_sql: true

@@ -17,27 +17,27 @@
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="com.pyrenty.akl.domain.User"
+    <cache name="fi.tite.akl.domain.User"
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="com.pyrenty.akl.domain.Authority"
+    <cache name="fi.tite.akl.domain.Authority"
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="com.pyrenty.akl.domain.User.authorities"
+    <cache name="fi.tite.akl.domain.User.authorities"
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="com.pyrenty.akl.domain.PersistentToken"
+    <cache name="fi.tite.akl.domain.PersistentToken"
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="com.pyrenty.akl.domain.User.persistentTokens"
+    <cache name="fi.tite.akl.domain.User.persistentTokens"
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="com.pyrenty.akl.domain.PersistentAuditEvent"
+    <cache name="fi.tite.akl.domain.PersistentAuditEvent"
            timeToLiveSeconds="3600">
     </cache>
 </ehcache>

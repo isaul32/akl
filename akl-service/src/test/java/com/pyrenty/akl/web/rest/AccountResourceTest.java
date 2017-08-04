@@ -1,14 +1,14 @@
-package com.pyrenty.akl.web.rest;
+package fi.tite.akl.web.rest;
 
-import com.pyrenty.akl.Application;
-import com.pyrenty.akl.domain.Authority;
-import com.pyrenty.akl.domain.User;
-import com.pyrenty.akl.repository.AuthorityRepository;
-import com.pyrenty.akl.repository.TeamRepository;
-import com.pyrenty.akl.repository.UserRepository;
-import com.pyrenty.akl.security.AuthoritiesConstants;
-import com.pyrenty.akl.service.MailService;
-import com.pyrenty.akl.service.UserService;
+import fi.tite.akl.Application;
+import fi.tite.akl.domain.Authority;
+import fi.tite.akl.domain.User;
+import fi.tite.akl.repository.AuthorityRepository;
+import fi.tite.akl.repository.TeamRepository;
+import fi.tite.akl.repository.UserRepository;
+import fi.tite.akl.security.AuthoritiesConstants;
+import fi.tite.akl.service.MailService;
+import fi.tite.akl.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
