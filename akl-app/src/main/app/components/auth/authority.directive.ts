@@ -15,12 +15,13 @@ angular.module('app')
                         setVisible();
                     }
 
-                    result = Principal.isInAnyRole(roles);
-                    if (result) {
-                        setVisible();
-                    } else {
-                        setHidden();
-                    }
+                    Principal.isInAnyRole(roles).then(res => {
+                        if (res) {
+                            setVisible();
+                        } else {
+                            setHidden();
+                        }
+                    });
                 },
                 roles = attrs.hasAnyRole.replace(/\s+/g, '').split(',');
 
