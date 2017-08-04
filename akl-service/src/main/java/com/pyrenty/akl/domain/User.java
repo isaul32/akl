@@ -2,8 +2,10 @@ package com.pyrenty.akl.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pyrenty.akl.domain.enumeration.Rank;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
@@ -22,6 +24,8 @@ import java.util.Set;
 @Getter
 @Entity
 @Table(name = "akl_user")
+@ToString(of = {"login"})
+@EqualsAndHashCode(of = {"login"}, callSuper = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
 
@@ -134,26 +138,4 @@ public class User extends AbstractAuditingEntity implements Serializable {
         return this.captain.equals(team);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        User user = (User) o;
-        return login.equals(user.login);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return login.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "User{login='" + login + '\'' + "}";
-    }
 }

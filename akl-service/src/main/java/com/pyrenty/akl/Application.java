@@ -22,7 +22,10 @@ import java.util.Collection;
 
 @Slf4j
 @ComponentScan
-@EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = {
+        MetricFilterAutoConfiguration.class,
+        MetricRepositoryAutoConfiguration.class
+})
 public class Application {
 
     @Inject

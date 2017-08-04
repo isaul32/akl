@@ -34,7 +34,8 @@ angular.module('app')
     return {
         restrict: 'A',
         link: (scope, element, attrs: any) => {
-            let setVisible = () => {
+            const
+                setVisible = () => {
                     element.removeClass('hidden');
                 },
                 setHidden = () => {

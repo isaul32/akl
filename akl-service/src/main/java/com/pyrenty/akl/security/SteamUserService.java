@@ -68,7 +68,7 @@ public class SteamUserService implements AuthenticationUserDetailsService<OpenID
                     }
 
                     return new org.springframework.security.core.userdetails
-                            .User(user.getLogin(), "", AuthorityUtils.createAuthorityList("ROLE_USER"));
+                            .User(user.getLogin(), "", AuthorityUtils.createAuthorityList(AuthoritiesConstants.USER));
                 } catch (SteamApiException | NumberFormatException ex) {
                     log.error(ex.getLocalizedMessage());
                 }

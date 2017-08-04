@@ -1,6 +1,5 @@
 package com.pyrenty.akl.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.lukaspradel.steamapi.core.exception.SteamApiException;
 import com.lukaspradel.steamapi.data.json.playersummaries.GetPlayerSummaries;
 import com.pyrenty.akl.repository.SteamCommunityRepository;
@@ -31,7 +30,6 @@ public class SteamCommunityResource {
     private UserRepository userRepository;
 
     @RequestMapping(value = "/user/{communityId}", method = RequestMethod.GET)
-    @Timed
     ResponseEntity<GetPlayerSummaries> getSteamUser(@PathVariable String communityId) throws SteamApiException {
         log.debug("REST request to get Steam profile : {}", communityId);
 

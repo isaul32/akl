@@ -1,6 +1,5 @@
 package com.pyrenty.akl.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Text;
 import com.pyrenty.akl.repository.TextRepository;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
@@ -29,10 +28,9 @@ public class TextResource {
     @Inject
     private TextRepository textRepository;
 
-    @Timed
     @PreAuthorize("hasRole('CMS') or hasRole('ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Text>> getAll(@RequestParam(value = "page" , required = false) Integer offset,
+    public ResponseEntity<List<Text>> getAll(@RequestParam(value = "page", required = false) Integer offset,
                                              @RequestParam(value = "per_page", required = false) Integer limit)
             throws URISyntaxException {
         log.debug("REST request to get all Texts");
@@ -42,17 +40,15 @@ public class TextResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    @Timed
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Text> get(@PathVariable Long id) {
         log.debug("REST request to get Text : {}", id);
 
         return Optional.ofNullable(textRepository.findOne(id))
-            .map(text -> new ResponseEntity<>(text, HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map(text -> new ResponseEntity<>(text, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @Timed
     @PreAuthorize("hasRole('CMS') or hasRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Text> update(@PathVariable Long id,

@@ -5,6 +5,7 @@ import com.pyrenty.akl.domain.enumeration.Rank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode
 @Table(name = "akl_team")
+@ToString(of = {"name", "tag", "name"})
 public class Team implements Serializable {
 
     @Id
@@ -78,12 +80,4 @@ public class Team implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     private Season season;
 
-    @Override
-    public String toString() {
-        return "Team{" +
-                "id=" + id +
-                ", tag='" + tag + "'" +
-                ", name='" + name + "'" +
-                '}';
-    }
 }

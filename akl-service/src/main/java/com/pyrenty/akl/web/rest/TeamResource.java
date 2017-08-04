@@ -1,6 +1,5 @@
 package com.pyrenty.akl.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.CalendarEvent;
 import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.domain.User;
@@ -12,6 +11,7 @@ import com.pyrenty.akl.repository.CalendarEventRepository;
 import com.pyrenty.akl.repository.SeasonRepository;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.repository.UserRepository;
+import com.pyrenty.akl.security.AuthoritiesConstants;
 import com.pyrenty.akl.security.InvalidRoleException;
 import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.TeamService;
@@ -100,7 +100,6 @@ public class TeamResource {
     */
 
     @RequestMapping(method = RequestMethod.GET)
-    @Timed
     public ResponseEntity<List<TeamDto>> getAll(@RequestParam(value = "page", required = false) Integer offset,
                                                 @RequestParam(value = "per_page", required = false) Integer limit,
                                                 @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
@@ -127,7 +126,6 @@ public class TeamResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @Timed
     public ResponseEntity<TeamDto> get(@PathVariable Long id) {
         log.debug("REST request to get Team : {}", id);
 
@@ -138,7 +136,7 @@ public class TeamResource {
                     User user = userService.getUserWithAuthorities();
                     // If user is not admin or team captain, hide application.
                     if (user == null
-                            || user.getAuthorities().stream().noneMatch(authority -> authority.getName().equals("ROLE_ADMIN"))
+                            || user.getAuthorities().stream().noneMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN))
                             || user.getCaptain() == null
                             || !user.getCaptain().getId().equals(teamDto.getId())) {
                         teamDto.setApplication(null);
@@ -152,7 +150,6 @@ public class TeamResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @PreAuthorize("isAuthenticated()")
-    @Timed
     public ResponseEntity<TeamDto> update(@PathVariable Long id, @Valid @RequestBody TeamDto teamDto) {
         log.debug("REST request to put Team : {}", id);
 
@@ -185,14 +182,12 @@ public class TeamResource {
     }
 
     @RequestMapping(value = "/{id}/activate", method = RequestMethod.POST)
-    @Timed
     public ResponseEntity<Void> activate(@PathVariable Long id) {
         return Optional.ofNullable(teamService.activate(id))
                 .map(team -> new ResponseEntity<Void>(HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @Timed
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}/leave", method = RequestMethod.POST)
     public ResponseEntity<Team> leaveTeam(@PathVariable Long id) {
@@ -230,7 +225,6 @@ public class TeamResource {
 
     @RequestMapping(value = "/{id}/requests", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
-    @Timed
     public ResponseEntity<Void> requestInvite(@PathVariable Long id) {
         User currentUser = userService.getUserWithAuthorities();
         if (!currentUser.isActivated()) {
@@ -259,7 +253,6 @@ public class TeamResource {
 
     @RequestMapping(value = "/{id}/requests", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
-    @Timed
     public ResponseEntity<List<UserPublicDto>> getRequests(@PathVariable Long id) {
         User user = userService.getUserWithAuthorities();
 
@@ -281,14 +274,13 @@ public class TeamResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
-    @Timed
     public ResponseEntity<Void> approveRequest(@PathVariable Long id,
                                                @PathVariable Long userId,
                                                @Valid @RequestBody TeamRequestDto teamRequest,
                                                HttpServletRequest request) {
         User user = userService.getUserWithAuthorities();
 
-        if (!request.isUserInRole("ROLE_ADMIN") && !user.getCaptain().getId().equals(id)) {
+        if (!request.isUserInRole(AuthoritiesConstants.ADMIN) && !user.getCaptain().getId().equals(id)) {
             throw new AccessDeniedException("You are not allowed to accept membership requests");
         }
 
@@ -339,13 +331,12 @@ public class TeamResource {
 
     @RequestMapping(value = "/{id}/requests/{userId}", method = RequestMethod.DELETE)
     @PreAuthorize("isAuthenticated()")
-    @Timed
     public ResponseEntity<Void> declineRequest(@PathVariable Long id,
                                                @PathVariable long userId,
                                                HttpServletRequest request) {
         User user = userService.getUserWithAuthorities();
 
-        if (!request.isUserInRole("ROLE_ADMIN") && !user.getCaptain().getId().equals(id)) {
+        if (!request.isUserInRole(AuthoritiesConstants.ADMIN) && !user.getCaptain().getId().equals(id)) {
             throw new AccessDeniedException("You are not allowed to decline membership requests");
         }
 
@@ -367,7 +358,6 @@ public class TeamResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @Timed
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -378,14 +368,12 @@ public class TeamResource {
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("Team deleted", id.toString())).build();
     }
 
-    @Timed
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}/schedule", method = RequestMethod.GET)
     public ResponseEntity<List<CalendarEvent>> getSchedule(@PathVariable Long id) {
         return ResponseEntity.ok(eventRepository.findAll());
     }
 
-    @Timed
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}/schedule", method = RequestMethod.POST)
     public ResponseEntity<List<CalendarEvent>> updateSchedule(@PathVariable Long id, @RequestBody Set<CalendarEvent> events) {

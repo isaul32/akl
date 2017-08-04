@@ -1,6 +1,5 @@
 package com.pyrenty.akl.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Season;
 import com.pyrenty.akl.repository.SeasonRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +20,6 @@ public class SeasonResource {
     private SeasonRepository seasonRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    @Timed
     public ResponseEntity<List<Season>> getAll() {
         log.debug("REST request to get all seasons");
 

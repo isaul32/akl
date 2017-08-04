@@ -1,6 +1,5 @@
 package com.pyrenty.akl.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Group;
 import com.pyrenty.akl.domain.MatchRequest;
 import com.pyrenty.akl.domain.Team;
@@ -41,7 +40,6 @@ public class MatchResource {
     @Inject
     private TeamRepository teamRepository;
 
-    @Timed
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.GET)
     public List<MatchRequest> getAll() {
@@ -52,9 +50,8 @@ public class MatchResource {
                 .orElse(new ArrayList<>());
     }
 
-    @Timed
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(method= RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<MatchRequest> create(@RequestBody MatchRequest matchRequest) {
 
         User user = userService.getUserWithAuthorities();

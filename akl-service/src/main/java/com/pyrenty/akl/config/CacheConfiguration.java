@@ -3,8 +3,8 @@ package com.pyrenty.akl.config;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.ehcache.InstrumentedEhcache;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.ehcache.CacheManager;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +24,7 @@ import java.util.SortedSet;
 @Slf4j
 @Configuration
 @EnableCaching
-@AutoConfigureAfter(value = {MetricsConfiguration.class, DatabaseConfiguration.class})
+@AutoConfigureAfter(value = {DatabaseConfiguration.class})
 @Profile("!" + Constants.SPRING_PROFILE_FAST)
 public class CacheConfiguration {
 
@@ -37,7 +37,7 @@ public class CacheConfiguration {
     @Inject
     private MetricRegistry metricRegistry;
 
-    private net.sf.ehcache.CacheManager cacheManager;
+    private CacheManager cacheManager;
 
     @PreDestroy
     public void destroy() {
@@ -49,10 +49,9 @@ public class CacheConfiguration {
     }
 
     @Bean
-    public CacheManager cacheManager() {
+    public EhCacheCacheManager cacheManager() {
         log.debug("Starting Ehcache");
-        cacheManager = net.sf.ehcache.CacheManager.create();
-        cacheManager.getConfiguration().setMaxBytesLocalHeap(env.getProperty("cache.ehcache.maxBytesLocalHeap", String.class, "16M"));
+        cacheManager = CacheManager.create();
         log.debug("Registering Ehcache Metrics gauges");
         Set<EntityType<?>> entities = entityManager.getMetamodel().getEntities();
         for (EntityType<?> entity : entities) {

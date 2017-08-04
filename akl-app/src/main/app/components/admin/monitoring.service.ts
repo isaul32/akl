@@ -2,7 +2,7 @@ angular.module('app')
     .factory('MonitoringService', ($rootScope, $http, SERVICE_URL) => {
         return {
             getMetrics: () => {
-                return $http.get(SERVICE_URL + '/metrics/metrics').then(response => {
+                return $http.get(SERVICE_URL + '/metrics').then(response => {
                     return response.data;
                 });
             },

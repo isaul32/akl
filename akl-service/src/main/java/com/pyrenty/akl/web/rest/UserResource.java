@@ -1,6 +1,5 @@
 package com.pyrenty.akl.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Authority;
 import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.dto.UserExtendedDto;
@@ -47,7 +46,6 @@ public class UserResource {
     private UserMapper userMapper;
 
     @RequestMapping(value = "/public", method = RequestMethod.GET)
-    @Timed
     public ResponseEntity<List<UserPublicDto>> getAllUsers(@RequestParam(value = "page", required = false) Integer offset,
                                                            @RequestParam(value = "per_page", required = false) Integer limit) throws URISyntaxException {
 
@@ -63,7 +61,6 @@ public class UserResource {
 
     @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("hasRole('ADMIN')")
-    @Timed
     public ResponseEntity<List<UserExtendedDto>> getAllExtendedUsers(@RequestParam(value = "page", required = false) Integer offset,
                                                                      @RequestParam(value = "per_page", required = false) Integer limit,
                                                                      @RequestParam(value = "filter", required = false, defaultValue = "") String filter) throws URISyntaxException {
@@ -82,7 +79,6 @@ public class UserResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('ADMIN')")
-    @Timed
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
 
@@ -91,7 +87,6 @@ public class UserResource {
 
     @RequestMapping(value = "/authorities", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ADMIN')")
-    @Timed
     public List<Authority> getAuthorities() {
 
         return userService.getAllAuthorities();
@@ -99,7 +94,6 @@ public class UserResource {
 
     @RequestMapping(value = "/{id}/authorities", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ADMIN')")
-    @Timed
     public ResponseEntity<Void> updateUserAuthorities(@PathVariable Long id, @RequestBody Set<Authority> authorities) {
         userService.updateUserAuthorities(id, authorities);
 
@@ -108,7 +102,6 @@ public class UserResource {
 
     @RequestMapping(value = "/{id}/authorities", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ADMIN')")
-    @Timed
     public ResponseEntity<Set<Authority>> getUserAuthorities(@PathVariable Long id) {
 
         return Optional.ofNullable(userService.getUserWithAuthorities(id))
@@ -117,7 +110,6 @@ public class UserResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @Timed
     public ResponseEntity<UserPublicDto> getUser(@PathVariable Long id) {
         log.debug("REST request to get UserBaseDto : {}", id);
 
@@ -128,7 +120,6 @@ public class UserResource {
     }
 
     @RequestMapping(value = "/steamid/{steamId}", method = RequestMethod.GET)
-    @Timed
     ResponseEntity<Set<Authority>> getUserAuthorityBySteamId(@PathVariable String steamId) {
         return Optional.ofNullable(userService.getUserAuthorityBySteamId(steamId))
                 .map(ResponseEntity::ok)
@@ -136,7 +127,6 @@ public class UserResource {
     }
 
     @RequestMapping(value = "/communityid/{communityId}", method = RequestMethod.GET)
-    @Timed
     ResponseEntity<Set<Authority>> getUserAuthorityByCommunityId(@PathVariable String communityId) {
         return Optional.ofNullable(userService.getUserAuthorityByCommunityId(communityId))
                 .map(ResponseEntity::ok)

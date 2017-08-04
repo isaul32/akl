@@ -2,6 +2,7 @@ package com.pyrenty.akl.domain;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -10,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -19,6 +19,13 @@ import java.time.format.DateTimeFormatter;
  * @see com.pyrenty.akl.security.CustomPersistentRememberMeServices
  */
 @Entity
+@ToString(of = {
+        "series",
+        "tokenValue",
+        "tokenDate",
+        "ipAddress",
+        "userAgent"
+})
 @Table(name = "akl_persistent_token")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class PersistentToken implements Serializable {
@@ -128,14 +135,4 @@ public class PersistentToken implements Serializable {
         return series.hashCode();
     }
 
-    @Override
-    public String toString() {
-        return "PersistentToken{" +
-                "series='" + series + '\'' +
-                ", tokenValue='" + tokenValue + '\'' +
-                ", tokenDate=" + tokenDate +
-                ", ipAddress='" + ipAddress + '\'' +
-                ", userAgent='" + userAgent + '\'' +
-                "}";
-    }
 }

@@ -3,6 +3,7 @@ package com.pyrenty.akl.web.rest;
 import com.pyrenty.akl.service.AuditEventService;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,18 +26,16 @@ public class AuditResource {
         
     }
 
-    @RequestMapping(value = "/all",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ACTUATOR')")
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<AuditEvent> findAll() {
         return auditEventService.findAll();
     }
 
-    @RequestMapping(value = "/byDates",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ACTUATOR')")
+    @RequestMapping(value = "/byDates", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<AuditEvent> findByDates(@RequestParam(value = "fromDate") LocalDateTime fromDate,
-                                    @RequestParam(value = "toDate") LocalDateTime toDate) {
+                                        @RequestParam(value = "toDate") LocalDateTime toDate) {
         return auditEventService.findByDates(fromDate, toDate);
     }
 }

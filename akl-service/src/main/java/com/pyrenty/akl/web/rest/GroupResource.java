@@ -1,6 +1,5 @@
 package com.pyrenty.akl.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Group;
 import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.repository.ChallongeRepository;
@@ -41,7 +40,6 @@ public class GroupResource {
     @Inject
     private ChallongeRepository challongeRepository;
 
-    @Timed
     @RequestMapping(method = RequestMethod.GET)
     public List<GroupDto> listAll() {
         return groupRepository.findAll(PaginationUtil.generatePageRequest(null, null, new Sort(
@@ -51,24 +49,21 @@ public class GroupResource {
                 .collect(Collectors.toList());
     }
 
-    @Timed
-    @RequestMapping(value="/{id}", method=RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public GroupDto get(@PathVariable Long id) {
         return groupMapper.groupToGroupDto(groupRepository.findOne(id));
     }
 
-    @Timed
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(method= RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public GroupDto create(@RequestBody GroupDto dto) {
         dto.setSubdomain("akl");
         Group group = groupRepository.save(groupMapper.groupDtoToGroup(dto));
         return groupMapper.groupToGroupDto(group);
     }
 
-    @Timed
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value="/{id}", method=RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<GroupDto> update(@PathVariable Long id, @RequestBody GroupDto dto) {
         return Optional.ofNullable(groupRepository.findOne(id))
                 .map(group -> {
@@ -85,16 +80,14 @@ public class GroupResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @Timed
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
         groupRepository.delete(id);
     }
 
-    @Timed
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/tournament", method=RequestMethod.POST)
+    @RequestMapping(value = "/tournament", method = RequestMethod.POST)
     public void createTournament() throws IOException {
         for (Group group : groupRepository.findAll()) {
             TournamentDto tournamentDto = new TournamentDto();

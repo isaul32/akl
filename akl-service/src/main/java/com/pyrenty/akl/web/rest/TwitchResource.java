@@ -1,6 +1,5 @@
 package com.pyrenty.akl.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.dto.twitch.TwitchDto;
 import com.pyrenty.akl.repository.TwitchRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,6 @@ public class TwitchResource {
     private TwitchRepository twitchRepository;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
     public TwitchDto getTwitchState() {
         log.debug("REST request to get TwitchDto state");
         return twitchRepository.getTwitchState();

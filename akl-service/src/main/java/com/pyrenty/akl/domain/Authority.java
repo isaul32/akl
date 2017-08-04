@@ -1,5 +1,6 @@
 package com.pyrenty.akl.domain;
 
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "akl_authority")
+@ToString(of = "name")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Authority implements Serializable {
 
@@ -52,10 +54,4 @@ public class Authority implements Serializable {
         return name != null ? name.hashCode() : 0;
     }
 
-    @Override
-    public String toString() {
-        return "Authority{" +
-                "name='" + name + '\'' +
-                "}";
-    }
 }

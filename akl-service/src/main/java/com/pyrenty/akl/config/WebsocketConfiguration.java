@@ -44,6 +44,7 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
                         authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.ANONYMOUS));
                         principal = new AnonymousAuthenticationToken("WebsocketConfiguration", "anonymous", authorities);
                     }
+
                     return principal;
                 }
             })

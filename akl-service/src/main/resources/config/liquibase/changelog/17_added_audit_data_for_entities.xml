@@ -20,5 +20,13 @@
             <column name="last_modified_date" type="timestamp"/>
         </addColumn>
 
+        <insert tableName="akl_authority">
+            <column name="name" value="ROLE_ACTUATOR"/>
+        </insert>
+
+        <insert tableName="akl_user_authority">
+            <column name="user_id" value="3"/>
+            <column name="authority_name" value="ROLE_ACTUATOR"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
