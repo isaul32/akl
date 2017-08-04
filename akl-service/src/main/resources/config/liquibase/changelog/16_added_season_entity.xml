@@ -8,6 +8,7 @@
     <property name="autoIncrement" value="false" dbms="oracle"/>
 
     <changeSet id="16" author="isaul">
+        <validCheckSum>ANY</validCheckSum>
 
         <createTable tableName="akl_season">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}" >

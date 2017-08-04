@@ -32,7 +32,7 @@ angular.module('app', [
     // Todo: https://ui-router.github.io/guide/ng1/migrate-to-1_0#state-change-events
     $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
         console.error("State error", event, toState, toParams, fromState, fromParams);
-        $state.go('error', {}, { reload:true });
+        $state.go('error', {}, { reload: true });
     });
 })
 .config(($urlRouterProvider, $httpProvider, $locationProvider, $translateProvider,

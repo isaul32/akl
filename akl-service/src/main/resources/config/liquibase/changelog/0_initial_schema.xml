@@ -16,6 +16,9 @@
     </changeSet>
 
     <changeSet id="0" author="isaul">
+
+        <validCheckSum>ANY</validCheckSum>
+
         <createTable tableName="akl_user">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
                 <constraints primaryKey="true" nullable="false"/>
