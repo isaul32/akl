@@ -2,15 +2,15 @@ package com.pyrenty.akl.service;
 
 import com.pyrenty.akl.domain.statistics.*;
 import com.pyrenty.akl.repository.StatisticsEventRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.nio.charset.Charset;
 
+@Slf4j
 @Service
 public class UdpService {
 
@@ -52,8 +52,6 @@ public class UdpService {
             EventType.DISCONNECT,
             EventType.SWITCH
     };
-
-    private static final Logger log = LoggerFactory.getLogger(UdpService.class);
 
     @Inject
     private StatisticsEventRepository statisticsEventRepository;

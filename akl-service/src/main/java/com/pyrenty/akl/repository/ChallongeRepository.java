@@ -3,9 +3,8 @@ package com.pyrenty.akl.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.pyrenty.akl.dto.ParticipantDto;
-import com.pyrenty.akl.pojo.challonge.Tournament;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.pyrenty.akl.dto.challonge.TournamentDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -14,10 +13,9 @@ import java.io.*;
 import java.net.URL;
 import java.util.Base64;
 
+@Slf4j
 @Repository
 public class ChallongeRepository {
-
-    private final Logger log = LoggerFactory.getLogger(ChallongeRepository.class);
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -31,29 +29,29 @@ public class ChallongeRepository {
         mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
     }
 
-    public void getTournament(Tournament dto) throws IOException {
+    public void getTournament(TournamentDto dto) throws IOException {
 
     }
 
-    public boolean createTournament(Tournament dto) throws IOException {
+    public boolean createTournament(TournamentDto dto) throws IOException {
         return openConnection("https://api.challonge.com/v1/tournaments.json", "POST", mapper.writeValueAsString(dto));
     }
 
-    public boolean createParticipant(Tournament tournament, ParticipantDto participantDto) throws IOException {
+    public boolean createParticipant(TournamentDto tournamentDto, ParticipantDto participantDto) throws IOException {
         return openConnection("https://api.challonge.com/v1/tournaments/"
-                + tournament.getSubdomain() + "-" + tournament.getUrl()
+                + tournamentDto.getSubdomain() + "-" + tournamentDto.getUrl()
                 + "/participants.json", "POST", mapper.writeValueAsString(participantDto));
     }
 
-    public boolean startTournament(Tournament tournament) throws IOException {
+    public boolean startTournament(TournamentDto tournamentDto) throws IOException {
         return openConnection("https://api.challonge.com/v1/tournaments/"
-                + tournament.getSubdomain() + "-" + tournament.getUrl()
+                + tournamentDto.getSubdomain() + "-" + tournamentDto.getUrl()
                 + "/start.json", "POST", "");
     }
 
-    public boolean deleteTournament(Tournament tournament) throws IOException {
+    public boolean deleteTournament(TournamentDto tournamentDto) throws IOException {
         return openConnection("https://api.challonge.com/v1/tournaments/"
-                + tournament.getSubdomain() + "-" + tournament.getUrl()
+                + tournamentDto.getSubdomain() + "-" + tournamentDto.getUrl()
                 + ".json", "DELETE", "");
     }
 

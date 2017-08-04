@@ -1,6 +1,5 @@
 package com.pyrenty.akl.service;
 
-import com.pyrenty.akl.domain.Season;
 import com.pyrenty.akl.domain.Team;
 import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.SeasonRepository;
@@ -19,6 +18,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class TeamService {
+
     @Inject
     private TeamRepository teamRepository;
 
@@ -74,19 +74,13 @@ public class TeamService {
 
             // Members
             Set<User> members = team.getMembers().stream()
-                    .map(m -> {
-                        m.setMember(null);
-                        return m;
-                    })
+                    .peek(m -> m.setMember(null))
                     .collect(Collectors.toSet());
             userRepository.save(members);
 
             // Standins
             Set<User> standins = team.getStandins().stream()
-                    .map(s -> {
-                        s.setStandin(null);
-                        return s;
-                    })
+                    .peek(s -> s.setStandin(null))
                     .collect(Collectors.toSet());
             userRepository.save(standins);
 

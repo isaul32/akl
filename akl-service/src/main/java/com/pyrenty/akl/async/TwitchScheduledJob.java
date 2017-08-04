@@ -1,17 +1,17 @@
 package com.pyrenty.akl.async;
 
-import com.pyrenty.akl.pojo.twitch.Twitch;
+import com.pyrenty.akl.dto.twitch.TwitchDto;
 import com.pyrenty.akl.repository.TwitchRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 
+@Slf4j
 @Component
 public class TwitchScheduledJob {
-    private final Logger log = LoggerFactory.getLogger(TwitchScheduledJob.class);
+
     private final static long POLLING_RATE = 60000;
 
     @Inject
@@ -19,9 +19,9 @@ public class TwitchScheduledJob {
 
     @Scheduled(fixedRate=POLLING_RATE)
     public void printMessage() {
-        Twitch twitch = twitchRepository.getTwitchState();
+        TwitchDto twitch = twitchRepository.getTwitchState();
 
-        // Channel is online if stream is not null
+        // ChannelDto is online if stream is not null
         if (twitch != null && twitch.getStream() != null) {
             // todo: Send websocket brodcast to clients
             log.debug(twitch.toString());

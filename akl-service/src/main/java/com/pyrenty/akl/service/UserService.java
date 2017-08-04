@@ -9,8 +9,7 @@ import com.pyrenty.akl.repository.UserRepository;
 import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.util.RandomUtil;
 import com.pyrenty.akl.web.rest.errors.CustomParameterizedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,10 +25,10 @@ import java.util.*;
 /**
  * Service class for managing users.
  */
+@Slf4j
 @Service
 @Transactional
 public class UserService {
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Inject
     private PasswordEncoder passwordEncoder;

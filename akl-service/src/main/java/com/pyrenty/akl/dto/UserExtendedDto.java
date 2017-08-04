@@ -4,6 +4,7 @@ import com.pyrenty.akl.domain.enumeration.Rank;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 public class UserExtendedDto {
@@ -13,7 +14,7 @@ public class UserExtendedDto {
     private String email;
     private String firstName;
     private String lastName;
-    private LocalDate birthdate;
+    private Date birthdate;
     private String guild;
     private Rank rank;
     private String description;

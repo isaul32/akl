@@ -5,8 +5,7 @@ import com.lukaspradel.steamapi.core.exception.SteamApiException;
 import com.lukaspradel.steamapi.data.json.playersummaries.GetPlayerSummaries;
 import com.pyrenty.akl.repository.SteamCommunityRepository;
 import com.pyrenty.akl.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/steam")
 public class SteamCommunityResource {
-    private final Logger log = LoggerFactory.getLogger(SteamCommunityResource.class);
 
     @Value("${akl.steam.web-api-key:}")
     private String webApiKey;

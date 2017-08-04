@@ -2,8 +2,7 @@ package com.pyrenty.akl.repository;
 
 import com.pyrenty.akl.config.audit.AuditEventConverter;
 import com.pyrenty.akl.domain.PersistentAuditEvent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.context.annotation.Bean;
@@ -20,9 +19,9 @@ import java.util.List;
 /**
  * Wraps an implementation of Spring Boot's AuditEventRepository.
  */
+@Slf4j
 @Repository
 public class CustomAuditEventRepository {
-    private final Logger log = LoggerFactory.getLogger(CustomAuditEventRepository.class);
 
     @Inject
     private PersistenceAuditEventRepository persistenceAuditEventRepository;

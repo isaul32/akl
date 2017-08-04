@@ -5,8 +5,7 @@ import com.pyrenty.akl.domain.Text;
 import com.pyrenty.akl.repository.TextRepository;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,10 +21,10 @@ import java.util.Optional;
 /**
  * REST controller for managing Text.
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/texts")
 public class TextResource {
-    private final Logger log = LoggerFactory.getLogger(TextResource.class);
 
     @Inject
     private TextRepository textRepository;

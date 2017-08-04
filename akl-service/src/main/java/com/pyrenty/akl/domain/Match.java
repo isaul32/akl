@@ -1,7 +1,9 @@
 package com.pyrenty.akl.domain;
 
+import javax.persistence.*;
+
 /*@Entity
-@Table(name = "match")*/
+@Table(name = "akl_match")*/
 public class Match {
 
 /*    @Id

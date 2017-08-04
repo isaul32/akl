@@ -10,8 +10,7 @@ import com.pyrenty.akl.service.UserService;
 import com.pyrenty.akl.web.rest.mapper.UserMapper;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -33,10 +32,10 @@ import java.util.stream.Collectors;
 /**
  * REST controller for managing users.
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/users")
 public class UserResource {
-    private final Logger log = LoggerFactory.getLogger(UserResource.class);
 
     @Inject
     private UserService userService;

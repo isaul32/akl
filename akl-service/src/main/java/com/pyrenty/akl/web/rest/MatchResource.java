@@ -9,8 +9,7 @@ import com.pyrenty.akl.repository.GroupRepository;
 import com.pyrenty.akl.repository.MatchRequestRepository;
 import com.pyrenty.akl.repository.TeamRepository;
 import com.pyrenty.akl.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -25,10 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/matches")
 public class MatchResource {
-    private final Logger log = LoggerFactory.getLogger(MatchResource.class);
 
     @Inject
     private MatchRequestRepository matchRequestRepository;
@@ -73,9 +72,7 @@ public class MatchResource {
                     Optional<Group> optGroup = groupRepository.findByTeams_id(ownTeam.getId());
                     if (optGroup.isPresent()) {
                         teamsAreInSameGroup = optGroup.get().getTeams().stream()
-                                .filter(team -> team.getId().equals(otherTeam.getId()))
-                                .findAny()
-                                .isPresent();
+                                .anyMatch(team -> team.getId().equals(otherTeam.getId()));
                     }
 
                     if (teamsAreInSameGroup) {

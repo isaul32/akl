@@ -142,25 +142,18 @@ public class User extends AbstractAuditingEntity implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (communityId == null) {
-            return false;
-        }
         User user = (User) o;
-        return user.communityId != null && communityId.equals(user.communityId);
+        return login.equals(user.login);
 
     }
 
     @Override
     public int hashCode() {
-        return communityId == null ? 0 : communityId.hashCode();
+        return login.hashCode();
     }
 
     @Override
     public String toString() {
-        return "User{" + "login='" + login + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                "}";
+        return "User{login='" + login + '\'' + "}";
     }
 }

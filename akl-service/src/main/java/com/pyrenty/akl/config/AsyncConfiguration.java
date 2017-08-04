@@ -1,7 +1,7 @@
 package com.pyrenty.akl.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.pyrenty.akl.async.ExceptionHandlingAsyncTaskExecutor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
@@ -17,15 +17,12 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 
-import com.pyrenty.akl.async.ExceptionHandlingAsyncTaskExecutor;
-
-@Configuration
+@Slf4j
 @EnableAsync
+@Configuration
 @EnableScheduling
 @Profile("!" + Constants.SPRING_PROFILE_FAST)
 public class AsyncConfiguration implements AsyncConfigurer, EnvironmentAware {
-
-    private final Logger log = LoggerFactory.getLogger(AsyncConfiguration.class);
 
     private RelaxedPropertyResolver propertyResolver;
 
@@ -51,3 +48,4 @@ public class AsyncConfiguration implements AsyncConfigurer, EnvironmentAware {
         return new SimpleAsyncUncaughtExceptionHandler();
     }
 }
+

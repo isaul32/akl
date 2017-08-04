@@ -4,10 +4,8 @@ import com.codahale.metrics.MetricRegistry;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.context.EnvironmentAware;
@@ -22,13 +20,12 @@ import org.springframework.util.StringUtils;
 import javax.sql.DataSource;
 import java.util.Arrays;
 
+@Slf4j
 @Configuration
 @EnableJpaRepositories("com.pyrenty.akl.repository")
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
 public class DatabaseConfiguration implements EnvironmentAware {
-
-    private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
 
     private RelaxedPropertyResolver dataSourcePropertyResolver;
 
@@ -47,7 +44,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
     }
 
     @Bean(destroyMethod = "close")
-    @ConditionalOnExpression("#{!environment.acceptsProfiles('cloud') && !environment.acceptsProfiles('heroku')}")
     public DataSource dataSource() {
         log.debug("Configuring Datasource");
         if (dataSourcePropertyResolver.getProperty("url") == null && dataSourcePropertyResolver.getProperty("databaseName") == null) {
@@ -57,6 +53,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
 
             throw new ApplicationContextException("Database connection pool is not configured correctly");
         }
+
         HikariConfig config = new HikariConfig();
         config.setDataSourceClassName(dataSourcePropertyResolver.getProperty("dataSourceClassName"));
         if(StringUtils.isEmpty(dataSourcePropertyResolver.getProperty("url"))) {
@@ -67,10 +64,10 @@ public class DatabaseConfiguration implements EnvironmentAware {
         }
         config.addDataSourceProperty("user", dataSourcePropertyResolver.getProperty("username"));
         config.addDataSourceProperty("password", dataSourcePropertyResolver.getProperty("password"));
-
         if (metricRegistry != null) {
             config.setMetricRegistry(metricRegistry);
         }
+
         return new HikariDataSource(config);
     }
 

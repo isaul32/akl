@@ -33,6 +33,7 @@ public final class SecurityUtils {
                 userName = (String) authentication.getPrincipal();
             }
         }
+
         return userName;
     }
 
@@ -51,6 +52,7 @@ public final class SecurityUtils {
                 }
             }
         }
+
         return true;
     }
 
@@ -64,9 +66,11 @@ public final class SecurityUtils {
         if(authentication != null) {
             if (authentication.getPrincipal() instanceof UserDetails) {
                 UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
+
                 return springSecurityUser.getAuthorities().contains(new SimpleGrantedAuthority(role));
             }
         }
+
         return false;
     }
 }

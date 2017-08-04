@@ -9,8 +9,7 @@ import com.codahale.metrics.jvm.*;
 import com.ryantenney.metrics.spring.config.annotation.EnableMetrics;
 import com.ryantenney.metrics.spring.config.annotation.MetricsConfigurerAdapter;
 import fr.ippon.spark.metrics.SparkReporter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
@@ -25,6 +24,7 @@ import java.lang.management.ManagementFactory;
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Configuration
 @EnableMetrics(proxyTargetClass = true)
 @Profile("!" + Constants.SPRING_PROFILE_FAST)
@@ -45,8 +45,6 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
     private static final String PROP_METRIC_REG_JVM_THREADS = "jvm.threads";
     private static final String PROP_METRIC_REG_JVM_FILES = "jvm.files";
     private static final String PROP_METRIC_REG_JVM_BUFFERS = "jvm.buffers";
-
-    private final Logger log = LoggerFactory.getLogger(MetricsConfiguration.class);
 
     private MetricRegistry metricRegistry = new MetricRegistry();
 
@@ -86,12 +84,11 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
         }
     }
 
+    @Slf4j
     @Configuration
     @ConditionalOnClass(Graphite.class)
     @Profile("!" + Constants.SPRING_PROFILE_FAST)
     public static class GraphiteRegistry implements EnvironmentAware {
-
-        private final Logger log = LoggerFactory.getLogger(GraphiteRegistry.class);
 
         @Inject
         private MetricRegistry metricRegistry;
@@ -123,12 +120,11 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
         }
     }
 
+    @Slf4j
     @Configuration
     @ConditionalOnClass(SparkReporter.class)
     @Profile("!" + Constants.SPRING_PROFILE_FAST)
     public static class SparkRegistry implements EnvironmentAware {
-
-        private final Logger log = LoggerFactory.getLogger(SparkRegistry.class);
 
         @Inject
         private MetricRegistry metricRegistry;

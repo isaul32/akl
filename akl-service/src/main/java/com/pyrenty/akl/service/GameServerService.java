@@ -4,10 +4,9 @@ import com.pyrenty.akl.domain.GameServer;
 import com.pyrenty.akl.dto.GameServerDto;
 import com.pyrenty.akl.repository.GameServerRepository;
 import com.pyrenty.akl.web.rest.mapper.GameServerMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.LinkedList;
@@ -17,11 +16,10 @@ import java.util.stream.Collectors;
 /**
  * Service Implementation for managing GameServer.
  */
+@Slf4j
 @Service
 @Transactional
 public class GameServerService {
-
-    private final Logger log = LoggerFactory.getLogger(GameServerService.class);
 
     @Inject
     private GameServerRepository gameServerRepository;
@@ -70,5 +68,4 @@ public class GameServerService {
         log.debug("Request to delete GameServer : {}", id);
         gameServerRepository.delete(id);
     }
-
 }

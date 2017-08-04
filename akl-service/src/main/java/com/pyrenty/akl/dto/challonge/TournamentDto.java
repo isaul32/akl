@@ -1,4 +1,4 @@
-package com.pyrenty.akl.pojo.challonge;
+package com.pyrenty.akl.dto.challonge;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Data
 @JsonRootName(value = "tournament")
-public class Tournament {
+public class TournamentDto {
     @Length(max = 60)
     private String name;
     private String tournament_type;

@@ -1,9 +1,8 @@
 package com.pyrenty.akl.service;
 
 import com.pyrenty.akl.domain.User;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.CharEncoding;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -25,10 +24,10 @@ import java.util.Locale;
  * We use the @Async annotation to send e-mails asynchronously.
  * </p>
  */
+@Slf4j
 @Service
 public class MailService {
 
-    private final Logger log = LoggerFactory.getLogger(MailService.class);
 
     @Inject
     private Environment env;

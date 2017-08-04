@@ -6,8 +6,7 @@ import com.lukaspradel.steamapi.data.json.playersummaries.Player;
 import com.pyrenty.akl.domain.User;
 import com.pyrenty.akl.repository.SteamCommunityRepository;
 import com.pyrenty.akl.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,9 +24,9 @@ import java.util.stream.Collectors;
 /**
  * Service class for managing steam users.
  */
+@Slf4j
 @Service
 public class SteamUserService implements AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
-    private final Logger log = LoggerFactory.getLogger(SteamUserService.class);
 
     @Inject
     private UserService userService;
@@ -82,11 +81,9 @@ public class SteamUserService implements AuthenticationUserDetailsService<OpenID
     public static String convertCommunityIdToSteamId(long communityId) throws UsernameNotFoundException {
         long steamId1 = communityId % 2;
         long steamId2 = communityId - 76561197960265728L;
-
         if(steamId2 <= 0) {
             throw new UsernameNotFoundException("SteamId " + communityId + " is too small.");
         }
-
         steamId2 = (steamId2 - steamId1) / 2;
 
         return "STEAM_0:" + steamId1 + ":" + steamId2;

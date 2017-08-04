@@ -3,8 +3,7 @@ package com.pyrenty.akl.security;
 import com.pyrenty.akl.domain.PersistentToken;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
@@ -23,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.SecureRandom;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 /**
@@ -50,11 +48,9 @@ import java.util.Arrays;
  * couldn't be cleanly extended.
  * <p/>
  */
+@Slf4j
 @Service
-public class CustomPersistentRememberMeServices extends
-        AbstractRememberMeServices {
-
-    private final Logger log = LoggerFactory.getLogger(CustomPersistentRememberMeServices.class);
+public class CustomPersistentRememberMeServices extends AbstractRememberMeServices {
 
     // Token is valid for one month
     private static final int TOKEN_VALIDITY_DAYS = 31;

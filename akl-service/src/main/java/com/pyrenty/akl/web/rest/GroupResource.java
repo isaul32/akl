@@ -8,7 +8,7 @@ import com.pyrenty.akl.repository.GroupRepository;
 import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.dto.GroupDto;
 import com.pyrenty.akl.dto.ParticipantDto;
-import com.pyrenty.akl.pojo.challonge.Tournament;
+import com.pyrenty.akl.dto.challonge.TournamentDto;
 import com.pyrenty.akl.web.rest.mapper.GroupMapper;
 import com.pyrenty.akl.web.rest.util.PaginationUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -98,24 +97,24 @@ public class GroupResource {
     @RequestMapping(value = "/tournament", method=RequestMethod.POST)
     public void createTournament() throws IOException {
         for (Group group : groupRepository.findAll()) {
-            Tournament tournament = new Tournament();
+            TournamentDto tournamentDto = new TournamentDto();
 
-            tournament.setName(group.getName());
-            tournament.setTournament_type("round robin");
-            tournament.setUrl(group.getUrl());
-            tournament.setSubdomain(group.getSubdomain());
+            tournamentDto.setName(group.getName());
+            tournamentDto.setTournament_type("round robin");
+            tournamentDto.setUrl(group.getUrl());
+            tournamentDto.setSubdomain(group.getSubdomain());
 
-            if (challongeRepository.createTournament(tournament)) {
+            if (challongeRepository.createTournament(tournamentDto)) {
                 for (Team team : group.getTeams()) {
                     ParticipantDto participantDto = new ParticipantDto();
                     participantDto.setName(team.getName());
-                    if (!challongeRepository.createParticipant(tournament, participantDto)) {
-                        challongeRepository.deleteTournament(tournament);
+                    if (!challongeRepository.createParticipant(tournamentDto, participantDto)) {
+                        challongeRepository.deleteTournament(tournamentDto);
                         break;
                     }
                 }
 
-                challongeRepository.startTournament(tournament);
+                challongeRepository.startTournament(tournamentDto);
             }
         }
     }

@@ -3,6 +3,8 @@ package com.pyrenty.akl.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pyrenty.akl.domain.Authority;
 import com.pyrenty.akl.domain.PersistentToken;
+import com.pyrenty.akl.dto.KeyAndPasswordDto;
+import com.pyrenty.akl.dto.TeamDto;
 import com.pyrenty.akl.dto.UserDto;
 import com.pyrenty.akl.repository.PersistentTokenRepository;
 import com.pyrenty.akl.repository.TeamRepository;
@@ -11,13 +13,10 @@ import com.pyrenty.akl.security.SecurityUtils;
 import com.pyrenty.akl.service.MailService;
 import com.pyrenty.akl.service.UserService;
 import com.pyrenty.akl.service.util.RandomUtil;
-import com.pyrenty.akl.dto.KeyAndPasswordDto;
-import com.pyrenty.akl.dto.TeamDto;
 import com.pyrenty.akl.web.rest.mapper.TeamMapper;
 import com.pyrenty.akl.web.rest.util.HeaderUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,17 +26,17 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * REST controller for managing the current user's account.
  */
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class AccountResource {
-
-    private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
     @Inject
     private UserRepository userRepository;

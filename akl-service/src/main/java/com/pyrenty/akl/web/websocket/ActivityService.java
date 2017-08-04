@@ -1,8 +1,7 @@
 package com.pyrenty.akl.web.websocket;
 
 import com.pyrenty.akl.web.websocket.dto.ActivityDTO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -19,10 +18,9 @@ import java.time.format.DateTimeFormatter;
 
 import static com.pyrenty.akl.config.WebsocketConfiguration.IP_ADDRESS;
 
+@Slf4j
 @Controller
 public class ActivityService implements ApplicationListener<SessionDisconnectEvent> {
-
-    private static final Logger log = LoggerFactory.getLogger(ActivityService.class);
 
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
