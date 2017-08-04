@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 /**
@@ -149,7 +150,12 @@ public class UserService {
     }
 
     public boolean isBirthdateOkay(Date birthdate) {
-        return birthdate != null && birthdate.getYear() > 1970;
+        if (birthdate == null) {
+            return false;
+        }
+
+        LocalDate localDate = birthdate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return localDate.getYear() > 1970;
     }
 
     public void updateUserInformation(String nickname, String firstName, String lastName, String email,
