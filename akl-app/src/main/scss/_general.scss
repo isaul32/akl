@@ -8,6 +8,7 @@ body {
     background-color: $bg-color;
     font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
+    word-wrap: break-word;
 }
 
 p {
@@ -86,10 +87,6 @@ a:hover {
     font-size: 10px;
 }
 
-
-.point:last {
-    margin:0 !important;
-}
 .point {
     background:#DDD;
     border-radius:2px;
