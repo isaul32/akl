@@ -1,5 +1,6 @@
 package fi.tite.akl.dto;
 
+import fi.tite.akl.domain.enumeration.MembershipRole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TeamRequestDto {
     private Long member;
-    private String role;
+    private MembershipRole role;
     private Long swapMember;
 }

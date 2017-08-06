@@ -19,5 +19,4 @@ public class TeamDto {
     private Boolean activated;
     private UserPublicDto captain;
     private Set<UserPublicDto> members = new HashSet<>();
-    private Set<UserPublicDto> standins = new HashSet<>();
 }

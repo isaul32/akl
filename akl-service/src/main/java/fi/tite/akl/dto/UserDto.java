@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -30,9 +30,9 @@ public class UserDto {
     @Size(min = 1, max = 20)
     private String nickname;
 
-    @NotNull
+    /*@NotNull
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
-    private String password;
+    private String password;*/
 
     @Size(max = 50)
     private String firstName;
@@ -64,7 +64,7 @@ public class UserDto {
     @Size(min = 2, max = 5)
     private String langKey;
 
-    private List<String> roles;
+    private Set<AuthorityDto> authorities;
 
     private Long teamId;
 

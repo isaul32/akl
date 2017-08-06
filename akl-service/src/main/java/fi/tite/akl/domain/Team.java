@@ -19,7 +19,7 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode
 @Table(name = "akl_team")
-@ToString(of = {"name", "tag", "name"})
+@ToString(of = {"id", "tag", "name"})
 public class Team implements Serializable {
 
     @Id
@@ -59,14 +59,25 @@ public class Team implements Serializable {
     @Column(name = "activated")
     private boolean activated;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "captain")
+    @ManyToOne
+    private User captain;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "akl_team_user",
+            joinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
+    )
+    private Set<User> members = new HashSet<>();
+
+    /*@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "captain")
     private User captain;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
     private Set<User> members = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "standin")
-    private Set<User> standins = new HashSet<>();
+    private Set<User> standins = new HashSet<>();*/
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore

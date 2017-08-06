@@ -1,10 +1,7 @@
 angular.module('app')
-.controller('NavbarController', ($rootScope, $scope, $location, $state, Auth, Principal, AccountTeam, Api, $http,
-                                 SERVICE_PATH) => {
+.controller('NavbarController', ($rootScope, $scope, $location, $state, Auth, Principal, AccountTeam, Api) => {
     $scope.isAuthenticated = Principal.isAuthenticated;
     $scope.$state = $state;
-    $scope.hasDBConsole = false;
-    $scope.hasDocs = false;
 
     Principal.identity().then(account => {
         $scope.account = account;
@@ -14,28 +11,6 @@ angular.module('app')
                 $scope.steamUser = _.result(res, 'data.response.players[0]');
             });
         }
-
-        Principal.isInRole('ROLE_ADMIN').then(res => {
-            if (res) {
-                $http({
-                    method: 'GET',
-                    url: SERVICE_PATH
-                }).then(() => {
-                    $scope.hasDocs = true;
-                }, () => {
-                    $scope.hasDocs = false;
-                });
-
-                $http({
-                    method: 'GET',
-                    url: SERVICE_PATH + '/console'
-                }).then(() => {
-                    $scope.hasDBConsole = true;
-                }, () => {
-                    $scope.hasDBConsole = false;
-                });
-            }
-        }).catch(() => {});
     });
 
     Api.one('twitch').get().then(res => {

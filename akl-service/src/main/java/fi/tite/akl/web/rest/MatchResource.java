@@ -11,7 +11,6 @@ import fi.tite.akl.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +44,7 @@ public class MatchResource {
     public List<MatchRequest> getAll() {
         User user = userService.getUserWithAuthorities();
 
-        return Optional.ofNullable(teamRepository.findOneForUser(user.getId()))
+        return Optional.ofNullable(teamRepository.findOneByMembersId(user.getId()))
                 .map(team -> matchRequestRepository.findByTeam1OrTeam2(team, team))
                 .orElse(new ArrayList<>());
     }
@@ -55,9 +54,9 @@ public class MatchResource {
     public ResponseEntity<MatchRequest> create(@RequestBody MatchRequest matchRequest) {
 
         User user = userService.getUserWithAuthorities();
-        if (!user.getCaptain().getId().equals(matchRequest.getTeam1().getId())) {
+        /*if (!user.getCaptain().getId().equals(matchRequest.getTeam1().getId())) {
             throw new AccessDeniedException("You are not allowed to make match request");
-        }
+        }*/
 
         Team ownTeam = matchRequest.getTeam1();
         Team otherTeam = matchRequest.getTeam2();

@@ -1,6 +1,5 @@
 package fi.tite.akl.web.rest;
 
-import fi.tite.akl.domain.Authority;
 import fi.tite.akl.domain.PersistentToken;
 import fi.tite.akl.dto.KeyAndPasswordDto;
 import fi.tite.akl.dto.TeamDto;
@@ -13,6 +12,7 @@ import fi.tite.akl.service.MailService;
 import fi.tite.akl.service.UserService;
 import fi.tite.akl.service.util.RandomUtil;
 import fi.tite.akl.web.rest.mapper.TeamMapper;
+import fi.tite.akl.web.rest.mapper.UserMapper;
 import fi.tite.akl.web.rest.util.HeaderUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -27,7 +27,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing the current user's account.
@@ -48,6 +47,9 @@ public class AccountResource {
 
     @Inject
     private TeamMapper teamMapper;
+
+    @Inject
+    private UserMapper userMapper;
 
     @Inject
     private PersistentTokenRepository persistentTokenRepository;
@@ -81,30 +83,35 @@ public class AccountResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> getAccount() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
-                .map(user -> ResponseEntity.ok(new UserDto(
-                        user.getId(),
-                        user.getLogin(),
-                        user.getNickname(),
-                        null,
-                        user.getFirstName(),
-                        user.getLastName(),
-                        user.getEmail(),
-                        user.getBirthdate(),
-                        user.getGuild(),
-                        user.getDescription(),
-                        user.getRank(),
-                        user.isActivated(),
-                        user.getCommunityId(),
-                        user.getSteamId(),
-                        user.getLangKey(),
-                        user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList()),
-                        user.getCaptain() == null ? (
-                                user.getMember() == null
-                                        ? (user.getStandin() == null ? null : user.getStandin().getId())
-                                        : user.getMember().getId()
-                        ) : user.getCaptain().getId(),
-                        teamRepository.findOneForUser(user.getId()) != null
-                )))
+                .map(user -> {
+                    /*new UserDto(
+                            user.getId(),
+                            user.getLogin(),
+                            user.getNickname(),
+                            null,
+                            user.getFirstName(),
+                            user.getLastName(),
+                            user.getEmail(),
+                            user.getBirthdate(),
+                            user.getGuild(),
+                            user.getDescription(),
+                            user.getRank(),
+                            user.isActivated(),
+                            user.getCommunityId(),
+                            user.getSteamId(),
+                            user.getLangKey(),
+                            user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList()),
+                            user.getCaptain() == null ? (
+                                    user.getMember() == null
+                                            ? (user.getStandin() == null ? null : user.getStandin().getId())
+                                            : user.getMember().getId()
+                            ) : user.getCaptain().getId(),
+                            teamRepository.findOneForUser(user.getId()) != null
+                    );*/
+                    UserDto userDto = userMapper.userToUserDto(user);
+                    return userDto;
+                })
+                .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
@@ -116,7 +123,7 @@ public class AccountResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TeamDto> getTeam() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
-                .map(user -> teamRepository.findOneForUser(user.getId()))
+                .map(user -> teamRepository.findOneByMembersId(user.getId()))
                 .map(teamMapper::teamToTeamDto)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

@@ -101,7 +101,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "steam_id", length = 20, unique = true)
     private String steamId;
 
-    @OneToOne
+    @ManyToMany(mappedBy = "members")
+    private Set<Team> teams;
+
+    /*@OneToOne
     @JsonIgnore
     private Team captain;
 
@@ -111,7 +114,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @ManyToOne
     @JsonIgnore
-    private Team standin;
+    private Team standin;*/
 
     @Column(name = "reset_date")
     private LocalDateTime resetDate = null;
@@ -129,13 +132,4 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PersistentToken> persistentTokens = new HashSet<>();
-
-    private boolean captainSameAsFormer(Team team) {
-        if (this.captain == null) {
-            return team == null;
-        }
-
-        return this.captain.equals(team);
-    }
-
 }

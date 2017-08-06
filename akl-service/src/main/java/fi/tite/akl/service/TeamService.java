@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -33,14 +31,13 @@ public class TeamService {
 
     @PreAuthorize("isAuthenticated()")
     public Team create(Team team) {
+        User currentUser = userService.getUserWithAuthorities();
         team.setActivated(false);
         team.setSeason(seasonRepository.findByArchived(false));
-        Team result = teamRepository.save(team);
-        User currentUser = userService.getUserWithAuthorities();
-        currentUser.setCaptain(result);
-        userRepository.save(currentUser);
+        team.setCaptain(currentUser);
+        team.getMembers().add(currentUser);
 
-        return result;
+        return teamRepository.save(team);
     }
 
     @Transactional(readOnly = true)
@@ -52,13 +49,14 @@ public class TeamService {
     public Optional<Team> activate(Long id) {
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
-                    if (team.getMembers().size() < 4) {
+                    if (team.getMembers().size() < 5) {
                         throw new CustomParameterizedException("Team doesn't have enough member");
                     }
 
                     team.setActivated(true);
 
-                    // todo: Send team activated mail to members or captain
+                    // Todo: Send team activated mail to members or captain
+
 
                     return teamRepository.save(team);
                 });
@@ -67,28 +65,8 @@ public class TeamService {
     public void delete(Long id) {
         Team team = teamRepository.findOne(id);
         if (team != null) {
-            // Captain
-            User captain = team.getCaptain();
-            captain.setCaptain(null);
-            userRepository.save(captain);
-
-            // Members
-            Set<User> members = team.getMembers().stream()
-                    .peek(m -> m.setMember(null))
-                    .collect(Collectors.toSet());
-            userRepository.save(members);
-
-            // Standins
-            Set<User> standins = team.getStandins().stream()
-                    .peek(s -> s.setStandin(null))
-                    .collect(Collectors.toSet());
-            userRepository.save(standins);
-
-            // Team
             team.setCaptain(null);
             team.setMembers(null);
-            team.setStandins(null);
-
             team.setRequests(null);
             teamRepository.delete(team);
         }

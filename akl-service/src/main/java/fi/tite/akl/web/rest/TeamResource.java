@@ -100,13 +100,14 @@ public class TeamResource {
     */
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<TeamDto>> getAll(@RequestParam(value = "page", required = false) Integer offset,
-                                                @RequestParam(value = "per_page", required = false) Integer limit,
-                                                @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
-                                                @RequestParam(value = "season", required = false) Long season,
-                                                @RequestParam(value = "sort_propery", required = false, defaultValue = "name") String sortPropery,
-                                                @RequestParam(value = "sort_asc", required = false, defaultValue = "true") boolean sortAsc,
-                                                HttpServletRequest request) throws URISyntaxException {
+    public ResponseEntity<List<TeamDto>> getAll(
+            @RequestParam(value = "page", required = false) Integer offset,
+            @RequestParam(value = "per_page", required = false) Integer limit,
+            @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
+            @RequestParam(value = "season", required = false) Long season,
+            @RequestParam(value = "sort_propery", required = false, defaultValue = "name") String sortPropery,
+            @RequestParam(value = "sort_asc", required = false, defaultValue = "true") boolean sortAsc
+    ) throws URISyntaxException {
         log.debug("REST request to get all Teams");
 
         Pageable paging = PaginationUtil.generatePageRequest(offset, limit, new Sort(
@@ -118,8 +119,8 @@ public class TeamResource {
         }
 
         Page<Team> page = teamRepository.findBySeasonIdAndNameContainingIgnoreCase(season, filter, paging);
-
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);
+
         return new ResponseEntity<>(page.getContent().stream()
                 .map(teamMapper::teamToTeamDtoWithoutMembers)
                 .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
@@ -129,7 +130,6 @@ public class TeamResource {
     public ResponseEntity<TeamDto> get(@PathVariable Long id) {
         log.debug("REST request to get Team : {}", id);
 
-
         return teamService.get(id)
                 .map(teamMapper::teamToTeamDto)
                 .map(teamDto -> {
@@ -137,8 +137,8 @@ public class TeamResource {
                     // If user is not admin or team captain, hide application.
                     if (user == null
                             || user.getAuthorities().stream().noneMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN))
-                            || user.getCaptain() == null
-                            || !user.getCaptain().getId().equals(teamDto.getId())) {
+                            || teamDto.getCaptain() != null
+                            || teamDto.getCaptain().getId().equals(user.getId())) {
                         teamDto.setApplication(null);
                     }
 
@@ -201,19 +201,14 @@ public class TeamResource {
                     Optional<User> userOptional = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
                     if (userOptional.isPresent()) {
                         User user = userOptional.get();
+
+                        // If captain, delete whole team
                         if (team.getCaptain().getId().equals(user.getId())) {
                             teamService.delete(id);
                             return new ResponseEntity<Team>(HttpStatus.OK);
-                        }
-                        if (user.getMember() != null && user.getMember().getId().equals(team.getId())) {
-                            user.setMember(null);
+                        } else if (team.getMembers().stream().anyMatch(member -> member.equals(user))) {
+                            //user.getTeams().remove(team);
                             team.getMembers().remove(user);
-                            userRepository.save(user);
-                            teamRepository.save(team);
-                        }
-                        if (user.getStandin() != null && user.getStandin().getId().equals(team.getId())) {
-                            user.setStandin(null);
-                            team.getStandins().remove(user);
                             userRepository.save(user);
                             teamRepository.save(team);
                         }
@@ -232,7 +227,7 @@ public class TeamResource {
             return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
         }
 
-        Optional<Team> currentTeam = Optional.ofNullable(teamRepository.findOneForUser(currentUser.getId()));
+        Optional<Team> currentTeam = Optional.ofNullable(teamRepository.findOneByMembersId(currentUser.getId()));
         if (currentTeam.isPresent()) {
             HttpHeaders headers = HeaderUtil.createAlert("request", "", "You can't join multiple teams");
             return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
@@ -254,14 +249,17 @@ public class TeamResource {
     @RequestMapping(value = "/{id}/requests", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<UserPublicDto>> getRequests(@PathVariable Long id) {
-        User user = userService.getUserWithAuthorities();
-
-        // Must be team captain
-        if (user == null || user.getCaptain() == null || !user.getCaptain().getId().equals(id)) {
-            throw new AccessDeniedException("You are not allowed to see membership requests");
-        }
-
         return Optional.ofNullable(teamRepository.findOne(id))
+                .map(team -> {
+                    User user = userService.getUserWithAuthorities();
+
+                    // User must be captain of the team
+                    if (user == null || team.getCaptain() == null || !team.getCaptain().equals(user)) {
+                        throw new AccessDeniedException("You are not allowed to see membership requests");
+                    }
+
+                    return team;
+                })
                 .map(Team::getRequests)
                 .map(requests -> requests.stream()
                         .map(userMapper::userToUserPublicDto)
@@ -278,51 +276,37 @@ public class TeamResource {
                                                @PathVariable Long userId,
                                                @Valid @RequestBody TeamRequestDto teamRequest,
                                                HttpServletRequest request) {
-        User user = userService.getUserWithAuthorities();
-
-        if (!request.isUserInRole(AuthoritiesConstants.ADMIN) && !user.getCaptain().getId().equals(id)) {
-            throw new AccessDeniedException("You are not allowed to accept membership requests");
-        }
-
-        if (!teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER.toString()) &&
-                !teamRequest.getRole().equals(MembershipRole.ROLE_STANDIN.toString())) {
-            throw new InvalidRoleException();
-        }
-
-        User newMember = userRepository.findOne(userId);
-        if (newMember == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
-                    // Check maximum members and standins count
-                    if (teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER.toString()) && team.getMembers().size() >= 4) {
+                    User user = userService.getUserWithAuthorities();
+
+                    if (!request.isUserInRole(AuthoritiesConstants.ADMIN) && !team.getCaptain().equals(user)) {
+                        throw new AccessDeniedException("You are not allowed to accept membership requests");
+                    }
+
+                    if (!teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER)) {
+                        throw new InvalidRoleException();
+                    }
+
+                    User newMember = userRepository.findOne(userId);
+                    if (newMember == null) {
+                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                    }
+
+                    // Check maximum members
+                    if (team.getMembers().size() >= 7) {
                         throw new CustomParameterizedException("Team have maximum amount of members");
                     }
 
-                    if (teamRequest.getRole().equals(MembershipRole.ROLE_STANDIN.toString()) && team.getStandins().size() >= 2) {
-                        throw new CustomParameterizedException("Team have maximum amount of standins");
-                    }
-
-                    if (teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER.toString()) && team.isActivated()) {
+                    if (team.isActivated()) {
                         throw new CustomParameterizedException("Cannot add member to activated team");
                     }
 
-                    return team;
-                })
-                .map(team -> {
+                    team.getMembers().add(newMember);
                     Set<User> requests = team.getRequests();
                     requests.remove(newMember);
                     teamRepository.save(team);
 
-                    if (teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER.toString())) {
-                        newMember.setMember(team);
-                    } else if (teamRequest.getRole().equals(MembershipRole.ROLE_STANDIN.toString())) {
-                        newMember.setStandin(team);
-                    }
-
-                    userRepository.save(newMember);
                     return team;
                 })
                 .map(team -> new ResponseEntity<Void>(HttpStatus.OK))
@@ -334,24 +318,23 @@ public class TeamResource {
     public ResponseEntity<Void> declineRequest(@PathVariable Long id,
                                                @PathVariable long userId,
                                                HttpServletRequest request) {
-        User user = userService.getUserWithAuthorities();
-
-        if (!request.isUserInRole(AuthoritiesConstants.ADMIN) && !user.getCaptain().getId().equals(id)) {
-            throw new AccessDeniedException("You are not allowed to decline membership requests");
-        }
-
-        User declinedMember = userRepository.findOne(userId);
-
-        if (declinedMember == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
+                    User user = userService.getUserWithAuthorities();
+
+                    if (!request.isUserInRole(AuthoritiesConstants.ADMIN) && !team.getCaptain().equals(user)) {
+                        throw new AccessDeniedException("You are not allowed to decline membership requests");
+                    }
+
+                    User declinedMember = userRepository.findOne(userId);
+                    if (declinedMember == null) {
+                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                    }
+
                     Set<User> requests = team.getRequests();
                     requests.remove(declinedMember);
-
                     teamRepository.save(team);
+
                     return team;
                 })
                 .map(team -> new ResponseEntity<Void>(HttpStatus.OK))
@@ -376,7 +359,8 @@ public class TeamResource {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}/schedule", method = RequestMethod.POST)
-    public ResponseEntity<List<CalendarEvent>> updateSchedule(@PathVariable Long id, @RequestBody Set<CalendarEvent> events) {
+    public ResponseEntity<List<CalendarEvent>> updateSchedule(@PathVariable Long id,
+                                                              @RequestBody Set<CalendarEvent> events) {
 
         return ResponseEntity.ok(eventRepository.save(events));
     }
