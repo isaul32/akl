@@ -132,12 +132,16 @@ public class TeamResource {
                 .map(team -> {
                     User user = userService.getUserWithAuthorities();
 
-                    // If user is not admin or team captain, hide application.
-                    if (user == null
-                            || user.getAuthorities().stream()
-                            .noneMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN))
-                            || team.getCaptain() == null
-                            || !team.getCaptain().equals(user)) {
+                    boolean allowed = false;
+                    if (user != null && user.getAuthorities().stream()
+                            .anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN))) {
+                        allowed = true;
+                    }
+                    if (team.getCaptain() != null && team.getCaptain().equals(user)) {
+                        allowed = true;
+                    }
+
+                    if (!allowed) {
                         team.setApplication(null);
                     }
 

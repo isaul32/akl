@@ -2,6 +2,6 @@
     "error": {
         "title": "Virhe!",
         "403": "Sinulla ei ole oikeutta tälle sivulle.",
-        "defaultMessage": "Jotain meni pieleen. Yritä myöhemmin uudestaan."
+        "defaultMessage": "AKL API ei vastaa pyyntöihin. Ole hyvä ja yritä myöhemmin uudestaan."
     }
 }
