@@ -32,11 +32,11 @@ angular.module('app')
             return Principal.identity(force).then(() => {
                 const isAuthenticated = Principal.isAuthenticated();
 
-                console.log($rootScope.toState.data);
                 if ($rootScope.toState
                     && $rootScope.toState.data
                     && $rootScope.toState.data.hasOwnProperty('roles')
-                    && $rootScope.toState.data.roles) {
+                    && $rootScope.toState.data.roles
+                    && $rootScope.toState.data.roles.length > 0) {
                     Principal.isInAnyRole($rootScope.toState.data.roles).then(res => {
                         if (!res) {
                             if (isAuthenticated) {
