@@ -3,7 +3,6 @@ package fi.tite.akl.web.rest;
 import fi.tite.akl.domain.CalendarEvent;
 import fi.tite.akl.domain.Team;
 import fi.tite.akl.domain.User;
-import fi.tite.akl.domain.enumeration.MembershipRole;
 import fi.tite.akl.dto.TeamDto;
 import fi.tite.akl.dto.TeamRequestDto;
 import fi.tite.akl.dto.UserPublicDto;
@@ -14,7 +13,6 @@ import fi.tite.akl.repository.SeasonRepository;
 import fi.tite.akl.repository.TeamRepository;
 import fi.tite.akl.repository.UserRepository;
 import fi.tite.akl.security.AuthoritiesConstants;
-import fi.tite.akl.security.InvalidRoleException;
 import fi.tite.akl.service.TeamService;
 import fi.tite.akl.service.UserService;
 import fi.tite.akl.web.rest.errors.CustomParameterizedException;
@@ -28,12 +26,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -220,7 +216,7 @@ public class TeamResource {
     public ResponseEntity requestInvite(@PathVariable Long id) {
         teamService.requestInvite(id);
 
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Request sent", id.toString())).build();
     }
 
     @RequestMapping(value = "/{id}/requests", method = RequestMethod.GET)
@@ -240,39 +236,10 @@ public class TeamResource {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> approveRequest(@PathVariable Long id,
                                                @PathVariable Long userId,
-                                               @Valid @RequestBody TeamRequestDto teamRequest,
-                                               HttpServletRequest request) {
-        return Optional.ofNullable(teamRepository.findOne(id))
-                .map(team -> {
-                    User user = userService.getUserWithAuthorities();
+                                               @Valid @RequestBody TeamRequestDto teamRequest) {
+        teamService.approveRequest(id, userId, teamRequest);
 
-                    if (!request.isUserInRole(AuthoritiesConstants.ADMIN) && !team.getCaptain().equals(user)) {
-                        throw new AccessDeniedException("You are not allowed to accept membership requests");
-                    }
-
-                    if (!teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER)) {
-                        throw new InvalidRoleException();
-                    }
-
-                    User newMember = userRepository.findOne(userId);
-                    if (newMember == null) {
-                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                    }
-
-                    // Check maximum members
-                    if (team.getMembers().size() >= 7) {
-                        throw new CustomParameterizedException("Team have maximum amount of members");
-                    }
-
-                    team.getMembers().add(newMember);
-                    List<User> requests = team.getRequests();
-                    requests.remove(newMember);
-                    teamRepository.save(team);
-
-                    return team;
-                })
-                .map(team -> new ResponseEntity<Void>(HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Request approved", id.toString())).build();
     }
 
     @RequestMapping(value = "/{id}/requests/{userId}", method = RequestMethod.DELETE)

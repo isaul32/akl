@@ -15,6 +15,6 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     Page<Team> findBySeasonId(Long season, Pageable pageable);
     Page<Team> findByActivated(Boolean activated, Pageable pageable);
     Team findOneByActivated( Long id, Boolean activated);
-    Team findOneByMembersId(Long userId);
+    Team findOneByMembersIdAndSeasonId(Long userId, Long seasonId);
 
 }

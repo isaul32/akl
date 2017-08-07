@@ -3,11 +3,16 @@ package fi.tite.akl.service;
 import fi.tite.akl.domain.Season;
 import fi.tite.akl.domain.Team;
 import fi.tite.akl.domain.User;
+import fi.tite.akl.domain.enumeration.MembershipRole;
+import fi.tite.akl.dto.TeamRequestDto;
 import fi.tite.akl.repository.SeasonRepository;
 import fi.tite.akl.repository.TeamRepository;
 import fi.tite.akl.repository.UserRepository;
 import fi.tite.akl.security.AuthoritiesConstants;
+import fi.tite.akl.security.InvalidRoleException;
 import fi.tite.akl.web.rest.errors.CustomParameterizedException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -99,13 +104,50 @@ public class TeamService {
 
         if (team.getCaptain().equals(currentUser) || team.getMembers().stream()
                 .anyMatch(user -> user.equals(currentUser))) {
-            throw new CustomParameterizedException("You are already member of the team");
+            throw new CustomParameterizedException("You are already member of this team");
+        }
+
+        if (team.getRequests().stream().anyMatch(user -> user.equals(currentUser))) {
+            throw new CustomParameterizedException("You have already sent request");
         }
 
         List<User> requests = team.getRequests();
         requests.add(currentUser);
         team.setRequests(requests);
         teamRepository.save(team);
+    }
+
+    public void approveRequest(Long id, Long userId, TeamRequestDto teamRequest) {
+        Optional.ofNullable(teamRepository.findOne(id))
+            .map(team -> {
+                User user = userService.getUserWithAuthorities();
+
+                if (!team.getCaptain().equals(user)) {
+                    throw new CustomParameterizedException("You are not allowed to accept membership requests");
+                }
+
+                if (!teamRequest.getRole().equals(MembershipRole.ROLE_MEMBER)) {
+                    throw new InvalidRoleException();
+                }
+
+                User newMember = userRepository.findOne(userId);
+                if (newMember == null) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+
+                // Check maximum members
+                if (team.getMembers().size() >= 7) {
+                    throw new CustomParameterizedException("Team have maximum amount of members");
+                }
+
+                team.getMembers().add(newMember);
+                List<User> requests = team.getRequests();
+                requests.remove(newMember);
+                teamRepository.save(team);
+
+                return team;
+            })
+            .map(team -> new ResponseEntity<Void>(HttpStatus.OK));
     }
 
     @PreAuthorize("isAuthenticated()")

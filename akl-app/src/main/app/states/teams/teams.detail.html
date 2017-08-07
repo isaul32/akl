@@ -169,7 +169,7 @@
                 <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
                 <span translate="aklApp.team.toListing">Back to team listing</span>
             </button>
-            <button type="button" ng-if="isAuthenticated() && account.activated && !ownTeam"
+            <button type="button" ng-if="isAuthenticated() && account.activated && !isMember && !isActive"
                     class="btn btn-primary" ng-click="requestInvite()">
                 <span class="glyphicon glyphicon-envelope"></span>&nbsp;
                 <span translate="aklApp.team.requestMembership">Request membership</span>

@@ -1,13 +1,12 @@
 package fi.tite.akl.web.rest;
 
-import fi.tite.akl.domain.Group;
-import fi.tite.akl.domain.MatchRequest;
-import fi.tite.akl.domain.Team;
-import fi.tite.akl.domain.User;
+import fi.tite.akl.domain.*;
 import fi.tite.akl.repository.GroupRepository;
 import fi.tite.akl.repository.MatchRequestRepository;
+import fi.tite.akl.repository.SeasonRepository;
 import fi.tite.akl.repository.TeamRepository;
 import fi.tite.akl.service.UserService;
+import fi.tite.akl.web.rest.errors.CustomParameterizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,12 +38,20 @@ public class MatchResource {
     @Inject
     private TeamRepository teamRepository;
 
+    @Inject
+    private SeasonRepository seasonRepository;
+
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.GET)
     public List<MatchRequest> getAll() {
         User user = userService.getUserWithAuthorities();
 
-        return Optional.ofNullable(teamRepository.findOneByMembersId(user.getId()))
+        Season activeSeason = seasonRepository.findByArchived(false);
+        if (activeSeason == null) {
+            throw new CustomParameterizedException("Team doesn't belong in active season");
+        }
+
+        return Optional.ofNullable(teamRepository.findOneByMembersIdAndSeasonId(user.getId(), activeSeason.getId()))
                 .map(team -> matchRequestRepository.findByTeam1OrTeam2(team, team))
                 .orElse(new ArrayList<>());
     }

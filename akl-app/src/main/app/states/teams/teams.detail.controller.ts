@@ -9,6 +9,7 @@ angular.module('app')
 
         if (account) {
             $scope.isMember = _.find(account.teams, (team: any) => team.id === $scope.team.id);
+            $scope.isActive = _.find(account.teams, (team: any) => team.season.archived === false);
         }
 
         // If captain get requests
@@ -56,6 +57,8 @@ angular.module('app')
     $scope.sendLeaveTeam = () => {
         $scope.team.post('leave').then(team => {
             $scope.team = team.data;
+            $scope.isMember = _.find($scope.account.teams, (team: any) => team.id === $scope.team.id);
+            $scope.isActive = _.find($scope.account.teams, (team: any) => team.season.archived === false);
             $('#leaveTeamConfirmation').modal('hide');
         }).catch(() => {
             $('#leaveTeamConfirmation').modal('hide');
