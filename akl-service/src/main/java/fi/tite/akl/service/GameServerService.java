@@ -3,7 +3,7 @@ package fi.tite.akl.service;
 import fi.tite.akl.domain.GameServer;
 import fi.tite.akl.dto.GameServerDto;
 import fi.tite.akl.repository.GameServerRepository;
-import fi.tite.akl.web.rest.mapper.GameServerMapper;
+import fi.tite.akl.mapper.GameServerMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

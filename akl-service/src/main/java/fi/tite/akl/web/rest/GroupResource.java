@@ -8,7 +8,7 @@ import fi.tite.akl.security.SecurityUtils;
 import fi.tite.akl.dto.GroupDto;
 import fi.tite.akl.dto.ParticipantDto;
 import fi.tite.akl.dto.challonge.TournamentDto;
-import fi.tite.akl.web.rest.mapper.GroupMapper;
+import fi.tite.akl.mapper.GroupMapper;
 import fi.tite.akl.web.rest.util.PaginationUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;

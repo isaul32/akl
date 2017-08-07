@@ -7,18 +7,17 @@ import fi.tite.akl.domain.enumeration.MembershipRole;
 import fi.tite.akl.dto.TeamDto;
 import fi.tite.akl.dto.TeamRequestDto;
 import fi.tite.akl.dto.UserPublicDto;
+import fi.tite.akl.mapper.TeamMapper;
+import fi.tite.akl.mapper.UserMapper;
 import fi.tite.akl.repository.CalendarEventRepository;
 import fi.tite.akl.repository.SeasonRepository;
 import fi.tite.akl.repository.TeamRepository;
 import fi.tite.akl.repository.UserRepository;
 import fi.tite.akl.security.AuthoritiesConstants;
 import fi.tite.akl.security.InvalidRoleException;
-import fi.tite.akl.security.SecurityUtils;
 import fi.tite.akl.service.TeamService;
 import fi.tite.akl.service.UserService;
 import fi.tite.akl.web.rest.errors.CustomParameterizedException;
-import fi.tite.akl.web.rest.mapper.TeamMapper;
-import fi.tite.akl.web.rest.mapper.UserMapper;
 import fi.tite.akl.web.rest.util.HeaderUtil;
 import fi.tite.akl.web.rest.util.PaginationUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +35,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
@@ -76,10 +76,8 @@ public class TeamResource {
     @Inject
     private CalendarEventRepository eventRepository;
 
-    /*
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
-    @Timed
     public ResponseEntity<TeamDto> create(@Valid @RequestBody TeamDto teamDto) throws URISyntaxException {
         log.debug("REST request to save Team : {}", teamDto);
 
@@ -87,17 +85,21 @@ public class TeamResource {
 
         if (!user.isActivated()) {
             throw new CustomParameterizedException("Can't create a team without an email set and activated");
-        } else if (teamDto.getId() != null) {
-            return ResponseEntity.badRequest().header("Failure", "A new team cannot already have an ID").body(null);
         }
+
+        // Check if player is in team at current season
+        user.getTeams().forEach(team -> {
+                    if (!team.getSeason().isArchived()) {
+                        throw new CustomParameterizedException("Player is already in " + team.getName() + " team");
+                    }
+                });
 
         Team team = teamService.create(teamMapper.teamDtoToTeam(teamDto));
 
-        return ResponseEntity.created(new URI("/api/teams/" + team.getId()))
+        return ResponseEntity.created(new URI("/#/teams/" + team.getId()))
                 .headers(HeaderUtil.createAlert("Team created", team.getId().toString()))
                 .body(teamMapper.teamToTeamDto(team));
     }
-    */
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<TeamDto>> getAll(
@@ -136,9 +138,10 @@ public class TeamResource {
 
                     // If user is not admin or team captain, hide application.
                     if (user == null
-                            || user.getAuthorities().stream().noneMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN))
-                            || team.getCaptain() != null
-                            || team.getCaptain().equals(user)) {
+                            || user.getAuthorities().stream()
+                            .noneMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN))
+                            || team.getCaptain() == null
+                            || !team.getCaptain().equals(user)) {
                         team.setApplication(null);
                     }
 
@@ -190,75 +193,40 @@ public class TeamResource {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}/leave", method = RequestMethod.POST)
-    public ResponseEntity<Team> leaveTeam(@PathVariable Long id) {
+    public ResponseEntity<TeamDto> leaveTeam(@PathVariable Long id) {
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
                     if (team.isActivated()) {
                         throw new CustomParameterizedException("Leaving from activated team is not allowed");
                     }
 
-                    Optional<User> userOptional = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
-                    if (userOptional.isPresent()) {
-                        User user = userOptional.get();
+                    User currentUser = userService.getUserWithAuthorities();
 
-                        // If captain, delete whole team
-                        if (team.getCaptain().getId().equals(user.getId())) {
-                            teamService.delete(id);
-                        } else if (team.getMembers().stream().anyMatch(member -> member.equals(user))) {
-                            team.getMembers().remove(user);
-                            teamRepository.save(team);
-                        }
+                    // If captain, delete whole team
+                    if (team.getCaptain().equals(currentUser)) {
+                        teamService.delete(id);
+                    } else if (team.getMembers().stream().anyMatch(member -> member.equals(currentUser))) {
+                        team.getMembers().remove(currentUser);
+                        teamRepository.save(team);
                     }
 
-                    return new ResponseEntity<>(team, HttpStatus.OK);
+                    return new ResponseEntity<>(teamMapper.teamToTeamDto(team), HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(value = "/{id}/requests", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Void> requestInvite(@PathVariable Long id) {
-        User currentUser = userService.getUserWithAuthorities();
+    public ResponseEntity requestInvite(@PathVariable Long id) {
+        teamService.requestInvite(id);
 
-        if (!currentUser.isActivated()) {
-            HttpHeaders headers = HeaderUtil.createAlert("request", "", "Can't join a team without an email set and activated");
-            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
-        }
-
-        Optional<Team> currentTeam = Optional.ofNullable(teamRepository.findOneByMembersId(currentUser.getId()));
-        if (currentTeam.isPresent()) {
-            HttpHeaders headers = HeaderUtil.createAlert("request", "", "You can't join multiple teams");
-            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
-        }
-
-        return Optional.ofNullable(teamRepository.findOne(id))
-                .map(team -> {
-                    List<User> requests = team.getRequests();
-                    requests.add(currentUser);
-                    team.setRequests(requests);
-                    teamRepository.save(team);
-
-                    return team;
-                })
-                .map(team -> new ResponseEntity<Void>(HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/requests", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<UserPublicDto>> getRequests(@PathVariable Long id) {
-        return Optional.ofNullable(teamRepository.findOne(id))
-                .map(team -> {
-                    User user = userService.getUserWithAuthorities();
-
-                    // User must be captain of the team
-                    if (user == null || team.getCaptain() == null || !team.getCaptain().equals(user)) {
-                        throw new AccessDeniedException("You are not allowed to see membership requests");
-                    }
-
-                    return team;
-                })
-                .map(Team::getRequests)
+        return Optional.ofNullable(teamService.getRequests(id))
                 .map(requests -> requests.stream()
                         .map(userMapper::userToUserPublicDto)
                         .collect(Collectors.toList()))
@@ -296,10 +264,6 @@ public class TeamResource {
                         throw new CustomParameterizedException("Team have maximum amount of members");
                     }
 
-                    if (team.isActivated()) {
-                        throw new CustomParameterizedException("Cannot add member to activated team");
-                    }
-
                     team.getMembers().add(newMember);
                     List<User> requests = team.getRequests();
                     requests.remove(newMember);
@@ -313,30 +277,12 @@ public class TeamResource {
 
     @RequestMapping(value = "/{id}/requests/{userId}", method = RequestMethod.DELETE)
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Void> declineRequest(@PathVariable Long id,
-                                               @PathVariable long userId,
-                                               HttpServletRequest request) {
-        return Optional.ofNullable(teamRepository.findOne(id))
-                .map(team -> {
-                    User user = userService.getUserWithAuthorities();
+    public ResponseEntity declineRequest(@PathVariable Long id,
+                                               @PathVariable long userId) {
 
-                    if (!request.isUserInRole(AuthoritiesConstants.ADMIN) && !team.getCaptain().equals(user)) {
-                        throw new AccessDeniedException("You are not allowed to decline membership requests");
-                    }
+        teamService.declineRequest(id, userId);
 
-                    User declinedMember = userRepository.findOne(userId);
-                    if (declinedMember == null) {
-                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                    }
-
-                    List<User> requests = team.getRequests();
-                    requests.remove(declinedMember);
-                    teamRepository.save(team);
-
-                    return team;
-                })
-                .map(team -> new ResponseEntity<Void>(HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

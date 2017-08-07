@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -46,7 +47,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @NotNull
     @JsonIgnore
-    @Size(min = 60, max = 60)
+    @Size(min = 5, max = 60)
     @Column(length = 60)
     private String password;
 
@@ -101,8 +102,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "steam_id", length = 20, unique = true)
     private String steamId;
 
-    @ManyToMany(mappedBy = "members")
-    private Set<Team> teams;
+    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
+    private List<Team> teams;
 
     @Column(name = "reset_date")
     private LocalDateTime resetDate = null;

@@ -6,10 +6,17 @@ angular.module('app')
     Principal.identity().then(account => {
         $scope.account = account;
 
-        if (account !== null && account.communityId !== null) {
-            Api.all('steam').all('user').get(account.communityId).then(res => {
-                $scope.steamUser = _.result(res, 'data.response.players[0]');
-            });
+        if (account != null) {
+            const ownTeam = _.find(account.teams, (team: any) => !team.season.archived);
+            if (ownTeam != null) {
+                $scope.ownTeamId = ownTeam.id;
+            }
+
+            if (account.communityId !== null) {
+                Api.all('steam').all('user').get(account.communityId).then(res => {
+                    $scope.steamUser = _.result(res, 'data.response.players[0]');
+                });
+            }
         }
     });
 

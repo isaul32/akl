@@ -74,5 +74,9 @@
             WHERE standin_id IS NOT NULL
         </sql>
 
+        <dropColumn tableName="akl_user" columnName="captain_id"/>
+        <dropColumn tableName="akl_user" columnName="member_id"/>
+        <dropColumn tableName="akl_user" columnName="standin_id"/>
+
     </changeSet>
 </databaseChangeLog>

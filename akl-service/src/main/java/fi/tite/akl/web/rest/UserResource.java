@@ -6,7 +6,7 @@ import fi.tite.akl.dto.UserExtendedDto;
 import fi.tite.akl.dto.UserPublicDto;
 import fi.tite.akl.repository.UserRepository;
 import fi.tite.akl.service.UserService;
-import fi.tite.akl.web.rest.mapper.UserMapper;
+import fi.tite.akl.mapper.UserMapper;
 import fi.tite.akl.web.rest.util.HeaderUtil;
 import fi.tite.akl.web.rest.util.PaginationUtil;
 import lombok.extern.slf4j.Slf4j;

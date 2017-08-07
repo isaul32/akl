@@ -19,9 +19,14 @@ angular.module('app')
             }
 
             this.identity().then(_id => {
-                if (_id) {
-                    const val = _id.authorities && _id.authorities.name && _id.authorities.name.indexOf(role) !== -1;
-                    deferred.resolve(val);
+                if (_id && _id.authorities) {
+                    _.each(_id.authorities, authority => {
+                        const val = authority.name && authority.name.indexOf(role) !== -1;
+                        if (val) {
+                            deferred.resolve(val);
+                        }
+                    });
+                    deferred.resolve(false);
                 } else {
                     deferred.resolve(false);
                 }
@@ -40,8 +45,12 @@ angular.module('app')
 
             roles.forEach(role => {
                 this.isInRole(role).then(res => {
-                    deferred.resolve(res);
+                    if (res) {
+                        deferred.resolve(res);
+                    }
                 }).catch(() => {
+                    deferred.resolve(false);
+                }).then(() => {
                     deferred.resolve(false);
                 });
             });

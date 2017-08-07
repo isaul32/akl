@@ -81,7 +81,7 @@ public class Team implements Serializable {
     )
     private List<User> requests = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Season season;
 
 }

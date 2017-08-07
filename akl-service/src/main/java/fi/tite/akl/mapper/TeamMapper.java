@@ -1,6 +1,7 @@
-package fi.tite.akl.web.rest.mapper;
+package fi.tite.akl.mapper;
 
 import fi.tite.akl.domain.*;
+import fi.tite.akl.dto.TeamBaseDto;
 import fi.tite.akl.dto.TeamDto;
 
 import org.mapstruct.*;
@@ -13,7 +14,13 @@ public interface TeamMapper {
 
     TeamDto teamToTeamDto(Team team);
 
+    TeamBaseDto teamToTeamBaseDto(Team team);
+
     @Mapping(target = "requests", ignore = true)
     @Mapping(target = "season", ignore = true)
     Team teamDtoToTeam(TeamDto teamDto);
+
+    @Mapping(target = "requests", ignore = true)
+    @Mapping(target = "season", ignore = true)
+    Team teamBaseDtoToTeam(TeamBaseDto teamDto);
 }

@@ -6,6 +6,11 @@ angular.module('app')
     Principal.identity().then(account => {
         $scope.account = account;
 
+
+        if (account) {
+            $scope.isMember = _.find(account.teams, (team: any) => team.id === $scope.team.id);
+        }
+
         // If captain get requests
         if ($scope.team !== null && $scope.account !== null && $scope.team.captain.id === $scope.account.id) {
             Team.requests({
@@ -22,14 +27,12 @@ angular.module('app')
     };
 
     $scope.sendRequest = () => {
-        Team.requestInvite({id: $scope.team.id}).$promise
-            .then(() => {
-                // Force update account
-                Principal.identity(true).then(account => {
-                    $scope.account = account;
-                });
-                $('#membershipRequestConfirmation').modal('hide');
-            });
+        Team.requestInvite({id: $scope.team.id}).$promise.then((res) => {
+            $('#membershipRequestConfirmation').modal('hide');
+            console.log(res);
+        }).catch(() => {
+            $('#membershipRequestConfirmation').modal('hide');
+        });
     };
 
     $scope.declineRequest = id => {
@@ -53,7 +56,8 @@ angular.module('app')
     $scope.sendLeaveTeam = () => {
         $scope.team.post('leave').then(team => {
             $scope.team = team.data;
-            $scope.account.teamId = null;
+            $('#leaveTeamConfirmation').modal('hide');
+        }).catch(() => {
             $('#leaveTeamConfirmation').modal('hide');
         });
     };

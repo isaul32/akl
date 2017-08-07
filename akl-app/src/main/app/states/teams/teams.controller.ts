@@ -21,14 +21,22 @@ angular.module('app')
     if ($scope.isAuthenticated()) {
         Principal.identity(true).then(account => {
             $scope.account = account;
-            return Principal.isInRole('ROLE_ADMIN');
-        }).then(result => {
-            $scope.isAdmin = result;
+            Principal.isInRole('ROLE_ADMIN').then(res => {
+                $scope.isAdmin = res;
+            });
         });
     }
 
     $scope.canCreateTeam = () => {
-        return $scope.account && $scope.account.email && $scope.account.activated;
+        const account = $scope.account;
+        if (account && account.activated) {
+            const ownTeam = _.find(account.teams, (team: any) => !team.season.archived);
+            if (!ownTeam) {
+                return true;
+            }
+        }
+
+        return false;
     };
 
     $scope.hasPermissions = team => {

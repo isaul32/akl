@@ -1,4 +1,4 @@
-package fi.tite.akl.web.rest.mapper;
+package fi.tite.akl.mapper;
 
 import fi.tite.akl.domain.*;
 

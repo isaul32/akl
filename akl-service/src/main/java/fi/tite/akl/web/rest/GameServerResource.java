@@ -35,7 +35,7 @@ public class GameServerResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createAlert("gameServer", "idexists", "A new gameServer cannot already have an ID")).body(null);
         }
         GameServerDto result = gameServerService.save(gameServerDto);
-        return ResponseEntity.created(new URI("/api/gameServers/" + result.getId()))
+        return ResponseEntity.created(new URI("/#/gameServers/" + result.getId()))
                 .headers(HeaderUtil.createAlert("gameServer", result.getId().toString()))
                 .body(result);
     }

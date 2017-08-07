@@ -48,14 +48,13 @@ angular.module('app')
                         setVisible();
                     }
 
-                    Principal.isInRole(role)
-                        .then(result => {
-                            if (result) {
-                                setVisible();
-                            } else {
-                                setHidden();
-                            }
-                        });
+                    Principal.isInRole(role).then(result => {
+                        if (result) {
+                            setVisible();
+                        } else {
+                            setHidden();
+                        }
+                    });
                 },
                 role = attrs.hasRole.replace(/\s+/g, '');
 

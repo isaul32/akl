@@ -23,12 +23,13 @@ angular.module('app')
                     alert("AKL API didn't respond in 10 seconds. Please try again later.");
                 }, 10000);
 
-                Auth.authorize().then(res => {
+                const p = Auth.authorize();
+                p.then(res => {
                     $timeout.cancel(t);
                     deferred.resolve(res);
                 });
 
-                return deferred.promise;
+                return p;
             }
         }
     })

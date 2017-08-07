@@ -1,18 +1,21 @@
 package fi.tite.akl.web.rest;
 
 import fi.tite.akl.domain.PersistentToken;
+import fi.tite.akl.domain.Season;
 import fi.tite.akl.dto.KeyAndPasswordDto;
 import fi.tite.akl.dto.TeamDto;
 import fi.tite.akl.dto.UserDto;
 import fi.tite.akl.repository.PersistentTokenRepository;
+import fi.tite.akl.repository.SeasonRepository;
 import fi.tite.akl.repository.TeamRepository;
 import fi.tite.akl.repository.UserRepository;
 import fi.tite.akl.security.SecurityUtils;
 import fi.tite.akl.service.MailService;
 import fi.tite.akl.service.UserService;
 import fi.tite.akl.service.util.RandomUtil;
-import fi.tite.akl.web.rest.mapper.TeamMapper;
-import fi.tite.akl.web.rest.mapper.UserMapper;
+import fi.tite.akl.mapper.TeamMapper;
+import fi.tite.akl.mapper.UserMapper;
+import fi.tite.akl.web.rest.errors.CustomParameterizedException;
 import fi.tite.akl.web.rest.util.HeaderUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -57,6 +60,9 @@ public class AccountResource {
     @Inject
     private MailService mailService;
 
+    @Inject
+    private SeasonRepository seasonRepository;
+
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
     public ResponseEntity<String> activateAccount(@RequestParam(value = "key") String key) {
         return userService.activateRegistration(key)
@@ -83,34 +89,7 @@ public class AccountResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> getAccount() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
-                .map(user -> {
-                    /*new UserDto(
-                            user.getId(),
-                            user.getLogin(),
-                            user.getNickname(),
-                            null,
-                            user.getFirstName(),
-                            user.getLastName(),
-                            user.getEmail(),
-                            user.getBirthdate(),
-                            user.getGuild(),
-                            user.getDescription(),
-                            user.getRank(),
-                            user.isActivated(),
-                            user.getCommunityId(),
-                            user.getSteamId(),
-                            user.getLangKey(),
-                            user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList()),
-                            user.getCaptain() == null ? (
-                                    user.getMember() == null
-                                            ? (user.getStandin() == null ? null : user.getStandin().getId())
-                                            : user.getMember().getId()
-                            ) : user.getCaptain().getId(),
-                            teamRepository.findOneForUser(user.getId()) != null
-                    );*/
-                    UserDto userDto = userMapper.userToUserDto(user);
-                    return userDto;
-                })
+                .map(userMapper::userToUserDto)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
@@ -123,7 +102,14 @@ public class AccountResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TeamDto> getTeam() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
-                .map(user -> teamRepository.findOneByMembersId(user.getId()))
+                .map(user -> {
+                    Season activeSeason = seasonRepository.findByArchived(false);
+                    if (activeSeason == null) {
+                        throw new CustomParameterizedException("Team doesn't belong in active season");
+                    }
+
+                    return teamRepository.findOneByMembersIdAndSeasonId(user.getId(), activeSeason.getId());
+                })
                 .map(teamMapper::teamToTeamDto)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -205,21 +191,7 @@ public class AccountResource {
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
-    /**
-     * DELETE  /account/sessions?series={series} -> invalidate an existing session.
-     * <p>
-     * - You can only delete your own sessions, not any other user's session
-     * - If you delete one of your existing sessions, and that you are currently logged in on that session, you will
-     * still be able to use that session, until you quit your browser: it does not work in real time (there is
-     * no API for that), it only removes the "remember me" cookie
-     * - This is also true if you invalidate your current session: you will still be able to use it until you close
-     * your browser or that the session times out. But automatic login (the "remember me" cookie) will not work
-     * anymore.
-     * There is an API to invalidate the current session, but there is no API to check which session uses which
-     * cookie.
-     */
-    @RequestMapping(value = "/account/sessions/{series}",
-            method = RequestMethod.DELETE)
+    @RequestMapping(value = "/account/sessions/{series}", method = RequestMethod.DELETE)
     public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
         String decodedSeries = URLDecoder.decode(series, "UTF-8");
         userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(
@@ -258,6 +230,6 @@ public class AccountResource {
     }
 
     private boolean checkPasswordLength(String password) {
-        return (!StringUtils.isEmpty(password) && password.length() >= UserDto.PASSWORD_MIN_LENGTH && password.length() <= UserDto.PASSWORD_MAX_LENGTH);
+        return (!StringUtils.isEmpty(password) && password.length() >= 5 && password.length() <= 100);
     }
 }
