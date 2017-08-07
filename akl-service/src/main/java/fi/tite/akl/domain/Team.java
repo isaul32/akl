@@ -73,7 +73,7 @@ public class Team implements Serializable {
     private List<User> members = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "akl_team_request",
             joinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")},
