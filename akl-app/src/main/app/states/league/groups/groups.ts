@@ -55,7 +55,7 @@ angular.module('app')
         data: {
             roles: ['ROLE_ADMIN']
         },
-        onEnter: ($state, $stateParams, $uibModal, Api) => {
+        onEnter: ($state, $stateParams, $uibModal) => {
             $uibModal.open({
                 templateUrl: 'states/league/groups/groups.dialog.html',
                 controller: 'GroupsDialogController',

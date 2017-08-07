@@ -32,12 +32,12 @@ angular.module('app')
             return Principal.identity(force).then(() => {
                 const isAuthenticated = Principal.isAuthenticated();
 
+                console.log($rootScope.toState.data);
                 if ($rootScope.toState
                     && $rootScope.toState.data
-                    && $rootScope.toState.data.hasOwnProperty('authorities')
-                    && $rootScope.toState.data.authorities
-                    && $rootScope.toState.data.authorities.length > 0) {
-                    Principal.isInAnyRole($rootScope.toState.data.authorities).then(res => {
+                    && $rootScope.toState.data.hasOwnProperty('roles')
+                    && $rootScope.toState.data.roles) {
+                    Principal.isInAnyRole($rootScope.toState.data.roles).then(res => {
                         if (!res) {
                             if (isAuthenticated) {
                                 // User is signed in but not authorized for desired state

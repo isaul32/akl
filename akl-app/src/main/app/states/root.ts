@@ -16,17 +16,15 @@ angular.module('app')
             translatePartialLoader: ($translate, $translatePartialLoader) => {
                 $translatePartialLoader.addPart('global');
             },
-            authorize: (Auth, $q, $timeout) => {
-                const deferred = $q.defer();
+            authorize: (Auth, $timeout) => {
 
                 const t = $timeout(() => {
                     alert("AKL API didn't respond in 10 seconds. Please try again later.");
                 }, 10000);
 
                 const p = Auth.authorize();
-                p.then(res => {
+                p.then(() => {
                     $timeout.cancel(t);
-                    deferred.resolve(res);
                 });
 
                 return p;

@@ -30,7 +30,6 @@ angular.module('app')
     $scope.sendRequest = () => {
         Team.requestInvite({id: $scope.team.id}).$promise.then((res) => {
             $('#membershipRequestConfirmation').modal('hide');
-            console.log(res);
         }).catch(() => {
             $('#membershipRequestConfirmation').modal('hide');
         });
