@@ -13,9 +13,22 @@ angular.module('app')
             }
         },
         resolve: {
-            authorize: Auth => Auth.authorize(),
             translatePartialLoader: ($translate, $translatePartialLoader) => {
                 $translatePartialLoader.addPart('global');
+            },
+            authorize: (Auth, $q, $timeout) => {
+                const deferred = $q.defer();
+
+                const t = $timeout(() => {
+                    alert("AKL API didn't respond in 10 seconds. Please try again later.");
+                }, 10000);
+
+                Auth.authorize().then(res => {
+                    $timeout.cancel(t);
+                    deferred.resolve(res);
+                });
+
+                return deferred.promise;
             }
         }
     })

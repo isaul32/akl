@@ -41,7 +41,6 @@ angular.module('app')
     };
 
     $scope.eventClick = (event, jsEvent) => {
-        console.log(event);
         event.toggle = event.toggle !== true;
         angular.element(jsEvent.target).closest(".fc-time-grid-event").toggleClass('calendar-event-green', event.toggle);
 

@@ -1,6 +1,7 @@
 {
     "error": {
-        "title": "Virhe sivu!",
-        "403": "Sinulla ei ole oikeutta tälle sivulle."
+        "title": "Virhe!",
+        "403": "Sinulla ei ole oikeutta tälle sivulle.",
+        "defaultMessage": "Jotain meni pieleen. Yritä myöhemmin uudestaan."
     }
 }

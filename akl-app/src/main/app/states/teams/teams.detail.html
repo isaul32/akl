@@ -7,7 +7,7 @@
             <div class="modal-content">
                 <form name="requestForm" ng-submit="sendRequest()">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title" translate="aklApp.team.request.title">Confirm membership request</h4>
                     </div>
                     <div class="modal-body">
@@ -31,7 +31,7 @@
             <div class="modal-content">
                 <form name="requestForm" ng-submit="sendDecline()">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title" translate="aklApp.team.request.decline.title">Decline membership request</h4>
                     </div>
                     <div class="modal-body">
@@ -55,7 +55,7 @@
             <div class="modal-content">
                 <form name="requestForm" ng-submit="sendLeaveTeam()">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title" translate="aklApp.team.leave.title">Confirm leave</h4>
                     </div>
                     <div class="modal-body">
@@ -88,7 +88,7 @@
                         <td style="width: 180px">
                             <span translate="aklApp.team.rank">Rank</span>
                         </td>
-                        <td ng-bind-html="team.rank | rank"></td>
+                        <td ng-bind-html="team.rank | rankImg"></td>
                     </tr>
                     <tr>
                         <td>
@@ -116,18 +116,6 @@
                     </tr>
                     <tr>
                         <td>
-                            <span translate="aklApp.team.captain">Captain</span>
-                        </td>
-                        <td>
-                            <span class="form-control-static">
-                                <a ui-sref="users.detail({ userId: team.captain.id })">
-                                    {{team.captain.nickname}}
-                                </a>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             <span translate="aklApp.team.members">Members</span>
                         </td>
                         <td>
@@ -136,20 +124,11 @@
                                     <a ui-sref="users.detail({ userId: member.id })">
                                         {{member.nickname}}
                                     </a>
-                                </span>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span translate="aklApp.team.standins">Standins</span>
-                        </td>
-                        <td>
-                            <p ng-repeat="standin in team.standins">
-                                <span class="form-control-static">
-                                    <a ui-sref="users.detail({ userId: standin.id })">
-                                        {{standin.nickname}}
-                                    </a>
+                                    <i class="fa fa-star"
+                                       ng-show="team.captain.id === member.id"
+                                       style="color: gold; text-shadow: #2d2c00 0 0 1px;"
+                                       uib-tooltip-html="'{{'aklApp.team.captain' | translate}}'"
+                                       tooltip-placement="right"></i>
                                 </span>
                             </p>
                         </td>

@@ -3,8 +3,8 @@ package fi.tite.akl.dto;
 import fi.tite.akl.domain.enumeration.Rank;
 import lombok.Data;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class TeamDto {
@@ -18,5 +18,5 @@ public class TeamDto {
     private String description;
     private Boolean activated;
     private UserPublicDto captain;
-    private Set<UserPublicDto> members = new HashSet<>();
+    private List<UserPublicDto> members = new ArrayList<>();
 }

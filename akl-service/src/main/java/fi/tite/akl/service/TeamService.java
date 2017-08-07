@@ -40,11 +40,6 @@ public class TeamService {
         return teamRepository.save(team);
     }
 
-    @Transactional(readOnly = true)
-    public Optional<Team> get(Long id) {
-        return Optional.ofNullable(teamRepository.findOne(id));
-    }
-
     @PreAuthorize("hasRole('ADMIN')")
     public Optional<Team> activate(Long id) {
         return Optional.ofNullable(teamRepository.findOne(id))
@@ -56,7 +51,6 @@ public class TeamService {
                     team.setActivated(true);
 
                     // Todo: Send team activated mail to members or captain
-
 
                     return teamRepository.save(team);
                 });

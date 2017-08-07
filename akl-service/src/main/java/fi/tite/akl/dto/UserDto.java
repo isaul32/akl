@@ -30,10 +30,6 @@ public class UserDto {
     @Size(min = 1, max = 20)
     private String nickname;
 
-    /*@NotNull
-    @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
-    private String password;*/
-
     @Size(max = 50)
     private String firstName;
 
@@ -65,8 +61,6 @@ public class UserDto {
     private String langKey;
 
     private Set<AuthorityDto> authorities;
-
-    private Long teamId;
 
     private boolean requested;
 }

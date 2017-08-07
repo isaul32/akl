@@ -20,7 +20,7 @@ angular.module('app')
 
             this.identity().then(_id => {
                 if (_id) {
-                    const val = _id.roles && _id.roles.indexOf(role) !== -1;
+                    const val = _id.authorities && _id.authorities.name && _id.authorities.name.indexOf(role) !== -1;
                     deferred.resolve(val);
                 } else {
                     deferred.resolve(false);
@@ -34,9 +34,10 @@ angular.module('app')
         isInAnyRole: function (roles) {
             const deferred = $q.defer();
 
-            if (!_authenticated || !_identity || !_identity.roles) {
+            if (!_authenticated || !_identity || !_identity.authorities) {
                 deferred.resolve(false);
             }
+
             roles.forEach(role => {
                 this.isInRole(role).then(res => {
                     deferred.resolve(res);
@@ -73,27 +74,25 @@ angular.module('app')
             _deferred = deferred;
 
             // retrieve the identity data from the server, update the identity object, and then resolve.
-            Account.get().$promise
-                .then(account => {
-                    if (account.data.nickname !== 'Anonymous') {
-                        _identity = account.data;
-                        _authenticated = true;
-                        _deferred.resolve(_identity);
-                        _deferred = null;
-                        Tracker.connect();
-                    } else {
-                        _identity = null;
-                        _authenticated = false;
-                        _deferred.resolve(_identity);
-                        _deferred = null;
-                    }
-                })
-                .catch(() => {
+            Account.get().$promise.then(account => {
+                if (account.data.login !== 'anonymousUser') {
+                    _identity = account.data;
+                    _authenticated = true;
+                    _deferred.resolve(_identity);
+                    _deferred = null;
+                    Tracker.connect();
+                } else {
                     _identity = null;
                     _authenticated = false;
                     _deferred.resolve(_identity);
                     _deferred = null;
-                });
+                }
+            }).catch(() => {
+                _identity = null;
+                _authenticated = false;
+                _deferred.resolve(_identity);
+                _deferred = null;
+            });
 
             return _deferred.promise;
         }

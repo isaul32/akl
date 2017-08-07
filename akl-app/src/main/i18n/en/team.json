@@ -29,8 +29,7 @@
                 "acceptOrEdit": "Accept or edit membership",
                 "role": "Membership role",
                 "roles": {
-                    "member": "Member",
-                    "standin": "Standin"
+                    "member": "Member"
                 },
                 "info": "Select membership type",
                 "decline": {
@@ -53,7 +52,6 @@
             "description": "Description",
             "captain": "Captain",
             "members": "Member",
-            "standins": "Standin",
             "requestMembership": "Request membership",
             "captainNotice": "NOTICE: You become the captain of the team that you create. Only the captain (adn admins) can change team details and accept/decline membership requests",
             "authorizationNotice": "Teams are manually accepted by admins and they won't appear in the team listing before they are accepted",

@@ -104,18 +104,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @ManyToMany(mappedBy = "members")
     private Set<Team> teams;
 
-    /*@OneToOne
-    @JsonIgnore
-    private Team captain;
-
-    @ManyToOne
-    @JsonIgnore
-    private Team member;
-
-    @ManyToOne
-    @JsonIgnore
-    private Team standin;*/
-
     @Column(name = "reset_date")
     private LocalDateTime resetDate = null;
 

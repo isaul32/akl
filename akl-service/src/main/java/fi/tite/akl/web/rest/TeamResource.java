@@ -130,21 +130,22 @@ public class TeamResource {
     public ResponseEntity<TeamDto> get(@PathVariable Long id) {
         log.debug("REST request to get Team : {}", id);
 
-        return teamService.get(id)
-                .map(teamMapper::teamToTeamDto)
-                .map(teamDto -> {
+        return Optional.ofNullable(teamRepository.findOne(id))
+                .map(team -> {
                     User user = userService.getUserWithAuthorities();
+
                     // If user is not admin or team captain, hide application.
                     if (user == null
                             || user.getAuthorities().stream().noneMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN))
-                            || teamDto.getCaptain() != null
-                            || teamDto.getCaptain().getId().equals(user.getId())) {
-                        teamDto.setApplication(null);
+                            || team.getCaptain() != null
+                            || team.getCaptain().equals(user)) {
+                        team.setApplication(null);
                     }
 
-                    return teamDto;
+                    return team;
                 })
-                .map(teamDTO -> new ResponseEntity<>(teamDTO, HttpStatus.OK))
+                .map(teamMapper::teamToTeamDto)
+                .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -156,14 +157,13 @@ public class TeamResource {
         return Optional.ofNullable(teamRepository.findOne(teamDto.getId()))
                 .map(team -> {
                     User user = userService.getUserWithAuthorities();
+
                     // Check if user is captain
                     if (!team.getCaptain().getId().equals(user.getId())) {
                         throw new CustomParameterizedException("You must be captain of the team.");
                     }
 
-                    return team;
-                })
-                .map(team -> {
+                    // Check if team is already activated
                     if (!team.isActivated()) {
                         team.setName(teamDto.getName());
                         team.setTag(teamDto.getTag());
@@ -193,7 +193,6 @@ public class TeamResource {
     public ResponseEntity<Team> leaveTeam(@PathVariable Long id) {
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
-
                     if (team.isActivated()) {
                         throw new CustomParameterizedException("Leaving from activated team is not allowed");
                     }
@@ -205,14 +204,12 @@ public class TeamResource {
                         // If captain, delete whole team
                         if (team.getCaptain().getId().equals(user.getId())) {
                             teamService.delete(id);
-                            return new ResponseEntity<Team>(HttpStatus.OK);
                         } else if (team.getMembers().stream().anyMatch(member -> member.equals(user))) {
-                            //user.getTeams().remove(team);
                             team.getMembers().remove(user);
-                            userRepository.save(user);
                             teamRepository.save(team);
                         }
                     }
+
                     return new ResponseEntity<>(team, HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -222,6 +219,7 @@ public class TeamResource {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> requestInvite(@PathVariable Long id) {
         User currentUser = userService.getUserWithAuthorities();
+
         if (!currentUser.isActivated()) {
             HttpHeaders headers = HeaderUtil.createAlert("request", "", "Can't join a team without an email set and activated");
             return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
@@ -235,7 +233,7 @@ public class TeamResource {
 
         return Optional.ofNullable(teamRepository.findOne(id))
                 .map(team -> {
-                    Set<User> requests = team.getRequests();
+                    List<User> requests = team.getRequests();
                     requests.add(currentUser);
                     team.setRequests(requests);
                     teamRepository.save(team);
@@ -303,7 +301,7 @@ public class TeamResource {
                     }
 
                     team.getMembers().add(newMember);
-                    Set<User> requests = team.getRequests();
+                    List<User> requests = team.getRequests();
                     requests.remove(newMember);
                     teamRepository.save(team);
 
@@ -331,7 +329,7 @@ public class TeamResource {
                         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                     }
 
-                    Set<User> requests = team.getRequests();
+                    List<User> requests = team.getRequests();
                     requests.remove(declinedMember);
                     teamRepository.save(team);
 
@@ -361,7 +359,6 @@ public class TeamResource {
     @RequestMapping(value = "/{id}/schedule", method = RequestMethod.POST)
     public ResponseEntity<List<CalendarEvent>> updateSchedule(@PathVariable Long id,
                                                               @RequestBody Set<CalendarEvent> events) {
-
         return ResponseEntity.ok(eventRepository.save(events));
     }
 }

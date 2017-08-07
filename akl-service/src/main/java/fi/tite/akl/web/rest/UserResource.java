@@ -46,12 +46,13 @@ public class UserResource {
     private UserMapper userMapper;
 
     @RequestMapping(value = "/public", method = RequestMethod.GET)
-    public ResponseEntity<List<UserPublicDto>> getAllUsers(@RequestParam(value = "page", required = false) Integer offset,
-                                                           @RequestParam(value = "per_page", required = false) Integer limit) throws URISyntaxException {
+    public ResponseEntity<List<UserPublicDto>> getAllUsers(
+            @RequestParam(value = "page", required = false) Integer offset,
+            @RequestParam(value = "per_page", required = false) Integer limit
+    ) throws URISyntaxException {
 
-        Page<User> page = userService.getAllUsers(PaginationUtil.generatePageRequest(offset, limit, new Sort(
-                new Sort.Order(Sort.Direction.ASC, "id")
-        )));
+        Page<User> page = userService.getAllUsers(PaginationUtil.generatePageRequest(offset, limit,
+                new Sort(new Sort.Order(Sort.Direction.ASC, "id"))));
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);
 
         return new ResponseEntity<>(page.getContent().stream()
@@ -61,13 +62,14 @@ public class UserResource {
 
     @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<UserExtendedDto>> getAllExtendedUsers(@RequestParam(value = "page", required = false) Integer offset,
-                                                                     @RequestParam(value = "per_page", required = false) Integer limit,
-                                                                     @RequestParam(value = "filter", required = false, defaultValue = "") String filter) throws URISyntaxException {
+    public ResponseEntity<List<UserExtendedDto>> getAllExtendedUsers(
+            @RequestParam(value = "page", required = false) Integer offset,
+            @RequestParam(value = "per_page", required = false) Integer limit,
+            @RequestParam(value = "filter", required = false, defaultValue = "") String filter
+    ) throws URISyntaxException {
 
-        Pageable pageable = PaginationUtil.generatePageRequest(offset, limit, new Sort(
-                new Sort.Order(Sort.Direction.ASC, "id")
-        ));
+        Pageable pageable = PaginationUtil.generatePageRequest(offset, limit,
+                new Sort(new Sort.Order(Sort.Direction.ASC, "id")));
 
         Page<User> page = userRepository.findByNicknameContainingIgnoreCase(filter, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page);
@@ -88,13 +90,15 @@ public class UserResource {
     @RequestMapping(value = "/authorities", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ADMIN')")
     public List<Authority> getAuthorities() {
-
         return userService.getAllAuthorities();
     }
 
     @RequestMapping(value = "/{id}/authorities", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> updateUserAuthorities(@PathVariable Long id, @RequestBody Set<Authority> authorities) {
+    public ResponseEntity<Void> updateUserAuthorities(
+            @PathVariable Long id,
+            @RequestBody Set<Authority> authorities
+    ) {
         userService.updateUserAuthorities(id, authorities);
 
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("Authorities updated", id.toString())).build();
@@ -103,7 +107,6 @@ public class UserResource {
     @RequestMapping(value = "/{id}/authorities", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Set<Authority>> getUserAuthorities(@PathVariable Long id) {
-
         return Optional.ofNullable(userService.getUserWithAuthorities(id))
                 .map(user -> ResponseEntity.ok(user.getAuthorities()))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

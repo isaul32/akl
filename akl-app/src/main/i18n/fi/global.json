@@ -93,7 +93,7 @@
                 "register": "Ei vielä tunnusta? <a href=\"#/register\">Luo uusi tunnus</a>"
             },
             "error": {
-                "dontmatch" : "Salasanat eivät täsmää!"
+                "dontmatch": "Salasanat eivät täsmää!"
             },
             "validate": {
                 "newpassword": {

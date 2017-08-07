@@ -13,6 +13,17 @@
             <column name="captain_id" type="bigint"/>
         </addColumn>
 
+        <sql dbms="mysql,h2,postgresql,oracle"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">
+            UPDATE akl_team
+            SET captain_id =
+                (SELECT id
+                FROM AKL_USER
+                WHERE AKL_USER.captain_id = akl_team.id)
+        </sql>
+
         <createTable tableName="akl_team_user">
             <column name="team_id" type="bigint">
                 <constraints nullable="false"/>
@@ -22,16 +33,46 @@
             </column>
         </createTable>
 
-        <!--<createTable tableName="akl_team_standin">
-            <column name="team_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="user_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>-->
-        
-        <!--<customChange class="fi.tite.akl.ChangeUserTeamAssociation"></customChange>-->
+        <sql dbms="mysql,h2,postgresql,oracle"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">
+            UPDATE akl_team
+            SET captain_id =
+                (SELECT id
+                FROM AKL_USER
+                WHERE AKL_USER.captain_id = akl_team.id)
+        </sql>
+
+        <sql dbms="mysql,h2,postgresql,oracle"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">
+            INSERT INTO akl_team_user (team_id, user_id)
+            SELECT captain_id, id
+            FROM akl_user
+            WHERE captain_id IS NOT NULL
+        </sql>
+
+        <sql dbms="mysql,h2,postgresql,oracle"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">
+            INSERT INTO akl_team_user (team_id, user_id)
+            SELECT member_id, id
+            FROM akl_user
+            WHERE member_id IS NOT NULL
+        </sql>
+
+        <sql dbms="mysql,h2,postgresql,oracle"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">
+            INSERT INTO akl_team_user (team_id, user_id)
+            SELECT standin_id, id
+            FROM akl_user
+            WHERE standin_id IS NOT NULL
+        </sql>
 
     </changeSet>
 </databaseChangeLog>

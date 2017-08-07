@@ -11,8 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -59,34 +59,27 @@ public class Team implements Serializable {
     @Column(name = "activated")
     private boolean activated;
 
+    @NotNull
     @ManyToOne
     private User captain;
 
+    @OrderBy("nickname ASC")
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "akl_team_user",
             joinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
     )
-    private Set<User> members = new HashSet<>();
+    private List<User> members = new ArrayList<>();
 
-    /*@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "captain")
-    private User captain;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
-    private Set<User> members = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "standin")
-    private Set<User> standins = new HashSet<>();*/
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "akl_team_request",
             joinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
     )
-    private Set<User> requests = new HashSet<>();
+    private List<User> requests = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     private Season season;

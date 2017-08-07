@@ -34,10 +34,10 @@ angular.module('app')
 
                 if ($rootScope.toState
                     && $rootScope.toState.data
-                    && $rootScope.toState.data.hasOwnProperty('roles')
-                    && $rootScope.toState.data.roles
-                    && $rootScope.toState.data.roles.length > 0) {
-                    Principal.isInAnyRole($rootScope.toState.data.roles).then(res => {
+                    && $rootScope.toState.data.hasOwnProperty('authorities')
+                    && $rootScope.toState.data.authorities
+                    && $rootScope.toState.data.authorities.length > 0) {
+                    Principal.isInAnyRole($rootScope.toState.data.authorities).then(res => {
                         if (!res) {
                             if (isAuthenticated) {
                                 // User is signed in but not authorized for desired state

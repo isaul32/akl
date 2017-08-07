@@ -14,5 +14,6 @@ public interface UserMapper {
     @Mapping(source = "birthdate", target = "age")
     UserPublicDto userToUserPublicDto(User user);
 
+    @Mapping(target = "requested", ignore = true)
     UserDto userToUserDto(User user);
 }
