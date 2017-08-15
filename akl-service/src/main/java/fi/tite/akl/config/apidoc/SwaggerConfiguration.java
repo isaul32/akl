@@ -1,6 +1,8 @@
 package fi.tite.akl.config.apidoc;
 
+import fi.tite.akl.config.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +17,9 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -26,6 +30,11 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EnableSwagger2
 public class SwaggerConfiguration implements EnvironmentAware {
 
+    @Inject
+    private Environment env;
+
+    @Value("${akl.prod.host:''}")
+    private String prodHost;
 
     public static final String DEFAULT_INCLUDE_PATTERN = "/api/.*";
 
@@ -44,6 +53,7 @@ public class SwaggerConfiguration implements EnvironmentAware {
         log.debug("Starting Swagger");
         StopWatch watch = new StopWatch();
         watch.start();
+
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .genericModelSubstitutes(ResponseEntity.class)
@@ -55,8 +65,19 @@ public class SwaggerConfiguration implements EnvironmentAware {
                 .select()
                 .paths(regex(DEFAULT_INCLUDE_PATTERN))
                 .build();
+
+        // Fix host in production
+        if (env.getActiveProfiles().length > 0) {
+            Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
+            if (activeProfiles.contains(Constants.SPRING_PROFILE_PRODUCTION)) {
+                docket.host(prodHost);
+            }
+        }
+
         watch.stop();
+
         log.debug("Started Swagger in {} ms", watch.getTotalTimeMillis());
+
         return docket;
     }
 

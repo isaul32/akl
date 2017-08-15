@@ -35,7 +35,7 @@ public class SteamCommunityResource {
 
         return userRepository.findOneByCommunityId(communityId)
                 .map(u -> {
-                    GetPlayerSummaries summaries = null;
+                    GetPlayerSummaries summaries;
                     try {
                         summaries = steamCommunityRepository.findSteamUser(communityId);
                     } catch (SteamApiException e) {
@@ -45,6 +45,5 @@ public class SteamCommunityResource {
                     return new ResponseEntity<>(summaries, HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-
     }
 }

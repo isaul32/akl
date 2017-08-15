@@ -3,8 +3,8 @@ package fi.tite.akl.dto;
 import fi.tite.akl.domain.enumeration.Rank;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class UserExtendedDto {
@@ -19,4 +19,5 @@ public class UserExtendedDto {
     private Rank rank;
     private String description;
     private String communityId;
+    private List<TeamBaseDto> teams;
 }
