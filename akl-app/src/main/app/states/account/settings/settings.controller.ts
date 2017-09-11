@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('SettingsController', ($scope, Principal, Auth, Language, $translate) => {
+.controller('SettingsController', ($scope, Principal, Auth, Language, $translate, $anchorScroll) => {
     $scope.success = null;
     $scope.error = null;
 
@@ -24,6 +24,10 @@ angular.module('app')
                     $translate.use($scope.settingsAccount.langKey);
                 }
             });
+
+            // Scroll to top
+            $anchorScroll();
+
         }).catch(() => {
             $scope.success = null;
             $scope.error = 'ERROR';
