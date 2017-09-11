@@ -2,6 +2,7 @@ package fi.tite.akl.web.rest;
 
 import fi.tite.akl.service.AuditEventService;
 import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.WebDataBinder;
@@ -34,8 +35,11 @@ public class AuditResource {
 
     @PreAuthorize("hasRole('ACTUATOR')")
     @RequestMapping(value = "/byDates", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<AuditEvent> findByDates(@RequestParam(value = "fromDate") LocalDateTime fromDate,
-                                        @RequestParam(value = "toDate") LocalDateTime toDate) {
+    public List<AuditEvent> findByDates(
+            @RequestParam(value = "fromDate")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDate,
+            @RequestParam(value = "toDate")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDate) {
         return auditEventService.findByDates(fromDate, toDate);
     }
 }

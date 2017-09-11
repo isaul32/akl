@@ -1,11 +1,15 @@
 package fi.tite.akl.service;
 
+import com.lukaspradel.steamapi.core.exception.SteamApiException;
+import com.lukaspradel.steamapi.data.json.playersummaries.GetPlayerSummaries;
+import com.lukaspradel.steamapi.data.json.playersummaries.Player;
 import fi.tite.akl.domain.Authority;
+import fi.tite.akl.domain.Team;
 import fi.tite.akl.domain.User;
 import fi.tite.akl.domain.enumeration.Rank;
-import fi.tite.akl.repository.AuthorityRepository;
-import fi.tite.akl.repository.PersistentTokenRepository;
-import fi.tite.akl.repository.UserRepository;
+import fi.tite.akl.dto.UserListDto;
+import fi.tite.akl.repository.*;
+import fi.tite.akl.security.AuthoritiesConstants;
 import fi.tite.akl.security.SecurityUtils;
 import fi.tite.akl.service.util.RandomUtil;
 import fi.tite.akl.web.rest.errors.CustomParameterizedException;
@@ -16,12 +20,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+
+import static fi.tite.akl.security.SteamUserService.convertCommunityIdToSteamId;
 
 /**
  * Service class for managing users.
@@ -42,6 +49,12 @@ public class UserService {
 
     @Inject
     private AuthorityRepository authorityRepository;
+
+    @Inject
+    private SteamCommunityRepository steamCommunityRepository;
+
+    @Inject
+    private TeamRepository teamRepository;
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -94,7 +107,7 @@ public class UserService {
 
     public User createSteamLoginUser(String communityId, String steamId, String nickname) {
         User newUser = new User();
-        Authority authority = authorityRepository.findOne("ROLE_USER");
+        Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
         Set<Authority> authorities = new HashSet<>();
         newUser.setLogin(communityId);
         // Steam users won't login by password
@@ -122,7 +135,7 @@ public class UserService {
                                       String langKey) {
 
         User newUser = new User();
-        Authority authority = authorityRepository.findOne("ROLE_USER");
+        Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setId(id);
@@ -316,6 +329,87 @@ public class UserService {
         return userRepository.findOneByCommunityId(communityId)
                 .map(this::getUseAuthority)
                 .orElse(null);
+    }
+
+    public void addMultipleUsers(UserListDto users) {
+        users.getUsers().forEach(dto -> {
+            String communityId = dto.getCommunityId();
+            User user = getUserWithAuthorities(communityId);
+
+            boolean userAlreadyFound = userRepository.findOneByCommunityId(communityId).isPresent();
+
+            // Add user
+            if (user == null && !userAlreadyFound) {
+                try {
+                    String steamId = convertCommunityIdToSteamId(Long.parseUnsignedLong(communityId));
+
+                    GetPlayerSummaries summaries = steamCommunityRepository.findSteamUser(communityId);
+                    Optional<Player> player = summaries.getResponse().getPlayers().stream().findFirst();
+
+                    if (player.isPresent()) {
+                        user = createSteamLoginUser(communityId, steamId,
+                                player.get().getPersonaname());
+                    } else {
+                        user = createSteamLoginUser(communityId, steamId, null);
+                    }
+
+                    String nickname = dto.getNickname();
+                    if (!StringUtils.isEmpty(nickname)) {
+                        user.setNickname(nickname);
+                    }
+
+                    String firstName = dto.getFirstName();
+                    if (!StringUtils.isEmpty(firstName)) {
+                        user.setFirstName(firstName);
+                    }
+
+                    String lastName = dto.getLastName();
+                    if (!StringUtils.isEmpty(lastName)) {
+                        user.setLastName(lastName);
+                    }
+
+                    String email = dto.getEmail();
+                    if (!StringUtils.isEmpty(email)) {
+                        user.setEmail(email);
+                    }
+
+                    String guild = dto.getGuild();
+                    if (!StringUtils.isEmpty(guild)) {
+                        user.setEmail(guild);
+                    }
+
+                } catch (NumberFormatException | SteamApiException e) {
+                    log.error(e.getLocalizedMessage());
+                }
+            } else {
+                return;
+            }
+
+            // Add user to team
+            Team team = null;
+            Long captain = dto.getCaptain();
+            if (captain != null) {
+                team = teamRepository.findOne(captain);
+                if (team != null && team.getCaptain() != null) {
+                    team.setCaptain(user);
+                    team.getMembers().add(user);
+                }
+            }
+
+            Long member = dto.getMember();
+            if (member != null) {
+                team = teamRepository.findOne(member);
+
+                if (team != null && !team.getMembers().contains(user)) {
+                    team.getMembers().add(user);
+                }
+            }
+
+            if (team != null) {
+                teamRepository.save(team);
+            }
+            userRepository.save(user);
+        });
     }
 
     private Set<Authority> getUseAuthority(User user) {
