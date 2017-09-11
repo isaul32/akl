@@ -63,6 +63,35 @@
                             <span class="form-control-static" style="white-space: pre-wrap;">{{user.description}}</span>
                         </td>
                     </tr>
+                    <tr ng-if="user.teams && user.teams.length > 0">
+                        <td>
+                            <span translate="user.currentTeam">Current team</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">
+                                <div ng-repeat="team in user.teams | filter: { season: { archived: false } }">
+                                    <a ui-sref="teams.detail({id: team.id})">
+                                        <span>{{team.name}}</span>
+                                    </a>
+                                </div>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr ng-if="user.teams && user.teams.length > 0">
+                        <td>
+                            <span translate="user.previousTeams">Previous teams</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">
+                                <div ng-repeat="team in user.teams | filter: { season: { archived: true } }">
+                                    <a ui-sref="teams.detail({id: team.id})">
+                                        <span>{{team.name}}</span>
+                                        <b>({{team.season.shortName}})</b>
+                                    </a>
+                                </div>
+                            </span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             <span translate="user.steamProfile">Steam profile</span>

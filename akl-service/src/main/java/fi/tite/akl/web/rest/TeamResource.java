@@ -132,6 +132,7 @@ public class TeamResource {
                 .map(team -> {
                     User user = userService.getUserWithAuthorities();
 
+                    // Check if user has permission to see team's application
                     boolean allowed = false;
                     if (user != null && user.getAuthorities().stream()
                             .anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN))) {

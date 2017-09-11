@@ -6,7 +6,9 @@ import fi.tite.akl.dto.TeamDto;
 
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", uses = { UserMapper.class })
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        uses = { UserMapper.class })
 public interface TeamMapper {
     @Mapping(target = "captain", ignore = true)
     @Mapping(target = "members", ignore = true)

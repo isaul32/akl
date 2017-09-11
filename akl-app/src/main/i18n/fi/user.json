@@ -9,6 +9,8 @@
         "guild": "Ainejärjestö / kilta",
         "rank": "Taso",
         "description": "Kuvaus",
+        "currentTeam": "Nykyinen tiimi",
+        "previousTeams": "Aikaisemmat tiimit",
         "steamProfile": "Steam profiili",
         "player": "Pelaaja",
         "steamLastLogoff": "Viimeksi paikalla",
