@@ -333,6 +333,8 @@ public class UserService {
 
     public void addMultipleUsers(UserListDto users) {
         users.getUsers().forEach(dto -> {
+            log.info(dto.getCommunityId());
+            
             String communityId = dto.getCommunityId();
             User user = getUserWithAuthorities(communityId);
 
@@ -373,7 +375,7 @@ public class UserService {
 
                     String guild = dto.getGuild();
                     if (!StringUtils.isEmpty(guild)) {
-                        user.setEmail(guild);
+                        user.setGuild(guild);
                     }
                 } catch (NumberFormatException | SteamApiException e) {
                     log.error(e.getLocalizedMessage());
