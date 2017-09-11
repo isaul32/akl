@@ -336,10 +336,8 @@ public class UserService {
             String communityId = dto.getCommunityId();
             User user = getUserWithAuthorities(communityId);
 
-            boolean userAlreadyFound = userRepository.findOneByCommunityId(communityId).isPresent();
-
-            // Add user
-            if (user == null && !userAlreadyFound) {
+            // Add user if not exist
+            if (user == null) {
                 try {
                     String steamId = convertCommunityIdToSteamId(Long.parseUnsignedLong(communityId));
 
@@ -377,26 +375,23 @@ public class UserService {
                     if (!StringUtils.isEmpty(guild)) {
                         user.setEmail(guild);
                     }
-
                 } catch (NumberFormatException | SteamApiException e) {
                     log.error(e.getLocalizedMessage());
                 }
-            } else {
-                return;
             }
 
-            // Add user to team
+            // Add the user to correct team
             Team team = null;
-            Long captain = dto.getCaptain();
+            Long captain = dto.getCaptainId();
             if (captain != null) {
                 team = teamRepository.findOne(captain);
-                if (team != null && team.getCaptain() != null) {
+                if (team != null && team.getCaptain() == null) {
                     team.setCaptain(user);
                     team.getMembers().add(user);
                 }
             }
 
-            Long member = dto.getMember();
+            Long member = dto.getMemberId();
             if (member != null) {
                 team = teamRepository.findOne(member);
 
@@ -405,10 +400,14 @@ public class UserService {
                 }
             }
 
-            if (team != null) {
-                teamRepository.save(team);
+            Long standin = dto.getStandinId();
+            if (standin != null) {
+                team = teamRepository.findOne(standin);
+
+                if (team != null && !team.getMembers().contains(user)) {
+                    team.getMembers().add(user);
+                }
             }
-            userRepository.save(user);
         });
     }
 
