@@ -118,6 +118,8 @@ public class UserService {
 
         if (nickname != null) {
             newUser.setNickname(nickname.substring(0, Math.min(nickname.length(), 50)));
+        } else {
+            newUser.setNickname(communityId);
         }
 
         // Don't know email yet so can't do the activation routine
@@ -334,7 +336,7 @@ public class UserService {
     public void addMultipleUsers(UserListDto users) {
         users.getUsers().forEach(dto -> {
             log.info(dto.getCommunityId());
-            
+
             String communityId = dto.getCommunityId();
             User user = getUserWithAuthorities(communityId);
 
