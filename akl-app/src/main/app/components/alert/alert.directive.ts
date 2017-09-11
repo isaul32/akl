@@ -1,5 +1,5 @@
 angular.module('app')
-.directive('aklAlert', AlertService => {
+.directive('aklAlert', () => {
     return {
         restrict: 'E',
         templateUrl: 'components/alert/alert.directive.html',
@@ -29,6 +29,10 @@ angular.module('app')
                         } else {
                             addErrorAlert(httpResponse.data);
                         }
+                        break;
+
+                    case 404:
+                        addErrorAlert("Not Found");
                         break;
 
                     default:

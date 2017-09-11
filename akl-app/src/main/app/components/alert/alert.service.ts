@@ -34,6 +34,7 @@ angular.module('app')
     }
 
     function error(msg, params) {
+        console.error(msg, params);
         this.add({
             type: "danger",
             msg: msg,
@@ -43,6 +44,7 @@ angular.module('app')
     }
 
     function warning(msg, params) {
+        console.warn(msg, params);
         this.add({
             type: "warning",
             msg: msg,

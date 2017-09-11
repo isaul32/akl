@@ -1,7 +1,7 @@
 {
     "error": {
-        "title": "Virhe!",
+        "title": "Virhe sivulla",
         "403": "Sinulla ei ole oikeutta tälle sivulle.",
-        "defaultMessage": "AKL API ei vastaa pyyntöihin. Ole hyvä ja yritä myöhemmin uudestaan."
+        "defaultMessage": "Tapahtui virhe. Ole hyvä ja yritä uudestaan."
     }
 }
