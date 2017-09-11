@@ -103,13 +103,13 @@ public class TeamResource {
             @RequestParam(value = "per_page", required = false) Integer limit,
             @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
             @RequestParam(value = "season", required = false) Long season,
-            @RequestParam(value = "sort_propery", required = false, defaultValue = "name") String sortPropery,
+            @RequestParam(value = "sort_property", required = false, defaultValue = "name") String sortProperty,
             @RequestParam(value = "sort_asc", required = false, defaultValue = "true") boolean sortAsc
     ) throws URISyntaxException {
         log.debug("REST request to get all Teams");
 
         Pageable paging = PaginationUtil.generatePageRequest(offset, limit, new Sort(
-                new Sort.Order(sortAsc ? Sort.Direction.ASC : Sort.Direction.DESC, sortPropery)
+                new Sort.Order(sortAsc ? Sort.Direction.ASC : Sort.Direction.DESC, sortProperty)
         ));
 
         if (season == null) {
