@@ -4,7 +4,7 @@ angular.module('app')
     $scope.teams = teams.data;
     $scope.seasons = seasons.data;
 
-    $scope.pages = teams.headers('X-Total-Count');
+    $scope.totalCount = teams.headers('X-Total-Count');
     $scope.params = _.cloneDeep($stateParams);
 
     if ($scope.params.filter != null) {
