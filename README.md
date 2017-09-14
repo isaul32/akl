@@ -3,7 +3,7 @@ Akateeminen Kynäriliiga (AKL)
 
 # Install
 ```
-npm install
+npm install (or yarn)
 mvn install
 cp .akl.properties ~/
 ```
