@@ -9,7 +9,7 @@
             "teams": "Joukkueet",
             "teams.main": "Joukkueet",
             "teams.own": "Oma joukkue",
-            "teams.info": "Tietoa pelaajille",
+            "info": "Tietoa pelaajille",
             "teams.detail": "Joukkue",
             "league": "Liiga",
             "league.state": "Liigan tilanne",

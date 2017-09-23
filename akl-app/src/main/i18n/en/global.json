@@ -10,6 +10,7 @@
                 "main": "Teams",
                 "own": "Your team"
             },
+            "info": "Info for players",
             "league": "League",
             "group": "Groups",
             "group.teams": "Teams to groups",
