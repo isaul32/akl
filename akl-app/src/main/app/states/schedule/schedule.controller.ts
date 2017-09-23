@@ -6,12 +6,12 @@ angular.module('app')
             googleCalendarApiKey: 'AIzaSyBrwxD8d4zhA7kDMXt-KH-prQvyrSRnZXk',
             color: '#006052',
             textColor: 'white'
-        }
-        /*{
-            url: 'http://titeen.it/akl/2016/reserver/ok.json',
+        },
+        {
+            url: 'https://akl.tite.fi/2017/reserver/ok.json',
             color: '#31302B',
             textColor: 'white'
-        }*/
+        }
     ];
 
     $scope.eventRender = (event, element) => {

@@ -17,7 +17,8 @@
       "teams": "Tiimit",
       "addTeamsInfo": "Vedä hiirellä tiimit lohkoiihn.",
       "score": "Pisteet",
-      "state": "Tilanne"
+      "state": "Tilanne",
+      "challongeLink": "Challonge linkki"
     }
   }
 }
