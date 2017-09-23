@@ -1,7 +1,10 @@
 package fi.tite.akl.web.rest;
 
 import fi.tite.akl.domain.Text;
+import fi.tite.akl.domain.User;
 import fi.tite.akl.repository.TextRepository;
+import fi.tite.akl.security.AuthoritiesConstants;
+import fi.tite.akl.service.UserService;
 import fi.tite.akl.web.rest.util.HeaderUtil;
 import fi.tite.akl.web.rest.util.PaginationUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +31,9 @@ public class TextResource {
     @Inject
     private TextRepository textRepository;
 
+    @Inject
+    private UserService userService;
+
     @PreAuthorize("hasRole('CMS') or hasRole('ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Text>> getAll(@RequestParam(value = "page", required = false) Integer offset,
@@ -45,6 +51,24 @@ public class TextResource {
         log.debug("REST request to get Text : {}", id);
 
         return Optional.ofNullable(textRepository.findOne(id))
+                .map(text -> {
+                    if (text.isMember()) {
+                        User user = userService.getUserWithAuthorities();
+                        boolean activePlayer = user.getTeams().stream()
+                                .anyMatch(team -> !team.getSeason().isArchived());
+                        boolean isAdmin = user.getAuthorities().stream()
+                                .anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN) ||
+                                        authority.getName().equals(AuthoritiesConstants.CMS));
+
+                        if (activePlayer || isAdmin) {
+                            return text;
+                        } else {
+                            return null;
+                        }
+                    } else {
+                        return text;
+                    }
+                })
                 .map(text -> new ResponseEntity<>(text, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
