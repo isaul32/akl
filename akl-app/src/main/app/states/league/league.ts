@@ -12,7 +12,7 @@ angular.module('app')
                 templateUrl: 'states/league/league.state.html',
                 controller: ($scope) => {
                     $scope.options = {
-                        src: 'https://akl.challonge.com/2016/module?tab=finals&theme=4465'
+                        src: 'https://akl.challonge.com/2017A/module?tab=finals&theme=4465'
                     }
                 }
             }
