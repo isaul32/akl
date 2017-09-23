@@ -63,6 +63,12 @@
                         <span translate="global.menu.schedule">Schedule</span>
                     </a>
                 </li>
+                <li ui-sref-active="active" ng-if="ownTeamId">
+                    <a ui-sref="info">
+                        <span class="fa fa-info fa-fw"></span>&nbsp;
+                        <span translate="global.menu.teams.info">Info for players</span>
+                    </a>
+                </li>
                 <li ui-sref-active="active" ng-if="!ownTeamId">
                     <a ui-sref="teams">
                         <span class="fa fa-users fa-fw"></span>&nbsp;

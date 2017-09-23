@@ -21,4 +21,7 @@ public class Text extends AbstractAuditingEntity implements Serializable {
 
     @Column(columnDefinition = "clob")
     private String en;
+
+    @Column(nullable = false)
+    private boolean member = false;
 }

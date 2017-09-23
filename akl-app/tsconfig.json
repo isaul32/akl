@@ -131,6 +131,9 @@
     "src/main/app/states/home/home.ts",
     "src/main/app/states/home/home.controller.ts",
 
+    "src/main/app/states/info/info.ts",
+    "src/main/app/states/info/info.controller.ts",
+
     "src/main/app/states/league/league.ts",
     "src/main/app/states/league/groups/groups.ts",
     "src/main/app/states/league/groups/groups.dialog.controller.ts",
