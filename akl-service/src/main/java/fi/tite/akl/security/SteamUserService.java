@@ -1,5 +1,7 @@
 package fi.tite.akl.security;
 
+import com.github.koraktor.steamcondenser.exceptions.SteamCondenserException;
+import com.github.koraktor.steamcondenser.steam.community.SteamId;
 import com.lukaspradel.steamapi.core.exception.SteamApiException;
 import com.lukaspradel.steamapi.data.json.playersummaries.GetPlayerSummaries;
 import com.lukaspradel.steamapi.data.json.playersummaries.Player;
@@ -42,7 +44,7 @@ public class SteamUserService implements AuthenticationUserDetailsService<OpenID
                 String domain = parts[2];
                 if (domain.equals("steamcommunity.com")) try {
                     String communityId = parts[5];
-                    String steamId = convertCommunityIdToSteamId(
+                    String steamId = SteamId.convertCommunityIdToSteamId(
                             Long.parseUnsignedLong(parts[5]));
 
                     User user = userService.getUserWithAuthorities(communityId);
@@ -69,23 +71,12 @@ public class SteamUserService implements AuthenticationUserDetailsService<OpenID
 
                     return new org.springframework.security.core.userdetails
                             .User(user.getLogin(), "", AuthorityUtils.createAuthorityList(AuthoritiesConstants.USER));
-                } catch (SteamApiException | NumberFormatException ex) {
+                } catch (SteamCondenserException | SteamApiException | NumberFormatException ex) {
                     log.error(ex.getLocalizedMessage());
                 }
             }
         }
 
         throw new UsernameNotFoundException("Steam authentication failed");
-    }
-
-    public static String convertCommunityIdToSteamId(long communityId) throws UsernameNotFoundException {
-        long steamId1 = communityId % 2;
-        long steamId2 = communityId - 76561197960265728L;
-        if(steamId2 <= 0) {
-            throw new UsernameNotFoundException("SteamId " + communityId + " is too small.");
-        }
-        steamId2 = (steamId2 - steamId1) / 2;
-
-        return "STEAM_0:" + steamId1 + ":" + steamId2;
     }
 }

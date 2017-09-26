@@ -1,5 +1,7 @@
 package fi.tite.akl.service;
 
+import com.github.koraktor.steamcondenser.exceptions.SteamCondenserException;
+import com.github.koraktor.steamcondenser.steam.community.SteamId;
 import com.lukaspradel.steamapi.core.exception.SteamApiException;
 import com.lukaspradel.steamapi.data.json.playersummaries.GetPlayerSummaries;
 import com.lukaspradel.steamapi.data.json.playersummaries.Player;
@@ -27,8 +29,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
-
-import static fi.tite.akl.security.SteamUserService.convertCommunityIdToSteamId;
 
 /**
  * Service class for managing users.
@@ -337,88 +337,94 @@ public class UserService {
         users.getUsers().forEach(dto -> {
 
             // TODO: Invalid community id, use steamId
-            String communityId = dto.getCommunityId();
-            User user = getUserWithAuthorities(communityId);
+            String steamId = dto.getSteamId();
 
-            // Add user if not exist
-            if (user == null) {
-                try {
-                    String steamId = convertCommunityIdToSteamId(Long.parseUnsignedLong(communityId));
+            try {
+                String communityId = Long.toString(SteamId.convertSteamIdToCommunityId(steamId));
 
-                    GetPlayerSummaries summaries = steamCommunityRepository.findSteamUser(communityId);
-                    Optional<Player> player = summaries.getResponse().getPlayers().stream().findFirst();
+                User user = getUserWithAuthorities(communityId);
 
-                    if (player.isPresent()) {
-                        user = createSteamLoginUser(communityId, steamId,
-                                player.get().getPersonaname());
-                    } else {
-                        user = createSteamLoginUser(communityId, steamId, null);
+                // Add user if not exist
+                if (user == null) {
+                    try {
+
+                        GetPlayerSummaries summaries = steamCommunityRepository.findSteamUser(communityId);
+                        Optional<Player> player = summaries.getResponse().getPlayers().stream().findFirst();
+
+                        if (player.isPresent()) {
+                            user = createSteamLoginUser(communityId, steamId,
+                                    player.get().getPersonaname());
+                        } else {
+                            user = createSteamLoginUser(communityId, steamId, null);
+                        }
+
+                        String nickname = dto.getNickname();
+                        if (!StringUtils.isEmpty(nickname)) {
+                            user.setNickname(nickname);
+                        }
+
+                        String firstName = dto.getFirstName();
+                        if (!StringUtils.isEmpty(firstName)) {
+                            user.setFirstName(firstName);
+                        }
+
+                        String lastName = dto.getLastName();
+                        if (!StringUtils.isEmpty(lastName)) {
+                            user.setLastName(lastName);
+                        }
+
+                        String email = dto.getEmail();
+                        if (!StringUtils.isEmpty(email)) {
+                            user.setEmail(email);
+                        }
+
+                        String guild = dto.getGuild();
+                        if (!StringUtils.isEmpty(guild)) {
+                            user.setGuild(guild);
+                        }
+                    } catch (NumberFormatException | SteamApiException e) {
+                        log.error(e.getLocalizedMessage());
                     }
-
-                    String nickname = dto.getNickname();
-                    if (!StringUtils.isEmpty(nickname)) {
-                        user.setNickname(nickname);
-                    }
-
-                    String firstName = dto.getFirstName();
-                    if (!StringUtils.isEmpty(firstName)) {
-                        user.setFirstName(firstName);
-                    }
-
-                    String lastName = dto.getLastName();
-                    if (!StringUtils.isEmpty(lastName)) {
-                        user.setLastName(lastName);
-                    }
-
-                    String email = dto.getEmail();
-                    if (!StringUtils.isEmpty(email)) {
-                        user.setEmail(email);
-                    }
-
-                    String guild = dto.getGuild();
-                    if (!StringUtils.isEmpty(guild)) {
-                        user.setGuild(guild);
-                    }
-                } catch (NumberFormatException | SteamApiException e) {
-                    log.error(e.getLocalizedMessage());
                 }
-            }
 
-            // Add the user to correct team
-            Team team = null;
-            Long captain = dto.getCaptainId();
-            if (captain != null) {
-                team = teamRepository.findOne(captain);
-                if (team != null && team.getCaptain() == null) {
-                    team.setCaptain(user);
-                    team.getMembers().add(user);
+                // Add the user to correct team
+                Team team = null;
+                Long captain = dto.getCaptainId();
+                if (captain != null) {
+                    team = teamRepository.findOne(captain);
+                    if (team != null && team.getCaptain() == null) {
+                        team.setCaptain(user);
+                        team.getMembers().add(user);
+                    }
                 }
-            }
 
-            Long member = dto.getMemberId();
-            if (member != null) {
-                team = teamRepository.findOne(member);
+                Long member = dto.getMemberId();
+                if (member != null) {
+                    team = teamRepository.findOne(member);
 
-                if (team != null && !team.getMembers().contains(user)) {
-                    team.getMembers().add(user);
+                    if (team != null && !team.getMembers().contains(user)) {
+                        team.getMembers().add(user);
+                    }
                 }
-            }
 
-            Long standin = dto.getStandinId();
-            if (standin != null) {
-                team = teamRepository.findOne(standin);
+                Long standin = dto.getStandinId();
+                if (standin != null) {
+                    team = teamRepository.findOne(standin);
 
-                if (team != null && !team.getMembers().contains(user)) {
-                    team.getMembers().add(user);
+                    if (team != null && !team.getMembers().contains(user)) {
+                        team.getMembers().add(user);
+                    }
                 }
-            }
 
-            if (team != null) {
-                teamRepository.save(team);
-            }
+                if (team != null) {
+                    teamRepository.save(team);
+                }
 
-            if (user != null) {
-                userRepository.save(user);
+                if (user != null) {
+                    userRepository.save(user);
+                }
+            } catch (SteamCondenserException e) {
+                log.error(e.getLocalizedMessage());
             }
         });
     }
