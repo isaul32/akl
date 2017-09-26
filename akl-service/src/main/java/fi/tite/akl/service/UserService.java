@@ -335,8 +335,8 @@ public class UserService {
 
     public void addMultipleUsers(UserListDto users) {
         users.getUsers().forEach(dto -> {
-            log.info(dto.getCommunityId());
 
+            // TODO: Invalid community id, use steamId
             String communityId = dto.getCommunityId();
             User user = getUserWithAuthorities(communityId);
 
@@ -411,6 +411,14 @@ public class UserService {
                 if (team != null && !team.getMembers().contains(user)) {
                     team.getMembers().add(user);
                 }
+            }
+
+            if (team != null) {
+                teamRepository.save(team);
+            }
+
+            if (user != null) {
+                userRepository.save(user);
             }
         });
     }

@@ -140,9 +140,6 @@ public class AccountResource {
                                     + request.getServerPort();
                             u.setEmail(userDto.getEmail());
                             mailService.sendActivationEmail(u, baseUrl);
-                        } else {
-                            // Lock email
-                            userDto.setEmail(u.getEmail());
                         }
 
                         return u;
