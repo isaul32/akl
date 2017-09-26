@@ -59,7 +59,7 @@ public class Team implements Serializable {
     @Column(name = "activated")
     private boolean activated;
 
-    @NotNull
+    //@NotNull
     @ManyToOne
     private User captain;
 
