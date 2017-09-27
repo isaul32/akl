@@ -15,7 +15,7 @@
         <link rel="manifest" href="manifest.json">
     </head>
     <body ng-app="app">
-        <div class="loading" ng-if="false">
+        <div class="loading" ng-if="!appRunning">
             <div class="loader"></div>
         </div>
         <div ui-view="navbar"></div>

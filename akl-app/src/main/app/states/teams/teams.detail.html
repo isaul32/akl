@@ -114,6 +114,14 @@
                             <span class="form-control-static" style="white-space: pre-wrap;">{{team.description}}</span>
                         </td>
                     </tr>
+                    <tr ng-show="team.season">
+                        <td>
+                            <span translate="aklApp.team.season">Season</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static" style="white-space: pre-wrap;">{{team.season.shortName || team.season.fullName}}</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             <span translate="aklApp.team.members">Members</span>

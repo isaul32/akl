@@ -53,6 +53,7 @@
             "rank": "Taso",
             "application": "Hakemus turnaukseen",
             "description": "Julkinen kuvaus",
+            "season": "Kausi",
             "captain": "Kapteeni",
             "members": "Jäsenet",
             "requestMembership": "Pyydä jäsenyyttä",

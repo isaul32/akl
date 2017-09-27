@@ -26,6 +26,7 @@ require('angular-translate-loader-partial');
 require('angular-translate-storage-cookie');
 require('angular-ui-bootstrap');
 require('angular-ui-calendar');
+require('angular-loading-bar');
 require('@uirouter/angularjs');
 require('./node_modules/@uirouter/angularjs/release/stateEvents');
 require('angular-ui-sortable');
