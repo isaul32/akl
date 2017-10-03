@@ -20,6 +20,7 @@
             "final": "Final",
             "afterparty": "Afterparty",
             "rules": "Rules",
+            "feedback": "Feedback",
             "entities": {
                 "main": "Entities",
                 "gameServer": "Game Servers",

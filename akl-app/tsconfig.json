@@ -128,6 +128,9 @@
     "src/main/app/states/faq/faq.ts",
     "src/main/app/states/faq/faq.controller.ts",
 
+    "src/main/app/states/feedback/feedback.ts",
+    "src/main/app/states/feedback/feedback.controller.ts",
+
     "src/main/app/states/home/home.ts",
     "src/main/app/states/home/home.controller.ts",
 

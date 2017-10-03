@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <akl-alert></akl-alert>
+
+            <h1 translate="feedback.title">Send feedback</h1>
+
+            <form name="form" novalidate ng-submit="save()" show-validation>
+                <div class="form-group">
+                    <label for="sender" translate="feedback.sender">Sender</label>
+                    <input id="sender"
+                           name="sender"
+                           ng-model="feedback.sender"
+                           type="text"
+                           class="form-control"
+                           ng-minlength="5"
+                           ng-maxlength="100"
+                           maxlength="100"
+                           required>
+                    <div ng-show="form.sender.$dirty && form.sender.$invalid">
+                        <p class="help-block"
+                           ng-show="form.sender.$error.required" translate="global.messages.validate.email.required">
+                            Your e-mail is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="form.sender.$error.email" translate="global.messages.validate.email.invalid">
+                            Your e-mail is invalid.
+                        </p>
+                        <p class="help-block"
+                           ng-show="form.sender.$error.minlength" translate="global.messages.validate.email.minlength">
+                            Your e-mail is required to be at least 5 characters.
+                        </p>
+                        <p class="help-block"
+                           ng-show="form.sender.$error.maxlength" translate="global.messages.validate.email.maxlength">
+                            Your e-mail cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message" translate="feedback.message">Message</label>
+                    <textarea id="message"
+                              name="message"
+                              class="form-control"
+                              rows="10"
+                              ng-model="feedback.message"
+                              ng-minlength="10"
+                              ng-maxlength="1000"
+                              maxlength="1000"
+                              required></textarea>
+                    <div ng-show="form.message.$dirty && form.message.$invalid">
+                        <p class="help-block"
+                           ng-show="form.message.$error.minlength" translate="feedback.messages.validate.login.minlength">
+                            Your message is required to be at least 10 character.
+                        </p>
+                        <p class="help-block"
+                           ng-show="form.message.$error.maxlength" translate="feedback.messages.validate.login.maxlength">
+                            Your message cannot be longer than 1000 characters.
+                        </p>
+                    </div>
+                </div>
+
+                <div vc-recaptcha
+                     ng-model="feedback.recaptcha"
+                     key="recaptchaKey"></div>
+
+                <br>
+
+                <button class="btn btn-primary" translate="feedback.sendButton">Send</button>
+
+                <pre>{{form | json}}</pre>
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -336,7 +336,6 @@ public class UserService {
     public void addMultipleUsers(UserListDto users) {
         users.getUsers().forEach(dto -> {
 
-            // TODO: Invalid community id, use steamId
             String steamId = dto.getSteamId();
 
             try {

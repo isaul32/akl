@@ -4,7 +4,7 @@ angular.module('app', [
     'LocalStorageModule', 'pascalprecht.translate',
     'ui.bootstrap', 'ngResource', 'ui.router', 'ui.router.state.events', 'ngCookies', 'angularFileUpload',
     'angularMoment', 'ui.calendar', 'ckeditor', 'templateCache', 'restangular', 'ngSanitize',
-    'ui.sortable', 'angulartics', 'angulartics.google.analytics', 'angular-loading-bar'
+    'ui.sortable', 'angulartics', 'angulartics.google.analytics', 'angular-loading-bar', 'vcRecaptcha'
 ])
 .run(($rootScope, $location, $window, $http, $state, $translate, Language, Auth, Principal, amMoment, $timeout,
       cfpLoadingBar) => {
@@ -88,4 +88,5 @@ angular.module('app', [
 .constant('SERVICE_URL', window.location.origin + '/akl-service')
 .constant('SERVICE_PATH', '/akl-service')
 .constant('API_URL', window.location.origin + '/akl-service' + '/api')
-.constant('API_PATH', '/akl-service/api');
+.constant('API_PATH', '/akl-service/api')
+.constant('RECAPTCHA_SITE_KEY', '6LfCDTMUAAAAAGUK-fxSZyzzEvFnRoxDCp7CBt-E');

@@ -27,6 +27,7 @@
             "password": "Kirjautumisasetukset",
             "sessions": "Istunnot",
             "faq": "UKK",
+            "feedback": "Palaute",
             "rules": "Säännöt",
             "request": "Salasanan palauttaminen",
             "tracker": "Käyttäjien seuranta",
@@ -152,8 +153,9 @@
         }
     },
     "error" : {
-        "serverNotReachable" : "Palvelin ei ole saatavilla",
-        "NotNull" : "Kenttä {{fieldName}} ei voi olla tyhjä!",
-        "accessDenied": "Pääsy evätty."
+        "serverNotReachable": "Palvelin ei ole saatavilla",
+        "NotNull": "Kenttä {{fieldName}} ei voi olla tyhjä!",
+        "accessDenied": "Pääsy evätty.",
+        "Length": "Kenttien sisällöt ei ole sallituissa pituuksissa."
     }
 }

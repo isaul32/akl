@@ -1,0 +1,28 @@
+{
+    "feedback": {
+        "title": "Lähetä palautetta",
+        "message": "Palaute",
+        "sender": "Lähettäjä (email)",
+        "sendButton": "Lähetä palaute",
+        "messages": {
+            "validate": {
+                "login": {
+                    "required": "Palaute vaaditaan.",
+                    "minlength": "Palaute pitää olla vähintään 10 merkkiä.",
+                    "maxlength": "Palaute ei saa olla yli 1000 merkkiä."
+                }
+            },
+            "success": "<strong>Palaute lähetetty!</strong>",
+            "error": {
+                "fail": "<strong>Palautteen lähetys ei onnistunut!</strong> Koita myöhemmin uudestaan."
+            }
+        }
+    },
+    "aklApp": {
+        "feedbackDto": {
+            "recaptcha": "reCAPTCHA",
+            "sender": "lähettäjä",
+            "message": "palaute"
+        }
+    }
+}

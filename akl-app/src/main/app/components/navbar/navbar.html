@@ -149,6 +149,12 @@
                         <span translate="global.menu.faq">FAQ</span>
                     </a>
                 </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="feedback">
+                        <span class="fa fa-comments fa-fw"></span>&nbsp;
+                        <span translate="global.menu.feedback">Feedback</span>
+                    </a>
+                </li>
                 <li ng-class="{active: $state.includes('admin')}"  ng-switch-when="true" has-any-role="ROLE_ADMIN,ROLE_ACTUATOR" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
