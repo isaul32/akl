@@ -12,9 +12,9 @@
                     "maxlength": "Palaute ei saa olla yli 1000 merkkiä."
                 }
             },
-            "success": "<strong>Palaute lähetetty!</strong>",
+            "success": "Palaute lähetetty!",
             "error": {
-                "fail": "<strong>Palautteen lähetys ei onnistunut!</strong> Koita myöhemmin uudestaan."
+                "fail": "Palautteen lähetys ei onnistunut! Koita myöhemmin uudestaan."
             }
         }
     },

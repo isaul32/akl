@@ -8,6 +8,8 @@ import fi.tite.akl.service.MailService;
 import fi.tite.akl.web.rest.errors.CustomParameterizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,13 +31,14 @@ public class FeedbackResource {
     private MailService mailService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public void addFeedback(@Valid @RequestBody FeedbackDto feedbackDto, HttpServletRequest request) {
+    public ResponseEntity<Void> addFeedback(@Valid @RequestBody FeedbackDto feedbackDto, HttpServletRequest request) {
         String remoteAddr = request.getRemoteAddr();
         try {
             ValidationResult result = recaptchaValidator.validate(feedbackDto.getRecaptcha(), remoteAddr);
             if (result.isSuccess()) {
                 mailService.sendEmail("akl@list.tietoteekkarikilta.fi", "Feedback from " + feedbackDto.getSender(),
                         feedbackDto.getMessage(), false, false);
+                return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 throw new CustomParameterizedException("Invalid reCAPTCHA");
             }

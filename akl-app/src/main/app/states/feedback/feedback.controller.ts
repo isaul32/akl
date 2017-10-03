@@ -1,5 +1,6 @@
 angular.module('app')
-.controller('FeedbackController', ($scope, $rootScope, Principal, $translate, API_URL, Api, RECAPTCHA_SITE_KEY) => {
+.controller('FeedbackController', ($scope, $rootScope, Principal, $translate, API_URL, Api, RECAPTCHA_SITE_KEY,
+                                   $state, AlertService) => {
     $scope.feedback = {
         message: '',
         sender: ''
@@ -7,6 +8,9 @@ angular.module('app')
     $scope.recaptchaKey = RECAPTCHA_SITE_KEY;
 
     $scope.save = () => {
-        Api.all('feedback').post($scope.feedback);
+        Api.all('feedback').post($scope.feedback).then(() => {
+            AlertService.success('feedback.messages.success', {});
+            $state.reload();
+        });
     };
 });
