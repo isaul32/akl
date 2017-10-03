@@ -33,13 +33,13 @@ angular.module('app')
             editable: false,
             displayEventEnd: true,
             firstDay: 1,
-            defaultView: 'agendaWeek',
-            allDaySlot: false,
+            defaultView: 'month',
+            allDaySlot: true,
             slotDuration: '00:30:00',
             scrollTime: '18:00:00',
             header: {
                 left: 'title',
-                center: 'agendaWeek,month',
+                center: 'agendaDay,agendaWeek,month',
                 right: 'today prev,next'
             },
             eventClick: $scope.eventClick,
