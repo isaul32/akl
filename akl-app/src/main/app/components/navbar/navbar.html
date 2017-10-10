@@ -143,17 +143,38 @@
                         <span translate="global.menu.rules">Rules</span>
                     </a>
                 </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="faq">
-                        <span class="fa fa-life-ring fa-fw"></span>&nbsp;
-                        <span translate="global.menu.faq">FAQ</span>
+                <li ng-class="{active: $state.includes('akl') || $state.includes('faq') || $state.includes('feedback') || $state.includes('contacts')}" class="dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                        <span class="fa fa-diamond fa-fw"></span>&nbsp;
+                        <span class="hidden-tablet" translate="global.menu.akl">AKL</span>
+                        <b class="caret"></b>
                     </a>
-                </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="feedback">
-                        <span class="fa fa-comments fa-fw"></span>&nbsp;
-                        <span translate="global.menu.feedback">Feedback</span>
-                    </a>
+                    <ul class="dropdown-menu">
+                        <li ui-sref-active="active">
+                            <a ui-sref="akl">
+                                <span class="fa fa-info fa-fw"></span>&nbsp;
+                                <span translate="global.menu.akl.info">What is AKL?</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="faq">
+                                <span class="fa fa-life-ring fa-fw"></span>&nbsp;
+                                <span translate="global.menu.faq">FAQ</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="contacts">
+                                <span class="fa fa-beer fa-fw"></span>&nbsp;
+                                <span translate="global.menu.contacts">Contacts</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="feedback">
+                                <span class="fa fa-comments fa-fw"></span>&nbsp;
+                                <span translate="global.menu.feedback">Feedback</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li ng-class="{active: $state.includes('admin')}"  ng-switch-when="true" has-any-role="ROLE_ADMIN,ROLE_ACTUATOR" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">

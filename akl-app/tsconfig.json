@@ -123,6 +123,12 @@
     "src/main/app/states/admin/tracker/tracker.ts",
     "src/main/app/states/admin/tracker/tracker.controller.ts",
 
+    "src/main/app/states/akl/akl.ts",
+    "src/main/app/states/akl/akl.controller.ts",
+
+    "src/main/app/states/contacts/contacts.ts",
+    "src/main/app/states/contacts/contacts.controller.ts",
+
     "src/main/app/states/error/error.ts",
 
     "src/main/app/states/faq/faq.ts",
