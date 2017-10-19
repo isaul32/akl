@@ -7,6 +7,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -29,9 +31,9 @@ public class TwitchRepository {
         if (twitchName.isEmpty() || clientId.isEmpty()) {
             return null;
         }
-        String[] names = twitchName.split("|");
+        List<String> names = Arrays.asList(twitchName.split("\\s*,\\s*"));
         for (String name : names) {
-            TwitchDto twitchDto = restTemplate.getForObject("https://api.twitch.tv/kraken/streams/" + twitchName + "?client_id=" + clientId, TwitchDto.class);;
+            TwitchDto twitchDto = restTemplate.getForObject("https://api.twitch.tv/kraken/streams/" + name + "?client_id=" + clientId, TwitchDto.class);;
             if (Optional.ofNullable(twitchDto)
                     .map(TwitchDto::getStream)
                     .isPresent()) {
