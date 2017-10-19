@@ -11,6 +11,8 @@
 
     <cache name="twitch" timeToLiveSeconds="60"/>
 
+    <cache name="challonge" timeToLiveSeconds="3600"/>
+
     <cache name="steamUser" timeToLiveSeconds="3600"/>
 
     <cache name="steamUserStats" timeToLiveSeconds="3600"/>

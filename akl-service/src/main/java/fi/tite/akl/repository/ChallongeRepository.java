@@ -5,7 +5,12 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import fi.tite.akl.dto.ParticipantDto;
 import fi.tite.akl.dto.challonge.TournamentDto;
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.safety.Whitelist;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -57,6 +62,20 @@ public class ChallongeRepository {
 
     public boolean deleteAllTournaments(String subdomain, String tournamentUrl) {
         return false;
+    }
+
+    @Cacheable(value="challonge")
+    public String getScorecard(String subdomain, String tournamentUrl) throws IOException {
+        Document doc = Jsoup.connect("http://" + subdomain + ".challonge.com/" + tournamentUrl).get();
+        Elements scorecard = doc.select("#scorecard");
+        Elements table = scorecard.select("table");
+
+        // Sanitize
+        String clean = Jsoup.clean(table.toString(), Whitelist.relaxed());
+        table = Jsoup.parse(clean).body().select("table");
+
+        table.attr("class", "table table-condensed table-striped");
+        return table.toString();
     }
 
     private boolean openConnection(String spec, String method, String data) throws IOException {

@@ -7,6 +7,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
+
 /**
  * Created by Sauli on 14.5.2016.
  */
@@ -27,7 +29,16 @@ public class TwitchRepository {
         if (twitchName.isEmpty() || clientId.isEmpty()) {
             return null;
         }
+        String[] names = twitchName.split("|");
+        for (String name : names) {
+            TwitchDto twitchDto = restTemplate.getForObject("https://api.twitch.tv/kraken/streams/" + twitchName + "?client_id=" + clientId, TwitchDto.class);;
+            if (Optional.ofNullable(twitchDto)
+                    .map(TwitchDto::getStream)
+                    .isPresent()) {
+                return twitchDto;
+            }
+        }
 
-        return restTemplate.getForObject("https://api.twitch.tv/kraken/streams/" + twitchName + "?client_id=" + clientId, TwitchDto.class);
+        return null;
     }
 }
