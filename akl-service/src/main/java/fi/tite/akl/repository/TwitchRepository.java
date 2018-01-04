@@ -33,7 +33,7 @@ public class TwitchRepository {
         }
         List<String> names = Arrays.asList(twitchName.split("\\s*,\\s*"));
         for (String name : names) {
-            TwitchDto twitchDto = restTemplate.getForObject("https://api.twitch.tv/kraken/streams/" + name + "?client_id=" + clientId, TwitchDto.class);;
+            TwitchDto twitchDto = restTemplate.getForObject("https://api.twitch.tv/kraken/streams/" + name + "?client_id=" + clientId, TwitchDto.class);
             if (Optional.ofNullable(twitchDto)
                     .map(TwitchDto::getStream)
                     .isPresent()) {
