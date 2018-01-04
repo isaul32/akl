@@ -9,6 +9,7 @@
             "teams": "Joukkueet",
             "teams.main": "Joukkueet",
             "teams.own": "Oma joukkue",
+            "general": "Yleistä",
             "akl": "AKL",
             "akl.info": "Mikä on AKL?",
             "contacts": "Tekijät",
@@ -75,7 +76,8 @@
             "team": "Joukkueet",
             "team.detail": "Joukkue",
             "user": "Pelaaja",
-            "settings": "Asetukset"
+            "settings": "Asetukset",
+            "accessdenied": "Oikeusvirhe"
         },
         "ckeditor": {
             "edit": "Muokkaa"

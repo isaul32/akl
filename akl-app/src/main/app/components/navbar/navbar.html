@@ -52,31 +52,31 @@
                     </a>
                 </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="home">
+                    <a ui-sref="home" data-toggle="collapse" data-target="#navbar-collapse">
                         <span class="glyphicon glyphicon-home fa-fw"></span>&nbsp;
                         <span translate="global.menu.home">Home</span>
                     </a>
                 </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="schedule">
+                    <a ui-sref="schedule" data-toggle="collapse" data-target="#navbar-collapse">
                         <span class="fa fa-clock-o fa-fw"></span>&nbsp;
                         <span translate="global.menu.schedule">Schedule</span>
                     </a>
                 </li>
                 <li ui-sref-active="active" ng-if="ownTeamId">
-                    <a ui-sref="info">
+                    <a ui-sref="info" data-toggle="collapse" data-target="#navbar-collapse">
                         <span class="fa fa-info fa-fw"></span>&nbsp;
                         <span translate="global.menu.info">Info for players</span>
                     </a>
                 </li>
                 <li ui-sref-active="active" ng-if="!ownTeamId" has-any-role="ROLE_ADMIN,ROLE_INFO">
-                    <a ui-sref="info">
+                    <a ui-sref="info" data-toggle="collapse" data-target="#navbar-collapse">
                         <span class="fa fa-info fa-fw"></span>&nbsp;
                         <span translate="global.menu.info">Info for players</span>
                     </a>
                 </li>
                 <li ui-sref-active="active" ng-if="!ownTeamId">
-                    <a ui-sref="teams">
+                    <a ui-sref="teams" data-toggle="collapse" data-target="#navbar-collapse">
                         <span class="fa fa-users fa-fw"></span>&nbsp;
                         <span translate="global.menu.teams.main">Teams</span>
                     </a>
@@ -89,13 +89,13 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a ui-sref="teams.detail({id: ownTeamId})">
+                            <a ui-sref="teams.detail({id: ownTeamId})" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="fa fa-user fa-fw"></span>&nbsp;
                                 <span translate="global.menu.teams.own">Your team</span>
                             </a>
                         </li>
                         <li>
-                            <a ui-sref="teams">
+                            <a ui-sref="teams" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="fa fa-users fa-fw"></span>&nbsp;
                                 <span translate="global.menu.teams.main">Teams</span>
                             </a>
@@ -112,31 +112,31 @@
                     </a>
                     <ul class="dropdown-menu">
                         <!--<li ui-sref-active="active">
-                            <a ui-sref="groups">
+                            <a ui-sref="groups" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="fa fa-list-ul fa-fw"></span>&nbsp;
                                 <span translate="global.menu.groups">Groups</span>
                             </a>
                         </li>-->
                         <li >
-                            <a href="https://akl.tite.fi/2017/hsbox/">
-                                <span class="fa fa-list-ol fa-fw"></span>&nbsp;
+                            <a href="https://akl.tite.fi/2017/hsbox/" data-toggle="collapse" data-target="#navbar-collapse">
+                                <span class="fa fa-line-chart fa-fw"></span>&nbsp;
                                 <span>Pistepörssi</span>
                             </a>
                         </li>
                         <li ui-sref-active="active">
-                            <a ui-sref="league.state">
+                            <a ui-sref="league.state" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="fa fa-list-ol fa-fw"></span>&nbsp;
                                 <span translate="global.menu.state">State</span>
                             </a>
                         </li>
                         <li ui-sref-active="active">
-                            <a ui-sref="league.final">
+                            <a ui-sref="league.final" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="fa fa-trophy fa-fw"></span>&nbsp;
                                 <span translate="global.menu.final">Final</span>
                             </a>
                         </li>
                         <li ui-sref-active="active">
-                            <a ui-sref="league.afterparty">
+                            <a ui-sref="league.afterparty" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="glyphicon glyphicon-glass fa-fw"></span>&nbsp;
                                 <span translate="global.menu.afterparty">After party</span>
                             </a>
@@ -144,38 +144,38 @@
                     </ul>
                 </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="rules">
+                    <a ui-sref="rules" data-toggle="collapse" data-target="#navbar-collapse">
                         <span class="fa fa-book fa-fw"></span>&nbsp;
                         <span translate="global.menu.rules">Rules</span>
                     </a>
                 </li>
                 <li ng-class="{active: $state.includes('akl') || $state.includes('faq') || $state.includes('feedback') || $state.includes('contacts')}" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                        <span class="fa fa-diamond fa-fw"></span>&nbsp;
-                        <span class="hidden-tablet" translate="global.menu.akl">AKL</span>
+                        <span class="fa fa-info-circle fa-fw"></span>&nbsp;
+                        <span class="hidden-tablet" translate="global.menu.general">General</span>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li ui-sref-active="active">
-                            <a ui-sref="akl">
+                            <a ui-sref="akl" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="fa fa-info fa-fw"></span>&nbsp;
                                 <span translate="global.menu.akl.info">What is AKL?</span>
                             </a>
                         </li>
                         <li ui-sref-active="active">
-                            <a ui-sref="faq">
+                            <a ui-sref="faq" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="fa fa-life-ring fa-fw"></span>&nbsp;
                                 <span translate="global.menu.faq">FAQ</span>
                             </a>
                         </li>
                         <li ui-sref-active="active">
-                            <a ui-sref="contacts">
+                            <a ui-sref="contacts" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="fa fa-beer fa-fw"></span>&nbsp;
                                 <span translate="global.menu.contacts">Contacts</span>
                             </a>
                         </li>
                         <li ui-sref-active="active">
-                            <a ui-sref="feedback">
+                            <a ui-sref="feedback" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="fa fa-comments fa-fw"></span>&nbsp;
                                 <span translate="global.menu.feedback">Feedback</span>
                             </a>
@@ -191,28 +191,28 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ui-sref-active="active" has-role="ROLE_ADMIN"><a ui-sref="users.list"><span class="fa fa-user fa-fw"></span>
+                        <li ui-sref-active="active" has-role="ROLE_ADMIN"><a ui-sref="users.list" data-toggle="collapse" data-target="#navbar-collapse"><span class="fa fa-user fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.user">User management</span></a></li>
-                        <li ui-sref-active="active" has-role="ROLE_ADMIN"><a ui-sref="tracker"><span class="glyphicon glyphicon-eye-open fa-fw"></span>
+                        <li ui-sref-active="active" has-role="ROLE_ADMIN"><a ui-sref="tracker" data-toggle="collapse" data-target="#navbar-collapse"><span class="glyphicon glyphicon-eye-open fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.tracker">User tracker</span></a></li>
-                        <!--<li ui-sref-active="active" has-role="ROLE_ACTUATOR"><a ui-sref="metrics"><span class="glyphicon glyphicon-dashboard fa-fw"></span>
+                        <!--<li ui-sref-active="active" has-role="ROLE_ACTUATOR"><a ui-sref="metrics" data-toggle="collapse" data-target="#navbar-collapse"><span class="glyphicon glyphicon-dashboard fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.metrics">Metrics</span></a></li>-->
-                        <li ui-sref-active="active" has-role="ROLE_ACTUATOR"><a ui-sref="health"><span class="glyphicon glyphicon-heart fa-fw"></span>
+                        <li ui-sref-active="active" has-role="ROLE_ACTUATOR"><a ui-sref="health" data-toggle="collapse" data-target="#navbar-collapse"><span class="glyphicon glyphicon-heart fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.health">Health</span></a></li>
-                        <li ui-sref-active="active" has-role="ROLE_ACTUATOR"><a ui-sref="configuration"><span class="glyphicon glyphicon-list-alt fa-fw"></span>
+                        <li ui-sref-active="active" has-role="ROLE_ACTUATOR"><a ui-sref="configuration" data-toggle="collapse" data-target="#navbar-collapse"><span class="glyphicon glyphicon-list-alt fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.configuration">Configuration</span></a></li>
-                        <!--<li ui-sref-active="active" has-role="ROLE_ACTUATOR"><a ui-sref="audits"><span class="glyphicon glyphicon-bell fa-fw"></span>
+                        <!--<li ui-sref-active="active" has-role="ROLE_ACTUATOR"><a ui-sref="audits" data-toggle="collapse" data-target="#navbar-collapse"><span class="glyphicon glyphicon-bell fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.audits">Audits</span></a></li>-->
-                        <li ui-sref-active="active" has-role="ROLE_ACTUATOR"><a ui-sref="logs"><span class="glyphicon glyphicon-tasks fa-fw"></span>
+                        <li ui-sref-active="active" has-role="ROLE_ACTUATOR"><a ui-sref="logs" data-toggle="collapse" data-target="#navbar-collapse"><span class="glyphicon glyphicon-tasks fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.logs">Logs</span></a></li>
-                        <li ui-sref-active="active"><a ui-sref="docs"><span class="glyphicon glyphicon-book fa-fw"></span>
+                        <li ui-sref-active="active"><a ui-sref="docs" data-toggle="collapse" data-target="#navbar-collapse"><span class="glyphicon glyphicon-book fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.apidocs">API</span></a></li>
-                        <li ui-sref-active="active"><a  ui-sref="console"><span class="glyphicon glyphicon-hdd fa-fw"></span>
+                        <li ui-sref-active="active"><a  ui-sref="console" data-toggle="collapse" data-target="#navbar-collapse"><span class="glyphicon glyphicon-hdd fa-fw"></span>
                             &nbsp;<span translate="global.menu.admin.database">Database</span></a></li>
                     </ul>
                 </li>
                 <li ng-class="{active: $state.includes('account')}" ng-switch-when="false">
-                    <a ui-sref="steam">
+                    <a ui-sref="steam" data-toggle="collapse" data-target="#navbar-collapse">
                         <span class="glyphicon glyphicon-log-in fa-fw"></span>&nbsp;
                         <span translate="global.menu.account.login">Login</span>
                     </a>
@@ -228,31 +228,31 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li ui-sref-active="active">
-                            <a ui-sref="users.detail({ userId: account.id })">
+                            <a ui-sref="users.detail({ userId: account.id })" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="glyphicon glyphicon-user fa-fw"></span>&nbsp;
                                 <span translate="global.menu.account.profile">Public profile</span>
                             </a>
                         </li>
                         <li ui-sref-active="active">
-                            <a ui-sref="settings">
+                            <a ui-sref="settings" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="glyphicon glyphicon-wrench fa-fw"></span>&nbsp;
                                 <span translate="global.menu.account.settings">Settings</span>
                             </a>
                         </li>
                         <li ui-sref-active="active">
-                            <a ui-sref="password">
+                            <a ui-sref="password" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="glyphicon glyphicon-lock fa-fw"></span>&nbsp;
                                 <span translate="global.menu.account.password">Password</span>
                             </a>
                         </li>
                         <!--<li ui-sref-active="active">
-                            <a ui-sref="sessions">
+                            <a ui-sref="sessions" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="glyphicon glyphicon-cloud fa-fw"></span>&nbsp;
                                 <span translate="global.menu.account.sessions">Sessions</span>
                             </a>
                         </li>-->
                         <li ui-sref-active="active">
-                            <a href="" ng-click="logout()">
+                            <a href="" ng-click="logout()" data-toggle="collapse" data-target="#navbar-collapse">
                                 <span class="glyphicon glyphicon-log-out fa-fw"></span>&nbsp;
                                 <span translate="global.menu.account.logout">Log out</span>
                             </a>
