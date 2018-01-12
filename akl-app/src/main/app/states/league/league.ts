@@ -31,6 +31,25 @@ angular.module('app')
             }
         }
     })
+    .state('league.playoffs', {
+        url: '/playoffs',
+        views: {
+            'content@': {
+                templateUrl: 'states/league/league.playoffs.html',
+                controller: ($scope, $sce, $templateRequest, API_URL) => {
+                    $scope.options = {
+                        src: 'https://akl.challonge.com/2017B/module?show_final_results=1&theme=4465'
+                    };
+                }
+            }
+        },
+        resolve: {
+            translatePartialLoader: ($translate, $translatePartialLoader) => {
+                $translatePartialLoader.addPart('group');
+                return $translate.refresh();
+            }
+        }
+    })
     .state('league.final', {
         url: '/final',
         views: {
