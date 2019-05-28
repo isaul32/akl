@@ -39,6 +39,7 @@
     "stompjs": "2.3.3"
   },
   "devDependencies": {
+    "acorn": "^6.1.1",
     "browserify": "14.4.0",
     "connect": "3.6.2",
     "del": "3.0.0",
