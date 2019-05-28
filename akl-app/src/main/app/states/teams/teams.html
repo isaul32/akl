@@ -34,13 +34,13 @@
         </div>
     </div>
 
-    <!--<div class="row" ng-if="isAuthenticated() && canCreateTeam()">
+    <div class="row" ng-if="isAuthenticated() && canCreateTeam()">
         <div class="col-md-4">
             <button class="btn btn-primary" ui-sref="teams.new">
                 <span class="glyphicon glyphicon-flash"></span> <span translate="aklApp.team.home.createLabel">Create a new Team</span>
             </button>
         </div>
-    </div>-->
+    </div>
 
     <div class="alert alert-warning" ng-if="isAuthenticated() && account && !account.activated">
         <p translate="aklApp.team.home.creation.info" translate-compile>You can't create a new team until you've saved your settings. Go to <a ui-sref="settings">settings</a> to update your details.</p>

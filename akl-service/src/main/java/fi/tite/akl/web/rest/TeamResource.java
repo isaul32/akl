@@ -72,7 +72,7 @@ public class TeamResource {
     @Inject
     private CalendarEventRepository eventRepository;
 
-    /*
+    
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<TeamDto> create(@Valid @RequestBody TeamDto teamDto) throws URISyntaxException {
@@ -97,7 +97,7 @@ public class TeamResource {
                 .headers(HeaderUtil.createAlert("Team created", team.getId().toString()))
                 .body(teamMapper.teamToTeamDto(team));
     }
-    */
+    
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<TeamDto>> getAll(
