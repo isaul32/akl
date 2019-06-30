@@ -11,8 +11,8 @@ angular.module('app')
             'content@': {
                 templateUrl: 'states/league/league.state.html',
                 controller: ($scope, $sce, $templateRequest, API_URL) => {
-                    /*$scope.options = {
-                        src: 'https://akl.challonge.com/2017A/module?tab=finals&theme=4465'
+                    $scope.options = {
+                        src: 'https://akl.challonge.com/2019A/module?tab=finals&theme=4465'
                     };
                     const templateUrl = $sce.getTrustedResourceUrl(API_URL + '/challonge');
 
@@ -20,7 +20,7 @@ angular.module('app')
                         $scope.scoreboard = template;
                     }, () => {
                         console.error("Cannot get scoreboard template");
-                    });*/
+                    });
                 }
             }
         },
@@ -38,7 +38,7 @@ angular.module('app')
                 templateUrl: 'states/league/league.playoffs.html',
                 controller: ($scope, $sce, $templateRequest, API_URL) => {
                     $scope.options = {
-                        src: 'https://akl.challonge.com/2017B/module?show_final_results=1&theme=4465'
+                        src: 'https://akl.challonge.com/2019B/module?show_final_results=1&theme=4465'
                     };
                 }
             }
