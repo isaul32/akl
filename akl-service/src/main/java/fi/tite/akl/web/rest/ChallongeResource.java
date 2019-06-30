@@ -20,6 +20,6 @@ public class ChallongeResource {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<String> get() throws IOException {
-        return ResponseEntity.ok(challongeRepository.getScorecard("akl", "2017A"));
+        return ResponseEntity.ok(challongeRepository.getScorecard("akl", "2019A"));
     }
 }
