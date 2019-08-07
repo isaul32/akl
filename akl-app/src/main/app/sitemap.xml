@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://akl.tite.fi/#/home</loc>
+        <loc>https://akl.gg/#/home</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://akl.tite.fi/#/schedule</loc>
+        <loc>https://akl.gg/#/schedule</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://akl.tite.fi/#/teams</loc>
+        <loc>https://akl.gg/#/teams</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://akl.tite.fi/#/rules</loc>
+        <loc>https://akl.gg/#/rules</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
