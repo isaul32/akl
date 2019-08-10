@@ -8,7 +8,7 @@ angular.module('app')
             textColor: 'white'
         },
         {
-            url: 'https://akl.tite.fi/2017/reserver/ok.json',
+            url: 'https://akl.gg/reserver/ok.json',
             color: '#31302B',
             textColor: 'white'
         }
