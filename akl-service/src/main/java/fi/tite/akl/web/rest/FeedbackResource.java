@@ -36,7 +36,7 @@ public class FeedbackResource {
         try {
             ValidationResult result = recaptchaValidator.validate(feedbackDto.getRecaptcha(), remoteAddr);
             if (result.isSuccess()) {
-                mailService.sendEmail("akl@list.tietoteekkarikilta.fi", "Feedback from " + feedbackDto.getSender(),
+                mailService.sendEmail("akl@t3g.fi", "Feedback from " + feedbackDto.getSender(),
                         feedbackDto.getMessage(), false, false);
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
